@@ -1,7 +1,9 @@
-phpAmazonMWS
+amazon-mws-laravel
 ============
 
-A library to connect to Amazon's Merchant Web Services (MWS) in an object-oriented manner, with a focus on intuitive usage.  
+A PHP package to connect to Amazon's Merchant Web Services (MWS) in an object-oriented manner, with a focus on intuitive usage.
+
+Currently optimizing for Laravel Framework.
 
 This is __NOT__ for Amazon Web Services (AWS) - Cloud Computing Services.
 
