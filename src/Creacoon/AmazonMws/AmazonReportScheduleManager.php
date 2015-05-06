@@ -1,4 +1,6 @@
-<?php
+<?php namespace Creacoon\AmazonMws;
+
+use Creacoon\AmazonMws\AmazonReportsCore;
 /**
  * Copyright 2013 CPI Group, LLC
  *
@@ -25,7 +27,7 @@
  * Amazon will return a count of the number of report schedules affected,
  * which will usually be 1.
  */
-class AmazonReportScheduleManager extends AmazonReportsCore implements Iterator{
+class AmazonReportScheduleManager extends AmazonReportsCore implements \Iterator{
     private $scheduleList;
     private $count;
     private $i = 0;

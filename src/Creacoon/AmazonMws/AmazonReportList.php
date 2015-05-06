@@ -1,4 +1,6 @@
-<?php
+<?php namespace Creacoon\AmazonMws;
+
+use Creacoon\AmazonMws\AmazonReportsCore;
 /**
  * Copyright 2013 CPI Group, LLC
  *
@@ -24,7 +26,7 @@
  * narrow the returned list. It can also retrieve a count of the feeds.
  * This object can use tokens when retrieving the list.
  */
-class AmazonReportList extends AmazonReportsCore implements Iterator{
+class AmazonReportList extends AmazonReportsCore implements \Iterator{
     protected $tokenFlag = false;
     protected $tokenUseFlag = false;
     private $index = 0;

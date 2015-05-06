@@ -1,4 +1,6 @@
-<?php
+<?php namespace Creacoon\AmazonMws;
+
+use Creacoon\AmazonMws\AmazonOrderCore;
 /**
  * Copyright 2013 CPI Group, LLC
  *
@@ -24,7 +26,7 @@
  * wish to retrieve information for only one order, please use the <i>AmazonOrder</i>
  * class instead.
  */
-class AmazonOrderSet extends AmazonOrderCore implements Iterator{
+class AmazonOrderSet extends AmazonOrderCore implements \Iterator{
     private $i = 0;
     private $index = 0;
     private $orderList;

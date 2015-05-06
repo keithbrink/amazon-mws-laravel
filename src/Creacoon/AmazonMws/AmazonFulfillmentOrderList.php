@@ -1,4 +1,6 @@
-<?php
+<?php namespace Creacoon\AmazonMws;
+
+use Creacoon\AmazonMws\AmazonOutboundCore;
 /**
  * Copyright 2013 CPI Group, LLC
  *
@@ -24,7 +26,7 @@
  * are required, filters for start time and method are available.
  * This object can use tokens when retrieving the list.
  */
-class AmazonFulfillmentOrderList extends AmazonOutboundCore implements Iterator{
+class AmazonFulfillmentOrderList extends AmazonOutboundCore implements \Iterator{
     private $orderList;
     protected $tokenFlag = false;
     protected $tokenUseFlag = false;

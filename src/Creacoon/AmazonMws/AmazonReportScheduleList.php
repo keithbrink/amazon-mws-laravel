@@ -1,4 +1,6 @@
-<?php
+<?php namespace Creacoon\AmazonMws;
+
+use Creacoon\AmazonMws\AmazonReportsCore;
 /**
  * Copyright 2013 CPI Group, LLC
  *
@@ -25,7 +27,7 @@
  * count of the scheudles in the same manner. This object can use tokens when
  * retrieving the list.
  */
-class AmazonReportScheduleList extends AmazonReportsCore implements Iterator{
+class AmazonReportScheduleList extends AmazonReportsCore implements \Iterator{
     protected $tokenFlag = false;
     protected $tokenUseFlag = false;
     private $index = 0;

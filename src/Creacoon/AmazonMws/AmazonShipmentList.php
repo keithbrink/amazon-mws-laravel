@@ -1,4 +1,6 @@
-<?php
+<?php namespace Creacoon\AmazonMws;
+
+use Creacoon\AmazonMws\AmazonInboundCore;
 /**
  * Copyright 2013 CPI Group, LLC
  *
@@ -23,7 +25,7 @@
  * In order to this, either a list of IDs or a list of statuses are required.
  * This object can use tokens when fetching the list.
  */
-class AmazonShipmentList extends AmazonInboundCore implements Iterator{
+class AmazonShipmentList extends AmazonInboundCore implements \Iterator{
     protected $tokenFlag = false;
     protected $tokenUseFlag = false;
     private $shipmentList;

@@ -1,4 +1,6 @@
-<?php
+<?php namespace Creacoon\AmazonMws;
+
+use Creacoon\AmazonMws\AmazonInventoryCore;
 /**
  * Copyright 2013 CPI Group, LLC
  *
@@ -23,7 +25,7 @@
  * from Amazon. This is the only object in the Amazon Inventory Core. This
  * object can use tokens when retrieving the list.
  */
-class AmazonInventoryList extends AmazonInventoryCore implements Iterator{
+class AmazonInventoryList extends AmazonInventoryCore implements \Iterator{
     protected $tokenFlag = false;
     protected $tokenUseFlag = false;
     private $supplyList;

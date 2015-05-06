@@ -1,4 +1,6 @@
-<?php
+<?php namespace Creacoon\AmazonMws;
+
+use Creacoon\AmazonMws\AmazonReportsCore;
 /**
  * Copyright 2013 CPI Group, LLC
  *
@@ -23,7 +25,7 @@
  * reports on Amazon. In order to do this, at least one Report ID is
  * required. A list of the affected reports is returned.
  */
-class AmazonReportAcknowledger extends AmazonReportsCore implements Iterator{
+class AmazonReportAcknowledger extends AmazonReportsCore implements \Iterator{
     private $count;
     private $index = 0;
     private $i = 0;

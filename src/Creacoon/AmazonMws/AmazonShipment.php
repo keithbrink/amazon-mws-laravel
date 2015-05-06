@@ -1,4 +1,6 @@
-<?php
+<?php namespace Creacoon\AmazonMws;
+
+use Creacoon\AmazonMws\AmazonInboundCore;
 /**
  * Copyright 2013 CPI Group, LLC
  *

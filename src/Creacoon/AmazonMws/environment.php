@@ -21,7 +21,7 @@
  * Otherwise, the library may not be able to connect to Amazon.
  */
 //for User-Agent header(?)
-$AMAZON_APPLICATION = 'phpAmazonMWS';
+$AMAZON_APPLICATION = 'LaravelAmazonMWS';
 $AMAZON_APPVERSION = '1.0';
 //Version numbers for cores
 $AMAZON_VERSION_FEEDS       = '2009-01-01';
