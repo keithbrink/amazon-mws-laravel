@@ -19,15 +19,17 @@ class AmazonMwsServiceProvider extends ServiceProvider {
 	 */
 	public function register()
 	{
-		//
+		$configPath = __DIR__ . '/../../config/amazon-mws.php';
+		$this->mergeConfigFrom($configPath, 'amazon-mws');
+        
+		$this->app->alias('AmazonOrderList', 'Creacoon\AmazonMws\AmazonOrderList');
+		$this->app->alias('AmazonOrderItemList', 'Creacoon\AmazonMws\AmazonOrderItemList');
 	}
 
 	public function boot()
 	{
-		$this->package('creacoon/amazon-mws');
-
-		AliasLoader::getInstance()->alias('AmazonOrderList', 'Creacoon\AmazonMws\AmazonOrderList');
-		AliasLoader::getInstance()->alias('AmazonOrderItemList', 'Creacoon\AmazonMws\AmazonOrderItemList');
+		$configPath = __DIR__ . '/../../config/amazon-mws.php';
+        	$this->publishes([$configPath => config_path('amazon-mws.php')], 'config');
 	}
 
 	/**
