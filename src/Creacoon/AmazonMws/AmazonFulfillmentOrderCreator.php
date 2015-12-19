@@ -56,6 +56,7 @@ class AmazonFulfillmentOrderCreator extends AmazonOutboundCore{
     public function setFulfillmentOrderId($s){
         if (is_string($s)){
             $this->options['SellerFulfillmentOrderId'] = $s;
+            return true;
         } else {
             return false;
         }
@@ -73,11 +74,30 @@ class AmazonFulfillmentOrderCreator extends AmazonOutboundCore{
     public function setDisplayableOrderId($s){
         if (is_string($s)){
             $this->options['DisplayableOrderId'] = $s;
+            return true;
         } else {
             return false;
         }
     }
-    
+
+    /**
+     * Sets the displayed order comment. (Optional)
+     *
+     * Order-specific text that appears in customer-facing materials such as the outbound shipment packing slip.
+     * Maximum: 1000 characters
+     *
+     * @param $s
+     * @return bool
+     */
+    public function setDisplayableOrderComment($s){
+        if (is_string($s)){
+            $this->options['DisplayableOrderComment'] = $s;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     /**
      * Sets the displayed timestamp. (Required)
      * 
@@ -91,6 +111,7 @@ class AmazonFulfillmentOrderCreator extends AmazonOutboundCore{
         if (is_string($s)){
             $time = $this->genTime($s);
             $this->options['DisplayableOrderDateTime'] = $time;
+            return true;
         } else {
             return false;
         }
@@ -107,6 +128,7 @@ class AmazonFulfillmentOrderCreator extends AmazonOutboundCore{
     public function setComment($s){
         if (is_string($s)){
             $this->options['DisplayableOrderComment'] = $s;
+            return true;
         } else {
             return false;
         }
@@ -124,6 +146,7 @@ class AmazonFulfillmentOrderCreator extends AmazonOutboundCore{
         if (is_string($s)){
             if ($s == 'Standard' || $s == 'Expedited' || $s == 'Priority'){
                 $this->options['ShippingSpeedCategory'] = $s;
+                return true;
             } else {
                 $this->log("Tried to set shipping status to invalid value",'Warning');
                 return false;
@@ -186,6 +209,7 @@ class AmazonFulfillmentOrderCreator extends AmazonOutboundCore{
         } else {
             $this->options['DestinationAddress.PhoneNumber'] = null;
         }
+        return true;
     }
     
     /**
@@ -225,6 +249,7 @@ class AmazonFulfillmentOrderCreator extends AmazonOutboundCore{
         if (is_string($s)){
             if ($s == 'FillOrKill' || $s == 'FillAll' || $s == 'FillAllAvailable'){
                 $this->options['FulfillmentPolicy'] = $s;
+                return true;
             } else {
                 $this->log("Tried to set fulfillment policy to invalid value",'Warning');
                 return false;
@@ -251,6 +276,7 @@ class AmazonFulfillmentOrderCreator extends AmazonOutboundCore{
         if (is_string($s)){
             if ($s == 'Consumer' || $s == 'Removal'){
                 $this->options['FulfillmentMethod'] = $s;
+                return true;
             } else {
                 $this->log("Tried to set fulfillment method to invalid value",'Warning');
                 return false;
@@ -358,6 +384,7 @@ class AmazonFulfillmentOrderCreator extends AmazonOutboundCore{
                 return false;
             }
         }
+        return true;
     }
     
     /**
