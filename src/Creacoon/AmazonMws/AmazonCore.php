@@ -356,12 +356,12 @@ abstract class AmazonCore{
     //  * @throws Exception If the file cannot be found or read.
      
     public function setConfig(){
-        $AMAZON_SERVICE_URL = Config::get('amazon-mws::AMAZON_SERVICE_URL');    
+        $AMAZON_SERVICE_URL = Config::get('amazon-mws.AMAZON_SERVICE_URL');
 
         if (isset($AMAZON_SERVICE_URL)){
             $this->urlbase = $AMAZON_SERVICE_URL;
         } else {
-            throw new Exception("Config file does not exist or cannot be read! ($path)");
+            throw new Exception("Config file does not exist or cannot be read!");
         }
     }
     
@@ -383,7 +383,7 @@ abstract class AmazonCore{
         //     throw new \Exception("Config file does not exist!");
         // }
         
-        $store = Config::get('amazon-mws::store');
+        $store = Config::get('amazon-mws.store');
 
         if(array_key_exists($s, $store)){
             $this->storeName = $s;
@@ -435,7 +435,7 @@ abstract class AmazonCore{
         if ($msg != false) {
             $backtrace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS);
 
-            $muteLog = Config::get('amazon-mws::muteLog');
+            $muteLog = Config::get('amazon-mws.muteLog');
 
             switch ($level){
                case('Info'): $loglevel = 'info'; break; 
@@ -529,12 +529,12 @@ abstract class AmazonCore{
         //     throw new Exception("Config file does not exist!");
         // }
         
-        $store = Config::get('amazon-mws::store');
+        $store = Config::get('amazon-mws.store');
 
         if (array_key_exists($this->storeName, $store) && array_key_exists('secretKey', $store[$this->storeName])){
             $secretKey = $store[$this->storeName]['secretKey'];
         } else {
-            throw new \Exception("Secret Key is missing!");
+            throw new Exception("Secret Key is missing!");
         }
         
         unset($this->options['Signature']);
