@@ -1,6 +1,6 @@
 <?php namespace Creacoon\AmazonMws;
 
-use Creacoon\AmazonMws\AmazonOrderCore;
+use Iterator;
 
 /**
  * Copyright 2013 CPI Group, LLC
@@ -26,7 +26,7 @@ use Creacoon\AmazonMws\AmazonOrderCore;
  * with a specific order. Before any items can be retrieved, an Order ID is
  * required. This object can use tokens when retrieving the list.
  */
-class AmazonOrderItemList extends AmazonOrderCore implements \Iterator{
+class AmazonOrderItemList extends AmazonOrderCore implements Iterator{
     private $itemList;
     protected $tokenFlag = false;
     protected $tokenUseFlag = false;

@@ -29,7 +29,7 @@ class AmazonMwsServiceProvider extends ServiceProvider {
 	public function boot()
 	{
 		$configPath = __DIR__ . '/../../config/amazon-mws.php';
-        	$this->publishes([$configPath => config_path('amazon-mws.php')], 'config');
+       	$this->publishes([$configPath => config_path('amazon-mws.php')], 'config');
 	}
 
 	/**

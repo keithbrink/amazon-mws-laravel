@@ -1,4 +1,4 @@
-<?php
+<?php namespace Creacoon\AmazonMws;
 /**
  * Copyright 2013 CPI Group, LLC
  *

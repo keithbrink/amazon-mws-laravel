@@ -1,6 +1,7 @@
 <?php namespace Creacoon\AmazonMws;
 
 use Config, Log;
+use Exception;
 
 /**
  * Copyright 2013 CPI Group, LLC

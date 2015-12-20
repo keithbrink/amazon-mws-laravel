@@ -1,4 +1,4 @@
-<?php
+<?php namespace Creacoon\AmazonMws;
 /**
  * Copyright 2013 CPI Group, LLC
  *
@@ -15,6 +15,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+use Exception;
+use Iterator;
 
 /**
  * Manages report schedules with Amazon.
