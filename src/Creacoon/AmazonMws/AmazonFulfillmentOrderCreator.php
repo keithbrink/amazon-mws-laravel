@@ -201,7 +201,7 @@ class AmazonFulfillmentOrderCreator extends AmazonOutboundCore{
             $this->options['DestinationAddress.DistrictOrCounty'] = null;
         }
         $this->options['DestinationAddress.City'] = $a['City'];
-        $this->options['DestinationAddress.StateOrProvidenceCode'] = $a['StateOrProvidenceCode'];
+        $this->options['DestinationAddress.StateOrProvinceCode'] = $a['StateOrProvinceCode'];
         $this->options['DestinationAddress.CountryCode'] = $a['CountryCode'];
         $this->options['DestinationAddress.PostalCode'] = $a['PostalCode'];
         if (array_key_exists('PhoneNumber', $a)){
@@ -225,7 +225,7 @@ class AmazonFulfillmentOrderCreator extends AmazonOutboundCore{
         unset($this->options['DestinationAddress.Line3']);
         unset($this->options['DestinationAddress.DistrictOrCounty']);
         unset($this->options['DestinationAddress.City']);
-        unset($this->options['DestinationAddress.StateOrProvidenceCode']);
+        unset($this->options['DestinationAddress.StateOrProvinceCode']);
         unset($this->options['DestinationAddress.CountryCode']);
         unset($this->options['DestinationAddress.PostalCode']);
         unset($this->options['DestinationAddress.PhoneNumber']);

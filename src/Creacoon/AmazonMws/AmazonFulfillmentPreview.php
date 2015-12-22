@@ -89,7 +89,7 @@ class AmazonFulfillmentPreview extends AmazonOutboundCore{
             $this->options['Address.DistrictOrCounty'] = null;
         }
         $this->options['Address.City'] = $a['City'];
-        $this->options['Address.StateOrProvidenceCode'] = $a['StateOrProvidenceCode'];
+        $this->options['Address.StateOrProvinceCode'] = $a['StateOrProvinceCode'];
         $this->options['Address.CountryCode'] = $a['CountryCode'];
         $this->options['Address.PostalCode'] = $a['PostalCode'];
         if (array_key_exists('PhoneNumber', $a)){
@@ -112,7 +112,7 @@ class AmazonFulfillmentPreview extends AmazonOutboundCore{
         unset($this->options['Address.Line3']);
         unset($this->options['Address.DistrictOrCounty']);
         unset($this->options['Address.City']);
-        unset($this->options['Address.StateOrProvidenceCode']);
+        unset($this->options['Address.StateOrProvinceCode']);
         unset($this->options['Address.CountryCode']);
         unset($this->options['Address.PostalCode']);
         unset($this->options['Address.PhoneNumber']);
