@@ -400,6 +400,10 @@ abstract class AmazonCore{
             if(!array_key_exists('secretKey', $store[$s])){
                 $this->log("Secret Key is missing!",'Warning');
             }
+            // Overwrite Amazon service url if specified
+            if(array_key_exists('amazonServiceUrl', $store[$s])){
+                $AMAZON_SERVICE_URL = $store[$s]['amazonServiceUrl'];
+            }
             
         } else {
             throw new \Exception("Store $s does not exist!");
