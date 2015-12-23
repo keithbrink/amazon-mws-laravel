@@ -403,6 +403,7 @@ abstract class AmazonCore{
             // Overwrite Amazon service url if specified
             if(array_key_exists('amazonServiceUrl', $store[$s])){
                 $AMAZON_SERVICE_URL = $store[$s]['amazonServiceUrl'];
+                $this->urlbase = $AMAZON_SERVICE_URL;
             }
             
         } else {
