@@ -133,7 +133,6 @@ class AmazonOrder extends AmazonOrderCore{
             $token = false;
         }
         $items = new AmazonOrderItemList($this->storeName,$this->data['AmazonOrderId'],$this->mockMode,$this->mockFiles,$this->config);
-        $items->setLogPath($this->logpath);
         $items->mockIndex = $this->mockIndex;
         $items->setUseToken($token);
         $items->fetchItems();
