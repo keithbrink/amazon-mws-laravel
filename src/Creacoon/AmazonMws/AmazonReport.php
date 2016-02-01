@@ -82,7 +82,8 @@ class AmazonReport extends AmazonReportsCore{
      * Submits a <i>GetReport</i> request to Amazon. In order to do this,
      * a report ID is required. Amazon will send
      * the data back as a response, which can be saved using <i>saveReport</i>.
-     * @return boolean <b>FALSE</b> if something goes wrong
+     * @return boolean <b>FALSE</b> if something goes wrong or content of report
+     * if successful
      */
     public function fetchReport(){
         if (!array_key_exists('ReportId',$this->options)){
@@ -104,6 +105,7 @@ class AmazonReport extends AmazonReportsCore{
             }
             
             $this->rawreport = $response['body'];
+            return $this->rawreport;
         }
         
     }

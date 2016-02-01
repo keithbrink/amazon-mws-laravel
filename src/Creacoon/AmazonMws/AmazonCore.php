@@ -1,6 +1,7 @@
 <?php namespace Creacoon\AmazonMws;
 
 use Config, Log;
+use DateTime;
 use Exception;
 
 /**
@@ -514,7 +515,7 @@ abstract class AmazonCore{
             $time = strtotime($time);
             
         }
-        return date('Y-m-d\TH:i:sO',$time-120);
+        return date(DateTime::ISO8601,$time-120);
             
     }
     
