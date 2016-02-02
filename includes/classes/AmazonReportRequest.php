@@ -174,9 +174,9 @@ class AmazonReportRequest extends AmazonReportsCore{
      */
     public function setShowSalesChannel($s){
         if ($s == 'true' || (is_bool($s) && $s == true)){
-            $this->options['ReportOptions=ShowSalesChannel'] = 'true';
+            $this->options['ShowSalesChannel'] = 'true';
         } else if ($s == 'false' || (is_bool($s) && $s == false)){
-            $this->options['ReportOptions=ShowSalesChannel'] = 'false';
+            $this->options['ShowSalesChannel'] = 'false';
         } else {
             return false;
         }
