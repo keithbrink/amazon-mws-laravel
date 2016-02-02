@@ -2,16 +2,17 @@
 
 return [
 	'store' => [
-		'drhittich' => [
+		'store1' => [
 			'merchantId' => '',
 			'marketplaceId' => '',
 			'keyId' => '',
-			'secretKey' => ''
+			'secretKey' => '',
+			'amazonServiceUrl' => 'https://mws-eu.amazonservices.com/',
 		]
 	],
 
-	//Service URL Base
-	'AMAZON_SERVICE_URL' => 'https://mws-eu.amazonservices.com/',
+	// Default service URL
+	'AMAZON_SERVICE_URL' => 'https://mws.amazonservices.com/',
 
 	'muteLog' => false
 ];
