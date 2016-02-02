@@ -1,4 +1,4 @@
-<?php namespace Przemekperon\AmazonMws;
+<?php namespace Peron\AmazonMws;
 
 /**
  * Copyright 2013 CPI Group, LLC

@@ -1,7 +1,7 @@
-<?php namespace Przemekperon\AmazonMws;
+<?php namespace Peron\AmazonMws;
 <<<<<<< HEAD
 
-use Przemekperon\AmazonMws\AmazonFeedsCore;
+use Peron\AmazonMws\AmazonFeedsCore;
 =======
 >>>>>>> laravel-5-and-fixes
 /**

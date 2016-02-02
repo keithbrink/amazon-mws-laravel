@@ -1,4 +1,4 @@
-<?php namespace Przemekperon\AmazonMws;
+<?php namespace Peron\AmazonMws;
 
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 
@@ -21,8 +21,8 @@ class ServiceProvider extends BaseServiceProvider {
 		$configPath = __DIR__ . '/../../config/amazon-mws.php';
 		$this->mergeConfigFrom($configPath, 'amazon-mws');
         
-		$this->app->alias('AmazonOrderList', 'Przemekperon\AmazonMws\AmazonOrderList');
-		$this->app->alias('AmazonOrderItemList', 'Przemekperon\AmazonMws\AmazonOrderItemList');
+		$this->app->alias('AmazonOrderList', 'Peron\AmazonMws\AmazonOrderList');
+		$this->app->alias('AmazonOrderItemList', 'Peron\AmazonMws\AmazonOrderItemList');
 	}
 
 	public function boot()

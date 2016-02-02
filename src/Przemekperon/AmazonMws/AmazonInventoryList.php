@@ -1,6 +1,6 @@
-<?php namespace Przemekperon\AmazonMws;
+<?php namespace Peron\AmazonMws;
 
-use Przemekperon\AmazonMws\AmazonInventoryCore;
+use Peron\AmazonMws\AmazonInventoryCore;
 
 /**
  * Copyright 2013 CPI Group, LLC

@@ -13,7 +13,7 @@ This is __NOT__ for Amazon Web Services (AWS) - Cloud Computing Services.
 
 2. add the service provider to the providers array in config/app.php:
 ```
-Przemekperon\AmazonMws\ServiceProvider::class,
+Peron\AmazonMws\ServiceProvider::class,
 ```
 
 There's no facades to add in config/app.php
@@ -29,7 +29,7 @@ without having to jump hurdles such as parameter URL formatting and token manage
 
 Here is an example of a function used to get all warehouse-fulfilled orders from Amazon updated in the past 24 hours:
 ```php
-use Przemekperon\AmazonMws\AmazonOrderList;
+use Peron\AmazonMws\AmazonOrderList;
 
 function getAmazonOrders() {
     $amz = new AmazonOrderList("myStore"); //store name matches the array key in the config file
@@ -45,7 +45,7 @@ function getAmazonOrders() {
 ```
 This example shows a function used to send a previously-created XML feed to Amazon to update Inventory numbers:
 ```php
-use Przemekperon\AmazonMws\AmazonOrderList;
+use Peron\AmazonMws\AmazonOrderList;
 
 function sendInventoryFeed($feed) {
     $amz = new AmazonFeed("myStore"); //store name matches the array key in the config file

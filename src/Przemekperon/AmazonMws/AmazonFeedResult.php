@@ -1,6 +1,6 @@
-<?php namespace Przemekperon\AmazonMws;
+<?php namespace Peron\AmazonMws;
 
-use Przemekperon\AmazonMws\AmazonFeedsCore;
+use Peron\AmazonMws\AmazonFeedsCore;
 /**
  * Copyright 2013 CPI Group, LLC
  *
