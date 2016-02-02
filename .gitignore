@@ -2,6 +2,7 @@
 composer.phar
 composer.lock
 .DS_Store
+.idea
 amazon-config.php
 test.php
 log.txt

@@ -1,12 +1,27 @@
-phpAmazonMWS
+amazon-mws-laravel
 ============
 
-A library to connect to Amazon's Merchant Web Services (MWS) in an object-oriented manner, with a focus on intuitive usage.  
+A PHP package to connect to Amazon's Merchant Web Services (MWS) in an object-oriented manner, with a focus on intuitive usage.
+
+Currently optimizing for Laravel Framework.
 
 This is __NOT__ for Amazon Web Services (AWS) - Cloud Computing Services.
 
+## Installation
+
+1. `composer require przemekperon/laravel5-amazon-mws`
+
+2. add the service provider to the providers array in config/app.php:
+```
+Peron\AmazonMws\ServiceProvider::class,
+```
+
+There's no facades to add in config/app.php
+
+3. Copy amazon-mws.php configuration file from src/config/amazon-mws.php to Laravel's config directory.
 
 ## Example Usage
+
 Here are a couple of examples of the library in use.
 All of the technical details required by the API are handled behind the scenes,
 so users can easily build code for sending requests to Amazon
@@ -14,6 +29,8 @@ without having to jump hurdles such as parameter URL formatting and token manage
 
 Here is an example of a function used to get all warehouse-fulfilled orders from Amazon updated in the past 24 hours:
 ```php
+use Peron\AmazonMws\AmazonOrderList;
+
 function getAmazonOrders() {
     $amz = new AmazonOrderList("myStore"); //store name matches the array key in the config file
     $amz->setLimits('Modified', "- 24 hours");
@@ -28,8 +45,10 @@ function getAmazonOrders() {
 ```
 This example shows a function used to send a previously-created XML feed to Amazon to update Inventory numbers:
 ```php
+use Peron\AmazonMws\AmazonOrderList;
+
 function sendInventoryFeed($feed) {
-    $amz=new AmazonFeed("myStore"); //store name matches the array key in the config file
+    $amz = new AmazonFeed("myStore"); //store name matches the array key in the config file
     $amz->setFeedType("_POST_INVENTORY_AVAILABILITY_DATA_"); //feed types listed in documentation
     $amz->setFeedContent($feed);
     $amz->submitFeed();

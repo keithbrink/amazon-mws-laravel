@@ -15,17 +15,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 /**
  * These variables pertain to the inner workings of the Amazon API.
  * The values come from Amazon and should not be modified.
  * Otherwise, the library may not be able to connect to Amazon.
  */
-
 //for User-Agent header(?)
 $AMAZON_APPLICATION = 'LaravelAmazonMWS';
-$AMAZON_APPVERSION = '1.0';
-
+$AMAZON_APPVERSION = '2.0';
 //Version numbers for cores
 $AMAZON_VERSION_FEEDS       = '2009-01-01';
 $AMAZON_VERSION_INBOUND     = '2010-10-01';
@@ -35,7 +32,6 @@ $AMAZON_VERSION_OUTBOUND    = '2010-10-01';
 $AMAZON_VERSION_PRODUCTS    = '2011-10-01';
 $AMAZON_VERSION_REPORTS     = '2009-01-01';
 $AMAZON_VERSION_SELLERS     = '2011-07-01';
-
 //Amazon Throttle Values in seconds
 //Fetching Orders
 $THROTTLE_LIMIT_ORDER = 6;
