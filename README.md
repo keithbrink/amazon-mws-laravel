@@ -9,7 +9,7 @@ This is __NOT__ for Amazon Web Services (AWS) - Cloud Computing Services.
 
 ## Installation
 
-1. `composer require przemekperon/laravel5-amazon-mws`
+1. `composer require peron/laravel5-amazon-mws`
 
 2. add the service provider to the providers array in config/app.php:
 ```
@@ -19,6 +19,22 @@ Peron\AmazonMws\ServiceProvider::class,
 There's no facades to add in config/app.php
 
 3. Copy amazon-mws.php configuration file from src/config/amazon-mws.php to Laravel's config directory.
+
+## Usage
+All of the technical details required by the API are handled behind the scenes,
+so users can easily build code for sending requests to Amazon
+without having to jump hurdles such as parameter URL formatting and token management. 
+The general work flow for using one of the objects is this:
+
+1. Create an object for the task you need to perform.
+2. Load it up with parameters, depending on the object, using *set____* methods.
+3. Submit the request to Amazon. The methods to do this are usually named *fetch____* or *submit____* and have no parameters.
+4. Reference the returned data, whether as single values or in bulk, using *get____* methods.
+5. Monitor the performance of the library using the built-in logging system.
+
+Note that if you want to act on more than one Amazon store, you will need a separate object for each store.
+
+Also note that the objects perform best when they are not treated as reusable. Otherwise, you may end up grabbing old response data if a new request fails.
 
 ## Example Usage
 
