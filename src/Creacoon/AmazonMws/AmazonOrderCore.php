@@ -1,7 +1,5 @@
 <?php namespace Creacoon\AmazonMws;
 
-use Creacoon\AmazonMws\AmazonCore;
-
 /**
  * Copyright 2013 CPI Group, LLC
  *

@@ -1,6 +1,7 @@
 <?php namespace Creacoon\AmazonMws;
 
 use Creacoon\AmazonMws\AmazonReportsCore;
+
 /**
  * Copyright 2013 CPI Group, LLC
  *
@@ -17,6 +18,8 @@ use Creacoon\AmazonMws\AmazonReportsCore;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+use Exception;
+use Iterator;
 
 /**
  * Manages report schedules with Amazon.

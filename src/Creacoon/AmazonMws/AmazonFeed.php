@@ -1,6 +1,7 @@
 <?php namespace Creacoon\AmazonMws;
 
 use Creacoon\AmazonMws\AmazonFeedsCore;
+
 /**
  * Copyright 2013 CPI Group, LLC
  *

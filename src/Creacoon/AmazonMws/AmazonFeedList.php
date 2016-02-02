@@ -1,6 +1,9 @@
 <?php namespace Creacoon\AmazonMws;
+<<<<<<< HEAD
 
 use Creacoon\AmazonMws\AmazonFeedsCore;
+=======
+>>>>>>> laravel-5-and-fixes
 /**
  * Copyright 2013 CPI Group, LLC
  *
@@ -17,6 +20,7 @@ use Creacoon\AmazonMws\AmazonFeedsCore;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+use Iterator;
 
 /**
  * Receives a list of feeds from Amazon.

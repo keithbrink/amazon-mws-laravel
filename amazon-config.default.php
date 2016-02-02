@@ -21,9 +21,10 @@ $store['YourAmazonStore']['merchantId'] = '';//Merchant ID for this store
 $store['YourAmazonStore']['marketplaceId'] = ''; //Marketplace ID for this store
 $store['YourAmazonStore']['keyId'] = ''; //Access Key ID
 $store['YourAmazonStore']['secretKey'] = ''; //Secret Access Key for this store
+$store['YourAmazonStore']['amazonServiceUrl'] = 'https://mws-eu.amazonservices.com/'; // Service Url for this store
 
-//Service URL Base
-//Current setting is United States
+// Service URL Base (Default if not set by store)
+// Current setting is United States
 $AMAZON_SERVICE_URL = 'https://mws.amazonservices.com/';
 
 //Location of log file to use

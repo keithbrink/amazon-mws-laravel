@@ -1,6 +1,7 @@
 <?php namespace Creacoon\AmazonMws;
 
 use Creacoon\AmazonMws\AmazonInboundCore;
+
 /**
  * Copyright 2013 CPI Group, LLC
  *
@@ -17,6 +18,7 @@ use Creacoon\AmazonMws\AmazonInboundCore;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+use Iterator;
 
 /**
  *  Fetches an inbound shipment plan from Amazon.

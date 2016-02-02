@@ -1,6 +1,7 @@
 <?php namespace Creacoon\AmazonMws;
 
 use Creacoon\AmazonMws\AmazonOrderCore;
+
 /**
  * Copyright 2013 CPI Group, LLC
  *
@@ -17,6 +18,7 @@ use Creacoon\AmazonMws\AmazonOrderCore;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+use Iterator;
 
 /**
  * Gets the details for a set of orders from Amazon.

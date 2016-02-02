@@ -1,6 +1,7 @@
 <?php namespace Creacoon\AmazonMws;
 
 use Creacoon\AmazonMws\AmazonReportsCore;
+
 /**
  * Copyright 2013 CPI Group, LLC
  *
@@ -17,6 +18,7 @@ use Creacoon\AmazonMws\AmazonReportsCore;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+use Exception;
 
 /**
  * Fetches a report from Amazon
@@ -83,7 +85,8 @@ class AmazonReport extends AmazonReportsCore{
      * Submits a <i>GetReport</i> request to Amazon. In order to do this,
      * a report ID is required. Amazon will send
      * the data back as a response, which can be saved using <i>saveReport</i>.
-     * @return boolean <b>FALSE</b> if something goes wrong
+     * @return boolean <b>FALSE</b> if something goes wrong or content of report
+     * if successful
      */
     public function fetchReport(){
         if (!array_key_exists('ReportId',$this->options)){
@@ -105,6 +108,7 @@ class AmazonReport extends AmazonReportsCore{
             }
             
             $this->rawreport = $response['body'];
+            return $this->rawreport;
         }
         
     }
