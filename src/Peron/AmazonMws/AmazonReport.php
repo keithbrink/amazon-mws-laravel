@@ -108,10 +108,10 @@ class AmazonReport extends AmazonReportsCore{
             }
             
             $this->rawreport = $response['body'];
-            return $this->rawreport;
         }
-        
+        return $this->rawreport;
     }
+
     
     /**
      * Saves the raw report data to a path you specify
@@ -124,10 +124,13 @@ class AmazonReport extends AmazonReportsCore{
         try{
             file_put_contents($path, $this->rawreport);
             $this->log("Successfully saved report #".$this->options['ReportId']." at $path");
+            return true;
         } catch (Exception $e){
             $this->log("Unable to save report #".$this->options['ReportId']." at $path: $e",'Urgent');
         }
+        return false;
     }
+
     
 }
 ?>
