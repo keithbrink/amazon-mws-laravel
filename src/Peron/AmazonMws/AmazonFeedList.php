@@ -1,5 +1,7 @@
 <?php namespace Peron\AmazonMws;
-<<<<<<< HEAD
+
+<<<<
+<<< HEAD
 
 use Peron\AmazonMws\AmazonFeedsCore;
 =======

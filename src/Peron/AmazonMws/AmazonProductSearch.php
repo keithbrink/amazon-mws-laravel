@@ -21,18 +21,19 @@ use Peron\AmazonMws\AmazonProductsCore;
 
 /**
  * Fetches a list of products from Amazon using a search query.
- * 
+ *
  * This Amazon Products Core object retrieves a list of products from Amazon
  * that match the given search query. In order to search, a query is required.
  * The search context (ex: Kitchen, MP3 Downloads) can be specified as an
  * optional parameter.
  */
-class AmazonProductSearch extends AmazonProductsCore{
-    
-    
+class AmazonProductSearch extends AmazonProductsCore
+{
+
+
     /**
      * AmazonProductList fetches a list of products from Amazon that match a search query.
-     * 
+     *
      * The parameters are passed to the parent constructor, which are
      * in turn passed to the AmazonCore constructor. See it for more information
      * on these parameters and common methods.
@@ -45,46 +46,49 @@ class AmazonProductSearch extends AmazonProductsCore{
      * @param array|string $m [optional] <p>The files (or file) to use in Mock Mode.</p>
      * @param string $config [optional] <p>An alternate config file to set. Used for testing.</p>
      */
-    public function __construct($s, $q = null, $mock = false, $m = null, $config = null){
+    public function __construct($s, $q = null, $mock = false, $m = null, $config = null)
+    {
         parent::__construct($s, $mock, $m, $config);
         include($this->env);
-        
-        if($q){
+
+        if ($q) {
             $this->setQuery($q);
         }
-        
+
         $this->options['Action'] = 'ListMatchingProducts';
-        
-        if(isset($THROTTLE_TIME_PRODUCTMATCH)) {
+
+        if (isset($THROTTLE_TIME_PRODUCTMATCH)) {
             $this->throttleTime = $THROTTLE_TIME_PRODUCTMATCH;
         }
         $this->throttleGroup = 'ListMatchingProducts';
     }
-    
+
     /**
      * Sets the query to search for. (Required)
      * @param string $q <p>search query</p>
      * @return boolean <b>FALSE</b> if improper input
      */
-    public function setQuery($q){
-        if (is_string($q)){
+    public function setQuery($q)
+    {
+        if (is_string($q)) {
             $this->options['Query'] = $q;
         } else {
             return false;
         }
     }
-    
+
     /**
      * Sets the query context ID. (Optional)
-     * 
+     *
      * Setting this parameter tells Amazon to only return products from the given
      * context. If this parameter is not set, Amazon will return products from
      * any context.
      * @param string $q <p>See comment inside for list of valid values.</p>
      * @return boolean <b>FALSE</b> if improper input
      */
-    public function setContextId($q){
-        if (is_string($q)){
+    public function setContextId($q)
+    {
+        if (is_string($q)) {
             $this->options['QueryContextId'] = $q;
         } else {
             return false;
@@ -134,39 +138,41 @@ class AmazonProductSearch extends AmazonProductsCore{
          * WirelessAccessories
          */
     }
-    
+
     /**
      * Fetches a list of products from Amazon that match the given query.
-     * 
+     *
      * Submits a <i>ListMatchingProducts</i> request to Amazon. Amazon will send
      * the list back as a response, which can be retrieved using <i>getProduct</i>.
      * In order to perform this action, a search query is required.
      * @return boolean <b>FALSE</b> if something goes wrong
      */
-    public function searchProducts(){
-        if (!array_key_exists('Query',$this->options)){
-            $this->log("Search Query must be set in order to search for a query!",'Warning');
+    public function searchProducts()
+    {
+        if (!array_key_exists('Query', $this->options)) {
+            $this->log("Search Query must be set in order to search for a query!", 'Warning');
             return false;
         }
-        
-        $url = $this->urlbase.$this->urlbranch;
-        
+
+        $url = $this->urlbase . $this->urlbranch;
+
         $query = $this->genQuery();
-        
-        if ($this->mockMode){
-           $xml = $this->fetchMockFile();
+
+        if ($this->mockMode) {
+            $xml = $this->fetchMockFile();
         } else {
-            $response = $this->sendRequest($url, array('Post'=>$query));
-            
-            if (!$this->checkResponse($response)){
+            $response = $this->sendRequest($url, array('Post' => $query));
+
+            if (!$this->checkResponse($response)) {
                 return false;
             }
-            
+
             $xml = simplexml_load_string($response['body']);
         }
-        
+
         $this->parseXML($xml);
     }
-    
+
 }
+
 ?>

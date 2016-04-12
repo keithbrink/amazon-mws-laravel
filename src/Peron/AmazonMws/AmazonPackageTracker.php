@@ -21,16 +21,17 @@ use Peron\AmazonMws\AmazonOutboundCore;
 
 /**
  * Fetches package tracking info from Amazon.
- * 
+ *
  * This Amazon Outbound Core object retrieves package tracking data
  * from Amazon. A package number is required for this.
  */
-class AmazonPackageTracker extends AmazonOutboundCore{
+class AmazonPackageTracker extends AmazonOutboundCore
+{
     private $details;
-    
+
     /**
      * AmazonPackageTracker fetches package tracking details from Amazon.
-     * 
+     *
      * The parameters are passed to the parent constructor, which are
      * in turn passed to the AmazonCore constructor. See it for more information
      * on these parameters and common methods.
@@ -43,75 +44,79 @@ class AmazonPackageTracker extends AmazonOutboundCore{
      * @param array|string $m [optional] <p>The files (or file) to use in Mock Mode.</p>
      * @param string $config [optional] <p>An alternate config file to set. Used for testing.</p>
      */
-    public function __construct($s, $id = null, $mock = false, $m = null, $config = null) {
+    public function __construct($s, $id = null, $mock = false, $m = null, $config = null)
+    {
         parent::__construct($s, $mock, $m, $config);
-        
-        if($id){
+
+        if ($id) {
             $this->setPackageNumber($id);
         }
-        
+
         $this->options['Action'] = 'GetPackageTrackingDetails';
     }
-    
+
     /**
      * Sets the package ID. (Required)
-     * 
+     *
      * This method sets the package ID to be sent in the next request.
      * This parameter is required for fetching the tracking information from Amazon.
      * @param string|integer $n <p>Must be numeric</p>
      * @return boolean <b>FALSE</b> if improper input
      */
-    public function setPackageNumber($n){
-        if (is_numeric($n)){
+    public function setPackageNumber($n)
+    {
+        if (is_numeric($n)) {
             $this->options['PackageNumber'] = $n;
         } else {
             return false;
         }
     }
-    
+
     /**
      * Sends a request to Amazon for package tracking details.
-     * 
+     *
      * Submits a <i>GetPackageTrackingDetails</i> request to Amazon. In order to do this,
      * a package ID is required. Amazon will send
      * the data back as a response, which can be retrieved using <i>getDetails</i>.
      * @return boolean <b>FALSE</b> if something goes wrong
      */
-    public function fetchTrackingDetails(){
-        if (!array_key_exists('PackageNumber',$this->options)){
-            $this->log("Package Number must be set in order to fetch it!",'Warning');
+    public function fetchTrackingDetails()
+    {
+        if (!array_key_exists('PackageNumber', $this->options)) {
+            $this->log("Package Number must be set in order to fetch it!", 'Warning');
             return false;
         }
-        
-        $url = $this->urlbase.$this->urlbranch;
-        
+
+        $url = $this->urlbase . $this->urlbranch;
+
         $query = $this->genQuery();
-        
-        $path = $this->options['Action'].'Result';
-        if ($this->mockMode){
-           $xml = $this->fetchMockFile()->$path;
+
+        $path = $this->options['Action'] . 'Result';
+        if ($this->mockMode) {
+            $xml = $this->fetchMockFile()->$path;
         } else {
-            $response = $this->sendRequest($url, array('Post'=>$query));
-            
-            if (!$this->checkResponse($response)){
+            $response = $this->sendRequest($url, array('Post' => $query));
+
+            if (!$this->checkResponse($response)) {
                 return false;
             }
-            
+
             $xml = simplexml_load_string($response['body'])->$path;
         }
-        
+
         $this->parseXML($xml);
     }
-    
+
     /**
      * Parses XML response into array.
-     * 
+     *
      * This is what reads the response XML and converts it into an array.
      * @param SimpleXMLObject $d <p>The XML response from Amazon.</p>
      * @return boolean <b>FALSE</b> if no XML data is found
      */
-    protected function parseXML($d) {
-        if (!$d){
+    protected function parseXML($d)
+    {
+        if (!$d) {
             return false;
         }
         $this->details['PackageNumber'] = (string)$d->PackageNumber;
@@ -121,33 +126,33 @@ class AmazonPackageTracker extends AmazonOutboundCore{
         $this->details['CarrierURL'] = (string)$d->CarrierURL;
         $this->details['ShipDate'] = (string)$d->ShipDate;
         //Address
-            $this->details['ShipToAddress']['City'] = (string)$d->ShipToAddress->City;
-            $this->details['ShipToAddress']['State'] = (string)$d->ShipToAddress->State;
-            $this->details['ShipToAddress']['Country'] = (string)$d->ShipToAddress->Country;
+        $this->details['ShipToAddress']['City'] = (string)$d->ShipToAddress->City;
+        $this->details['ShipToAddress']['State'] = (string)$d->ShipToAddress->State;
+        $this->details['ShipToAddress']['Country'] = (string)$d->ShipToAddress->Country;
         //End of Address
         $this->details['CurrentStatus'] = (string)$d->CurrentStatus;
         $this->details['SignedForBy'] = (string)$d->SignedForBy;
         $this->details['EstimatedArrivalDate'] = (string)$d->EstimatedArrivalDate;
-        
+
         $i = 0;
-        foreach($d->TrackingEvents->children() as $y){
+        foreach ($d->TrackingEvents->children() as $y) {
             $this->details['TrackingEvents'][$i]['EventDate'] = (string)$y->EventDate;
             //Address
-                $this->details['TrackingEvents'][$i]['EventAddress']['City'] = (string)$y->EventAddress->City;
-                $this->details['TrackingEvents'][$i]['EventAddress']['State'] = (string)$y->EventAddress->State;
-                $this->details['TrackingEvents'][$i]['EventAddress']['Country'] = (string)$y->EventAddress->Country;
+            $this->details['TrackingEvents'][$i]['EventAddress']['City'] = (string)$y->EventAddress->City;
+            $this->details['TrackingEvents'][$i]['EventAddress']['State'] = (string)$y->EventAddress->State;
+            $this->details['TrackingEvents'][$i]['EventAddress']['Country'] = (string)$y->EventAddress->Country;
             //End of Address
             $this->details['TrackingEvents'][$i]['EventCode'] = (string)$y->EventCode;
             $i++;
         }
-        
+
         $this->details['AdditionalLocationInfo'] = (string)$d->AdditionalLocationInfo;
-        
+
     }
-    
+
     /**
      * Returns the full package tracking information.
-     * 
+     *
      * This method will return <b>FALSE</b> if the data has not yet been filled.
      * The array returned will have the following fields:
      * <ul>
@@ -171,14 +176,16 @@ class AmazonPackageTracker extends AmazonOutboundCore{
      * </ul>
      * @return array|boolean data array, or <b>FALSE</b> if data not filled yet
      */
-    public function getDetails(){
-        if (isset($this->details)){
+    public function getDetails()
+    {
+        if (isset($this->details)) {
             return $this->details;
         } else {
             return false;
         }
-        
+
     }
-    
+
 }
+
 ?>
