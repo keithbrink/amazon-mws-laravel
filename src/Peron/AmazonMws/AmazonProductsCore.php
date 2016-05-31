@@ -46,13 +46,8 @@ abstract class AmazonProductsCore extends AmazonCore
      */
     public function __construct($s, $mock = false, $m = null, $config = null)
     {
-        parent::__construct($s, $mock, $m, $config);
+        parent::__construct($s, $mock, $m);
         include($this->env);
-        if (file_exists($this->config)) {
-            include($this->config);
-        } else {
-            throw new Exception('Config file does not exist!');
-        }
 
         if (isset($AMAZON_VERSION_PRODUCTS)) {
             $this->urlbranch = 'Products/' . $AMAZON_VERSION_PRODUCTS;
@@ -95,13 +90,13 @@ abstract class AmazonProductsCore extends AmazonCore
             if (isset($x->Products)) {
                 foreach ($x->Products->children() as $z) {
                     $this->productList[$this->index] = new AmazonProduct($this->storeName, $z, $this->mockMode,
-                        $this->mockFiles, $this->config);
+                        $this->mockFiles);
                     $this->index++;
                 }
             } else {
                 if ($x->getName() == 'GetProductCategoriesForSKUResult' || $x->getName() == 'GetProductCategoriesForASINResult') {
                     $this->productList[$this->index] = new AmazonProduct($this->storeName, $x, $this->mockMode,
-                        $this->mockFiles, $this->config);
+                        $this->mockFiles);
                     $this->index++;
                 } else {
                     foreach ($x->children() as $z) {
@@ -114,7 +109,7 @@ abstract class AmazonProductsCore extends AmazonCore
                             $this->log("Special case: " . $z->getName(), 'Warning');
                         } else {
                             $this->productList[$this->index] = new AmazonProduct($this->storeName, $z, $this->mockMode,
-                                $this->mockFiles, $this->config);
+                                $this->mockFiles);
                             $this->index++;
                         }
                     }
