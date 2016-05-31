@@ -54,7 +54,7 @@ abstract class AmazonProductsCore extends AmazonCore
             $this->options['Version'] = $AMAZON_VERSION_PRODUCTS;
         }
 
-
+        $store = config('amazon-mws.store');
         if (isset($store[$s]) && array_key_exists('marketplaceId', $store[$s])) {
             $this->options['MarketplaceId'] = $store[$s]['marketplaceId'];
         } else {
