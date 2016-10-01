@@ -300,7 +300,7 @@ class AmazonProduct extends AmazonProductsCore
      * See <i>getData</i>.
      * @return array Huge array of Product data.
      */
-    public function getProduct()
+    public function getProductData()
     {
         return $this->getData();
     }
