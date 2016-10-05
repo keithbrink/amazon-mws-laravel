@@ -1,11 +1,8 @@
-<?php namespace Peron\AmazonMws;
-
-<<<<
-<<< HEAD
-
+<?php 
+namespace Peron\AmazonMws;
+ 
 use Peron\AmazonMws\AmazonFeedsCore;
-=======
->>>>>>> laravel-5-and-fixes
+
 /**
  * Copyright 2013 CPI Group, LLC
  *
