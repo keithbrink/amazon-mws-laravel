@@ -430,6 +430,10 @@ abstract class AmazonCore
                 $this->urlbase = $AMAZON_SERVICE_URL;
             }
 
+            if (array_key_exists('authToken', $store[$s]) && !empty($store[$s]['authToken'])) {
+                $this->options['MWSAuthToken'] = $store[$s]['authToken'];
+            }
+
         } else {
             throw new \Exception("Store $s does not exist!");
             $this->log("Store $s does not exist!", 'Warning');
