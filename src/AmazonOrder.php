@@ -224,8 +224,11 @@ class AmazonOrder extends AmazonOrderCore
         if (isset($xml->BuyerEmail)) {
             $d['BuyerEmail'] = (string)$xml->BuyerEmail;
         }
-        if (isset($xml->ShipServiceLevelCategory)) {
-            $d['ShipServiceLevelCategory'] = (string)$xml->ShipServiceLevelCategory;
+        if (isset($xml->ShipmentServiceLevelCategory)) {
+            $d['ShipServiceLevelCategory'] = (string)$xml->ShipmentServiceLevelCategory;
+        }
+        if (isset($xml->OrderType)) {
+            $d['OrderType'] = (string)$xml->OrderType;   
         }
         if (isset($xml->EarliestShipDate)) {
             $d['EarliestShipDate'] = (string)$xml->EarliestShipDate;
