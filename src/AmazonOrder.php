@@ -224,8 +224,17 @@ class AmazonOrder extends AmazonOrderCore
         if (isset($xml->BuyerEmail)) {
             $d['BuyerEmail'] = (string)$xml->BuyerEmail;
         }
+        if (isset($xml->PaymentMethodDetails)) {
+            $d['PaymentMethodDetails'] = array();
+
+            $i = 0;
+            foreach ($xml->PaymentMethodDetails->children() as $x) {
+                $d['PaymentMethodDetails']['PaymentMethodDetail'][] = (string) $x;
+                $i++;
+            }
+        }
         if (isset($xml->ShipmentServiceLevelCategory)) {
-            $d['ShipServiceLevelCategory'] = (string)$xml->ShipmentServiceLevelCategory;
+            $d['ShipmentServiceLevelCategory'] = (string)$xml->ShipmentServiceLevelCategory;
         }
         if (isset($xml->OrderType)) {
             $d['OrderType'] = (string)$xml->OrderType;   
