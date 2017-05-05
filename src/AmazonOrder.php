@@ -624,10 +624,28 @@ class AmazonOrder extends AmazonOrderCore
      * </ul>
      * @return string|boolean single value, or <b>FALSE</b> if category not set yet
      */
-    public function getShipServiceLevelCategory()
+    public function getShipmentServiceLevelCategory()
     {
-        if (isset($this->data['ShipServiceLevelCategory'])) {
-            return $this->data['ShipServiceLevelCategory'];
+        if (isset($this->data['ShipmentServiceLevelCategory'])) {
+            return $this->data['ShipmentServiceLevelCategory'];
+        } else {
+            return false;
+        }
+    }
+
+    public function getPaymentMethodDetails()
+    {
+        if (isset($this->data['PaymentMethodDetails'])) {
+            return $this->data['PaymentMethodDetails'];
+        } else {
+            return false;
+        }
+    }
+
+    public function getOrderType()
+    {
+        if (isset($this->data['OrderType'])) {
+            return $this->data['OrderType'];
         } else {
             return false;
         }
