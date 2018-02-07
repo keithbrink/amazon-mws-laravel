@@ -112,6 +112,7 @@ abstract class AmazonCore
     protected $mockIndex = 0;
     protected $env;
     protected $rawResponses = array();
+    protected $proxy_info = [];
 
     /**
      * AmazonCore constructor sets up key information used in all Amazon requests.
@@ -429,6 +430,9 @@ abstract class AmazonCore
                 $AMAZON_SERVICE_URL = $store[$s]['amazonServiceUrl'];
                 $this->urlbase = $AMAZON_SERVICE_URL;
             }
+            if (array_key_exists('proxyInfo', $store[$s])) {
+                $this->proxy_info = $store[$s]['proxyInfo'];
+            }
 
         } else {
             throw new \Exception("Store $s does not exist!");
@@ -711,6 +715,20 @@ abstract class AmazonCore
             if (!empty($param['Post'])) {
                 curl_setopt($ch, CURLOPT_POSTFIELDS, $param['Post']);
             }
+        }
+
+        if (!empty($this->proxy_info)
+            && !empty($this->proxy_info['ip'])
+            && !empty($this->proxy_info['port'])
+        ) {
+            curl_setopt($ch, CURLOPT_PROXYAUTH, CURLAUTH_BASIC); //代理认证模式
+            curl_setopt($ch, CURLOPT_PROXY, $this->proxy_info['ip']); //代理服务器地址
+            curl_setopt($ch, CURLOPT_PROXYPORT, $this->proxy_info['port']); //代理服务器端口
+            //http代理认证帐号，username:password的格式
+            if (!empty($this->proxy_info['user_pwd'])) {
+                curl_setopt($ch, CURLOPT_PROXYUSERPWD, $this->proxy_info['user_pwd']);
+            }
+            curl_setopt($ch, CURLOPT_PROXYTYPE, CURLPROXY_SOCKS5); //使用http代理模式
         }
 
         $data = curl_exec($ch);
