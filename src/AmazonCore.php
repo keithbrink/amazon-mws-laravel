@@ -538,12 +538,12 @@ abstract class AmazonCore
      *
      * This method creates a timestamp from the provided string in ISO8601 format.
      * The string given is passed through <i>strtotime</i> before being used. The
-     * value returned is actually two minutes early, to prevent it from tripping up
+     * value returned is actually one minute early, to prevent it from tripping up
      * Amazon. If no time is given, the current time is used.
      * @param string $time [optional] <p>The time to use. Since this value is
      * passed through <i>strtotime</i> first, values such as "-1 hour" are fine.
      * Defaults to the current time.</p>
-     * @return string Unix timestamp of the time, minus 2 minutes.
+     * @return string Unix timestamp of the time, minus 1 minute.
      */
     protected function genTime($time = false)
     {
@@ -553,7 +553,7 @@ abstract class AmazonCore
             $time = strtotime($time);
 
         }
-        return date(DateTime::ISO8601, $time - 120);
+        return date(DateTime::ISO8601, $time - 60);
 
     }
 
