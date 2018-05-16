@@ -8,7 +8,7 @@ return [
             'keyId'            => '',
             'secretKey'        => '',
             'amazonServiceUrl' => 'https://mws-eu.amazonservices.com/',
-            'muteLog' => false,
+            'muteLog'          => false,
         ],
     ],
 ];
