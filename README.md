@@ -84,3 +84,15 @@ function sendInventoryFeed($feed) {
     return $amz->getResponse();
 }
 ```
+
+## Credits
+This package was forked from:
+https://github.com/sonnenglas/amazon-mws-laravel
+
+which was forked from:
+https://github.com/creacoon/amazon-mws-laravel
+
+which was forked from:
+https://github.com/CPIGroup/phpAmazonMWS
+
+who is the original creator of this package.
