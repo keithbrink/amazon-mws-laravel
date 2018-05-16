@@ -1,29 +1,31 @@
 <?php
 /**
- * Contains helper functions needed for the unit tests
+ * Contains helper functions needed for the unit tests.
  */
 
 /**
-* Resets log for next test
-*/
+ * Resets log for next test.
+ */
 function resetLog()
 {
-    file_put_contents(dirname(__FILE__) . '/../log.txt', '');
+    file_put_contents(dirname(__FILE__).'/../log.txt', '');
 }
 
 /**
-* gets the log contents
-*/
+ * gets the log contents.
+ */
 function getLog()
 {
-    return file_get_contents(dirname(__FILE__) . '/../log.txt');
+    return file_get_contents(dirname(__FILE__).'/../log.txt');
 }
 
 /**
-* gets log and returns messages in an array
-* @param string $s pre-fetched log contents
-* @return array list of message strings
-*/
+ * gets log and returns messages in an array.
+ *
+ * @param string $s pre-fetched log contents
+ *
+ * @return array list of message strings
+ */
 function parseLog($s = null)
 {
     if (!$s) {
@@ -41,5 +43,6 @@ function parseLog($s = null)
             }
         }
     }
+
     return $return;
 }

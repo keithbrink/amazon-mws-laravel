@@ -1,18 +1,18 @@
 <?php
 
 return [
-	'store' => [
-		'store1' => [
-			'merchantId' => '',
-			'marketplaceId' => '',
-			'keyId' => '',
-			'secretKey' => '',
-			'amazonServiceUrl' => 'https://mws-eu.amazonservices.com/',
-		]
-	],
+    'store' => [
+        'store1' => [
+            'merchantId'       => '',
+            'marketplaceId'    => '',
+            'keyId'            => '',
+            'secretKey'        => '',
+            'amazonServiceUrl' => 'https://mws-eu.amazonservices.com/',
+        ],
+    ],
 
-	// Default service URL
-	'AMAZON_SERVICE_URL' => 'https://mws.amazonservices.com/',
+    // Default service URL
+    'AMAZON_SERVICE_URL' => 'https://mws.amazonservices.com/',
 
-	'muteLog' => false
+    'muteLog' => false,
 ];

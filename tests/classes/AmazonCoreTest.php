@@ -1,4 +1,5 @@
 <?php
+
 use KeithBrink\AmazonMws\AmazonServiceStatus;
 
 /**
@@ -6,7 +7,6 @@ use KeithBrink\AmazonMws\AmazonServiceStatus;
  */
 class AmazonCoreTest extends PHPUnit_Framework_TestCase
 {
-
     /**
      * @var AmazonServiceStatus
      */
@@ -31,21 +31,21 @@ class AmazonCoreTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-    * @return array
-    */
+     * @return array
+     */
     public function mockProvider()
     {
         return [
-            [true,null, 'Mock Mode set to ON'],
-            [false,null, null],
-            [true,'test', 'Mock Mode set to ON','Single Mock File set: test'],
-            [true,['test'], 'Mock Mode set to ON','Mock files array set.'],
-            [false,'test', 'Single Mock File set: test'],
-            [false,['test'], 'Mock files array set.'],
-            ['no',null, null],
+            [true, null, 'Mock Mode set to ON'],
+            [false, null, null],
+            [true, 'test', 'Mock Mode set to ON', 'Single Mock File set: test'],
+            [true, ['test'], 'Mock Mode set to ON', 'Mock files array set.'],
+            [false, 'test', 'Single Mock File set: test'],
+            [false, ['test'], 'Mock files array set.'],
+            ['no', null, null],
         ];
     }
-    
+
     /**
      * @covers AmazonCore::setMock
      * @dataProvider mockProvider
@@ -70,10 +70,10 @@ class AmazonCoreTest extends PHPUnit_Framework_TestCase
     public function testSetConfig()
     {
         $config = [
-            'merchantId' => 'TEST123',
-            'marketplaceId' => 'TESTMARKETPLACE',
-            'keyId' => 'TESTKEYID',
-            'secretKey' => 'TESTSECRETID',
+            'merchantId'       => 'TEST123',
+            'marketplaceId'    => 'TESTMARKETPLACE',
+            'keyId'            => 'TESTKEYID',
+            'secretKey'        => 'TESTSECRETID',
             'amazonServiceUrl' => 'http://test.com',
         ];
 
@@ -115,6 +115,7 @@ class AmazonCoreTest extends PHPUnit_Framework_TestCase
     public function testSetStoreInConfigWithMissingInfoLogsDetails()
     {
         resetLog();
+
         try {
             $this->object->setStore('bad');
         } catch (Exception $e) {
@@ -126,7 +127,7 @@ class AmazonCoreTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('Access Key ID is missing!', $bad[2]);
         $this->assertEquals('Secret Key is missing!', $bad[3]);
     }
-    
+
     public function testGetOptions()
     {
         $o = $this->object->getOptions();
@@ -139,4 +140,4 @@ class AmazonCoreTest extends PHPUnit_Framework_TestCase
     }
 }
 
-require_once(__DIR__.'/../helperFunctions.php');
+require_once __DIR__.'/../helperFunctions.php';

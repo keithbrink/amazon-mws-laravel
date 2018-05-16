@@ -1,8 +1,8 @@
-<?php namespace KeithBrink\AmazonMws;
+<?php
 
-use KeithBrink\AmazonMws\AmazonOutboundCore;
+namespace KeithBrink\AmazonMws;
 
-/**
+/*
  * Copyright 2013 CPI Group, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -42,11 +42,12 @@ class AmazonFulfillmentOrderList extends AmazonOutboundCore implements \Iterator
      * The parameters are passed to the parent constructor, which are
      * in turn passed to the AmazonCore constructor. See it for more information
      * on these parameters and common methods.
-     * @param string $s <p>Name for the store you want to use.</p>
-     * @param boolean $mock [optional] <p>This is a flag for enabling Mock Mode.
-     * This defaults to <b>FALSE</b>.</p>
-     * @param array|string $m [optional] <p>The files (or file) to use in Mock Mode.</p>
-     * @param string $config [optional] <p>An alternate config file to set. Used for testing.</p>
+     *
+     * @param string       $s      <p>Name for the store you want to use.</p>
+     * @param bool         $mock   [optional] <p>This is a flag for enabling Mock Mode.
+     *                             This defaults to <b>FALSE</b>.</p>
+     * @param array|string $m      [optional] <p>The files (or file) to use in Mock Mode.</p>
+     * @param string       $config [optional] <p>An alternate config file to set. Used for testing.</p>
      */
     public function __construct($s, $mock = false, $m = null)
     {
@@ -56,15 +57,17 @@ class AmazonFulfillmentOrderList extends AmazonOutboundCore implements \Iterator
     }
 
     /**
-     * Sets the start time. (Optional)
+     * Sets the start time. (Optional).
      *
      * This method sets the earliest time frame to be sent in the next request.
      * If this parameter is set, Amazon will only return fulfillment orders that
      * were last updated after the time set. If this parameter is not set, Amazon
      * will only return orders that were updated in the past 36 hours.
      * The parameter is passed through <i>strtotime</i>, so values such as "-1 hour" are fine.
+     *
      * @param string $s <p>Time string.</p>
-     * @return boolean <b>FALSE</b> if improper input
+     *
+     * @return bool <b>FALSE</b> if improper input
      */
     public function setStartTime($s)
     {
@@ -77,7 +80,7 @@ class AmazonFulfillmentOrderList extends AmazonOutboundCore implements \Iterator
     }
 
     /**
-     * Sets the fulfillment method filter. (Optional)
+     * Sets the fulfillment method filter. (Optional).
      *
      * This method sets the Fulfillment Method to be sent in the next request.
      * If this parameter is set, Amazon will return fulfillment orders using the given method.
@@ -88,8 +91,10 @@ class AmazonFulfillmentOrderList extends AmazonOutboundCore implements \Iterator
      * <li><b>Consumer</b> - customer order</li>
      * <li><b>Removal</b> - inventory will be returned to the given address</li>
      * </ul>
+     *
      * @param string $s <p>"Consumer" or "Removal"</p>
-     * @return boolean <b>FALSE</b> if improper input
+     *
+     * @return bool <b>FALSE</b> if improper input
      */
     public function setMethodFilter($s)
     {
@@ -102,7 +107,8 @@ class AmazonFulfillmentOrderList extends AmazonOutboundCore implements \Iterator
 
     /**
      * Returns whether or not a token is available.
-     * @return boolean
+     *
+     * @return bool
      */
     public function hasToken()
     {
@@ -116,8 +122,10 @@ class AmazonFulfillmentOrderList extends AmazonOutboundCore implements \Iterator
      * the necessary operations to retrieve the rest of the list using tokens. If
      * this option is off, the object will only ever retrieve the first section of
      * the list.
-     * @param boolean $b [optional] <p>Defaults to <b>TRUE</b></p>
-     * @return boolean <b>FALSE</b> if improper input
+     *
+     * @param bool $b [optional] <p>Defaults to <b>TRUE</b></p>
+     *
+     * @return bool <b>FALSE</b> if improper input
      */
     public function setUseToken($b = true)
     {
@@ -134,24 +142,25 @@ class AmazonFulfillmentOrderList extends AmazonOutboundCore implements \Iterator
      * Submits a <i>ListAllFulfillmentOrders</i> request to Amazon. Amazon will send
      * the list back as a response, which can be retrieved using <i>getOrder</i>.
      * This operation can potentially involve tokens.
-     * @param boolean <p>When set to <b>FALSE</b>, the function will not recurse, defaults to <b>TRUE</b></p>
-     * @return boolean <b>FALSE</b> if something goes wrong
+     *
+     * @param bool <p>When set to <b>FALSE</b>, the function will not recurse, defaults to <b>TRUE</b></p>
+     *
+     * @return bool <b>FALSE</b> if something goes wrong
      */
     public function fetchOrderList($r = true)
     {
         $this->prepareToken();
 
-
-        $url = $this->urlbase . $this->urlbranch;
+        $url = $this->urlbase.$this->urlbranch;
 
         $query = $this->genQuery();
 
-        $path = $this->options['Action'] . 'Result';
+        $path = $this->options['Action'].'Result';
 
         if ($this->mockMode) {
             $xml = $this->fetchMockFile()->$path;
         } else {
-            $response = $this->sendRequest($url, array('Post' => $query));
+            $response = $this->sendRequest($url, ['Post' => $query]);
 
             if (!$this->checkResponse($response)) {
                 return false;
@@ -166,12 +175,10 @@ class AmazonFulfillmentOrderList extends AmazonOutboundCore implements \Iterator
 
         if ($this->tokenFlag && $this->tokenUseFlag && $r === true) {
             while ($this->tokenFlag) {
-                $this->log("Recursively fetching more Orders");
+                $this->log('Recursively fetching more Orders');
                 $this->fetchOrderList(false);
             }
-
         }
-
     }
 
     /**
@@ -191,7 +198,7 @@ class AmazonFulfillmentOrderList extends AmazonOutboundCore implements \Iterator
         } else {
             $this->options['Action'] = 'ListAllFulfillmentOrders';
             unset($this->options['NextToken']);
-            $this->orderList = array();
+            $this->orderList = [];
             $this->index = 0;
         }
     }
@@ -200,8 +207,10 @@ class AmazonFulfillmentOrderList extends AmazonOutboundCore implements \Iterator
      * Parses XML response into array.
      *
      * This is what reads the response XML and converts it into an array.
+     *
      * @param SimpleXMLObject $xml <p>The XML response from Amazon.</p>
-     * @return boolean <b>FALSE</b> if no XML data is found
+     *
+     * @return bool <b>FALSE</b> if no XML data is found
      */
     protected function parseXML($xml)
     {
@@ -210,46 +219,46 @@ class AmazonFulfillmentOrderList extends AmazonOutboundCore implements \Iterator
         }
         foreach ($xml->children() as $x) {
             $i = $this->index;
-            $this->orderList[$i]['SellerFulfillmentOrderId'] = (string)$x->SellerFulfillmentOrderId;
-            $this->orderList[$i]['DisplayableOrderId'] = (string)$x->DisplayableOrderId;
-            $this->orderList[$i]['DisplayableOrderDateTime'] = (string)$x->DisplayableOrderDateTime;
-            $this->orderList[$i]['DisplayableOrderComment'] = (string)$x->DisplayableOrderComment;
-            $this->orderList[$i]['ShippingSpeedCategory'] = (string)$x->ShippingSpeedCategory;
+            $this->orderList[$i]['SellerFulfillmentOrderId'] = (string) $x->SellerFulfillmentOrderId;
+            $this->orderList[$i]['DisplayableOrderId'] = (string) $x->DisplayableOrderId;
+            $this->orderList[$i]['DisplayableOrderDateTime'] = (string) $x->DisplayableOrderDateTime;
+            $this->orderList[$i]['DisplayableOrderComment'] = (string) $x->DisplayableOrderComment;
+            $this->orderList[$i]['ShippingSpeedCategory'] = (string) $x->ShippingSpeedCategory;
             if (isset($x->DestinationAddress)) {
-                $this->orderList[$i]['DestinationAddress']['Name'] = (string)$x->DestinationAddress->Name;
-                $this->orderList[$i]['DestinationAddress']['Line1'] = (string)$x->DestinationAddress->Line1;
+                $this->orderList[$i]['DestinationAddress']['Name'] = (string) $x->DestinationAddress->Name;
+                $this->orderList[$i]['DestinationAddress']['Line1'] = (string) $x->DestinationAddress->Line1;
                 if (isset($x->DestinationAddress->Line2)) {
-                    $this->orderList[$i]['DestinationAddress']['Line2'] = (string)$x->DestinationAddress->Line2;
+                    $this->orderList[$i]['DestinationAddress']['Line2'] = (string) $x->DestinationAddress->Line2;
                 }
                 if (isset($x->DestinationAddress->Line3)) {
-                    $this->orderList[$i]['DestinationAddress']['Line3'] = (string)$x->DestinationAddress->Line3;
+                    $this->orderList[$i]['DestinationAddress']['Line3'] = (string) $x->DestinationAddress->Line3;
                 }
                 if (isset($x->DestinationAddress->DistrictOrCounty)) {
-                    $this->orderList[$i]['DestinationAddress']['DistrictOrCounty'] = (string)$x->DestinationAddress->DistrictOrCounty;
+                    $this->orderList[$i]['DestinationAddress']['DistrictOrCounty'] = (string) $x->DestinationAddress->DistrictOrCounty;
                 }
-                $this->orderList[$i]['DestinationAddress']['City'] = (string)$x->DestinationAddress->City;
-                $this->orderList[$i]['DestinationAddress']['StateOrProvinceCode'] = (string)$x->DestinationAddress->StateOrProvinceCode;
-                $this->orderList[$i]['DestinationAddress']['CountryCode'] = (string)$x->DestinationAddress->CountryCode;
+                $this->orderList[$i]['DestinationAddress']['City'] = (string) $x->DestinationAddress->City;
+                $this->orderList[$i]['DestinationAddress']['StateOrProvinceCode'] = (string) $x->DestinationAddress->StateOrProvinceCode;
+                $this->orderList[$i]['DestinationAddress']['CountryCode'] = (string) $x->DestinationAddress->CountryCode;
                 if (isset($x->DestinationAddress->PostalCode)) {
-                    $this->orderList[$i]['DestinationAddress']['PostalCode'] = (string)$x->DestinationAddress->PostalCode;
+                    $this->orderList[$i]['DestinationAddress']['PostalCode'] = (string) $x->DestinationAddress->PostalCode;
                 }
                 if (isset($x->DestinationAddress->PhoneNumber)) {
-                    $this->orderList[$i]['DestinationAddress']['PhoneNumber'] = (string)$x->DestinationAddress->PhoneNumber;
+                    $this->orderList[$i]['DestinationAddress']['PhoneNumber'] = (string) $x->DestinationAddress->PhoneNumber;
                 }
             }
             if (isset($x->FulfillmentPolicy)) {
-                $this->orderList[$i]['FulfillmentPolicy'] = (string)$x->FulfillmentPolicy;
+                $this->orderList[$i]['FulfillmentPolicy'] = (string) $x->FulfillmentPolicy;
             }
             if (isset($x->FulfillmentMethod)) {
-                $this->orderList[$i]['FulfillmentPolicy'] = (string)$x->FulfillmentMethod;
+                $this->orderList[$i]['FulfillmentPolicy'] = (string) $x->FulfillmentMethod;
             }
-            $this->orderList[$i]['ReceivedDateTime'] = (string)$x->ReceivedDateTime;
-            $this->orderList[$i]['FulfillmentOrderStatus'] = (string)$x->FulfillmentOrderStatus;
-            $this->orderList[$i]['StatusUpdatedDateTime'] = (string)$x->StatusUpdatedDateTime;
+            $this->orderList[$i]['ReceivedDateTime'] = (string) $x->ReceivedDateTime;
+            $this->orderList[$i]['FulfillmentOrderStatus'] = (string) $x->FulfillmentOrderStatus;
+            $this->orderList[$i]['StatusUpdatedDateTime'] = (string) $x->StatusUpdatedDateTime;
             if (isset($x->NotificationEmailList)) {
                 $j = 0;
                 foreach ($x->NotificationEmailList->children() as $y) {
-                    $this->orderList[$i]['NotificationEmailList'][$j++] = (string)$y;
+                    $this->orderList[$i]['NotificationEmailList'][$j++] = (string) $y;
                 }
             }
             $this->index++;
@@ -257,19 +266,20 @@ class AmazonFulfillmentOrderList extends AmazonOutboundCore implements \Iterator
     }
 
     /**
-     * Creates a list of full order objects from the list. (Warning: could take a while.)
+     * Creates a list of full order objects from the list. (Warning: could take a while.).
      *
      * This method automatically creates an array of <i>AmazonFulfillmentOrder</i> objects
      * and fetches all of their full information from Amazon. Because of throttling, this
      * could take a while if the list has more than a few orders.
-     * @return array|boolean array of <i>AmazonFulfillmentOrder</i> objects, or <b>FALSE</b> if list not filled yet
+     *
+     * @return array|bool array of <i>AmazonFulfillmentOrder</i> objects, or <b>FALSE</b> if list not filled yet
      */
     public function getFullList()
     {
         if (!isset($this->orderList)) {
             return false;
         }
-        $list = array();
+        $list = [];
         $i = 0;
         foreach ($this->orderList as $x) {
             $list[$i] = new AmazonFulfillmentOrder($this->storeName, $x['SellerFulfillmentOrderId'], $this->mockMode,
@@ -278,6 +288,7 @@ class AmazonFulfillmentOrderList extends AmazonOutboundCore implements \Iterator
             $list[$i]->fetchOrder();
             $i++;
         }
+
         return $list;
     }
 
@@ -299,9 +310,11 @@ class AmazonFulfillmentOrderList extends AmazonOutboundCore implements \Iterator
      * <li><b>StatusUpdatedDateTime</b> - the time the status was last updated, in ISO 8601 date format</li>
      * <li><b>NotificationEmailList</b> (optional) - list of email addresses</li>
      * </ul>
+     *
      * @param int $i [optional] <p>List index to retrieve the value from.
-     * If none is given, the entire list will be returned. Defaults to NULL.</p>
-     * @return array|boolean array, multi-dimensional array, or <b>FALSE</b> if list not filled yet
+     *               If none is given, the entire list will be returned. Defaults to NULL.</p>
+     *
+     * @return array|bool array, multi-dimensional array, or <b>FALSE</b> if list not filled yet
      */
     public function getOrder($i = null)
     {
@@ -316,7 +329,8 @@ class AmazonFulfillmentOrderList extends AmazonOutboundCore implements \Iterator
     }
 
     /**
-     * Iterator function
+     * Iterator function.
+     *
      * @return type
      */
     public function current()
@@ -325,7 +339,7 @@ class AmazonFulfillmentOrderList extends AmazonOutboundCore implements \Iterator
     }
 
     /**
-     * Iterator function
+     * Iterator function.
      */
     public function rewind()
     {
@@ -333,7 +347,8 @@ class AmazonFulfillmentOrderList extends AmazonOutboundCore implements \Iterator
     }
 
     /**
-     * Iterator function
+     * Iterator function.
+     *
      * @return type
      */
     public function key()
@@ -342,7 +357,7 @@ class AmazonFulfillmentOrderList extends AmazonOutboundCore implements \Iterator
     }
 
     /**
-     * Iterator function
+     * Iterator function.
      */
     public function next()
     {
@@ -350,14 +365,12 @@ class AmazonFulfillmentOrderList extends AmazonOutboundCore implements \Iterator
     }
 
     /**
-     * Iterator function
+     * Iterator function.
+     *
      * @return type
      */
     public function valid()
     {
         return isset($this->orderList[$this->i]);
     }
-
 }
-
-?>

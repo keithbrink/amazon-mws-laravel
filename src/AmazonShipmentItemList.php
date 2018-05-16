@@ -1,8 +1,8 @@
-<?php namespace KeithBrink\AmazonMws;
+<?php
 
-use KeithBrink\AmazonMws\AmazonInboundCore;
+namespace KeithBrink\AmazonMws;
 
-/**
+/*
  * Copyright 2013 CPI Group, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -44,12 +44,13 @@ class AmazonShipmentItemList extends AmazonInboundCore implements \Iterator
      * on these parameters and common methods.
      * Please note that an extra parameter comes before the usual Mock Mode parameters,
      * so be careful when setting up the object.
-     * @param string $s <p>Name for the store you want to use.</p>
-     * @param string $id [optional] <p>The order ID to set for the object.</p>
-     * @param boolean $mock [optional] <p>This is a flag for enabling Mock Mode.
-     * This defaults to <b>FALSE</b>.</p>
-     * @param array|string $m [optional] <p>The files (or file) to use in Mock Mode.</p>
-     * @param string $config [optional] <p>An alternate config file to set. Used for testing.</p>
+     *
+     * @param string       $s      <p>Name for the store you want to use.</p>
+     * @param string       $id     [optional] <p>The order ID to set for the object.</p>
+     * @param bool         $mock   [optional] <p>This is a flag for enabling Mock Mode.
+     *                             This defaults to <b>FALSE</b>.</p>
+     * @param array|string $m      [optional] <p>The files (or file) to use in Mock Mode.</p>
+     * @param string       $config [optional] <p>An alternate config file to set. Used for testing.</p>
      */
     public function __construct($s, $id = null, $mock = false, $m = null)
     {
@@ -62,7 +63,8 @@ class AmazonShipmentItemList extends AmazonInboundCore implements \Iterator
 
     /**
      * Returns whether or not a token is available.
-     * @return boolean
+     *
+     * @return bool
      */
     public function hasToken()
     {
@@ -76,8 +78,10 @@ class AmazonShipmentItemList extends AmazonInboundCore implements \Iterator
      * the necessary operations to retrieve the rest of the list using tokens. If
      * this option is off, the object will only ever retrieve the first section of
      * the list.
-     * @param boolean $b [optional] <p>Defaults to <b>TRUE</b></p>
-     * @return boolean <b>FALSE</b> if improper input
+     *
+     * @param bool $b [optional] <p>Defaults to <b>TRUE</b></p>
+     *
+     * @return bool <b>FALSE</b> if improper input
      */
     public function setUseToken($b = true)
     {
@@ -90,12 +94,14 @@ class AmazonShipmentItemList extends AmazonInboundCore implements \Iterator
     }
 
     /**
-     * Sets the shipment ID. (Required)
+     * Sets the shipment ID. (Required).
      *
      * This method sets the shipment ID to be sent in the next request.
      * This parameter is required for fetching the shipment's items from Amazon.
+     *
      * @param string $n <p>Shipment ID</p>
-     * @return boolean <b>FALSE</b> if improper input
+     *
+     * @return bool <b>FALSE</b> if improper input
      */
     public function setShipmentId($s)
     {
@@ -107,11 +113,13 @@ class AmazonShipmentItemList extends AmazonInboundCore implements \Iterator
     }
 
     /**
-     * Sets the time frame filter for the shipment items fetched. (Optional)
+     * Sets the time frame filter for the shipment items fetched. (Optional).
      *
      * If no times are specified, times default to the current time.
+     *
      * @param dateTime $lower <p>Date the order was created after, is passed through strtotime</p>
      * @param dateTime $upper <p>Date the order was created before, is passed through strtotime</p>
+     *
      * @throws InvalidArgumentException
      */
     public function setTimeLimits($lower = null, $upper = null)
@@ -135,14 +143,12 @@ class AmazonShipmentItemList extends AmazonInboundCore implements \Iterator
                 isset($this->options['LastUpdatedBefore']) &&
                 $this->options['LastUpdatedAfter'] > $this->options['LastUpdatedBefore']
             ) {
-                $this->setTimeLimits($this->options['LastUpdatedBefore'] . ' - 1 second',
+                $this->setTimeLimits($this->options['LastUpdatedBefore'].' - 1 second',
                     $this->options['LastUpdatedBefore']);
             }
-
         } catch (Exception $e) {
             throw new InvalidArgumentException('Parameters should be timestamps.');
         }
-
     }
 
     /**
@@ -164,27 +170,30 @@ class AmazonShipmentItemList extends AmazonInboundCore implements \Iterator
      * the list back as a response, which can be retrieved using <i>getItems</i>.
      * Other methods are available for fetching specific values from the list.
      * This operation can potentially involve tokens.
-     * @param boolean <p>When set to <b>FALSE</b>, the function will not recurse, defaults to <b>TRUE</b></p>
-     * @return boolean <b>FALSE</b> if something goes wrong
+     *
+     * @param bool <p>When set to <b>FALSE</b>, the function will not recurse, defaults to <b>TRUE</b></p>
+     *
+     * @return bool <b>FALSE</b> if something goes wrong
      */
     public function fetchItems($r = true)
     {
         if (!array_key_exists('ShipmentId', $this->options)) {
-            $this->log("Shipment ID must be set before requesting items!", 'Warning');
+            $this->log('Shipment ID must be set before requesting items!', 'Warning');
+
             return false;
         }
 
         $this->prepareToken();
 
-        $url = $this->urlbase . $this->urlbranch;
+        $url = $this->urlbase.$this->urlbranch;
 
         $query = $this->genQuery();
 
-        $path = $this->options['Action'] . 'Result';
+        $path = $this->options['Action'].'Result';
         if ($this->mockMode) {
             $xml = $this->fetchMockFile()->$path;
         } else {
-            $response = $this->sendRequest($url, array('Post' => $query));
+            $response = $this->sendRequest($url, ['Post' => $query]);
 
             if (!$this->checkResponse($response)) {
                 return false;
@@ -199,13 +208,10 @@ class AmazonShipmentItemList extends AmazonInboundCore implements \Iterator
 
         if ($this->tokenFlag && $this->tokenUseFlag && $r === true) {
             while ($this->tokenFlag) {
-                $this->log("Recursively fetching more shipment items");
+                $this->log('Recursively fetching more shipment items');
                 $this->fetchItems(false);
             }
-
         }
-
-
     }
 
     /**
@@ -224,7 +230,7 @@ class AmazonShipmentItemList extends AmazonInboundCore implements \Iterator
             unset($this->options['NextToken']);
             $this->options['Action'] = 'ListInboundShipmentItems';
             $this->index = 0;
-            $this->itemList = array();
+            $this->itemList = [];
         }
     }
 
@@ -232,30 +238,31 @@ class AmazonShipmentItemList extends AmazonInboundCore implements \Iterator
      * Parses XML response into array.
      *
      * This is what reads the response XML and converts it into an array.
+     *
      * @param SimpleXMLObject $xml <p>The XML response from Amazon.</p>
-     * @return boolean <b>FALSE</b> if no XML data is found
+     *
+     * @return bool <b>FALSE</b> if no XML data is found
      */
     protected function parseXML($xml)
     {
         if (!$xml) {
             return false;
         }
-        $a = array();
+        $a = [];
         foreach ($xml->ItemData->children() as $x) {
-
             if (isset($x->ShipmentId)) {
-                $a['ShipmentId'] = (string)$x->ShipmentId;
+                $a['ShipmentId'] = (string) $x->ShipmentId;
             }
-            $a['SellerSKU'] = (string)$x->SellerSKU;
+            $a['SellerSKU'] = (string) $x->SellerSKU;
             if (isset($x->FulfillmentNetworkSKU)) {
-                $a['FulfillmentNetworkSKU'] = (string)$x->FulfillmentNetworkSKU;
+                $a['FulfillmentNetworkSKU'] = (string) $x->FulfillmentNetworkSKU;
             }
-            $a['QuantityShipped'] = (string)$x->QuantityShipped;
+            $a['QuantityShipped'] = (string) $x->QuantityShipped;
             if (isset($x->QuantityReceived)) {
-                $a['QuantityReceived'] = (string)$x->QuantityReceived;
+                $a['QuantityReceived'] = (string) $x->QuantityReceived;
             }
             if (isset($x->QuantityInCase)) {
-                $a['QuantityInCase'] = (string)$x->QuantityInCase;
+                $a['QuantityInCase'] = (string) $x->QuantityInCase;
             }
 
             $this->itemList[$this->index] = $a;
@@ -267,8 +274,10 @@ class AmazonShipmentItemList extends AmazonInboundCore implements \Iterator
      * Returns the shipment ID for the specified entry.
      *
      * This method will return <b>FALSE</b> if the list has not yet been filled.
+     *
      * @param int $i [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
-     * @return string|boolean single value, or <b>FALSE</b> if Non-numeric index
+     *
+     * @return string|bool single value, or <b>FALSE</b> if Non-numeric index
      */
     public function getShipmentId($i = 0)
     {
@@ -286,8 +295,10 @@ class AmazonShipmentItemList extends AmazonInboundCore implements \Iterator
      * Returns the seller SKU for the specified entry.
      *
      * This method will return <b>FALSE</b> if the list has not yet been filled.
+     *
      * @param int $i [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
-     * @return string|boolean single value, or <b>FALSE</b> if Non-numeric index
+     *
+     * @return string|bool single value, or <b>FALSE</b> if Non-numeric index
      */
     public function getSellerSKU($i = 0)
     {
@@ -305,8 +316,10 @@ class AmazonShipmentItemList extends AmazonInboundCore implements \Iterator
      * Returns the Fulfillment Network SKU for the specified entry.
      *
      * This method will return <b>FALSE</b> if the list has not yet been filled.
+     *
      * @param int $i [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
-     * @return string|boolean single value, or <b>FALSE</b> if Non-numeric index
+     *
+     * @return string|bool single value, or <b>FALSE</b> if Non-numeric index
      */
     public function getFulfillmentNetworkSKU($i = 0)
     {
@@ -324,8 +337,10 @@ class AmazonShipmentItemList extends AmazonInboundCore implements \Iterator
      * Returns the quantity shipped for the specified entry.
      *
      * This method will return <b>FALSE</b> if the list has not yet been filled.
+     *
      * @param int $i [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
-     * @return string|boolean single value, or <b>FALSE</b> if Non-numeric index
+     *
+     * @return string|bool single value, or <b>FALSE</b> if Non-numeric index
      */
     public function getQuantityShipped($i = 0)
     {
@@ -343,8 +358,10 @@ class AmazonShipmentItemList extends AmazonInboundCore implements \Iterator
      * Returns the quantity received for the specified entry.
      *
      * This method will return <b>FALSE</b> if the list has not yet been filled.
+     *
      * @param int $i [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
-     * @return string|boolean single value, or <b>FALSE</b> if Non-numeric index
+     *
+     * @return string|bool single value, or <b>FALSE</b> if Non-numeric index
      */
     public function getQuantityReceived($i = 0)
     {
@@ -362,8 +379,10 @@ class AmazonShipmentItemList extends AmazonInboundCore implements \Iterator
      * Returns the quantity in cases for the specified entry.
      *
      * This method will return <b>FALSE</b> if the list has not yet been filled.
+     *
      * @param int $i [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
-     * @return string|boolean single value, or <b>FALSE</b> if Non-numeric index
+     *
+     * @return string|bool single value, or <b>FALSE</b> if Non-numeric index
      */
     public function getQuantityInCase($i = 0)
     {
@@ -390,8 +409,10 @@ class AmazonShipmentItemList extends AmazonInboundCore implements \Iterator
      * <li><b>QuantityReceived</b></li>
      * <li><b>QuantityInCase</b></li>
      * </ul>
+     *
      * @param int $i [optional] <p>List index of the item to return. Defaults to NULL.</p>
-     * @return array|boolean multi-dimensional array, or <b>FALSE</b> if list not filled yet
+     *
+     * @return array|bool multi-dimensional array, or <b>FALSE</b> if list not filled yet
      */
     public function getItems($i = null)
     {
@@ -406,7 +427,8 @@ class AmazonShipmentItemList extends AmazonInboundCore implements \Iterator
     }
 
     /**
-     * Iterator function
+     * Iterator function.
+     *
      * @return type
      */
     public function current()
@@ -415,7 +437,7 @@ class AmazonShipmentItemList extends AmazonInboundCore implements \Iterator
     }
 
     /**
-     * Iterator function
+     * Iterator function.
      */
     public function rewind()
     {
@@ -423,7 +445,8 @@ class AmazonShipmentItemList extends AmazonInboundCore implements \Iterator
     }
 
     /**
-     * Iterator function
+     * Iterator function.
+     *
      * @return type
      */
     public function key()
@@ -432,7 +455,7 @@ class AmazonShipmentItemList extends AmazonInboundCore implements \Iterator
     }
 
     /**
-     * Iterator function
+     * Iterator function.
      */
     public function next()
     {
@@ -440,7 +463,8 @@ class AmazonShipmentItemList extends AmazonInboundCore implements \Iterator
     }
 
     /**
-     * Iterator function
+     * Iterator function.
+     *
      * @return type
      */
     public function valid()
@@ -448,5 +472,3 @@ class AmazonShipmentItemList extends AmazonInboundCore implements \Iterator
         return isset($this->itemList[$this->i]);
     }
 }
-
-?>
