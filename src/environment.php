@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2013 CPI Group, LLC
+ * Copyright 2013 CPI Group, LLC.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  *
@@ -84,5 +84,3 @@ $THROTTLE_TIME_FEEDLIST = 45;
 //Getting a Feed
 $THROTTLE_LIMIT_FEEDRESULT = 15;
 $THROTTLE_TIME_FEEDRESULT = 60;
-
-?>

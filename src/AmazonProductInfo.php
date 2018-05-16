@@ -1,9 +1,9 @@
-<?php namespace KeithBrink\AmazonMws;
+<?php
 
-use KeithBrink\AmazonMws\AmazonProductsCore;
+namespace KeithBrink\AmazonMws;
 
 /**
- * Copyright 2013 CPI Group, LLC
+ * Copyright 2013 CPI Group, LLC.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  *
@@ -30,19 +30,18 @@ use KeithBrink\AmazonMws\AmazonProductsCore;
  */
 class AmazonProductInfo extends AmazonProductsCore
 {
-
-
     /**
      * AmazonProductInfo fetches a list of info from Amazon.
      *
      * The parameters are passed to the parent constructor, which are
      * in turn passed to the AmazonCore constructor. See it for more information
      * on these parameters and common methods.
-     * @param string $s <p>Name for the store you want to use.</p>
-     * @param boolean $mock [optional] <p>This is a flag for enabling Mock Mode.
-     * This defaults to <b>FALSE</b>.</p>
-     * @param array|string $m [optional] <p>The files (or file) to use in Mock Mode.</p>
-     * @param string $config [optional] <p>An alternate config file to set. Used for testing.</p>
+     *
+     * @param string       $s      <p>Name for the store you want to use.</p>
+     * @param bool         $mock   [optional] <p>This is a flag for enabling Mock Mode.
+     *                             This defaults to <b>FALSE</b>.</p>
+     * @param array|string $m      [optional] <p>The files (or file) to use in Mock Mode.</p>
+     * @param string       $config [optional] <p>An alternate config file to set. Used for testing.</p>
      */
     public function __construct($s, $mock = false, $m = null)
     {
@@ -50,13 +49,15 @@ class AmazonProductInfo extends AmazonProductsCore
     }
 
     /**
-     * Sets the feed seller SKU(s). (Required*)
+     * Sets the feed seller SKU(s). (Required*).
      *
      * This method sets the list of seller SKUs to be sent in the next request.
      * Setting this parameter tells Amazon to only return inventory supplies that match
      * the IDs in the list. If this parameter is set, ASINs cannot be set.
+     *
      * @param array|string $s <p>A list of Seller SKUs, or a single SKU string. (max: 20)</p>
-     * @return boolean <b>FALSE</b> if improper input
+     *
+     * @return bool <b>FALSE</b> if improper input
      */
     public function setSKUs($s)
     {
@@ -70,7 +71,7 @@ class AmazonProductInfo extends AmazonProductsCore
                 $this->resetSKUs();
                 $i = 1;
                 foreach ($s as $x) {
-                    $this->options['SellerSKUList.SellerSKU.' . $i] = $x;
+                    $this->options['SellerSKUList.SellerSKU.'.$i] = $x;
                     $i++;
                 }
             } else {
@@ -88,20 +89,22 @@ class AmazonProductInfo extends AmazonProductsCore
     private function resetSKUs()
     {
         foreach ($this->options as $op => $junk) {
-            if (preg_match("#SellerSKUList#", $op)) {
+            if (preg_match('#SellerSKUList#', $op)) {
                 unset($this->options[$op]);
             }
         }
     }
 
     /**
-     * Sets the ASIN(s). (Required*)
+     * Sets the ASIN(s). (Required*).
      *
      * This method sets the list of ASINs to be sent in the next request.
      * Setting this parameter tells Amazon to only return inventory supplies that match
      * the IDs in the list. If this parameter is set, Seller SKUs cannot be set.
+     *
      * @param array|string $s <p>A list of ASINs, or a single ASIN string. (max: 20)</p>
-     * @return boolean <b>FALSE</b> if improper input
+     *
+     * @return bool <b>FALSE</b> if improper input
      */
     public function setASINs($s)
     {
@@ -115,7 +118,7 @@ class AmazonProductInfo extends AmazonProductsCore
                 $this->resetASINs();
                 $i = 1;
                 foreach ($s as $x) {
-                    $this->options['ASINList.ASIN.' . $i] = $x;
+                    $this->options['ASINList.ASIN.'.$i] = $x;
                     $i++;
                 }
             } else {
@@ -133,20 +136,22 @@ class AmazonProductInfo extends AmazonProductsCore
     private function resetASINs()
     {
         foreach ($this->options as $op => $junk) {
-            if (preg_match("#ASINList#", $op)) {
+            if (preg_match('#ASINList#', $op)) {
                 unset($this->options[$op]);
             }
         }
     }
 
     /**
-     * Sets the item condition filter. (Optional)
+     * Sets the item condition filter. (Optional).
      *
      * This method sets the item condition filter to be sent in the next request.
      * Setting this parameter tells Amazon to only return products with conditions that match
      * the one given. If this parameter is not set, Amazon will return products with any condition.
+     *
      * @param string $s <p>Single condition string.</p>
-     * @return boolean <b>FALSE</b> if improper input
+     *
+     * @return bool <b>FALSE</b> if improper input
      */
     public function setConditionFilter($s)
     {
@@ -158,11 +163,13 @@ class AmazonProductInfo extends AmazonProductsCore
     }
 
     /**
-     * Sets the "ExcludeSelf" flag. (Optional)
+     * Sets the "ExcludeSelf" flag. (Optional).
      *
      * Sets whether or not the next Lowest Offer Listings request should exclude your own listings.
-     * @param string|boolean $s <p>"true" or "false", or boolean</p>
-     * @return boolean <b>FALSE</b> if improper input
+     *
+     * @param string|bool $s <p>"true" or "false", or boolean</p>
+     *
+     * @return bool <b>FALSE</b> if improper input
      */
     public function setExcludeSelf($s = 'true')
     {
@@ -183,27 +190,29 @@ class AmazonProductInfo extends AmazonProductsCore
      * Submits a <i>GetCompetitivePricingForSKU</i>
      * or <i>GetCompetitivePricingForASIN</i> request to Amazon. Amazon will send
      * the list back as a response, which can be retrieved using <i>getProduct</i>.
-     * @return boolean <b>FALSE</b> if something goes wrong
+     *
+     * @return bool <b>FALSE</b> if something goes wrong
      */
     public function fetchCompetitivePricing()
     {
         if (!array_key_exists('SellerSKUList.SellerSKU.1', $this->options) && !array_key_exists('ASINList.ASIN.1',
                 $this->options)
         ) {
-            $this->log("Product IDs must be set in order to look them up!", 'Warning');
+            $this->log('Product IDs must be set in order to look them up!', 'Warning');
+
             return false;
         }
 
         $this->prepareCompetitive();
 
-        $url = $this->urlbase . $this->urlbranch;
+        $url = $this->urlbase.$this->urlbranch;
 
         $query = $this->genQuery();
 
         if ($this->mockMode) {
             $xml = $this->fetchMockFile();
         } else {
-            $response = $this->sendRequest($url, array('Post' => $query));
+            $response = $this->sendRequest($url, ['Post' => $query]);
 
             if (!$this->checkResponse($response)) {
                 return false;
@@ -213,7 +222,6 @@ class AmazonProductInfo extends AmazonProductsCore
         }
 
         $this->parseXML($xml);
-
     }
 
     /**
@@ -226,7 +234,7 @@ class AmazonProductInfo extends AmazonProductsCore
      */
     protected function prepareCompetitive()
     {
-        include($this->env);
+        include $this->env;
         if (isset($THROTTLE_TIME_PRODUCTPRICE)) {
             $this->throttleTime = $THROTTLE_TIME_PRODUCTPRICE;
         }
@@ -250,27 +258,29 @@ class AmazonProductInfo extends AmazonProductsCore
      * Submits a <i>GetLowestOfferListingsForSKU</i>
      * or <i>GetLowestOfferListingsForASIN</i> request to Amazon. Amazon will send
      * the list back as a response, which can be retrieved using <i>getProduct</i>.
-     * @return boolean <b>FALSE</b> if something goes wrong
+     *
+     * @return bool <b>FALSE</b> if something goes wrong
      */
     public function fetchLowestOffer()
     {
         if (!array_key_exists('SellerSKUList.SellerSKU.1', $this->options) && !array_key_exists('ASINList.ASIN.1',
                 $this->options)
         ) {
-            $this->log("Product IDs must be set in order to look them up!", 'Warning');
+            $this->log('Product IDs must be set in order to look them up!', 'Warning');
+
             return false;
         }
 
         $this->prepareLowest();
 
-        $url = $this->urlbase . $this->urlbranch;
+        $url = $this->urlbase.$this->urlbranch;
 
         $query = $this->genQuery();
 
         if ($this->mockMode) {
             $xml = $this->fetchMockFile();
         } else {
-            $response = $this->sendRequest($url, array('Post' => $query));
+            $response = $this->sendRequest($url, ['Post' => $query]);
 
             if (!$this->checkResponse($response)) {
                 return false;
@@ -279,9 +289,7 @@ class AmazonProductInfo extends AmazonProductsCore
             $xml = simplexml_load_string($response['body']);
         }
 
-
         $this->parseXML($xml);
-
     }
 
     /**
@@ -291,7 +299,7 @@ class AmazonProductInfo extends AmazonProductsCore
      */
     protected function prepareLowest()
     {
-        include($this->env);
+        include $this->env;
         if (isset($THROTTLE_TIME_PRODUCTPRICE)) {
             $this->throttleTime = $THROTTLE_TIME_PRODUCTPRICE;
         }
@@ -313,27 +321,29 @@ class AmazonProductInfo extends AmazonProductsCore
      * Submits a <i>GetMyPriceForSKU</i>
      * or <i>GetMyPriceForASIN</i> request to Amazon. Amazon will send
      * the list back as a response, which can be retrieved using <i>getProduct</i>.
-     * @return boolean <b>FALSE</b> if something goes wrong
+     *
+     * @return bool <b>FALSE</b> if something goes wrong
      */
     public function fetchMyPrice()
     {
         if (!array_key_exists('SellerSKUList.SellerSKU.1', $this->options) && !array_key_exists('ASINList.ASIN.1',
                 $this->options)
         ) {
-            $this->log("Product IDs must be set in order to look them up!", 'Warning');
+            $this->log('Product IDs must be set in order to look them up!', 'Warning');
+
             return false;
         }
 
         $this->prepareMyPrice();
 
-        $url = $this->urlbase . $this->urlbranch;
+        $url = $this->urlbase.$this->urlbranch;
 
         $query = $this->genQuery();
 
         if ($this->mockMode) {
             $xml = $this->fetchMockFile();
         } else {
-            $response = $this->sendRequest($url, array('Post' => $query));
+            $response = $this->sendRequest($url, ['Post' => $query]);
 
             if (!$this->checkResponse($response)) {
                 return false;
@@ -342,9 +352,7 @@ class AmazonProductInfo extends AmazonProductsCore
             $xml = simplexml_load_string($response['body']);
         }
 
-
         $this->parseXML($xml);
-
     }
 
     /**
@@ -356,7 +364,7 @@ class AmazonProductInfo extends AmazonProductsCore
      */
     protected function prepareMyPrice()
     {
-        include($this->env);
+        include $this->env;
         if (isset($THROTTLE_TIME_PRODUCTPRICE)) {
             $this->throttleTime = $THROTTLE_TIME_PRODUCTPRICE;
         }
@@ -379,27 +387,29 @@ class AmazonProductInfo extends AmazonProductsCore
      * Submits a <i>GetProductCategoriesForSKU</i>
      * or <i>GetProductCategoriesForASIN</i> request to Amazon. Amazon will send
      * the list back as a response, which can be retrieved using <i>getProduct</i>.
-     * @return boolean <b>FALSE</b> if something goes wrong
+     *
+     * @return bool <b>FALSE</b> if something goes wrong
      */
     public function fetchCategories()
     {
         if (!array_key_exists('SellerSKUList.SellerSKU.1', $this->options) && !array_key_exists('ASINList.ASIN.1',
                 $this->options)
         ) {
-            $this->log("Product IDs must be set in order to look them up!", 'Warning');
+            $this->log('Product IDs must be set in order to look them up!', 'Warning');
+
             return false;
         }
 
         $this->prepareCategories();
 
-        $url = $this->urlbase . $this->urlbranch;
+        $url = $this->urlbase.$this->urlbranch;
 
         $query = $this->genQuery();
 
         if ($this->mockMode) {
             $xml = $this->fetchMockFile();
         } else {
-            $response = $this->sendRequest($url, array('Post' => $query));
+            $response = $this->sendRequest($url, ['Post' => $query]);
 
             if (!$this->checkResponse($response)) {
                 return false;
@@ -409,7 +419,6 @@ class AmazonProductInfo extends AmazonProductsCore
         }
 
         $this->parseXML($xml);
-
     }
 
     /**
@@ -422,7 +431,7 @@ class AmazonProductInfo extends AmazonProductsCore
      */
     protected function prepareCategories()
     {
-        include($this->env);
+        include $this->env;
         if (isset($THROTTLE_TIME_PRODUCTLIST)) {
             $this->throttleTime = $THROTTLE_TIME_PRODUCTLIST;
         }
@@ -439,7 +448,4 @@ class AmazonProductInfo extends AmazonProductsCore
             }
         }
     }
-
 }
-
-?>

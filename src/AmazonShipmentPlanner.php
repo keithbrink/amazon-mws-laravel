@@ -1,8 +1,8 @@
-<?php namespace KeithBrink\AmazonMws;
+<?php
 
-use KeithBrink\AmazonMws\AmazonInboundCore;
+namespace KeithBrink\AmazonMws;
 
-/**
+/*
  * Copyright 2013 CPI Group, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -38,11 +38,12 @@ class AmazonShipmentPlanner extends AmazonInboundCore implements \Iterator
      * The parameters are passed to the parent constructor, which are
      * in turn passed to the AmazonCore constructor. See it for more information
      * on these parameters and common methods.
-     * @param string $s <p>Name for the store you want to use.</p>
-     * @param boolean $mock [optional] <p>This is a flag for enabling Mock Mode.
-     * This defaults to <b>FALSE</b>.</p>
-     * @param array|string $m [optional] <p>The files (or file) to use in Mock Mode.</p>
-     * @param string $config [optional] <p>An alternate config file to set. Used for testing.</p>
+     *
+     * @param string       $s      <p>Name for the store you want to use.</p>
+     * @param bool         $mock   [optional] <p>This is a flag for enabling Mock Mode.
+     *                             This defaults to <b>FALSE</b>.</p>
+     * @param array|string $m      [optional] <p>The files (or file) to use in Mock Mode.</p>
+     * @param string       $config [optional] <p>An alternate config file to set. Used for testing.</p>
      */
     public function __construct($s, $mock = false, $m = null)
     {
@@ -52,7 +53,7 @@ class AmazonShipmentPlanner extends AmazonInboundCore implements \Iterator
     }
 
     /**
-     * Sets the address. (Required)
+     * Sets the address. (Required).
      *
      * This method sets the destination address to be sent in the next request.
      * This parameter is required for planning a fulfillment order with Amazon.
@@ -67,13 +68,16 @@ class AmazonShipmentPlanner extends AmazonInboundCore implements \Iterator
      * <li><b>CountryCode</b> - 2 digits</li>
      * <li><b>PostalCode</b> (recommended) - max: 30 char</li>
      * </ul>
+     *
      * @param array $a <p>See above.</p>
-     * @return boolean <b>FALSE</b> if improper input
+     *
+     * @return bool <b>FALSE</b> if improper input
      */
     public function setAddress($a)
     {
         if (!$a || is_null($a) || is_string($a)) {
-            $this->log("Tried to set address to invalid values", 'Warning');
+            $this->log('Tried to set address to invalid values', 'Warning');
+
             return false;
         }
         $this->resetAddress();
@@ -93,8 +97,6 @@ class AmazonShipmentPlanner extends AmazonInboundCore implements \Iterator
         if (array_key_exists('PostalCode', $a)) {
             $this->options['ShipFromAddress.PostalCode'] = $a['PostalCode'];
         }
-
-
     }
 
     /**
@@ -116,11 +118,13 @@ class AmazonShipmentPlanner extends AmazonInboundCore implements \Iterator
     }
 
     /**
-     * Sets the labeling preference. (Optional)
+     * Sets the labeling preference. (Optional).
      *
      * If this parameter is not set, Amazon will assume SELLER_LABEL.
+     *
      * @param string $s <p>"SELLER_LABEL", "AMAZON_LABEL_ONLY", "AMAZON_LABEL_PREFERRED"</p>
-     * @return boolean <b>FALSE</b> if improper input
+     *
+     * @return bool <b>FALSE</b> if improper input
      */
     public function setLabelPreference($s)
     {
@@ -136,7 +140,7 @@ class AmazonShipmentPlanner extends AmazonInboundCore implements \Iterator
     }
 
     /**
-     * Sets the items. (Required)
+     * Sets the items. (Required).
      *
      * This method sets the Fulfillment Order ID to be sent in the next request.
      * This parameter is required for creating a fulfillment order with Amazon.
@@ -168,31 +172,35 @@ class AmazonShipmentPlanner extends AmazonInboundCore implements \Iterator
      * <li>Club</li>
      * </ul>
      * </ul>
+     *
      * @param array $a <p>See above.</p>
-     * @return boolean <b>FALSE</b> if improper input
+     *
+     * @return bool <b>FALSE</b> if improper input
      */
     public function setItems($a)
     {
         if (!$a || is_null($a) || is_string($a)) {
-            $this->log("Tried to set Items to invalid values", 'Warning');
+            $this->log('Tried to set Items to invalid values', 'Warning');
+
             return false;
         }
         $this->resetItems();
         $i = 1;
         foreach ($a as $x) {
             if (array_key_exists('SellerSKU', $x) && array_key_exists('Quantity', $x)) {
-                $this->options['InboundShipmentPlanRequestItems.member.' . $i . '.SellerSKU'] = $x['SellerSKU'];
-                $this->options['InboundShipmentPlanRequestItems.member.' . $i . '.Quantity'] = $x['Quantity'];
+                $this->options['InboundShipmentPlanRequestItems.member.'.$i.'.SellerSKU'] = $x['SellerSKU'];
+                $this->options['InboundShipmentPlanRequestItems.member.'.$i.'.Quantity'] = $x['Quantity'];
                 if (array_key_exists('QuantityInCase', $x)) {
-                    $this->options['InboundShipmentPlanRequestItems.member.' . $i . '.QuantityInCase'] = $x['QuantityInCase'];
+                    $this->options['InboundShipmentPlanRequestItems.member.'.$i.'.QuantityInCase'] = $x['QuantityInCase'];
                 }
                 if (array_key_exists('Condition', $x)) {
-                    $this->options['InboundShipmentPlanRequestItems.member.' . $i . '.Condition'] = $x['Condition'];
+                    $this->options['InboundShipmentPlanRequestItems.member.'.$i.'.Condition'] = $x['Condition'];
                 }
                 $i++;
             } else {
                 $this->resetItems();
-                $this->log("Tried to set Items with invalid array", 'Warning');
+                $this->log('Tried to set Items with invalid array', 'Warning');
+
                 return false;
             }
         }
@@ -207,7 +215,7 @@ class AmazonShipmentPlanner extends AmazonInboundCore implements \Iterator
     public function resetItems()
     {
         foreach ($this->options as $op => $junk) {
-            if (preg_match("#InboundShipmentPlanRequestItems#", $op)) {
+            if (preg_match('#InboundShipmentPlanRequestItems#', $op)) {
                 unset($this->options[$op]);
             }
         }
@@ -220,28 +228,31 @@ class AmazonShipmentPlanner extends AmazonInboundCore implements \Iterator
      * all required parameters must be set. Amazon will send back a list of Shipment Plans
      * as a response, which can be retrieved using <i>getPlan</i>.
      * Other methods are available for fetching specific values from the list.
-     * @return boolean <b>TRUE</b> if success, <b>FALSE</b> if something goes wrong
+     *
+     * @return bool <b>TRUE</b> if success, <b>FALSE</b> if something goes wrong
      */
     public function fetchPlan()
     {
         if (!array_key_exists('ShipFromAddress.Name', $this->options)) {
-            $this->log("Address must be set in order to make a plan", 'Warning');
+            $this->log('Address must be set in order to make a plan', 'Warning');
+
             return false;
         }
         if (!array_key_exists('InboundShipmentPlanRequestItems.member.1.SellerSKU', $this->options)) {
-            $this->log("Items must be set in order to make a plan", 'Warning');
+            $this->log('Items must be set in order to make a plan', 'Warning');
+
             return false;
         }
 
-        $url = $this->urlbase . $this->urlbranch;
+        $url = $this->urlbase.$this->urlbranch;
 
         $query = $this->genQuery();
 
-        $path = $this->options['Action'] . 'Result';
+        $path = $this->options['Action'].'Result';
         if ($this->mockMode) {
             $xml = $this->fetchMockFile()->$path->InboundShipmentPlans;
         } else {
-            $response = $this->sendRequest($url, array('Post' => $query));
+            $response = $this->sendRequest($url, ['Post' => $query]);
 
             if (!$this->checkResponse($response)) {
                 return false;
@@ -257,8 +268,10 @@ class AmazonShipmentPlanner extends AmazonInboundCore implements \Iterator
      * Parses XML response into array.
      *
      * This is what reads the response XML and converts it into an array.
+     *
      * @param SimpleXMLObject $xml <p>The XML response from Amazon.</p>
-     * @return boolean <b>FALSE</b> if no XML data is found
+     *
+     * @return bool <b>FALSE</b> if no XML data is found
      */
     protected function parseXML($xml)
     {
@@ -268,19 +281,17 @@ class AmazonShipmentPlanner extends AmazonInboundCore implements \Iterator
         $i = 0;
         foreach ($xml->children() as $x) {
             foreach ($x->ShipToAddress->children() as $y => $z) {
-                $this->planList[$i]['ShipToAddress'][$y] = (string)$z;
-
+                $this->planList[$i]['ShipToAddress'][$y] = (string) $z;
             }
-            $this->planList[$i]['ShipmentId'] = (string)$x->ShipmentId;
-            $this->planList[$i]['DestinationFulfillmentCenterId'] = (string)$x->DestinationFulfillmentCenterId;
-            $this->planList[$i]['LabelPrepType'] = (string)$x->LabelPrepType;
+            $this->planList[$i]['ShipmentId'] = (string) $x->ShipmentId;
+            $this->planList[$i]['DestinationFulfillmentCenterId'] = (string) $x->DestinationFulfillmentCenterId;
+            $this->planList[$i]['LabelPrepType'] = (string) $x->LabelPrepType;
             $j = 0;
             foreach ($x->Items->children() as $y => $z) {
-                $this->planList[$i]['Items'][$j]['SellerSKU'] = (string)$z->SellerSKU;
-                $this->planList[$i]['Items'][$j]['Quantity'] = (string)$z->Quantity;
-                $this->planList[$i]['Items'][$j]['FulfillmentNetworkSKU'] = (string)$z->FulfillmentNetworkSKU;
+                $this->planList[$i]['Items'][$j]['SellerSKU'] = (string) $z->SellerSKU;
+                $this->planList[$i]['Items'][$j]['Quantity'] = (string) $z->Quantity;
+                $this->planList[$i]['Items'][$j]['FulfillmentNetworkSKU'] = (string) $z->FulfillmentNetworkSKU;
                 $j++;
-
             }
             $i++;
         }
@@ -299,8 +310,10 @@ class AmazonShipmentPlanner extends AmazonInboundCore implements \Iterator
      * <li><b>LabelPrepType</b> - Label preparation required.</li>
      * <li><b>Items</b> - See <i>getItems</i> for details.</li>
      * </ul>
+     *
      * @param int $i [optional] <p>List index to retrieve the value from. Defaults to NULL.</p>
-     * @return array|boolean plan array, multi-dimensional array, or <b>FALSE</b> if invalid index
+     *
+     * @return array|bool plan array, multi-dimensional array, or <b>FALSE</b> if invalid index
      */
     public function getPlan($i = null)
     {
@@ -319,17 +332,19 @@ class AmazonShipmentPlanner extends AmazonInboundCore implements \Iterator
      * Returns an array of only the shipping IDs for convenient use.
      *
      * This method will return <b>FALSE</b> if the list has not yet been filled.
-     * @return array|boolean list of shipping IDs, or <b>FALSE</b> if list not fetched yet
+     *
+     * @return array|bool list of shipping IDs, or <b>FALSE</b> if list not fetched yet
      */
     public function getShipmentIdList()
     {
         if (!isset($this->planList)) {
             return false;
         }
-        $a = array();
+        $a = [];
         foreach ($this->planList as $x) {
             $a[] = $x['ShipmentId'];
         }
+
         return $a;
     }
 
@@ -337,8 +352,10 @@ class AmazonShipmentPlanner extends AmazonInboundCore implements \Iterator
      * Returns the shipment ID for the specified entry.
      *
      * This method will return <b>FALSE</b> if the list has not yet been filled.
+     *
      * @param int $i [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
-     * @return string|boolean single value, or <b>FALSE</b> if Non-numeric index
+     *
+     * @return string|bool single value, or <b>FALSE</b> if Non-numeric index
      */
     public function getShipmentId($i = 0)
     {
@@ -353,7 +370,8 @@ class AmazonShipmentPlanner extends AmazonInboundCore implements \Iterator
     }
 
     /**
-     * Iterator function
+     * Iterator function.
+     *
      * @return type
      */
     public function current()
@@ -362,7 +380,7 @@ class AmazonShipmentPlanner extends AmazonInboundCore implements \Iterator
     }
 
     /**
-     * Iterator function
+     * Iterator function.
      */
     public function rewind()
     {
@@ -370,7 +388,8 @@ class AmazonShipmentPlanner extends AmazonInboundCore implements \Iterator
     }
 
     /**
-     * Iterator function
+     * Iterator function.
+     *
      * @return type
      */
     public function key()
@@ -379,7 +398,7 @@ class AmazonShipmentPlanner extends AmazonInboundCore implements \Iterator
     }
 
     /**
-     * Iterator function
+     * Iterator function.
      */
     public function next()
     {
@@ -387,7 +406,8 @@ class AmazonShipmentPlanner extends AmazonInboundCore implements \Iterator
     }
 
     /**
-     * Iterator function
+     * Iterator function.
+     *
      * @return type
      */
     public function valid()
@@ -395,5 +415,3 @@ class AmazonShipmentPlanner extends AmazonInboundCore implements \Iterator
         return isset($this->planList[$this->i]);
     }
 }
-
-?>

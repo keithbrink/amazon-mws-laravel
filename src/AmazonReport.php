@@ -1,8 +1,8 @@
-<?php namespace KeithBrink\AmazonMws;
+<?php
 
-use KeithBrink\AmazonMws\AmazonReportsCore;
+namespace KeithBrink\AmazonMws;
 
-/**
+/*
  * Copyright 2013 CPI Group, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -21,7 +21,7 @@ use KeithBrink\AmazonMws\AmazonReportsCore;
 use Exception;
 
 /**
- * Fetches a report from Amazon
+ * Fetches a report from Amazon.
  *
  * This Amazon Reports Core object retrieves the results of a report from Amazon.
  * In order to do this, a report ID is required. The results of the report can
@@ -39,17 +39,18 @@ class AmazonReport extends AmazonReportsCore
      * on these parameters and common methods.
      * Please note that an extra parameter comes before the usual Mock Mode parameters,
      * so be careful when setting up the object.
-     * @param string $s <p>Name for the store you want to use.</p>
-     * @param string $id [optional] <p>The report ID to set for the object.</p>
-     * @param boolean $mock [optional] <p>This is a flag for enabling Mock Mode.
-     * This defaults to <b>FALSE</b>.</p>
-     * @param array|string $m [optional] <p>The files (or file) to use in Mock Mode.</p>
-     * @param string $config [optional] <p>An alternate config file to set. Used for testing.</p>
+     *
+     * @param string       $s      <p>Name for the store you want to use.</p>
+     * @param string       $id     [optional] <p>The report ID to set for the object.</p>
+     * @param bool         $mock   [optional] <p>This is a flag for enabling Mock Mode.
+     *                             This defaults to <b>FALSE</b>.</p>
+     * @param array|string $m      [optional] <p>The files (or file) to use in Mock Mode.</p>
+     * @param string       $config [optional] <p>An alternate config file to set. Used for testing.</p>
      */
     public function __construct($s, $id = null, $mock = false, $m = null)
     {
         parent::__construct($s, $mock, $m);
-        include($this->env);
+        include $this->env;
 
         if ($id) {
             $this->setReportId($id);
@@ -66,12 +67,14 @@ class AmazonReport extends AmazonReportsCore
     }
 
     /**
-     * Sets the report ID. (Required)
+     * Sets the report ID. (Required).
      *
      * This method sets the report ID to be sent in the next request.
      * This parameter is required for fetching the report from Amazon.
-     * @param string|integer $n <p>Must be numeric</p>
-     * @return boolean <b>FALSE</b> if improper input
+     *
+     * @param string|int $n <p>Must be numeric</p>
+     *
+     * @return bool <b>FALSE</b> if improper input
      */
     public function setReportId($n)
     {
@@ -88,24 +91,26 @@ class AmazonReport extends AmazonReportsCore
      * Submits a <i>GetReport</i> request to Amazon. In order to do this,
      * a report ID is required. Amazon will send
      * the data back as a response, which can be saved using <i>saveReport</i>.
-     * @return boolean <b>FALSE</b> if something goes wrong or content of report
-     * if successful
+     *
+     * @return bool <b>FALSE</b> if something goes wrong or content of report
+     *              if successful
      */
     public function fetchReport()
     {
         if (!array_key_exists('ReportId', $this->options)) {
-            $this->log("Report ID must be set in order to fetch it!", 'Warning');
+            $this->log('Report ID must be set in order to fetch it!', 'Warning');
+
             return false;
         }
 
-        $url = $this->urlbase . $this->urlbranch;
+        $url = $this->urlbase.$this->urlbranch;
 
         $query = $this->genQuery();
 
         if ($this->mockMode) {
             $this->rawreport = $this->fetchMockFile(false);
         } else {
-            $response = $this->sendRequest($url, array('Post' => $query));
+            $response = $this->sendRequest($url, ['Post' => $query]);
 
             if (!$this->checkResponse($response)) {
                 return false;
@@ -113,12 +118,13 @@ class AmazonReport extends AmazonReportsCore
 
             $this->rawreport = $response['body'];
         }
+
         return $this->rawreport;
     }
 
-
     /**
-     * Saves the raw report data to a path you specify
+     * Saves the raw report data to a path you specify.
+     *
      * @param string $path <p>filename to save the file in</p>
      */
     public function saveReport($path)
@@ -126,17 +132,16 @@ class AmazonReport extends AmazonReportsCore
         if (!isset($this->rawreport)) {
             return false;
         }
+
         try {
             file_put_contents($path, $this->rawreport);
-            $this->log("Successfully saved report #" . $this->options['ReportId'] . " at $path");
+            $this->log('Successfully saved report #'.$this->options['ReportId']." at $path");
+
             return true;
         } catch (Exception $e) {
-            $this->log("Unable to save report #" . $this->options['ReportId'] . " at $path: $e", 'Urgent');
+            $this->log('Unable to save report #'.$this->options['ReportId']." at $path: $e", 'Urgent');
         }
+
         return false;
     }
-
-
 }
-
-?>

@@ -1,8 +1,8 @@
-<?php namespace KeithBrink\AmazonMws;
+<?php
 
-use KeithBrink\AmazonMws\AmazonReportsCore;
+namespace KeithBrink\AmazonMws;
 
-/**
+/*
  * Copyright 2013 CPI Group, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -43,16 +43,17 @@ class AmazonReportScheduleManager extends AmazonReportsCore implements \Iterator
      * The parameters are passed to the parent constructor, which are
      * in turn passed to the AmazonCore constructor. See it for more information
      * on these parameters and common methods.
-     * @param string $s <p>Name for the store you want to use.</p>
-     * @param boolean $mock [optional] <p>This is a flag for enabling Mock Mode.
-     * This defaults to <b>FALSE</b>.</p>
-     * @param array|string $m [optional] <p>The files (or file) to use in Mock Mode.</p>
-     * @param string $config [optional] <p>An alternate config file to set. Used for testing.</p>
+     *
+     * @param string       $s      <p>Name for the store you want to use.</p>
+     * @param bool         $mock   [optional] <p>This is a flag for enabling Mock Mode.
+     *                             This defaults to <b>FALSE</b>.</p>
+     * @param array|string $m      [optional] <p>The files (or file) to use in Mock Mode.</p>
+     * @param string       $config [optional] <p>An alternate config file to set. Used for testing.</p>
      */
     public function __construct($s, $mock = false, $m = null)
     {
         parent::__construct($s, $mock, $m);
-        include($this->env);
+        include $this->env;
 
         $this->options['Action'] = 'ManageReportSchedule';
 
@@ -65,11 +66,13 @@ class AmazonReportScheduleManager extends AmazonReportsCore implements \Iterator
     }
 
     /**
-     * Sets the report type. (Optional)
+     * Sets the report type. (Optional).
      *
      * This method sets the report type to be sent in the next request.
+     *
      * @param string $s <p>See the comment inside for a list of valid values.</p>
-     * @return boolean <b>FALSE</b> if improper input
+     *
+     * @return bool <b>FALSE</b> if improper input
      */
     public function setReportType($s)
     {
@@ -93,11 +96,13 @@ class AmazonReportScheduleManager extends AmazonReportsCore implements \Iterator
     }
 
     /**
-     * Sets the schedule. (Optional)
+     * Sets the schedule. (Optional).
      *
      * This method sets the schedule to be sent in the next request.
+     *
      * @param string $s <p>See the comment inside for a list of valid values.</p>
-     * @return boolean <b>FALSE</b> if improper input
+     *
+     * @return bool <b>FALSE</b> if improper input
      */
     public function setSchedule($s)
     {
@@ -127,15 +132,17 @@ class AmazonReportScheduleManager extends AmazonReportsCore implements \Iterator
     }
 
     /**
-     * Sets the scheduled date. (Optional)
+     * Sets the scheduled date. (Optional).
      *
      * This method sets the scheduled date for the next request.
      * If this parameters is set, the scheduled report will take effect
      * at the given time. The value can be no more than 366 days in the future.
      * If this parameter is not set, the scheduled report will take effect immediately.
      * The parameter is passed through <i>strtotime</i>, so values such as "-1 hour" are fine.
+     *
      * @param string $t <p>Time string.</p>
-     * @return boolean <b>FALSE</b> if improper input
+     *
+     * @return bool <b>FALSE</b> if improper input
      */
     public function setScheduledDate($t = null)
     {
@@ -146,11 +153,9 @@ class AmazonReportScheduleManager extends AmazonReportsCore implements \Iterator
                 $after = $this->genTime('- 2 min');
             }
             $this->options['ScheduledDate'] = $after;
-
         } catch (Exception $e) {
-            $this->log("Error: " . $e->getMessage(), 'Warning');
+            $this->log('Error: '.$e->getMessage(), 'Warning');
         }
-
     }
 
     /**
@@ -159,29 +164,32 @@ class AmazonReportScheduleManager extends AmazonReportsCore implements \Iterator
      * Submits a <i>ManageReportSchedule</i> request to Amazon. In order to do this,
      * a report type and a schedule are required. Amazon will send
      * data back as a response, which can be retrieved using <i>getList</i>.
-     * @return boolean <b>FALSE</b> if something goes wrong
+     *
+     * @return bool <b>FALSE</b> if something goes wrong
      */
     public function manageReportSchedule()
     {
         if (!array_key_exists('ReportType', $this->options)) {
-            $this->log("Report Type must be set in order to manage a report schedule!", 'Warning');
+            $this->log('Report Type must be set in order to manage a report schedule!', 'Warning');
+
             return false;
         }
         if (!array_key_exists('Schedule', $this->options)) {
-            $this->log("Schedule must be set in order to manage a report schedule!", 'Warning');
+            $this->log('Schedule must be set in order to manage a report schedule!', 'Warning');
+
             return false;
         }
 
-        $url = $this->urlbase . $this->urlbranch;
+        $url = $this->urlbase.$this->urlbranch;
 
         $query = $this->genQuery();
 
-        $path = $this->options['Action'] . 'Result';
+        $path = $this->options['Action'].'Result';
 
         if ($this->mockMode) {
             $xml = $this->fetchMockFile()->$path;
         } else {
-            $response = $this->sendRequest($url, array('Post' => $query));
+            $response = $this->sendRequest($url, ['Post' => $query]);
 
             if (!$this->checkResponse($response)) {
                 return false;
@@ -197,8 +205,10 @@ class AmazonReportScheduleManager extends AmazonReportsCore implements \Iterator
      * Parses XML response into array.
      *
      * This is what reads the response XML and converts it into an array.
+     *
      * @param SimpleXMLObject $xml <p>The XML response from Amazon.</p>
-     * @return boolean <b>FALSE</b> if no XML data is found
+     *
+     * @return bool <b>FALSE</b> if no XML data is found
      */
     protected function parseXML($xml)
     {
@@ -207,16 +217,16 @@ class AmazonReportScheduleManager extends AmazonReportsCore implements \Iterator
         }
         foreach ($xml->children() as $key => $x) {
             if ($key == 'Count') {
-                $this->count = (string)$x;
+                $this->count = (string) $x;
             }
             if ($key != 'ReportSchedule') {
                 continue;
             }
             $i = $this->index;
 
-            $this->scheduleList[$i]['ReportType'] = (string)$x->ReportType;
-            $this->scheduleList[$i]['Schedule'] = (string)$x->Schedule;
-            $this->scheduleList[$i]['ScheduledDate'] = (string)$x->ScheduledDate;
+            $this->scheduleList[$i]['ReportType'] = (string) $x->ReportType;
+            $this->scheduleList[$i]['Schedule'] = (string) $x->Schedule;
+            $this->scheduleList[$i]['ScheduledDate'] = (string) $x->ScheduledDate;
 
             $this->index++;
         }
@@ -226,8 +236,10 @@ class AmazonReportScheduleManager extends AmazonReportsCore implements \Iterator
      * Returns the report type for the specified entry.
      *
      * This method will return <b>FALSE</b> if the list has not yet been filled.
+     *
      * @param int $i [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
-     * @return string|boolean single value, or <b>FALSE</b> if Non-numeric index
+     *
+     * @return string|bool single value, or <b>FALSE</b> if Non-numeric index
      */
     public function getReportType($i = 0)
     {
@@ -245,8 +257,10 @@ class AmazonReportScheduleManager extends AmazonReportsCore implements \Iterator
      * Returns the schedule for the specified entry.
      *
      * This method will return <b>FALSE</b> if the list has not yet been filled.
+     *
      * @param int $i [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
-     * @return string|boolean single value, or <b>FALSE</b> if Non-numeric index
+     *
+     * @return string|bool single value, or <b>FALSE</b> if Non-numeric index
      */
     public function getSchedule($i = 0)
     {
@@ -264,8 +278,10 @@ class AmazonReportScheduleManager extends AmazonReportsCore implements \Iterator
      * Returns the date the specified report request is scheduled to start.
      *
      * This method will return <b>FALSE</b> if the list has not yet been filled.
+     *
      * @param int $i [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
-     * @return string|boolean single value, or <b>FALSE</b> if Non-numeric index
+     *
+     * @return string|bool single value, or <b>FALSE</b> if Non-numeric index
      */
     public function getScheduledDate($i = 0)
     {
@@ -289,8 +305,10 @@ class AmazonReportScheduleManager extends AmazonReportsCore implements \Iterator
      * <li><b>Schedule</b></li>
      * <li><b>ScheduledDate</b></li>
      * </ul>
+     *
      * @param int $i [optional] <p>List index to retrieve the value from. Defaults to NULL.</p>
-     * @return array|boolean multi-dimensional array, or <b>FALSE</b> if list not filled yet
+     *
+     * @return array|bool multi-dimensional array, or <b>FALSE</b> if list not filled yet
      */
     public function getList($i = null)
     {
@@ -308,7 +326,8 @@ class AmazonReportScheduleManager extends AmazonReportsCore implements \Iterator
      * Returns the report request count.
      *
      * This method will return <b>FALSE</b> if the count has not been set yet.
-     * @return number|boolean number, or <b>FALSE</b> if count not set yet
+     *
+     * @return number|bool number, or <b>FALSE</b> if count not set yet
      */
     public function getCount()
     {
@@ -320,7 +339,8 @@ class AmazonReportScheduleManager extends AmazonReportsCore implements \Iterator
     }
 
     /**
-     * Iterator function
+     * Iterator function.
+     *
      * @return type
      */
     public function current()
@@ -329,7 +349,7 @@ class AmazonReportScheduleManager extends AmazonReportsCore implements \Iterator
     }
 
     /**
-     * Iterator function
+     * Iterator function.
      */
     public function rewind()
     {
@@ -337,7 +357,8 @@ class AmazonReportScheduleManager extends AmazonReportsCore implements \Iterator
     }
 
     /**
-     * Iterator function
+     * Iterator function.
+     *
      * @return type
      */
     public function key()
@@ -346,7 +367,7 @@ class AmazonReportScheduleManager extends AmazonReportsCore implements \Iterator
     }
 
     /**
-     * Iterator function
+     * Iterator function.
      */
     public function next()
     {
@@ -354,14 +375,12 @@ class AmazonReportScheduleManager extends AmazonReportsCore implements \Iterator
     }
 
     /**
-     * Iterator function
+     * Iterator function.
+     *
      * @return type
      */
     public function valid()
     {
         return isset($this->scheduleList[$this->i]);
     }
-
 }
-
-?>

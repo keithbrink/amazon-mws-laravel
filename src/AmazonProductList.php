@@ -1,8 +1,8 @@
-<?php namespace KeithBrink\AmazonMws;
+<?php
 
-use KeithBrink\AmazonMws\AmazonProductsCore;
+namespace KeithBrink\AmazonMws;
 
-/**
+/*
  * Copyright 2013 CPI Group, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -21,7 +21,7 @@ use KeithBrink\AmazonMws\AmazonProductsCore;
 use Iterator;
 
 /**
- * Fetches list of products from Amazon
+ * Fetches list of products from Amazon.
  *
  * This Amazon Products Core object retrieves a list of products from Amazon
  * that match the given product IDs. In order to do this, both the ID type
@@ -37,16 +37,17 @@ class AmazonProductList extends AmazonProductsCore implements \Iterator
      * The parameters are passed to the parent constructor, which are
      * in turn passed to the AmazonCore constructor. See it for more information
      * on these parameters and common methods.
-     * @param string $s <p>Name for the store you want to use.</p>
-     * @param boolean $mock [optional] <p>This is a flag for enabling Mock Mode.
-     * This defaults to <b>FALSE</b>.</p>
-     * @param array|string $m [optional] <p>The files (or file) to use in Mock Mode.</p>
-     * @param string $config [optional] <p>An alternate config file to set. Used for testing.</p>
+     *
+     * @param string       $s      <p>Name for the store you want to use.</p>
+     * @param bool         $mock   [optional] <p>This is a flag for enabling Mock Mode.
+     *                             This defaults to <b>FALSE</b>.</p>
+     * @param array|string $m      [optional] <p>The files (or file) to use in Mock Mode.</p>
+     * @param string       $config [optional] <p>An alternate config file to set. Used for testing.</p>
      */
     public function __construct($s, $mock = false, $m = null)
     {
         parent::__construct($s, $mock, $m);
-        include($this->env);
+        include $this->env;
 
         $this->options['Action'] = 'GetMatchingProductForId';
 
@@ -57,10 +58,11 @@ class AmazonProductList extends AmazonProductsCore implements \Iterator
     }
 
     /**
-     * Sets the ID type. (Required)
+     * Sets the ID type. (Required).
      *
      * @param string $s <p>"ASIN", "SellerSKU", "UPC", "EAN", "ISBN", or "JAN"</p>
-     * @return boolean <b>FALSE</b> if improper input
+     *
+     * @return bool <b>FALSE</b> if improper input
      */
     public function setIdType($s)
     {
@@ -72,11 +74,13 @@ class AmazonProductList extends AmazonProductsCore implements \Iterator
     }
 
     /**
-     * Sets the request ID(s). (Required)
+     * Sets the request ID(s). (Required).
      *
      * This method sets the list of product IDs to be sent in the next request.
+     *
      * @param array|string $s <p>A list of product IDs, or a single type string. (max: 5)</p>
-     * @return boolean <b>FALSE</b> if improper input
+     *
+     * @return bool <b>FALSE</b> if improper input
      */
     public function setProductIds($s)
     {
@@ -88,7 +92,7 @@ class AmazonProductList extends AmazonProductsCore implements \Iterator
                 $this->resetProductIds();
                 $i = 1;
                 foreach ($s as $x) {
-                    $this->options['IdList.Id.' . $i] = $x;
+                    $this->options['IdList.Id.'.$i] = $x;
                     $i++;
                 }
             } else {
@@ -106,7 +110,7 @@ class AmazonProductList extends AmazonProductsCore implements \Iterator
     private function resetProductIds()
     {
         foreach ($this->options as $op => $junk) {
-            if (preg_match("#IdList#", $op)) {
+            if (preg_match('#IdList#', $op)) {
                 unset($this->options[$op]);
             }
         }
@@ -117,27 +121,30 @@ class AmazonProductList extends AmazonProductsCore implements \Iterator
      *
      * Submits a <i>GetMatchingProductForId</i> request to Amazon. Amazon will send
      * the list back as a response, which can be retrieved using <i>getProduct</i>.
-     * @return boolean <b>FALSE</b> if something goes wrong
+     *
+     * @return bool <b>FALSE</b> if something goes wrong
      */
     public function fetchProductList()
     {
         if (!array_key_exists('IdList.Id.1', $this->options)) {
-            $this->log("Product IDs must be set in order to fetch them!", 'Warning');
+            $this->log('Product IDs must be set in order to fetch them!', 'Warning');
+
             return false;
         }
         if (!array_key_exists('IdType', $this->options)) {
-            $this->log("ID Type must be set in order to use the given IDs!", 'Warning');
+            $this->log('ID Type must be set in order to use the given IDs!', 'Warning');
+
             return false;
         }
 
-        $url = $this->urlbase . $this->urlbranch;
+        $url = $this->urlbase.$this->urlbranch;
 
         $query = $this->genQuery();
 
         if ($this->mockMode) {
             $xml = $this->fetchMockFile();
         } else {
-            $response = $this->sendRequest($url, array('Post' => $query));
+            $response = $this->sendRequest($url, ['Post' => $query]);
 
             if (!$this->checkResponse($response)) {
                 return false;
@@ -150,7 +157,8 @@ class AmazonProductList extends AmazonProductsCore implements \Iterator
     }
 
     /**
-     * Iterator function
+     * Iterator function.
+     *
      * @return type
      */
     public function current()
@@ -159,7 +167,7 @@ class AmazonProductList extends AmazonProductsCore implements \Iterator
     }
 
     /**
-     * Iterator function
+     * Iterator function.
      */
     public function rewind()
     {
@@ -167,7 +175,8 @@ class AmazonProductList extends AmazonProductsCore implements \Iterator
     }
 
     /**
-     * Iterator function
+     * Iterator function.
+     *
      * @return type
      */
     public function key()
@@ -176,7 +185,7 @@ class AmazonProductList extends AmazonProductsCore implements \Iterator
     }
 
     /**
-     * Iterator function
+     * Iterator function.
      */
     public function next()
     {
@@ -184,14 +193,12 @@ class AmazonProductList extends AmazonProductsCore implements \Iterator
     }
 
     /**
-     * Iterator function
+     * Iterator function.
+     *
      * @return type
      */
     public function valid()
     {
         return isset($this->productList[$this->i]);
     }
-
 }
-
-?>

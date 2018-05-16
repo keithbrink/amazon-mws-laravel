@@ -1,9 +1,9 @@
-<?php namespace KeithBrink\AmazonMws;
+<?php
 
-use KeithBrink\AmazonMws\AmazonInboundCore;
+namespace KeithBrink\AmazonMws;
 
 /**
- * Copyright 2013 CPI Group, LLC
+ * Copyright 2013 CPI Group, LLC.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  *
@@ -37,11 +37,12 @@ class AmazonShipment extends AmazonInboundCore
      * The parameters are passed to the parent constructor, which are
      * in turn passed to the AmazonCore constructor. See it for more information
      * on these parameters and common methods.
-     * @param string $s <p>Name for the store you want to use.</p>
-     * @param boolean $mock [optional] <p>This is a flag for enabling Mock Mode.
-     * This defaults to <b>FALSE</b>.</p>
-     * @param array|string $m [optional] <p>The files (or file) to use in Mock Mode.</p>
-     * @param string $config [optional] <p>An alternate config file to set. Used for testing.</p>
+     *
+     * @param string       $s      <p>Name for the store you want to use.</p>
+     * @param bool         $mock   [optional] <p>This is a flag for enabling Mock Mode.
+     *                             This defaults to <b>FALSE</b>.</p>
+     * @param array|string $m      [optional] <p>The files (or file) to use in Mock Mode.</p>
+     * @param string       $config [optional] <p>An alternate config file to set. Used for testing.</p>
      */
     public function __construct($s, $mock = false, $m = null)
     {
@@ -54,8 +55,10 @@ class AmazonShipment extends AmazonInboundCore
      * Automatically fills in the necessary fields using a planner array.
      *
      * This information is required to submit a shipment.
+     *
      * @param array $x <p>plan array from <i>AmazonShipmentPlanner</i></p>
-     * @return boolean <b>FALSE</b> if improper input
+     *
+     * @return bool <b>FALSE</b> if improper input
      */
     public function usePlan($x)
     {
@@ -70,15 +73,15 @@ class AmazonShipment extends AmazonInboundCore
             $this->options['InboundShipmentHeader.LabelPrepType'] = $x['LabelPrepType'];
 
             $this->setItems($x['Items']);
-
         } else {
-            $this->log("usePlan requires an array", 'Warning');
+            $this->log('usePlan requires an array', 'Warning');
+
             return false;
         }
     }
 
     /**
-     * Sets the address. (Required)
+     * Sets the address. (Required).
      *
      * This method sets the destination address to be sent in the next request.
      * This parameter is required for creating a fulfillment order with Amazon.
@@ -93,18 +96,22 @@ class AmazonShipment extends AmazonInboundCore
      * <li><b>CountryCode</b> - 2 digits</li>
      * <li><b>PostalCode</b> - max: 30 char</li>
      * </ul>
+     *
      * @param array $a <p>See above.</p>
-     * @return boolean <b>FALSE</b> if improper input
+     *
+     * @return bool <b>FALSE</b> if improper input
      */
     public function setAddress($a)
     {
         if (!$a || is_null($a) || is_string($a)) {
-            $this->log("Tried to set address to invalid values", 'Warning');
+            $this->log('Tried to set address to invalid values', 'Warning');
+
             return false;
         }
         if (!array_key_exists('AddressLine1', $a)) {
             $this->resetAddress();
-            $this->log("Tried to set address with invalid array", 'Warning');
+            $this->log('Tried to set address with invalid array', 'Warning');
+
             return false;
         }
         $this->resetAddress();
@@ -145,7 +152,7 @@ class AmazonShipment extends AmazonInboundCore
     }
 
     /**
-     * Sets the items. (Required)
+     * Sets the items. (Required).
      *
      * This method sets the Fulfillment Order ID to be sent in the next request.
      * This parameter is required for creating a fulfillment order with Amazon.
@@ -155,31 +162,34 @@ class AmazonShipment extends AmazonInboundCore
      * <li><b>Quantity</b> - numeric</li>
      * <li><b>QuantityInCase</b> (optional) - numeric</li>
      * </ul>
+     *
      * @param array $a <p>See above.</p>
-     * @return boolean <b>FALSE</b> if improper input
+     *
+     * @return bool <b>FALSE</b> if improper input
      */
     public function setItems($a)
     {
         if (!$a || is_null($a) || is_string($a)) {
-            $this->log("Tried to set Items to invalid values", 'Warning');
+            $this->log('Tried to set Items to invalid values', 'Warning');
+
             return false;
         }
         $this->resetItems();
         $caseflag = false;
         $i = 1;
         foreach ($a as $x) {
-
             if (is_array($x) && array_key_exists('SellerSKU', $x) && array_key_exists('Quantity', $x)) {
-                $this->options['InboundShipmentItems.member.' . $i . '.SellerSKU'] = $x['SellerSKU'];
-                $this->options['InboundShipmentItems.member.' . $i . '.QuantityShipped'] = $x['Quantity'];
+                $this->options['InboundShipmentItems.member.'.$i.'.SellerSKU'] = $x['SellerSKU'];
+                $this->options['InboundShipmentItems.member.'.$i.'.QuantityShipped'] = $x['Quantity'];
                 if (array_key_exists('QuantityInCase', $x)) {
-                    $this->options['InboundShipmentItems.member.' . $i . '.QuantityInCase'] = $x['QuantityInCase'];
+                    $this->options['InboundShipmentItems.member.'.$i.'.QuantityInCase'] = $x['QuantityInCase'];
                     $caseflag = true;
                 }
                 $i++;
             } else {
                 $this->resetItems();
-                $this->log("Tried to set Items with invalid array", 'Warning');
+                $this->log('Tried to set Items with invalid array', 'Warning');
+
                 return false;
             }
         }
@@ -195,16 +205,18 @@ class AmazonShipment extends AmazonInboundCore
     private function resetItems()
     {
         foreach ($this->options as $op => $junk) {
-            if (preg_match("#InboundShipmentItems#", $op)) {
+            if (preg_match('#InboundShipmentItems#', $op)) {
                 unset($this->options[$op]);
             }
         }
     }
 
     /**
-     * Sets the shipment status. (Required)
+     * Sets the shipment status. (Required).
+     *
      * @param string $s <p>"WORKING", "SHIPPED", or "CANCELLED" (updating only)</p>
-     * @return boolean <b>FALSE</b> if improper input
+     *
+     * @return bool <b>FALSE</b> if improper input
      */
     public function setStatus($s)
     {
@@ -220,9 +232,11 @@ class AmazonShipment extends AmazonInboundCore
     }
 
     /**
-     * Sets the shipment ID. (Required)
+     * Sets the shipment ID. (Required).
+     *
      * @param string $s <p>Shipment ID</p>
-     * @return boolean <b>FALSE</b> if improper input
+     *
+     * @return bool <b>FALSE</b> if improper input
      */
     public function setShipmentId($s)
     {
@@ -234,8 +248,9 @@ class AmazonShipment extends AmazonInboundCore
     }
 
     /**
-     * Set whether or not cases are required. (Required if cases used)
-     * @param boolean $b <p>Defaults to <b>TRUE</b>.</p>
+     * Set whether or not cases are required. (Required if cases used).
+     *
+     * @param bool $b <p>Defaults to <b>TRUE</b>.</p>
      */
     protected function setCases($b = true)
     {
@@ -253,33 +268,37 @@ class AmazonShipment extends AmazonInboundCore
      * all parameters must be set. Data for these headers can be generated using an
      * <i>AmazonShipmentPlanner</i> object. Amazon will send back the Shipment ID
      * as a response, which can be retrieved using <i>getShipmentId</i>.
-     * @return boolean <b>TRUE</b> if success, <b>FALSE</b> if something goes wrong
+     *
+     * @return bool <b>TRUE</b> if success, <b>FALSE</b> if something goes wrong
      */
     public function createShipment()
     {
         if (!isset($this->options['ShipmentId'])) {
-            $this->log("Shipment ID must be set in order to create it", 'Warning');
+            $this->log('Shipment ID must be set in order to create it', 'Warning');
+
             return false;
         }
         if (!array_key_exists('InboundShipmentHeader.ShipFromAddress.Name', $this->options)) {
-            $this->log("Header must be set in order to make a shipment", 'Warning');
+            $this->log('Header must be set in order to make a shipment', 'Warning');
+
             return false;
         }
         if (!array_key_exists('InboundShipmentItems.member.1.SellerSKU', $this->options)) {
-            $this->log("Items must be set in order to make a shipment", 'Warning');
+            $this->log('Items must be set in order to make a shipment', 'Warning');
+
             return false;
         }
         $this->options['Action'] = 'CreateInboundShipment';
 
-        $url = $this->urlbase . $this->urlbranch;
+        $url = $this->urlbase.$this->urlbranch;
 
         $query = $this->genQuery();
 
-        $path = $this->options['Action'] . 'Result';
+        $path = $this->options['Action'].'Result';
         if ($this->mockMode) {
             $xml = $this->fetchMockFile()->$path;
         } else {
-            $response = $this->sendRequest($url, array('Post' => $query));
+            $response = $this->sendRequest($url, ['Post' => $query]);
 
             if (!$this->checkResponse($response)) {
                 return false;
@@ -287,10 +306,11 @@ class AmazonShipment extends AmazonInboundCore
 
             $xml = simplexml_load_string($response['body'])->$path;
         }
-        $this->shipmentId = (string)$xml->ShipmentId;
+        $this->shipmentId = (string) $xml->ShipmentId;
 
         if ($this->shipmentId) {
-            $this->log("Successfully created Shipment #" . $this->shipmentId);
+            $this->log('Successfully created Shipment #'.$this->shipmentId);
+
             return true;
         } else {
             return false;
@@ -304,33 +324,37 @@ class AmazonShipment extends AmazonInboundCore
      * all parameters must be set. Data for these headers can be generated using an
      * <i>AmazonShipmentPlanner</i> object. Amazon will send back the Shipment ID
      * as a response, which can be retrieved using <i>getShipmentId</i>.
-     * @return boolean <b>TRUE</b> if success, <b>FALSE</b> if something goes wrong
+     *
+     * @return bool <b>TRUE</b> if success, <b>FALSE</b> if something goes wrong
      */
     public function updateShipment()
     {
         if (!isset($this->options['ShipmentId'])) {
-            $this->log("Shipment ID must be set in order to update it", 'Warning');
+            $this->log('Shipment ID must be set in order to update it', 'Warning');
+
             return false;
         }
         if (!array_key_exists('InboundShipmentHeader.ShipFromAddress.Name', $this->options)) {
-            $this->log("Header must be set in order to update a shipment", 'Warning');
+            $this->log('Header must be set in order to update a shipment', 'Warning');
+
             return false;
         }
         if (!array_key_exists('InboundShipmentItems.member.1.SellerSKU', $this->options)) {
-            $this->log("Items must be set in order to update a shipment", 'Warning');
+            $this->log('Items must be set in order to update a shipment', 'Warning');
+
             return false;
         }
         $this->options['Action'] = 'UpdateInboundShipment';
 
-        $url = $this->urlbase . $this->urlbranch;
+        $url = $this->urlbase.$this->urlbranch;
 
         $query = $this->genQuery();
 
-        $path = $this->options['Action'] . 'Result';
+        $path = $this->options['Action'].'Result';
         if ($this->mockMode) {
             $xml = $this->fetchMockFile()->$path;
         } else {
-            $response = $this->sendRequest($url, array('Post' => $query));
+            $response = $this->sendRequest($url, ['Post' => $query]);
 
             if (!$this->checkResponse($response)) {
                 return false;
@@ -338,10 +362,11 @@ class AmazonShipment extends AmazonInboundCore
 
             $xml = simplexml_load_string($response['body'])->$path;
         }
-        $this->shipmentId = (string)$xml->ShipmentId;
+        $this->shipmentId = (string) $xml->ShipmentId;
 
         if ($this->shipmentId) {
-            $this->log("Successfully updated Shipment #" . $this->shipmentId);
+            $this->log('Successfully updated Shipment #'.$this->shipmentId);
+
             return true;
         } else {
             return false;
@@ -350,7 +375,8 @@ class AmazonShipment extends AmazonInboundCore
 
     /**
      * Returns the shipment ID of the newly created/modified order.
-     * @return string|boolean single value, or <b>FALSE</b> if Shipment ID not fetched yet
+     *
+     * @return string|bool single value, or <b>FALSE</b> if Shipment ID not fetched yet
      */
     public function getShipmentId()
     {
@@ -360,7 +386,4 @@ class AmazonShipment extends AmazonInboundCore
             return false;
         }
     }
-
 }
-
-?>
