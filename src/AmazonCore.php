@@ -108,6 +108,8 @@ abstract class AmazonCore
     protected $throttleStop = false;
     protected $storeName;
     protected $options;
+    protected $secretKey;
+    protected $muteLog = false;
     protected $config;
     protected $mockMode = false;
     protected $mockFiles;
@@ -370,6 +372,21 @@ abstract class AmazonCore
     }
 
     /**
+     * Sets the configuration variables from an array rather than the config file
+     *
+     * This method sets a number of key values. These values
+     * include your Merchant ID, Access Key ID, and Secret Key, and are critical
+     * for making requests with Amazon.
+     * @param array $config <p>The array of configuration variables.</p>
+     */
+    public function setConfig($config)
+    {
+        if(!$this->validateAndSetConfig($config)) {
+            throw new \Exception("Store $s configuration values not set correctly. See log for details.");
+        }  
+    }
+
+    /**
      * Sets the store values.
      *
      * This method sets a number of key values from the config file. These values
@@ -385,28 +402,53 @@ abstract class AmazonCore
         $store = Config::get('amazon-mws.store');
 
         if (array_key_exists($s, $store)) {
-            $this->storeName = $s;            
-            if (array_key_exists('merchantId', $store[$s]) && $store[$s]['merchantId']) {
-                $this->options['SellerId'] = $store[$s]['merchantId'];
+            if($this->validateAndSetConfig($store[$s])) {
+                $this->storeName = $s;   
             } else {
-                $this->log("Merchant ID is missing!", 'Warning');
-            }
-            if (array_key_exists('keyId', $store[$s]) && $store[$s]['keyId']) {
-                $this->options['AWSAccessKeyId'] = $store[$s]['keyId'];
-            } else {
-                $this->log("Access Key ID is missing!", 'Warning');
-            }
-            if (!array_key_exists('secretKey', $store[$s]) || !$store[$s]['secretKey']) {
-                $this->log("Secret Key is missing!", 'Warning');
-            }
-            // Overwrite Amazon service url if specified
-            if (array_key_exists('amazonServiceUrl', $store[$s])) {
-                $AMAZON_SERVICE_URL = $store[$s]['amazonServiceUrl'];
-                $this->urlbase = $AMAZON_SERVICE_URL;
-            }
+                throw new \Exception("Store $s configuration values not set correctly. See log for details.");
+            }  
         } else {
             throw new \Exception("Store $s does not exist!");
         }
+    }
+
+    public function validateAndSetConfig($config)
+    {
+        $valid = true;
+        if (array_key_exists('merchantId', $config) && $config['merchantId']) {
+            $this->options['SellerId'] = $config['merchantId'];
+        } else {
+            $valid = false;
+            $this->log("Merchant ID is missing!", 'Warning');
+        }
+        if (array_key_exists('marketplaceId', $config) && $config['marketplaceId']) {
+            $this->options['marketplaceId'] = $config['marketplaceId'];
+        } else {
+            $valid = false;
+            $this->log("Marketplace ID is missing!", 'Warning');
+        }
+        if (array_key_exists('keyId', $config) && $config['keyId']) {
+            $this->options['AWSAccessKeyId'] = $config['keyId'];
+        } else {
+            $valid = false;
+            $this->log("Access Key ID is missing!", 'Warning');
+        }
+        if (array_key_exists('secretKey', $config) && $config['secretKey']) {
+            $this->secretKey = $config['secretKey'];
+        } else {
+            $valid = false;
+            $this->log("Secret Key is missing!", 'Warning');
+        }
+        if (array_key_exists('amazonServiceUrl', $config) && $config['amazonServiceUrl']) {
+            $this->urlbase = $config['amazonServiceUrl'];
+        }  else {
+            $valid = false;
+            $this->log("Service URL is missing!", 'Warning');
+        }
+        if (array_key_exists('muteLog', $config) && $config['muteLog']) {
+            $this->muteLog = $config['muteLog'];
+        }
+        return $valid;
     }
 
     /**
@@ -439,7 +481,7 @@ abstract class AmazonCore
         if ($msg != false) {
             $backtrace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS);
 
-            $muteLog = Config::get('amazon-mws.muteLog');
+            $muteLog = $this->muteLog;
 
             switch ($level) {
                 case('Info'):
@@ -538,17 +580,8 @@ abstract class AmazonCore
      */
     protected function genQuery()
     {
-        // if (file_exists($this->config)){
-        //     include($this->config);
-        // } else {
-        //     throw new Exception("Config file does not exist!");
-        // }
-
-        $store = Config::get('amazon-mws.store');
-
-        if (array_key_exists($this->storeName, $store) && array_key_exists('secretKey', $store[$this->storeName])) {
-            $secretKey = $store[$this->storeName]['secretKey'];
-            
+        if ($this->secretKey) {
+            $secretKey = $this->secretKey;
         } else {
             throw new Exception("Secret Key is missing!");
         }

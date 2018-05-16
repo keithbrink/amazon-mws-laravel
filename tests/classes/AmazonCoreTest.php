@@ -64,6 +64,31 @@ class AmazonCoreTest extends PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers AmazonCore::setConfig
+     * Test setting a custom configuration
+     */
+    public function testSetConfig()
+    {
+        $config = [
+            'merchantId' => 'TEST123',
+            'marketplaceId' => 'TESTMARKETPLACE',
+            'keyId' => 'TESTKEYID',
+            'secretKey' => 'TESTSECRETID',
+            'amazonServiceUrl' => 'http://test.com',
+        ];
+
+        $this->object->setConfig($config);
+
+        $o = $this->object->getOptions();
+        $this->assertInternalType('array', $o);
+        $this->assertArrayHasKey('SellerId', $o);
+        $this->assertArrayHasKey('AWSAccessKeyId', $o);
+        $this->assertEquals('TEST123', $o['SellerId']);
+        $this->assertEquals('TESTKEYID', $o['AWSAccessKeyId']);
+        $this->assertEquals('TESTMARKETPLACE', $o['marketplaceId']);
+    }
+
+    /**
      * @covers AmazonCore::setStore
      * Test that a store not in config file generates error
      */
@@ -77,14 +102,29 @@ class AmazonCoreTest extends PHPUnit_Framework_TestCase
      * @covers AmazonCore::setStore
      * Test that a store set in config but with incomplete info generates warnings in log.
      */
-    public function testSetStoreInConfigWithMissingInfo()
+    public function testSetStoreInConfigWithMissingInfoThrowsException()
+    {
+        $this->expectException(Exception::class, 'Store bad configuration values not set correctly. See log for details.');
+        $this->object->setStore('bad');
+    }
+
+    /**
+     * @covers AmazonCore::setStore
+     * Test that a store set in config but with incomplete info generates warnings in log.
+     */
+    public function testSetStoreInConfigWithMissingInfoLogsDetails()
     {
         resetLog();
-        $this->object->setStore('bad');
+        try {
+            $this->object->setStore('bad');
+        } catch (Exception $e) {
+            // Continue processing
+        }
         $bad = parseLog();
         $this->assertEquals('Merchant ID is missing!', $bad[0]);
-        $this->assertEquals('Access Key ID is missing!', $bad[1]);
-        $this->assertEquals('Secret Key is missing!', $bad[2]);
+        $this->assertEquals('Marketplace ID is missing!', $bad[1]);
+        $this->assertEquals('Access Key ID is missing!', $bad[2]);
+        $this->assertEquals('Secret Key is missing!', $bad[3]);
     }
     
     public function testGetOptions()
