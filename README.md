@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/keithbrink/amazon-mws-laravel.svg?branch=master)](https://travis-ci.org/keithbrink/amazon-mws-laravel)
+[![Build Status](https://travis-ci.org/keithbrink/amazon-mws-laravel.svg?branch=master)](https://travis-ci.org/keithbrink/amazon-mws-laravel) [![StyleCI](https://styleci.io/repos/133599197/shield?branch=master)](https://styleci.io/repos/133599197)
 
 # Amazon MWS for Laravel
 ============
