@@ -11,7 +11,6 @@ class Config
             return [];
         }
         $fakeConfig = [
-            'amazon-mws.muteLog' => false,
             'amazon-mws.store'   => [
                 'testStore' => [
                     'merchantId'       => 'ABC_MARKET_1234',
@@ -19,6 +18,7 @@ class Config
                     'keyId'            => 'key',
                     'secretKey'        => 'secret',
                     'amazonServiceUrl' => 'http://foo.bar',
+                    'muteLog' => false,
                 ],
                 'bad' => [
                     'merchantId'       => '',
@@ -26,6 +26,7 @@ class Config
                     'keyId'            => '',
                     'secretKey'        => '',
                     'amazonServiceUrl' => '',
+                    'muteLog' => false,
                 ],
             ],
         ];

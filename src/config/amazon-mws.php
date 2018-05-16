@@ -8,11 +8,7 @@ return [
             'keyId'            => '',
             'secretKey'        => '',
             'amazonServiceUrl' => 'https://mws-eu.amazonservices.com/',
+            'muteLog' => false,
         ],
     ],
-
-    // Default service URL
-    'AMAZON_SERVICE_URL' => 'https://mws.amazonservices.com/',
-
-    'muteLog' => false,
 ];
