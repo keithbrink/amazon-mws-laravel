@@ -18,7 +18,7 @@ class Config
                     'keyId'            => 'key',
                     'secretKey'        => 'secret',
                     'amazonServiceUrl' => 'http://foo.bar',
-                    'muteLog' => false,
+                    'muteLog'          => false,
                 ],
                 'bad' => [
                     'merchantId'       => '',
@@ -26,7 +26,7 @@ class Config
                     'keyId'            => '',
                     'secretKey'        => '',
                     'amazonServiceUrl' => '',
-                    'muteLog' => false,
+                    'muteLog'          => false,
                 ],
             ],
         ];
