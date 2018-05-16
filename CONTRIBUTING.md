@@ -1,0 +1,1 @@
+Contributions are welcome in the form of pull requests or opening an issue on Github.

@@ -1,6 +1,6 @@
-<?php namespace Sonnenglas\AmazonMws;
+<?php namespace KeithBrink\AmazonMws;
 
-use Sonnenglas\AmazonMws\AmazonOutboundCore;
+use KeithBrink\AmazonMws\AmazonOutboundCore;
 
 /**
  * Copyright 2013 CPI Group, LLC
@@ -315,6 +315,7 @@ class AmazonFulfillmentOrderCreator extends AmazonOutboundCore
         if (is_string($s)) {
             $this->resetEmails();
             $this->options['NotificationEmailList.member.1'] = $s;
+            return true;
         } else {
             if (is_array($s) && $s) {
                 $this->resetEmails();
@@ -323,6 +324,7 @@ class AmazonFulfillmentOrderCreator extends AmazonOutboundCore
                     $this->options['NotificationEmailList.member.' . $i] = $x;
                     $i++;
                 }
+                return true;
             } else {
                 return false;
             }

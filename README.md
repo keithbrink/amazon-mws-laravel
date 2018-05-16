@@ -1,29 +1,20 @@
 amazon-mws-laravel
 ============
 
-A PHP package to connect to Amazon's Merchant Web Services (MWS) in an object-oriented manner, with a focus on intuitive usage.
-
-Currently optimizing for Laravel Framework.
+A Laravel 5 package to connect to Amazon's Merchant Web Services (MWS).
 
 This is __NOT__ for Amazon Web Services (AWS) - Cloud Computing Services.
 
 ## Installation
 
-1. `composer require sonnenglas/laravel5-amazon-mws`
+Install the package using `composer require keithbrink/amazon-mws-laravel`.
 
-2. add the service provider to the providers array in config/app.php:
-```
-Sonnenglas\AmazonMws\ServiceProvider::class,
-```
+For Laravel 5.5 and up, the package will be automatically discovered. For other versions, you can add the service provider to your `config/app.php` file.
 
-There's no facades to add in config/app.php
-
-3. Copy amazon-mws.php configuration file from src/config/amazon-mws.php to Laravel's config directory.
+Run `php artisan vendor:publish keithbrink/amazon-mws-laravel` to add the `amazon-mws.php` config file to your config directory.
 
 ## Usage
-All of the technical details required by the API are handled behind the scenes,
-so users can easily build code for sending requests to Amazon
-without having to jump hurdles such as parameter URL formatting and token management. 
+
 The general work flow for using one of the objects is this:
 
 1. Create an object for the task you need to perform.
@@ -39,13 +30,10 @@ Also note that the objects perform best when they are not treated as reusable. O
 ## Example Usage
 
 Here are a couple of examples of the library in use.
-All of the technical details required by the API are handled behind the scenes,
-so users can easily build code for sending requests to Amazon
-without having to jump hurdles such as parameter URL formatting and token management. 
 
 Here is an example of a function used to get all warehouse-fulfilled orders from Amazon updated in the past 24 hours:
 ```php
-use Sonnenglas\AmazonMws\AmazonOrderList;
+use KeithBrink\AmazonMws\AmazonOrderList;
 
 function getAmazonOrders() {
     $amz = new AmazonOrderList("myStore"); //store name matches the array key in the config file
@@ -61,7 +49,7 @@ function getAmazonOrders() {
 ```
 This example shows a function used to send a previously-created XML feed to Amazon to update Inventory numbers:
 ```php
-use Sonnenglas\AmazonMws\AmazonOrderList;
+use KeithBrink\AmazonMws\AmazonFeed;
 
 function sendInventoryFeed($feed) {
     $amz = new AmazonFeed("myStore"); //store name matches the array key in the config file

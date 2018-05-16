@@ -1,9 +1,11 @@
-<?php namespace Sonnenglas\AmazonMws;
+<?php 
 
-use Config, Log;
+namespace KeithBrink\AmazonMws;
+
+use Config;
+use Log;
 use DateTime;
 use Exception;
-
 
 /**
  * Copyright 2013 CPI Group, LLC
@@ -111,7 +113,7 @@ abstract class AmazonCore
     protected $mockFiles;
     protected $mockIndex = 0;
     protected $env;
-    protected $rawResponses = array();
+    protected $rawResponses = [];
 
     /**
      * AmazonCore constructor sets up key information used in all Amazon requests.
@@ -132,7 +134,6 @@ abstract class AmazonCore
      */
     protected function __construct($s, $mock = false, $m = null)
     {
-        $this->setConfig();
         $this->setStore($s);
         $this->setMock($mock, $m);
 
@@ -171,7 +172,7 @@ abstract class AmazonCore
             }
 
             if (is_string($files)) {
-                $this->mockFiles = array();
+                $this->mockFiles = [];
                 $this->mockFiles[0] = $files;
                 $this->log("Single Mock File set: $files");
             } else {
@@ -180,7 +181,7 @@ abstract class AmazonCore
                     $this->log("Mock files array set.");
                 } else {
                     if (is_numeric($files)) {
-                        $this->mockFiles = array();
+                        $this->mockFiles = [];
                         $this->mockFiles[0] = $files;
                         $this->log("Single Mock Response set: $files");
                     }
@@ -217,18 +218,18 @@ abstract class AmazonCore
             $this->resetMock();
         }
         //check for absolute/relative file paths
-        if (strpos($this->mockFiles[$this->mockIndex], '/') === 0 || strpos($this->mockFiles[$this->mockIndex],
-                '..') === 0
+        if (strpos($this->mockFiles[$this->mockIndex], '/') === 0 || strpos(
+            $this->mockFiles[$this->mockIndex],
+                '..'
+        ) === 0
         ) {
             $url = $this->mockFiles[$this->mockIndex];
         } else {
-            $url = 'mock/' . $this->mockFiles[$this->mockIndex];
+            $url = __DIR__ . '/../tests/mocks/' . $this->mockFiles[$this->mockIndex];
         }
         $this->mockIndex++;
 
-
         if (file_exists($url)) {
-
             try {
                 $this->log("Fetched Mock File: $url");
                 if ($load) {
@@ -241,12 +242,10 @@ abstract class AmazonCore
                 $this->log("Error when opening Mock File: $url - " . $e->getMessage(), 'Warning');
                 return false;
             }
-
         } else {
             $this->log("Mock File not found: $url", 'Warning');
             return false;
         }
-
     }
 
     /**
@@ -297,7 +296,7 @@ abstract class AmazonCore
             return false;
         }
 
-        $r = array();
+        $r = [];
         $r['head'] = 'HTTP/1.1 200 OK';
         $r['body'] = '<?xml version="1.0"?><root></root>';
         $r['code'] = $this->mockFiles[$this->mockIndex];
@@ -338,7 +337,7 @@ abstract class AmazonCore
         }
 
 
-        $r['headarray'] = array();
+        $r['headarray'] = [];
         $this->log("Returning Mock Response: " . $r['code']);
         return $r;
     }
@@ -362,29 +361,11 @@ abstract class AmazonCore
             return true;
         } else {
             $xml = simplexml_load_string($r['body'])->Error;
-            $this->log("Bad Response! " . $r['code'] . " " . $r['error'] . ": " . $xml->Code . " - " . $xml->Message,
-                'Urgent');
+            $this->log(
+                "Bad Response! " . $r['code'] . " " . $r['error'] . ": " . $xml->Code . " - " . $xml->Message,
+                'Urgent'
+            );
             return false;
-        }
-    }
-
-    // *
-    //  * Set the config file.
-    //  * 
-    //  * This method can be used to change the config file after the object has
-    //  * been initiated. The file will not be set if it cannot be found or read.
-    //  * This is useful for testing, in cases where you want to use a different file.
-    //  * @param string $path <p>The path to the config file.</p>
-    //  * @throws Exception If the file cannot be found or read.
-
-    public function setConfig()
-    {
-        $AMAZON_SERVICE_URL = Config::get('amazon-mws.AMAZON_SERVICE_URL');
-
-        if (isset($AMAZON_SERVICE_URL)) {
-            $this->urlbase = $AMAZON_SERVICE_URL;
-        } else {
-            throw new Exception("Config file does not exist or cannot be read!");
         }
     }
 
@@ -401,27 +382,21 @@ abstract class AmazonCore
      */
     public function setStore($s)
     {
-        // if (file_exists($this->config)){
-        //     include($this->config);
-        // } else {
-        //     throw new \Exception("Config file does not exist!");
-        // }
-
         $store = Config::get('amazon-mws.store');
 
         if (array_key_exists($s, $store)) {
-            $this->storeName = $s;
-            if (array_key_exists('merchantId', $store[$s])) {
+            $this->storeName = $s;            
+            if (array_key_exists('merchantId', $store[$s]) && $store[$s]['merchantId']) {
                 $this->options['SellerId'] = $store[$s]['merchantId'];
             } else {
                 $this->log("Merchant ID is missing!", 'Warning');
             }
-            if (array_key_exists('keyId', $store[$s])) {
+            if (array_key_exists('keyId', $store[$s]) && $store[$s]['keyId']) {
                 $this->options['AWSAccessKeyId'] = $store[$s]['keyId'];
             } else {
                 $this->log("Access Key ID is missing!", 'Warning');
             }
-            if (!array_key_exists('secretKey', $store[$s])) {
+            if (!array_key_exists('secretKey', $store[$s]) || !$store[$s]['secretKey']) {
                 $this->log("Secret Key is missing!", 'Warning');
             }
             // Overwrite Amazon service url if specified
@@ -429,10 +404,8 @@ abstract class AmazonCore
                 $AMAZON_SERVICE_URL = $store[$s]['amazonServiceUrl'];
                 $this->urlbase = $AMAZON_SERVICE_URL;
             }
-
         } else {
             throw new \Exception("Store $s does not exist!");
-            $this->log("Store $s does not exist!", 'Warning');
         }
     }
 
@@ -484,9 +457,9 @@ abstract class AmazonCore
                 default:
                     $loglevel = 'info';
             }
-            call_user_func(array('Log', $loglevel), $msg);
+            call_user_func(['Log', $loglevel], $msg);
 
-            if (isset($muteLog) && $muteLog == true) {
+            if (isset($muteLog) && $muteLog == true) {     
                 return;
             }
 
@@ -515,7 +488,6 @@ abstract class AmazonCore
             } else {
                 $ip = 'cli';
             }
-
         } else {
             return false;
         }
@@ -551,10 +523,8 @@ abstract class AmazonCore
             $time = time();
         } else {
             $time = strtotime($time);
-
         }
         return date(DateTime::ISO8601, $time - 120);
-
     }
 
     /**
@@ -578,6 +548,7 @@ abstract class AmazonCore
 
         if (array_key_exists($this->storeName, $store) && array_key_exists('secretKey', $store[$this->storeName])) {
             $secretKey = $store[$this->storeName]['secretKey'];
+            
         } else {
             throw new Exception("Secret Key is missing!");
         }
@@ -692,9 +663,9 @@ abstract class AmazonCore
      *               $return['error'] - error, if "ok" is not 1
      *               $return['head']  - http header
      */
-    function fetchURL($url, $param)
+    public function fetchURL($url, $param)
     {
-        $return = array();
+        $return = [];
 
         $ch = curl_init();
 
@@ -732,7 +703,7 @@ abstract class AmazonCore
             $return['body'] = null;
         }
 
-        $matches = array();
+        $matches = [];
         $data = preg_match("/HTTP\/[0-9.]+ ([0-9]+) (.+)\r\n/", $return['head'], $matches);
         if (!empty($matches)) {
             $return['code'] = $matches[1];
@@ -785,7 +756,7 @@ abstract class AmazonCore
      */
     protected function _getParametersAsString(array $parameters)
     {
-        $queryParameters = array();
+        $queryParameters = [];
         foreach ($parameters as $key => $value) {
             $queryParameters[] = $key . '=' . $this->_urlencode($value);
         }
@@ -825,10 +796,10 @@ abstract class AmazonCore
         $data .= $endpoint['host'];
         $data .= "\n";
         $uri = array_key_exists('path', $endpoint) ? $endpoint['path'] : null;
-        if (!isset ($uri)) {
+        if (!isset($uri)) {
             $uri = "/";
         }
-        $uriencoded = implode("/", array_map(array($this, "_urlencode"), explode("/", $uri)));
+        $uriencoded = implode("/", array_map([$this, "_urlencode"], explode("/", $uri)));
         $data .= $uriencoded;
         $data .= "\n";
         uksort($parameters, 'strcmp');
@@ -852,7 +823,7 @@ abstract class AmazonCore
             if ($algorithm === 'HmacSHA256') {
                 $hash = 'sha256';
             } else {
-                throw new Exception ("Non-supported signing method specified");
+                throw new Exception("Non-supported signing method specified");
             }
         }
 
@@ -862,7 +833,4 @@ abstract class AmazonCore
     }
 
     // -- End Functions from Amazon --
-
 }
-
-?>

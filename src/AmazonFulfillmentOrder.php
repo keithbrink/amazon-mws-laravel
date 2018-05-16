@@ -1,6 +1,6 @@
-<?php namespace Sonnenglas\AmazonMws;
+<?php namespace KeithBrink\AmazonMws;
 
-use Sonnenglas\AmazonMws\AmazonOutboundCore;
+use KeithBrink\AmazonMws\AmazonOutboundCore;
 
 /**
  * Copyright 2013 CPI Group, LLC
@@ -65,7 +65,7 @@ class AmazonFulfillmentOrder extends AmazonOutboundCore
      */
     public function setOrderId($s)
     {
-        if ($s !== null) {
+        if ($s !== null && !is_int($s)) {
             $this->options['SellerFulfillmentOrderId'] = $s;
         } else {
             return false;

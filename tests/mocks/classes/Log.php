@@ -4,18 +4,18 @@ class Log
 {
     static function info($message)
     {
-        // do nothing
+        error_log('[] '. $message . "\n",3,dirname(__FILE__) . '../../../../log.txt');
     }
     static function notice($message)
     {
-        // do nothing
+        error_log('[] '. $message . "\n",3,dirname(__FILE__) . '../../../../log.txt');
     }
     static function warning($message)
     {
-        // do nothing
+        error_log('[] '. $message . "\n",3,dirname(__FILE__) . '../../../../log.txt');
     }
     static function error($message)
     {
-        // do nothing
+        error_log('[] '. $message . "\n",3,dirname(__FILE__) . '../../../../log.txt');
     }
 }

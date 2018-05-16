@@ -1,6 +1,7 @@
-<?php namespace Sonnenglas\AmazonMws;
+<?php namespace KeithBrink\AmazonMws;
 
-use Sonnenglas\AmazonMws\AmazonCore;
+use KeithBrink\AmazonMws\AmazonCore;
+use Config;
 
 /**
  * Copyright 2013 CPI Group, LLC
@@ -54,7 +55,7 @@ abstract class AmazonProductsCore extends AmazonCore
             $this->options['Version'] = $AMAZON_VERSION_PRODUCTS;
         }
 
-        $store = config('amazon-mws.store');
+        $store = Config::get('amazon-mws.store');
         if (isset($store[$s]) && array_key_exists('marketplaceId', $store[$s])) {
             $this->options['MarketplaceId'] = $store[$s]['marketplaceId'];
         } else {

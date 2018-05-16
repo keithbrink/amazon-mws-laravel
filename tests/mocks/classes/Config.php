@@ -9,15 +9,25 @@ class Config
 {
     static function get($name)
     {
+        if($name == 'no') {
+            return [];
+        }
         $fakeConfig = [
-            'amazon-mws.muteLog' => 'Info',
-            'amazon-mws.AMAZON_SERVICE_URL' => 'http://foo.bar',
+            'amazon-mws.muteLog' => false,
             'amazon-mws.store' => [
                 'testStore' => [
                     'merchantId' => 'ABC_MARKET_1234',
                     'marketplaceId' => 'ABC3456789456',
                     'keyId' => 'key',
-                    'secretkey' => 'secret',
+                    'secretKey' => 'secret',
+                    'amazonServiceUrl' => 'http://foo.bar',
+                ],
+                'bad' => [
+                    'merchantId' => '',
+                    'marketplaceId' => '',
+                    'keyId' => '',
+                    'secretKey' => '',
+                    'amazonServiceUrl' => '',
                 ],
             ],
         ];
