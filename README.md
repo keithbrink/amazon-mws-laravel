@@ -1,4 +1,6 @@
-amazon-mws-laravel
+[![Build Status](https://travis-ci.org/keithbrink/amazon-mws-laravel.svg?branch=master)](https://travis-ci.org/keithbrink/amazon-mws-laravel)
+
+# Amazon MWS for Laravel
 ============
 
 A Laravel 5 package to connect to Amazon's Merchant Web Services (MWS).
