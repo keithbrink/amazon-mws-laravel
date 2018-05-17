@@ -464,6 +464,9 @@ abstract class AmazonCore
             $valid = false;
             $this->log('Service URL is missing!', 'Warning');
         }
+        if (array_key_exists('mwsAuthToken', $config) && $config['mwsAuthToken']) {
+            $this->options['MWSAuthToken'] = $config['mwsAuthToken'];
+        }
         if (array_key_exists('muteLog', $config) && $config['muteLog']) {
             $this->muteLog = $config['muteLog'];
         }
