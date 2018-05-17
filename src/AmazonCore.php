@@ -441,7 +441,7 @@ abstract class AmazonCore
             $this->log('Merchant ID is missing!', 'Warning');
         }
         if (array_key_exists('marketplaceId', $config) && $config['marketplaceId']) {
-            $this->options['marketplaceId'] = $config['marketplaceId'];
+            $this->options['MarketplaceId'] = $config['marketplaceId'];
         } else {
             $valid = false;
             $this->log('Marketplace ID is missing!', 'Warning');
