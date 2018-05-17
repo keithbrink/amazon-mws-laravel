@@ -57,7 +57,7 @@ abstract class AmazonProductsCore extends AmazonCore
         }
 
         $config_options = $this->getOptions();
-        $this->options['MarketplaceId'] = $config_options['marketplaceId'];
+        $this->options['MarketplaceId'] = $config_options['MarketplaceId'];
 
         if (isset($THROTTLE_LIMIT_PRODUCT)) {
             $this->throttleLimit = $THROTTLE_LIMIT_PRODUCT;
@@ -89,14 +89,22 @@ abstract class AmazonProductsCore extends AmazonCore
             }
             if (isset($x->Products)) {
                 foreach ($x->Products->children() as $z) {
-                    $this->productList[$this->index] = new AmazonProduct($this->storeName, $z, $this->mockMode,
-                        $this->mockFiles);
+                    $this->productList[$this->index] = new AmazonProduct(
+                        $this->storeName,
+                        $z,
+                        $this->mockMode,
+                        $this->mockFiles
+                    );
                     $this->index++;
                 }
             } else {
                 if ($x->getName() == 'GetProductCategoriesForSKUResult' || $x->getName() == 'GetProductCategoriesForASINResult') {
-                    $this->productList[$this->index] = new AmazonProduct($this->storeName, $x, $this->mockMode,
-                        $this->mockFiles);
+                    $this->productList[$this->index] = new AmazonProduct(
+                        $this->storeName,
+                        $x,
+                        $this->mockMode,
+                        $this->mockFiles
+                    );
                     $this->index++;
                 } else {
                     foreach ($x->children() as $z) {
@@ -108,8 +116,12 @@ abstract class AmazonProductsCore extends AmazonCore
                             $this->productList[$z->getName()] = (string) $z;
                             $this->log('Special case: '.$z->getName(), 'Warning');
                         } else {
-                            $this->productList[$this->index] = new AmazonProduct($this->storeName, $z, $this->mockMode,
-                                $this->mockFiles);
+                            $this->productList[$this->index] = new AmazonProduct(
+                                $this->storeName,
+                                $z,
+                                $this->mockMode,
+                                $this->mockFiles
+                            );
                             $this->index++;
                         }
                     }

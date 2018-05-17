@@ -85,7 +85,7 @@ class AmazonCoreTest extends PHPUnit_Framework_TestCase
         $this->assertArrayHasKey('AWSAccessKeyId', $o);
         $this->assertEquals('TEST123', $o['SellerId']);
         $this->assertEquals('TESTKEYID', $o['AWSAccessKeyId']);
-        $this->assertEquals('TESTMARKETPLACE', $o['marketplaceId']);
+        $this->assertEquals('TESTMARKETPLACE', $o['MarketplaceId']);
     }
 
     /**

@@ -57,7 +57,7 @@ class AmazonOrderList extends AmazonOrderCore implements Iterator
         include $this->env;
 
         $config_options = $this->getOptions();
-        $this->options['MarketplaceId.Id.1'] = $config_options['marketplaceId'];
+        $this->options['MarketplaceId.Id.1'] = $config_options['MarketplaceId'];
 
         if (isset($THROTTLE_LIMIT_ORDERLIST)) {
             $this->throttleLimit = $THROTTLE_LIMIT_ORDERLIST;
@@ -365,8 +365,10 @@ class AmazonOrderList extends AmazonOrderCore implements Iterator
      */
     public function fetchOrders($r = true)
     {
-        if (!array_key_exists('CreatedAfter', $this->options) && !array_key_exists('LastUpdatedAfter',
-                $this->options)
+        if (!array_key_exists('CreatedAfter', $this->options) && !array_key_exists(
+            'LastUpdatedAfter',
+                $this->options
+        )
         ) {
             $this->setLimits('Created');
         }
@@ -454,8 +456,14 @@ class AmazonOrderList extends AmazonOrderCore implements Iterator
             if ($key != 'Order') {
                 break;
             }
-            $this->orderList[$this->index] = new AmazonOrder($this->storeName, null, $data, $this->mockMode,
-                $this->mockFiles, $this->config);
+            $this->orderList[$this->index] = new AmazonOrder(
+                $this->storeName,
+                null,
+                $data,
+                $this->mockMode,
+                $this->mockFiles,
+                $this->config
+            );
             $this->orderList[$this->index]->mockIndex = $this->mockIndex;
             $this->index++;
         }
