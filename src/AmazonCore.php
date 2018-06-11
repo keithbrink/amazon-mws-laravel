@@ -399,7 +399,7 @@ abstract class AmazonCore
     public function setConfig($config)
     {
         if (!$this->validateAndSetConfig($config)) {
-            throw new \Exception("Store $s configuration values not set correctly. See log for details.");
+            throw new \Exception("Configuration values not set correctly. See log for details.");
         }
     }
 
