@@ -1,5 +1,8 @@
 # CHANGELOG
 
+### 2018-07-25 - Version 3.0.4
+
+- added `setMarketPlaceId()` to AmazonFulfillmentOrderCreator class
 
 ### 2018-07-24 - Version 3.0.3
 

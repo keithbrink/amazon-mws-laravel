@@ -111,6 +111,7 @@ abstract class AmazonCore
     protected $mockFiles;
     protected $mockIndex = 0;
     protected $env;
+    protected $marketplaceId;
     protected $rawResponses = array();
 
     /**
@@ -432,6 +433,10 @@ abstract class AmazonCore
 
             if (array_key_exists('authToken', $store[$s]) && !empty($store[$s]['authToken'])) {
                 $this->options['MWSAuthToken'] = $store[$s]['authToken'];
+            }
+
+            if (array_key_exists('marketplaceId', $store[$s]) && !empty($store[$s]['marketplaceId'])) {
+                $this->marketplaceId = $store[$s]['marketplaceId'];
             }
 
         } else {
