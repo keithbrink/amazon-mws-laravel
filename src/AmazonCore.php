@@ -371,7 +371,7 @@ abstract class AmazonCore
 
     // *
     //  * Set the config file.
-    //  * 
+    //  *
     //  * This method can be used to change the config file after the object has
     //  * been initiated. The file will not be set if it cannot be found or read.
     //  * This is useful for testing, in cases where you want to use a different file.
@@ -476,6 +476,9 @@ abstract class AmazonCore
             $backtrace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS);
 
             $muteLog = Config::get('amazon-mws.muteLog');
+            if (isset($muteLog) && $muteLog == true) {
+                return;
+            }
 
             switch ($level) {
                 case('Info'):
@@ -493,11 +496,8 @@ abstract class AmazonCore
                 default:
                     $loglevel = 'info';
             }
-            call_user_func(array('Log', $loglevel), $msg);
 
-            if (isset($muteLog) && $muteLog == true) {
-                return;
-            }
+            call_user_func(array('Log', $loglevel), $msg);
 
             if (isset($userName) && $userName != '') {
                 $name = $userName;
