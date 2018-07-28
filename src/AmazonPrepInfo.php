@@ -35,12 +35,14 @@ class AmazonPrepInfo extends AmazonInboundCore implements Iterator
     protected $i = 0;
 
     /**
-     * Sets the seller SKU(s). (Required*)
+     * Sets the seller SKU(s). (Required*).
      *
      * This method sets the list of seller SKUs to be sent in the next request.
      * If this parameter is set, ASINs cannot be set.
+     *
      * @param array|string $s <p>A list of Seller SKUs, or a single SKU string. (max: 20)</p>
-     * @return boolean <b>FALSE</b> if improper input
+     *
+     * @return bool <b>FALSE</b> if improper input
      */
     public function setSkus($s)
     {
@@ -69,19 +71,21 @@ class AmazonPrepInfo extends AmazonInboundCore implements Iterator
     private function resetSkus()
     {
         foreach ($this->options as $op=>$junk) {
-            if (preg_match("#SellerSKUList#", $op)) {
+            if (preg_match('#SellerSKUList#', $op)) {
                 unset($this->options[$op]);
             }
         }
     }
 
     /**
-     * Sets the ASIN(s). (Required*)
+     * Sets the ASIN(s). (Required*).
      *
      * This method sets the list of ASINs to be sent in the next request.
      * If this parameter is set, Seller SKUs cannot be set.
+     *
      * @param array|string $s <p>A list of ASINs, or a single ASIN string. (max: 20)</p>
-     * @return boolean <b>FALSE</b> if improper input
+     *
+     * @return bool <b>FALSE</b> if improper input
      */
     public function setAsins($s)
     {
@@ -110,7 +114,7 @@ class AmazonPrepInfo extends AmazonInboundCore implements Iterator
     private function resetAsins()
     {
         foreach ($this->options as $op=>$junk) {
-            if (preg_match("#ASINList#", $op)) {
+            if (preg_match('#ASINList#', $op)) {
                 unset($this->options[$op]);
             }
         }
@@ -126,13 +130,15 @@ class AmazonPrepInfo extends AmazonInboundCore implements Iterator
      * Other methods are available for fetching specific values from the list.
      * A list of items that were deemed invalid can also be retrieved using
      * <i>getInvalidItemList</i>.
-     * @return boolean <b>FALSE</b> if something goes wrong
+     *
+     * @return bool <b>FALSE</b> if something goes wrong
      */
     public function fetchPrepInstructions()
     {
         if (!array_key_exists('SellerSKUList.Id.1', $this->options) &&
                 !array_key_exists('ASINList.Id.1', $this->options)) {
-            $this->log("Product IDs must be set in order to get prep instructions!", 'Warning');
+            $this->log('Product IDs must be set in order to get prep instructions!', 'Warning');
+
             return false;
         }
 
@@ -181,8 +187,10 @@ class AmazonPrepInfo extends AmazonInboundCore implements Iterator
      * Parses XML response into array.
      *
      * This is what reads the response XML and converts it into an array.
+     *
      * @param SimpleXMLElement $xml <p>The XML response from Amazon.</p>
-     * @return boolean <b>FALSE</b> if no XML data is found
+     *
+     * @return bool <b>FALSE</b> if no XML data is found
      */
     protected function parseXml($xml)
     {
@@ -202,20 +210,20 @@ class AmazonPrepInfo extends AmazonInboundCore implements Iterator
             foreach ($list->children() as $x) {
                 $temp = [];
                 if (isset($x->SellerSKU)) {
-                    $temp['SellerSKU'] = (string)$x->SellerSKU;
+                    $temp['SellerSKU'] = (string) $x->SellerSKU;
                 }
-                $temp['ASIN'] = (string)$x->ASIN;
-                $temp['BarcodeInstruction'] = (string)$x->BarcodeInstruction;
-                $temp['PrepGuidance'] = (string)$x->PrepGuidance;
+                $temp['ASIN'] = (string) $x->ASIN;
+                $temp['BarcodeInstruction'] = (string) $x->BarcodeInstruction;
+                $temp['PrepGuidance'] = (string) $x->PrepGuidance;
                 foreach ($x->PrepInstructionList->children() as $z) {
-                    $temp['PrepInstructionList'][] = (string)$z;
+                    $temp['PrepInstructionList'][] = (string) $z;
                 }
                 if (isset($x->AmazonPrepFeesDetailsList)) {
                     foreach ($x->AmazonPrepFeesDetailsList->children() as $z) {
                         $fee = [];
-                        $fee['PrepInstruction'] = (string)$z->PrepInstruction;
-                        $fee['Amount']['Value'] = (string)$z->Amount->Value;
-                        $fee['Amount']['CurrencyCode'] = (string)$z->Amount->CurrencyCode;
+                        $fee['PrepInstruction'] = (string) $z->PrepInstruction;
+                        $fee['Amount']['Value'] = (string) $z->Amount->Value;
+                        $fee['Amount']['CurrencyCode'] = (string) $z->Amount->CurrencyCode;
                         $temp['AmazonPrepFees'][] = $fee;
                     }
                 }
@@ -234,12 +242,12 @@ class AmazonPrepInfo extends AmazonInboundCore implements Iterator
         if ($invList) {
             foreach ($invList->children() as $x) {
                 $temp = [];
-                $temp['ErrorReason'] = (string)$x->ErrorReason;
+                $temp['ErrorReason'] = (string) $x->ErrorReason;
                 if (isset($x->SellerSKU)) {
-                    $temp['SellerSKU'] = (string)$x->SellerSKU;
+                    $temp['SellerSKU'] = (string) $x->SellerSKU;
                 }
                 if (isset($x->ASIN)) {
-                    $temp['ASIN'] = (string)$x->ASIN;
+                    $temp['ASIN'] = (string) $x->ASIN;
                 }
                 $this->invalidList[] = $temp;
             }
@@ -252,8 +260,10 @@ class AmazonPrepInfo extends AmazonInboundCore implements Iterator
      * Prep instructions will only include this data if SKUs were sent when
      * retrieving the list of prep instructions.
      * This method will return <b>FALSE</b> if the list has not yet been filled.
+     *
      * @param int $i [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
-     * @return string|boolean single value, or <b>FALSE</b> if Non-numeric index
+     *
+     * @return string|bool single value, or <b>FALSE</b> if Non-numeric index
      */
     public function getSku($i = 0)
     {
@@ -268,8 +278,10 @@ class AmazonPrepInfo extends AmazonInboundCore implements Iterator
      * Returns the ASIN for the specified item preperation instruction.
      *
      * This method will return <b>FALSE</b> if the list has not yet been filled.
+     *
      * @param int $i [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
-     * @return string|boolean single value, or <b>FALSE</b> if Non-numeric index
+     *
+     * @return string|bool single value, or <b>FALSE</b> if Non-numeric index
      */
     public function getAsin($i = 0)
     {
@@ -285,8 +297,10 @@ class AmazonPrepInfo extends AmazonInboundCore implements Iterator
      *
      * Possible values are "RequiresFNSKULabel" and "CanUseOriginalBarcode".
      * This method will return <b>FALSE</b> if the list has not yet been filled.
+     *
      * @param int $i [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
-     * @return string|boolean single value, or <b>FALSE</b> if Non-numeric index
+     *
+     * @return string|bool single value, or <b>FALSE</b> if Non-numeric index
      */
     public function getBarcodeInstruction($i = 0)
     {
@@ -303,8 +317,10 @@ class AmazonPrepInfo extends AmazonInboundCore implements Iterator
      * Possible values are "ConsultHelpDocuments", "NoAdditionalPrepRequired",
      * and "SeePrepInstructionsList".
      * This method will return <b>FALSE</b> if the list has not yet been filled.
+     *
      * @param int $i [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
-     * @return string|boolean single value, or <b>FALSE</b> if Non-numeric index
+     *
+     * @return string|bool single value, or <b>FALSE</b> if Non-numeric index
      */
     public function getPrepGuidance($i = 0)
     {
@@ -321,8 +337,10 @@ class AmazonPrepInfo extends AmazonInboundCore implements Iterator
      * Possible values are "Polybagging", "BubbleWrapping", "Taping", "BlackShrinkWrapping",
      * "Labeling", and "HangGarment".
      * This method will return <b>FALSE</b> if the list has not yet been filled.
+     *
      * @param int $i [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
-     * @return array|boolean simple array, or <b>FALSE</b> if Non-numeric index
+     *
+     * @return array|bool simple array, or <b>FALSE</b> if Non-numeric index
      */
     public function getPrepInstructions($i = 0)
     {
@@ -348,8 +366,11 @@ class AmazonPrepInfo extends AmazonInboundCore implements Iterator
      * Prep instructions will only include this data if SKUs were sent when
      * retrieving the list of prep instructions.
      * This method will return <b>FALSE</b> if the list has not yet been filled.
+     *
      * @param int $i [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
-     * @return array|boolean multi-dimensional array, or <b>FALSE</b> if Non-numeric index
+     *
+     * @return array|bool multi-dimensional array, or <b>FALSE</b> if Non-numeric index
+     *
      * @see getPrepInstructions
      */
     public function getAmazonPrepFees($i = 0)
@@ -374,8 +395,11 @@ class AmazonPrepInfo extends AmazonInboundCore implements Iterator
      * <li><b>PrepInstructionList</b> (see <i>getPrepInstructions</i> for details)</li>
      * <li><b>AmazonPrepFees</b> (see <i>getAmazonPrepFees</i> for details)</li>
      * </ul>
+     *
      * @param int $i [optional] <p>List index of the instruction to return. Defaults to NULL.</p>
-     * @return array|boolean multi-dimensional array, or <b>FALSE</b> if list not filled yet
+     *
+     * @return array|bool multi-dimensional array, or <b>FALSE</b> if list not filled yet
+     *
      * @see getPrepInstructionList
      * @see getAmazonPrepFees
      */
@@ -400,8 +424,10 @@ class AmazonPrepInfo extends AmazonInboundCore implements Iterator
      * <li><b>SellerSKU</b> or <b>ASIN</b></li>
      * <li><b>ErrorReason</b></li>
      * </ul>
+     *
      * @param int $i [optional] <p>List index of the item to return. Defaults to NULL.</p>
-     * @return array|boolean multi-dimensional array, or <b>FALSE</b> if list not filled yet
+     *
+     * @return array|bool multi-dimensional array, or <b>FALSE</b> if list not filled yet
      */
     public function getInvalidItemList($i = null)
     {
@@ -416,7 +442,8 @@ class AmazonPrepInfo extends AmazonInboundCore implements Iterator
     }
 
     /**
-     * Iterator function
+     * Iterator function.
+     *
      * @return array
      */
     public function current()
@@ -425,7 +452,7 @@ class AmazonPrepInfo extends AmazonInboundCore implements Iterator
     }
 
     /**
-     * Iterator function
+     * Iterator function.
      */
     public function rewind()
     {
@@ -433,7 +460,8 @@ class AmazonPrepInfo extends AmazonInboundCore implements Iterator
     }
 
     /**
-     * Iterator function
+     * Iterator function.
+     *
      * @return int
      */
     public function key()
@@ -442,7 +470,7 @@ class AmazonPrepInfo extends AmazonInboundCore implements Iterator
     }
 
     /**
-     * Iterator function
+     * Iterator function.
      */
     public function next()
     {
@@ -450,8 +478,9 @@ class AmazonPrepInfo extends AmazonInboundCore implements Iterator
     }
 
     /**
-     * Iterator function
-     * @return boolean
+     * Iterator function.
+     *
+     * @return bool
      */
     public function valid()
     {
