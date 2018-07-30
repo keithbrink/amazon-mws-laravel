@@ -63,11 +63,13 @@ class AmazonPrepInfo extends AmazonInboundCore implements Iterator
     }
 
     /**
-     * Sets the shipToCountryCode. (Required*)
+     * Sets the shipToCountryCode. (Required*).
      *
      * This method sets the country code to be sent in the next request.
+     *
      * @param string $s <p>The country code to be send (e.g. "US")</p>
-     * @return boolean <b>FALSE</b> if improper input
+     *
+     * @return bool <b>FALSE</b> if improper input
      */
     public function setCountryCode($s)
     {
