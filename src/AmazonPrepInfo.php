@@ -164,6 +164,12 @@ class AmazonPrepInfo extends AmazonInboundCore implements Iterator
             return false;
         }
 
+        if (!array_key_exists('shipToCountryCode', $this->options)) {
+            $this->log('Country Code must be set in order to get prep instructions!', 'Warning');
+
+            return false;
+        }
+
         $this->preparePrep();
 
         $url = $this->urlbase.$this->urlbranch;
