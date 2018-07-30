@@ -63,7 +63,7 @@ class AmazonPrepInfo extends AmazonInboundCore implements Iterator
     }
 
     /**
-     * Sets the shipToCountryCode. (Required*).
+     * Sets the ShipToCountryCode. (Required*).
      *
      * This method sets the country code to be sent in the next request.
      *
@@ -75,7 +75,7 @@ class AmazonPrepInfo extends AmazonInboundCore implements Iterator
     {
         if (is_string($s)) {
             $this->resetCountryCode();
-            $this->options['shipToCountryCode'] = $s;
+            $this->options['ShipToCountryCode'] = $s;
         } else {
             return false;
         }
@@ -83,7 +83,7 @@ class AmazonPrepInfo extends AmazonInboundCore implements Iterator
 
     private function resetCountryCode()
     {
-        unset($this->options['shipToCountryCode']);
+        unset($this->options['ShipToCountryCode']);
     }
 
     /**
@@ -166,7 +166,7 @@ class AmazonPrepInfo extends AmazonInboundCore implements Iterator
             return false;
         }
 
-        if (!array_key_exists('shipToCountryCode', $this->options)) {
+        if (!array_key_exists('ShipToCountryCode', $this->options)) {
             $this->log('Country Code must be set in order to get prep instructions!', 'Warning');
 
             return false;
