@@ -61,6 +61,28 @@ class AmazonPrepInfo extends AmazonInboundCore implements Iterator
     }
 
     /**
+     * Sets the shipToCountryCode. (Required*)
+     *
+     * This method sets the country code to be sent in the next request.
+     * @param string $s <p>The country code to be send (e.g. "US")</p>
+     * @return boolean <b>FALSE</b> if improper input
+     */
+    public function setCountryCode($s)
+    {
+        if (is_string($s)) {
+            $this->resetCountryCode();
+            $this->options['shipToCountryCode'] = $s;
+        } else {
+            return false;
+        }
+    }
+
+    private function resetCountryCode()
+    {
+        unset($this->options['shipToCountryCode']);
+    }
+
+    /**
      * Resets the seller SKU options.
      *
      * Since seller SKU is a required parameter, these options should not be removed
