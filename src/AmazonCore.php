@@ -111,6 +111,7 @@ abstract class AmazonCore
     protected $mockFiles;
     protected $mockIndex = 0;
     protected $env;
+    protected $marketplaceId;
     protected $rawResponses = array();
     protected $proxy_info = [];
 
@@ -371,7 +372,7 @@ abstract class AmazonCore
 
     // *
     //  * Set the config file.
-    //  * 
+    //  *
     //  * This method can be used to change the config file after the object has
     //  * been initiated. The file will not be set if it cannot be found or read.
     //  * This is useful for testing, in cases where you want to use a different file.
@@ -434,6 +435,14 @@ abstract class AmazonCore
                 $this->proxy_info = $store[$s]['proxyInfo'];
             }
 
+            if (array_key_exists('authToken', $store[$s]) && !empty($store[$s]['authToken'])) {
+                $this->options['MWSAuthToken'] = $store[$s]['authToken'];
+            }
+
+            if (array_key_exists('marketplaceId', $store[$s]) && !empty($store[$s]['marketplaceId'])) {
+                $this->marketplaceId = $store[$s]['marketplaceId'];
+            }
+
         } else {
             throw new \Exception("Store $s does not exist!");
             $this->log("Store $s does not exist!", 'Warning');
@@ -471,6 +480,9 @@ abstract class AmazonCore
             $backtrace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS);
 
             $muteLog = Config::get('amazon-mws.muteLog');
+            if (isset($muteLog) && $muteLog == true) {
+                return;
+            }
 
             switch ($level) {
                 case('Info'):
@@ -488,11 +500,8 @@ abstract class AmazonCore
                 default:
                     $loglevel = 'info';
             }
-            call_user_func(array('Log', $loglevel), $msg);
 
-            if (isset($muteLog) && $muteLog == true) {
-                return;
-            }
+            call_user_func(array('Log', $loglevel), $msg);
 
             if (isset($userName) && $userName != '') {
                 $name = $userName;
@@ -542,22 +551,25 @@ abstract class AmazonCore
      *
      * This method creates a timestamp from the provided string in ISO8601 format.
      * The string given is passed through <i>strtotime</i> before being used. The
-     * value returned is actually two minutes early, to prevent it from tripping up
+     * value returned is actually 30 seconds early, to prevent it from tripping up
      * Amazon. If no time is given, the current time is used.
      * @param string $time [optional] <p>The time to use. Since this value is
      * passed through <i>strtotime</i> first, values such as "-1 hour" are fine.
      * Defaults to the current time.</p>
-     * @return string Unix timestamp of the time, minus 2 minutes.
+     * @return string Unix timestamp of the time, minus 30 seconds.
      */
     protected function genTime($time = false)
     {
         if (!$time) {
             $time = time();
-        } else {
+        } else if (is_numeric($time)) {
+            $time = (int)$time;
+        } else if (is_string($time)) {
             $time = strtotime($time);
-
+        } else {
+            throw new Exception('Invalid time input given');
         }
-        return date(DateTime::ISO8601, $time - 120);
+        return date('c', $time-120);
 
     }
 
