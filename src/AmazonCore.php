@@ -617,6 +617,10 @@ abstract class AmazonCore
         $this->log("Making request to Amazon: " . $this->options['Action']);
         $response = $this->fetchURL($url, $param);
 
+        if (!isset($reponse['code'])) {
+            $this->log("Unrecognized response: ".print_r($response, true));
+            return null;
+        }
         while ($response['code'] == '503' && $this->throttleStop == false) {
             $this->sleep();
             $response = $this->fetchURL($url, $param);
