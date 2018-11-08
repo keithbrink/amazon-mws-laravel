@@ -113,7 +113,7 @@ abstract class AmazonCore
     protected $env;
     protected $marketplaceId;
     protected $rawResponses = array();
-    protected $proxy_info = [];
+    protected $proxyInfo = [];
 
     /**
      * AmazonCore constructor sets up key information used in all Amazon requests.
@@ -432,7 +432,7 @@ abstract class AmazonCore
                 $this->urlbase = $AMAZON_SERVICE_URL;
             }
             if (array_key_exists('proxyInfo', $store[$s])) {
-                $this->proxy_info = $store[$s]['proxyInfo'];
+                $this->proxyInfo = $store[$s]['proxyInfo'];
             }
 
             if (array_key_exists('authToken', $store[$s]) && !empty($store[$s]['authToken'])) {
@@ -729,18 +729,17 @@ abstract class AmazonCore
             }
         }
 
-        if (!empty($this->proxy_info)
-            && !empty($this->proxy_info['ip'])
-            && !empty($this->proxy_info['port'])
+        if (!empty($this->proxyInfo)
+            && !empty($this->proxyInfo['ip'])
+            && !empty($this->proxyInfo['port'])
         ) {
-            curl_setopt($ch, CURLOPT_PROXYAUTH, CURLAUTH_BASIC); //代理认证模式
-            curl_setopt($ch, CURLOPT_PROXY, $this->proxy_info['ip']); //代理服务器地址
-            curl_setopt($ch, CURLOPT_PROXYPORT, $this->proxy_info['port']); //代理服务器端口
-            //http代理认证帐号，username:password的格式
-            if (!empty($this->proxy_info['user_pwd'])) {
-                curl_setopt($ch, CURLOPT_PROXYUSERPWD, $this->proxy_info['user_pwd']);
+            curl_setopt($ch, CURLOPT_PROXYAUTH, CURLAUTH_BASIC);
+            curl_setopt($ch, CURLOPT_PROXY, $this->proxyInfo['ip']);
+            curl_setopt($ch, CURLOPT_PROXYPORT, $this->proxyInfo['port']);
+            if (!empty($this->proxyInfo['user_pwd'])) {
+                curl_setopt($ch, CURLOPT_PROXYUSERPWD, $this->proxyInfo['user_pwd']);
             }
-            curl_setopt($ch, CURLOPT_PROXYTYPE, CURLPROXY_SOCKS5); //使用http代理模式
+            curl_setopt($ch, CURLOPT_PROXYTYPE, CURLPROXY_SOCKS5);
         }
 
         $data = curl_exec($ch);

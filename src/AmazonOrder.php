@@ -1,7 +1,5 @@
 <?php namespace Sonnenglas\AmazonMws;
 
-use Sonnenglas\AmazonMws\AmazonOrderCore;
-
 /**
  * Copyright 2013 CPI Group, LLC
  *
@@ -662,15 +660,6 @@ class AmazonOrder extends AmazonOrderCore
     {
         if (isset($this->data['PaymentMethodDetails'])) {
             return $this->data['PaymentMethodDetails'];
-        } else {
-            return false;
-        }
-    }
-
-    public function getOrderType()
-    {
-        if (isset($this->data['OrderType'])) {
-            return $this->data['OrderType'];
         } else {
             return false;
         }
