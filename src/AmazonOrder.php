@@ -224,7 +224,16 @@ class AmazonOrder extends AmazonOrderCore
         if (isset($xml->BuyerEmail)) {
             $d['BuyerEmail'] = (string)$xml->BuyerEmail;
         }
-        if (isset($xml->ShipmentServiceLevelCategory)){
+        if (isset($xml->PaymentMethodDetails)) {
+            $d['PaymentMethodDetails'] = array();
+
+            $i = 0;
+            foreach ($xml->PaymentMethodDetails->children() as $x) {
+                $d['PaymentMethodDetails']['PaymentMethodDetail'][] = (string) $x;
+                $i++;
+            }
+        }
+        if (isset($xml->ShipmentServiceLevelCategory)) {
             $d['ShipmentServiceLevelCategory'] = (string)$xml->ShipmentServiceLevelCategory;
         }
         if (isset($xml->CbaDisplayableShippingLabel)){
@@ -640,9 +649,28 @@ class AmazonOrder extends AmazonOrderCore
      * </ul>
      * @return string|boolean single value, or <b>FALSE</b> if category not set yet
      */
-    public function getShipmentServiceLevelCategory(){
-        if (isset($this->data['ShipmentServiceLevelCategory'])){
+    public function getShipmentServiceLevelCategory()
+    {
+        if (isset($this->data['ShipmentServiceLevelCategory'])) {
             return $this->data['ShipmentServiceLevelCategory'];
+        } else {
+            return false;
+        }
+    }
+
+    public function getPaymentMethodDetails()
+    {
+        if (isset($this->data['PaymentMethodDetails'])) {
+            return $this->data['PaymentMethodDetails'];
+        } else {
+            return false;
+        }
+    }
+
+    public function getOrderType()
+    {
+        if (isset($this->data['OrderType'])) {
+            return $this->data['OrderType'];
         } else {
             return false;
         }
