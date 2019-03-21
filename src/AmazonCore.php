@@ -104,6 +104,7 @@ abstract class AmazonCore
     protected $throttleSafe;
     protected $throttleGroup;
     protected $throttleStop = false;
+    protected $throttleCount = 0;
     protected $storeName;
     protected $options;
     protected $config;
@@ -615,6 +616,7 @@ abstract class AmazonCore
     protected function sendRequest($url, $param)
     {
         $this->log("Making request to Amazon: " . $this->options['Action']);
+        $this->throttleCount = 0;
         $response = $this->fetchURL($url, $param);
 
         if (!isset($response['code'])) {
@@ -622,6 +624,7 @@ abstract class AmazonCore
             return null;
         }
         while ($response['code'] == '503' && $this->throttleStop == false) {
+            ++$this->throttleCount;
             $this->sleep();
             $response = $this->fetchURL($url, $param);
         }
@@ -669,6 +672,16 @@ abstract class AmazonCore
         } else {
             return false;
         }
+    }
+
+    /**
+     * Gives the number of times the last call to sendRequest was throttled
+     * @return int
+     * @see sendRequest
+     */
+    public function getThrottleCountForLastRequest()
+    {
+        return $this->throttleCount;
     }
 
     /**
