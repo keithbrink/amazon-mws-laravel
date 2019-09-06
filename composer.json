@@ -13,12 +13,12 @@
         "php": ">=5.5.9",
         "ext-curl": "*",
         "symfony/http-kernel": "~2.7|~3.0|~4.0",
-        "illuminate/support": "5.*"
+        "illuminate/support": "^5.0|^6.0"
     },
     "require-dev": {
-        "illuminate/http": "~5.3",
-        "illuminate/routing": "~5.3",
-        "illuminate/view": "~5.3",
+        "illuminate/http": "~5.3|^6.0",
+        "illuminate/routing": "~5.3|^6.0",
+        "illuminate/view": "~5.3|^6.0",
         "mockery/mockery": "~1.0",
         "phpunit/phpunit": "~5.0",
         "vlucas/phpdotenv": "~2.0"
