@@ -3,7 +3,6 @@
 namespace KeithBrink\AmazonMws;
 
 use Config;
-use DateTime;
 use Exception;
 use Log;
 
