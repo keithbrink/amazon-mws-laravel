@@ -415,8 +415,10 @@ class AmazonFulfillmentOrderCreator extends AmazonOutboundCore
         $this->resetItems();
         $i = 1;
         foreach ($a as $x) {
-            if (is_array($x) && array_key_exists('SellerSKU', $x) && array_key_exists('SellerFulfillmentOrderItemId',
-                    $x) && array_key_exists('Quantity', $x)
+            if (is_array($x) && array_key_exists('SellerSKU', $x) && array_key_exists(
+                'SellerFulfillmentOrderItemId',
+                $x
+            ) && array_key_exists('Quantity', $x)
             ) {
                 $this->options['Items.member.'.$i.'.SellerSKU'] = $x['SellerSKU'];
                 $this->options['Items.member.'.$i.'.SellerFulfillmentOrderItemId'] = $x['SellerFulfillmentOrderItemId'];

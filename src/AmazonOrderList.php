@@ -367,7 +367,7 @@ class AmazonOrderList extends AmazonOrderCore implements Iterator
     {
         if (!array_key_exists('CreatedAfter', $this->options) && !array_key_exists(
             'LastUpdatedAfter',
-                $this->options
+            $this->options
         )
         ) {
             $this->setLimits('Created');

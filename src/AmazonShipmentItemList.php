@@ -143,8 +143,10 @@ class AmazonShipmentItemList extends AmazonInboundCore implements \Iterator
                 isset($this->options['LastUpdatedBefore']) &&
                 $this->options['LastUpdatedAfter'] > $this->options['LastUpdatedBefore']
             ) {
-                $this->setTimeLimits($this->options['LastUpdatedBefore'].' - 1 second',
-                    $this->options['LastUpdatedBefore']);
+                $this->setTimeLimits(
+                    $this->options['LastUpdatedBefore'].' - 1 second',
+                    $this->options['LastUpdatedBefore']
+                );
             }
         } catch (Exception $e) {
             throw new InvalidArgumentException('Parameters should be timestamps.');
