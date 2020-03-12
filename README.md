@@ -3,7 +3,9 @@
 # Amazon MWS for Laravel
 ============
 
-A Laravel 5 package to connect to Amazon's Merchant Web Services (MWS).
+A Laravel package to connect to Amazon's Merchant Web Services (MWS).
+
+If you are using Laravel 6 or lower, use version 5.0. On Laravel 7, use version 7.0+.
 
 This is __NOT__ for Amazon Web Services (AWS) - Cloud Computing Services.
 
