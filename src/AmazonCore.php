@@ -597,7 +597,7 @@ abstract class AmazonCore
             $time = strtotime($time);
         }
 
-        return date(DateTime::ISO8601, $time - 120);
+        return date('c', $time - 120);
     }
 
     /**
