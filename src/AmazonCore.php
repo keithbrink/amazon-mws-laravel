@@ -227,7 +227,7 @@ abstract class AmazonCore
         //check for absolute/relative file paths
         if (strpos($this->mockFiles[$this->mockIndex], '/') === 0 || strpos(
             $this->mockFiles[$this->mockIndex],
-                '..'
+            '..'
         ) === 0
         ) {
             $url = $this->mockFiles[$this->mockIndex];
