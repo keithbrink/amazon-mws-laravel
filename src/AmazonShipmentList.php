@@ -218,8 +218,10 @@ class AmazonShipmentList extends AmazonInboundCore implements \Iterator
                 isset($this->options['LastUpdatedBefore']) &&
                 $this->options['LastUpdatedAfter'] > $this->options['LastUpdatedBefore']
             ) {
-                $this->setTimeLimits($this->options['LastUpdatedBefore'].' - 1 second',
-                    $this->options['LastUpdatedBefore']);
+                $this->setTimeLimits(
+                    $this->options['LastUpdatedBefore'].' - 1 second',
+                    $this->options['LastUpdatedBefore']
+                );
             }
         } catch (Exception $e) {
             throw new InvalidArgumentException('Parameters should be timestamps.');
@@ -252,8 +254,10 @@ class AmazonShipmentList extends AmazonInboundCore implements \Iterator
      */
     public function fetchShipments($r = true)
     {
-        if (!array_key_exists('ShipmentStatusList.member.1',
-                $this->options) && !array_key_exists('ShipmentIdList.member.1', $this->options)
+        if (!array_key_exists(
+            'ShipmentStatusList.member.1',
+            $this->options
+        ) && !array_key_exists('ShipmentIdList.member.1', $this->options)
         ) {
             $this->log('Either status filter or ID filter must be set before requesting a list!', 'Warning');
 
@@ -391,8 +395,13 @@ class AmazonShipmentList extends AmazonInboundCore implements \Iterator
             $a = [];
             $n = 0;
             foreach ($this->shipmentList as $x) {
-                $a[$n] = new AmazonShipmentItemList($this->storeName, $x['ShipmentId'], $this->mockMode,
-                    $this->mockFiles, $this->config);
+                $a[$n] = new AmazonShipmentItemList(
+                    $this->storeName,
+                    $x['ShipmentId'],
+                    $this->mockMode,
+                    $this->mockFiles,
+                    $this->config
+                );
                 $a[$n]->setUseToken($token);
                 $a[$n]->mockIndex = $this->mockIndex;
                 $a[$n]->fetchItems();
@@ -402,8 +411,13 @@ class AmazonShipmentList extends AmazonInboundCore implements \Iterator
             return $a;
         } else {
             if (is_int($i)) {
-                $temp = new AmazonShipmentItemList($this->storeName, $this->shipmentList[$i]['ShipmentId'],
-                    $this->mockMode, $this->mockFiles, $this->config);
+                $temp = new AmazonShipmentItemList(
+                    $this->storeName,
+                    $this->shipmentList[$i]['ShipmentId'],
+                    $this->mockMode,
+                    $this->mockFiles,
+                    $this->config
+                );
                 $temp->setUseToken($token);
                 $temp->mockIndex = $this->mockIndex;
                 $temp->fetchItems();

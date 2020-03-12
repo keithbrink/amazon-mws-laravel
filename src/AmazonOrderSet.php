@@ -173,8 +173,14 @@ class AmazonOrderSet extends AmazonOrderCore implements \Iterator
             if ($key != 'Order') {
                 break;
             }
-            $this->orderList[$this->index] = new AmazonOrder($this->storeName, null, $order, $this->mockMode,
-                $this->mockFiles, $this->config);
+            $this->orderList[$this->index] = new AmazonOrder(
+                $this->storeName,
+                null,
+                $order,
+                $this->mockMode,
+                $this->mockFiles,
+                $this->config
+            );
             $this->orderList[$this->index]->mockIndex = $this->mockIndex;
             $this->index++;
         }

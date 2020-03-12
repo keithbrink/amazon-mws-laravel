@@ -140,8 +140,10 @@ class AmazonFeedResult extends AmazonFeedsCore
             file_put_contents($path, $this->rawFeed);
             $this->log('Successfully saved feed #'.$this->options['FeedSubmissionId']." at $path");
         } catch (Exception $e) {
-            $this->log('Unable to save feed #'.$this->options['FeedSubmissionId']." at $path: ".$e->getMessage(),
-                'Urgent');
+            $this->log(
+                'Unable to save feed #'.$this->options['FeedSubmissionId']." at $path: ".$e->getMessage(),
+                'Urgent'
+            );
 
             return false;
         }
