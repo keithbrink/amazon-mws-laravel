@@ -104,8 +104,10 @@ class AmazonProduct extends AmazonProductsCore
                                 foreach ($y->children('ns2', true) as $z) {
                                     if ($z->children('ns2', true)->count() > 0) {
                                         //we need to go deeper
-                                        $this->log('Warning! Attribute '.$z->getName().' is too deep for this!',
-                                            'Urgent');
+                                        $this->log(
+                                            'Warning! Attribute '.$z->getName().' is too deep for this!',
+                                            'Urgent'
+                                        );
                                     } else {
                                         $this->data['AttributeSets'][$anum][$x->getName()][$y->getName()][$z->getName()] = (string) $z;
                                     }
