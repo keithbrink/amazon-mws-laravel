@@ -214,12 +214,12 @@ abstract class AmazonCore
      */
     protected function fetchMockFile($load = true)
     {
-        if (! is_array($this->mockFiles) || ! array_key_exists(0, $this->mockFiles)) {
+        if (!is_array($this->mockFiles) || !array_key_exists(0, $this->mockFiles)) {
             $this->log('Attempted to retrieve mock files, but no mock files present', 'Warning');
 
             return false;
         }
-        if (! array_key_exists($this->mockIndex, $this->mockFiles)) {
+        if (!array_key_exists($this->mockIndex, $this->mockFiles)) {
             $this->log('End of Mock List, resetting to 0');
             $this->resetMock();
         }
@@ -267,7 +267,7 @@ abstract class AmazonCore
     protected function resetMock($mute = false)
     {
         $this->mockIndex = 0;
-        if (! $mute) {
+        if (!$mute) {
             $this->log('Mock List index reset to 0');
         }
     }
@@ -294,16 +294,16 @@ abstract class AmazonCore
      */
     protected function fetchMockResponse()
     {
-        if (! is_array($this->mockFiles) || ! array_key_exists(0, $this->mockFiles)) {
+        if (!is_array($this->mockFiles) || !array_key_exists(0, $this->mockFiles)) {
             $this->log('Attempted to retrieve mock responses, but no mock responses present', 'Warning');
 
             return false;
         }
-        if (! array_key_exists($this->mockIndex, $this->mockFiles)) {
+        if (!array_key_exists($this->mockIndex, $this->mockFiles)) {
             $this->log('End of Mock List, resetting to 0');
             $this->resetMock();
         }
-        if (! is_numeric($this->mockFiles[$this->mockIndex])) {
+        if (!is_numeric($this->mockFiles[$this->mockIndex])) {
             $this->log('fetchMockResponse only works with response code numbers', 'Warning');
 
             return false;
@@ -368,7 +368,7 @@ abstract class AmazonCore
      */
     protected function checkResponse($r)
     {
-        if (! is_array($r) || ! array_key_exists('code', $r)) {
+        if (!is_array($r) || !array_key_exists('code', $r)) {
             $this->log('No Response found', 'Warning');
 
             return false;
@@ -397,7 +397,7 @@ abstract class AmazonCore
      */
     public function setConfig($config)
     {
-        if (! $this->validateAndSetConfig($config)) {
+        if (!$this->validateAndSetConfig($config)) {
             throw new \Exception('Configuration values not set correctly. See log for details.');
         }
     }
@@ -483,7 +483,7 @@ abstract class AmazonCore
      */
     public function setThrottleStop($b = true)
     {
-        $this->throttleStop = ! empty($b);
+        $this->throttleStop = !empty($b);
     }
 
     /**
@@ -565,7 +565,7 @@ abstract class AmazonCore
      */
     protected function genTime($time = false)
     {
-        if (! $time) {
+        if (!$time) {
             $time = time();
         } else {
             $time = strtotime($time);
@@ -644,7 +644,7 @@ abstract class AmazonCore
      */
     public function getLastResponse($i = null)
     {
-        if (! isset($i)) {
+        if (!isset($i)) {
             $i = count($this->rawResponses) - 1;
         }
         if ($i >= 0 && isset($this->rawResponses[$i])) {
@@ -663,7 +663,7 @@ abstract class AmazonCore
      */
     public function getRawResponses()
     {
-        if (! empty($this->rawResponses)) {
+        if (!empty($this->rawResponses)) {
             return $this->rawResponses;
         } else {
             return false;
@@ -690,7 +690,7 @@ abstract class AmazonCore
      */
     protected function checkToken($xml)
     {
-        if (! $xml) {
+        if (!$xml) {
             return false;
         }
         if ($xml->NextToken) {
@@ -728,11 +728,11 @@ abstract class AmazonCore
         curl_setopt($ch, CURLOPT_FRESH_CONNECT, 1);
         curl_setopt($ch, CURLOPT_HEADER, 1);
         curl_setopt($ch, CURLOPT_URL, $url);
-        if (! empty($param)) {
-            if (! empty($param['Header'])) {
+        if (!empty($param)) {
+            if (!empty($param['Header'])) {
                 curl_setopt($ch, CURLOPT_HTTPHEADER, $param['Header']);
             }
-            if (! empty($param['Post'])) {
+            if (!empty($param['Post'])) {
                 curl_setopt($ch, CURLOPT_POSTFIELDS, $param['Post']);
             }
         }
@@ -749,7 +749,7 @@ abstract class AmazonCore
             $data = str_replace('HTTP/1.1 100 Continue', '', $data);
         }
         $data = preg_split("/\r\n\r\n/", $data, 2, PREG_SPLIT_NO_EMPTY);
-        if (! empty($data)) {
+        if (!empty($data)) {
             $return['head'] = (isset($data[0]) ? $data[0] : null);
             $return['body'] = (isset($data[1]) ? $data[1] : null);
         } else {
@@ -759,13 +759,13 @@ abstract class AmazonCore
 
         $matches = [];
         $data = preg_match("/HTTP\/[0-9.]+ ([0-9]+) (.+)\r\n/", $return['head'], $matches);
-        if (! empty($matches)) {
+        if (!empty($matches)) {
             $return['code'] = $matches[1];
             $return['answer'] = $matches[2];
         }
 
         $data = preg_match("/meta http-equiv=.refresh. +content=.[0-9]*;url=([^'\"]*)/i", $return['body'], $matches);
-        if (! empty($matches)) {
+        if (!empty($matches)) {
             $return['location'] = $matches[1];
             $return['code'] = '301';
         }
@@ -865,7 +865,7 @@ abstract class AmazonCore
         $data .= $endpoint['host'];
         $data .= "\n";
         $uri = array_key_exists('path', $endpoint) ? $endpoint['path'] : null;
-        if (! isset($uri)) {
+        if (!isset($uri)) {
             $uri = '/';
         }
         $uriencoded = implode('/', array_map([$this, '_urlencode'], explode('/', $uri)));
