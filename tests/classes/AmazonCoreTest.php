@@ -75,17 +75,20 @@ class AmazonCoreTest extends PHPUnit_Framework_TestCase
             'keyId'            => 'TESTKEYID',
             'secretKey'        => 'TESTSECRETID',
             'amazonServiceUrl' => 'http://test.com',
+            'muteLog' => true,
         ];
 
         $this->object->setConfig($config);
 
         $o = $this->object->getOptions();
+
         $this->assertInternalType('array', $o);
         $this->assertArrayHasKey('SellerId', $o);
         $this->assertArrayHasKey('AWSAccessKeyId', $o);
         $this->assertEquals('TEST123', $o['SellerId']);
         $this->assertEquals('TESTKEYID', $o['AWSAccessKeyId']);
         $this->assertEquals('TESTMARKETPLACE', $o['MarketplaceId']);
+        $this->assertTrue($this->readAttribute($this->object, 'muteLog'));
     }
 
     /**
@@ -137,6 +140,43 @@ class AmazonCoreTest extends PHPUnit_Framework_TestCase
         $this->assertArrayHasKey('SignatureVersion', $o);
         $this->assertArrayHasKey('SignatureMethod', $o);
         $this->assertArrayHasKey('Version', $o);
+    }
+
+    public function testLog()
+    {
+        resetLog();
+
+        $reflector = new ReflectionClass(get_class($this->object));
+        $method = $reflector->getMethod('log');
+        $method->setAccessible(true);
+
+        $method->invokeArgs($this->object, ['test log']);
+
+        $this->assertEquals('test log', parseLog()[0]);
+    }
+
+    public function testMuteLog()
+    {
+        resetLog();
+
+        $config = [
+            'merchantId'       => 'TEST123',
+            'marketplaceId'    => 'TESTMARKETPLACE',
+            'keyId'            => 'TESTKEYID',
+            'secretKey'        => 'TESTSECRETID',
+            'amazonServiceUrl' => 'http://test.com',
+            'muteLog' => true,
+        ];
+
+        $this->object->setConfig($config);
+
+        $reflector = new ReflectionClass(get_class($this->object));
+        $method = $reflector->getMethod('log');
+        $method->setAccessible(true);
+
+        $method->invokeArgs($this->object, ['test log']);
+
+        $this->assertArrayNotHasKey(0, parseLog());
     }
 }
 
