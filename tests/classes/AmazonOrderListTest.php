@@ -318,6 +318,24 @@ class AmazonOrderListTest extends PHPUnit_Framework_TestCase
 
         $this->assertFalse($this->object->getList()); //not fetched yet for this object
     }
+
+    public function testSetMarkplaceIdFromConfigArray()
+    {
+        $config = [
+            'merchantId'       => 'TEST123',
+            'marketplaceId'    => 'TESTMARKETPLACE',
+            'keyId'            => 'TESTKEYID',
+            'secretKey'        => 'TESTSECRETID',
+            'amazonServiceUrl' => 'http://test.com',
+            'muteLog' => true,
+        ];
+
+        $o = new AmazonOrderList('testStore', true, null);
+        $o->setConfig($config);
+        $options = $o->getOptions();
+
+        $this->assertEquals('TESTMARKETPLACE', $options['MarketplaceId.Id.1']);
+    }
 }
 
 require_once __DIR__.'/../helperFunctions.php';
