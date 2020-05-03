@@ -65,7 +65,7 @@ class AmazonProduct extends AmazonProductsCore
      */
     public function loadXML($xml)
     {
-        if (!$xml) {
+        if (! $xml) {
             return false;
         }
 
@@ -262,7 +262,7 @@ class AmazonProduct extends AmazonProductsCore
     protected function loadCategories($xml)
     {
         //Categories
-        if (!$xml->Self) {
+        if (! $xml->Self) {
             return false;
         }
         $cnum = 0;
@@ -285,7 +285,7 @@ class AmazonProduct extends AmazonProductsCore
      */
     protected function genHierarchy($xml)
     {
-        if (!$xml) {
+        if (! $xml) {
             return false;
         }
         $a = [];

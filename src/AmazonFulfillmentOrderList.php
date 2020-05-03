@@ -162,7 +162,7 @@ class AmazonFulfillmentOrderList extends AmazonOutboundCore implements \Iterator
         } else {
             $response = $this->sendRequest($url, ['Post' => $query]);
 
-            if (!$this->checkResponse($response)) {
+            if (! $this->checkResponse($response)) {
                 return false;
             }
 
@@ -214,7 +214,7 @@ class AmazonFulfillmentOrderList extends AmazonOutboundCore implements \Iterator
      */
     protected function parseXML($xml)
     {
-        if (!$xml) {
+        if (! $xml) {
             return false;
         }
         foreach ($xml->children() as $x) {
@@ -276,7 +276,7 @@ class AmazonFulfillmentOrderList extends AmazonOutboundCore implements \Iterator
      */
     public function getFullList()
     {
-        if (!isset($this->orderList)) {
+        if (! isset($this->orderList)) {
             return false;
         }
         $list = [];
@@ -323,7 +323,7 @@ class AmazonFulfillmentOrderList extends AmazonOutboundCore implements \Iterator
      */
     public function getOrder($i = null)
     {
-        if (!isset($this->orderList)) {
+        if (! isset($this->orderList)) {
             return false;
         }
         if (is_numeric($i)) {

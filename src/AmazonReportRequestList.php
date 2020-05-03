@@ -311,7 +311,7 @@ class AmazonReportRequestList extends AmazonReportsCore implements \Iterator
         } else {
             $response = $this->sendRequest($url, ['Post' => $query]);
 
-            if (!$this->checkResponse($response)) {
+            if (! $this->checkResponse($response)) {
                 return false;
             }
 
@@ -405,7 +405,7 @@ class AmazonReportRequestList extends AmazonReportsCore implements \Iterator
      */
     protected function parseXML($xml)
     {
-        if (!$xml) {
+        if (! $xml) {
             return false;
         }
 
@@ -459,7 +459,7 @@ class AmazonReportRequestList extends AmazonReportsCore implements \Iterator
         } else {
             $response = $this->sendRequest($url, ['Post' => $query]);
 
-            if (!$this->checkResponse($response)) {
+            if (! $this->checkResponse($response)) {
                 return false;
             }
 
@@ -491,7 +491,7 @@ class AmazonReportRequestList extends AmazonReportsCore implements \Iterator
         } else {
             $response = $this->sendRequest($url, ['Post' => $query]);
 
-            if (!$this->checkResponse($response)) {
+            if (! $this->checkResponse($response)) {
                 return false;
             }
 
@@ -536,7 +536,7 @@ class AmazonReportRequestList extends AmazonReportsCore implements \Iterator
      */
     public function getRequestId($i = 0)
     {
-        if (!isset($this->reportList)) {
+        if (! isset($this->reportList)) {
             return false;
         }
         if (is_int($i)) {
@@ -557,7 +557,7 @@ class AmazonReportRequestList extends AmazonReportsCore implements \Iterator
      */
     public function getReportType($i = 0)
     {
-        if (!isset($this->reportList)) {
+        if (! isset($this->reportList)) {
             return false;
         }
         if (is_int($i)) {
@@ -578,7 +578,7 @@ class AmazonReportRequestList extends AmazonReportsCore implements \Iterator
      */
     public function getStartDate($i = 0)
     {
-        if (!isset($this->reportList)) {
+        if (! isset($this->reportList)) {
             return false;
         }
         if (is_int($i)) {
@@ -599,7 +599,7 @@ class AmazonReportRequestList extends AmazonReportsCore implements \Iterator
      */
     public function getEndDate($i = 0)
     {
-        if (!isset($this->reportList)) {
+        if (! isset($this->reportList)) {
             return false;
         }
         if (is_int($i)) {
@@ -620,7 +620,7 @@ class AmazonReportRequestList extends AmazonReportsCore implements \Iterator
      */
     public function getIsScheduled($i = 0)
     {
-        if (!isset($this->reportList)) {
+        if (! isset($this->reportList)) {
             return false;
         }
         if (is_int($i)) {
@@ -641,7 +641,7 @@ class AmazonReportRequestList extends AmazonReportsCore implements \Iterator
      */
     public function getSubmittedDate($i = 0)
     {
-        if (!isset($this->reportList)) {
+        if (! isset($this->reportList)) {
             return false;
         }
         if (is_int($i)) {
@@ -662,7 +662,7 @@ class AmazonReportRequestList extends AmazonReportsCore implements \Iterator
      */
     public function getStatus($i = 0)
     {
-        if (!isset($this->reportList)) {
+        if (! isset($this->reportList)) {
             return false;
         }
         if (is_int($i)) {
@@ -683,7 +683,7 @@ class AmazonReportRequestList extends AmazonReportsCore implements \Iterator
      */
     public function getReportId($i = 0)
     {
-        if (!isset($this->reportList)) {
+        if (! isset($this->reportList)) {
             return false;
         }
         if (is_int($i)) {
@@ -704,7 +704,7 @@ class AmazonReportRequestList extends AmazonReportsCore implements \Iterator
      */
     public function getDateProcessingStarted($i = 0)
     {
-        if (!isset($this->reportList)) {
+        if (! isset($this->reportList)) {
             return false;
         }
         if (is_int($i)) {
@@ -725,7 +725,7 @@ class AmazonReportRequestList extends AmazonReportsCore implements \Iterator
      */
     public function getDateProcessingCompleted($i = 0)
     {
-        if (!isset($this->reportList)) {
+        if (! isset($this->reportList)) {
             return false;
         }
         if (is_int($i)) {
@@ -758,7 +758,7 @@ class AmazonReportRequestList extends AmazonReportsCore implements \Iterator
      */
     public function getList($i = null)
     {
-        if (!isset($this->reportList)) {
+        if (! isset($this->reportList)) {
             return false;
         }
         if (is_int($i)) {

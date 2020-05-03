@@ -98,7 +98,7 @@ class AmazonFeedResult extends AmazonFeedsCore
      */
     public function fetchFeedResult()
     {
-        if (!array_key_exists('FeedSubmissionId', $this->options)) {
+        if (! array_key_exists('FeedSubmissionId', $this->options)) {
             $this->log('Feed Submission ID must be set in order to fetch it!', 'Warning');
 
             return false;
@@ -113,7 +113,7 @@ class AmazonFeedResult extends AmazonFeedsCore
         } else {
             $response = $this->sendRequest($url, ['Post' => $query]);
 
-            if (!$this->checkResponse($response)) {
+            if (! $this->checkResponse($response)) {
                 return false;
             }
 
@@ -132,7 +132,7 @@ class AmazonFeedResult extends AmazonFeedsCore
      */
     public function saveFeed($path)
     {
-        if (!isset($this->rawFeed)) {
+        if (! isset($this->rawFeed)) {
             return false;
         }
 
@@ -158,7 +158,7 @@ class AmazonFeedResult extends AmazonFeedsCore
      */
     public function getRawFeed()
     {
-        if (!isset($this->rawFeed)) {
+        if (! isset($this->rawFeed)) {
             return false;
         }
 

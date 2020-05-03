@@ -188,7 +188,7 @@ class AmazonInventoryList extends AmazonInventoryCore implements \Iterator
      */
     public function fetchInventoryList($r = true)
     {
-        if (!isset($this->options['QueryStartDateTime']) && !isset($this->options['SellerSkus.member.1'])) {
+        if (! isset($this->options['QueryStartDateTime']) && ! isset($this->options['SellerSkus.member.1'])) {
             $this->setStartTime();
         }
         $this->prepareToken();
@@ -204,7 +204,7 @@ class AmazonInventoryList extends AmazonInventoryCore implements \Iterator
         } else {
             $response = $this->sendRequest($url, ['Post' => $query]);
 
-            if (!$this->checkResponse($response)) {
+            if (! $this->checkResponse($response)) {
                 return false;
             }
 
@@ -257,7 +257,7 @@ class AmazonInventoryList extends AmazonInventoryCore implements \Iterator
      */
     protected function parseXML($xml)
     {
-        if (!$xml) {
+        if (! $xml) {
             return false;
         }
         foreach ($xml->children() as $x) {
@@ -325,7 +325,7 @@ class AmazonInventoryList extends AmazonInventoryCore implements \Iterator
      */
     public function getSupply($i = null)
     {
-        if (!isset($this->supplyList)) {
+        if (! isset($this->supplyList)) {
             return false;
         }
         if (is_numeric($i)) {
@@ -346,7 +346,7 @@ class AmazonInventoryList extends AmazonInventoryCore implements \Iterator
      */
     public function getSellerSku($i = 0)
     {
-        if (!isset($this->supplyList)) {
+        if (! isset($this->supplyList)) {
             return false;
         }
         if (is_int($i)) {
@@ -367,7 +367,7 @@ class AmazonInventoryList extends AmazonInventoryCore implements \Iterator
      */
     public function getASIN($i = 0)
     {
-        if (!isset($this->supplyList)) {
+        if (! isset($this->supplyList)) {
             return false;
         }
         if (is_int($i)) {
@@ -388,7 +388,7 @@ class AmazonInventoryList extends AmazonInventoryCore implements \Iterator
      */
     public function getTotalSupplyQuantity($i = 0)
     {
-        if (!isset($this->supplyList)) {
+        if (! isset($this->supplyList)) {
             return false;
         }
         if (is_int($i)) {
@@ -409,7 +409,7 @@ class AmazonInventoryList extends AmazonInventoryCore implements \Iterator
      */
     public function getFNSKU($i = 0)
     {
-        if (!isset($this->supplyList)) {
+        if (! isset($this->supplyList)) {
             return false;
         }
         if (is_int($i)) {
@@ -430,7 +430,7 @@ class AmazonInventoryList extends AmazonInventoryCore implements \Iterator
      */
     public function getCondition($i = 0)
     {
-        if (!isset($this->supplyList)) {
+        if (! isset($this->supplyList)) {
             return false;
         }
         if (is_int($i)) {
@@ -451,7 +451,7 @@ class AmazonInventoryList extends AmazonInventoryCore implements \Iterator
      */
     public function getInStockSupplyQuantity($i = 0)
     {
-        if (!isset($this->supplyList)) {
+        if (! isset($this->supplyList)) {
             return false;
         }
         if (is_int($i)) {
@@ -472,7 +472,7 @@ class AmazonInventoryList extends AmazonInventoryCore implements \Iterator
      */
     public function getEarliestAvailability($i = 0)
     {
-        if (!isset($this->supplyList)) {
+        if (! isset($this->supplyList)) {
             return false;
         }
         if (is_int($i) && array_key_exists('EarliestAvailability', $this->supplyList[$i])) {
@@ -496,7 +496,7 @@ class AmazonInventoryList extends AmazonInventoryCore implements \Iterator
      */
     public function getSupplyDetails($i = 0, $j = null)
     {
-        if (!isset($this->supplyList)) {
+        if (! isset($this->supplyList)) {
             return false;
         }
         if (is_int($i) && array_key_exists('SupplyDetail', $this->supplyList[$i])) {
@@ -522,7 +522,7 @@ class AmazonInventoryList extends AmazonInventoryCore implements \Iterator
      */
     public function getEarliestAvailableToPick($i = 0, $j = 0)
     {
-        if (!isset($this->supplyList)) {
+        if (! isset($this->supplyList)) {
             return false;
         }
         if (is_int($i) && is_numeric($j) && array_key_exists('SupplyDetail', $this->supplyList[$i])) {
@@ -544,7 +544,7 @@ class AmazonInventoryList extends AmazonInventoryCore implements \Iterator
      */
     public function getLatestAvailableToPick($i = 0, $j = 0)
     {
-        if (!isset($this->supplyList)) {
+        if (! isset($this->supplyList)) {
             return false;
         }
         if (is_int($i) && is_numeric($j) && array_key_exists('SupplyDetail', $this->supplyList[$i])) {
@@ -566,7 +566,7 @@ class AmazonInventoryList extends AmazonInventoryCore implements \Iterator
      */
     public function getQuantity($i = 0, $j = 0)
     {
-        if (!isset($this->supplyList)) {
+        if (! isset($this->supplyList)) {
             return false;
         }
         if (is_int($i) && is_numeric($j) && array_key_exists('SupplyDetail', $this->supplyList[$i])) {
@@ -588,7 +588,7 @@ class AmazonInventoryList extends AmazonInventoryCore implements \Iterator
      */
     public function getSupplyType($i = 0, $j = 0)
     {
-        if (!isset($this->supplyList)) {
+        if (! isset($this->supplyList)) {
             return false;
         }
         if (is_int($i) && is_numeric($j) && array_key_exists('SupplyDetail', $this->supplyList[$i])) {

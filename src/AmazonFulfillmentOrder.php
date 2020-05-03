@@ -68,7 +68,7 @@ class AmazonFulfillmentOrder extends AmazonOutboundCore
      */
     public function setOrderId($s)
     {
-        if ($s !== null && !is_int($s)) {
+        if ($s !== null && ! is_int($s)) {
             $this->options['SellerFulfillmentOrderId'] = $s;
         } else {
             return false;
@@ -86,7 +86,7 @@ class AmazonFulfillmentOrder extends AmazonOutboundCore
      */
     public function fetchOrder()
     {
-        if (!array_key_exists('SellerFulfillmentOrderId', $this->options)) {
+        if (! array_key_exists('SellerFulfillmentOrderId', $this->options)) {
             $this->log('Fulfillment Order ID must be set in order to fetch it!', 'Warning');
 
             return false;
@@ -104,7 +104,7 @@ class AmazonFulfillmentOrder extends AmazonOutboundCore
         } else {
             $response = $this->sendRequest($url, ['Post' => $query]);
 
-            if (!$this->checkResponse($response)) {
+            if (! $this->checkResponse($response)) {
                 return false;
             }
 
@@ -125,16 +125,16 @@ class AmazonFulfillmentOrder extends AmazonOutboundCore
      */
     protected function parseXML($xml)
     {
-        if (!$xml) {
+        if (! $xml) {
             return false;
         }
-        if (!$xml->FulfillmentOrder) {
+        if (! $xml->FulfillmentOrder) {
             return false;
         }
-        if (!$xml->FulfillmentOrderItem) {
+        if (! $xml->FulfillmentOrderItem) {
             return false;
         }
-        if (!$xml->FulfillmentShipment) {
+        if (! $xml->FulfillmentShipment) {
             return false;
         }
         //Section 1: ShipmentOrder
@@ -270,7 +270,7 @@ class AmazonFulfillmentOrder extends AmazonOutboundCore
      */
     public function cancelOrder()
     {
-        if (!array_key_exists('SellerFulfillmentOrderId', $this->options)) {
+        if (! array_key_exists('SellerFulfillmentOrderId', $this->options)) {
             $this->log('Fulfillment Order ID must be set in order to cancel it!', 'Warning');
 
             return false;
@@ -287,7 +287,7 @@ class AmazonFulfillmentOrder extends AmazonOutboundCore
         } else {
             $response = $this->sendRequest($url, ['Post' => $query]);
         }
-        if (!$this->checkResponse($response)) {
+        if (! $this->checkResponse($response)) {
             return false;
         } else {
             $this->log('Successfully deleted Fulfillment Order '.$this->options['SellerFulfillmentOrderId']);

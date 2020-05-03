@@ -257,7 +257,7 @@ class AmazonReportRequest extends AmazonReportsCore
      */
     public function requestReport()
     {
-        if (!array_key_exists('ReportType', $this->options)) {
+        if (! array_key_exists('ReportType', $this->options)) {
             $this->log('Report Type must be set in order to request a report!', 'Warning');
 
             return false;
@@ -273,7 +273,7 @@ class AmazonReportRequest extends AmazonReportsCore
         } else {
             $response = $this->sendRequest($url, ['Post' => $query]);
 
-            if (!$this->checkResponse($response)) {
+            if (! $this->checkResponse($response)) {
                 return false;
             }
 
@@ -294,7 +294,7 @@ class AmazonReportRequest extends AmazonReportsCore
      */
     protected function parseXML($xml)
     {
-        if (!$xml) {
+        if (! $xml) {
             return false;
         }
 

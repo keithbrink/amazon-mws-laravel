@@ -61,7 +61,7 @@ abstract class AmazonReportsCore extends AmazonCore
      */
     protected function checkToken($xml)
     {
-        if (!$xml) {
+        if (! $xml) {
             return false;
         }
         if ((string) $xml->HasNext == 'true') {
