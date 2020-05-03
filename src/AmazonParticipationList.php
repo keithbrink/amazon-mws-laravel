@@ -121,7 +121,7 @@ class AmazonParticipationList extends AmazonSellersCore
         } else {
             $response = $this->sendRequest($url, ['Post' => $query]);
 
-            if (!$this->checkResponse($response)) {
+            if (! $this->checkResponse($response)) {
                 return false;
             }
 
@@ -173,7 +173,7 @@ class AmazonParticipationList extends AmazonSellersCore
      */
     protected function parseXML($xml)
     {
-        if (!$xml) {
+        if (! $xml) {
             return false;
         }
         $xmlP = $xml->ListParticipations;
@@ -253,7 +253,7 @@ class AmazonParticipationList extends AmazonSellersCore
      */
     public function getMarketplaceId($i = 0)
     {
-        if (!isset($this->marketplaceList)) {
+        if (! isset($this->marketplaceList)) {
             return false;
         }
         if (is_numeric($i) && array_key_exists($i, $this->marketplaceList)) {
@@ -274,7 +274,7 @@ class AmazonParticipationList extends AmazonSellersCore
      */
     public function getName($i = 0)
     {
-        if (!isset($this->marketplaceList)) {
+        if (! isset($this->marketplaceList)) {
             return false;
         }
         if (is_numeric($i) && array_key_exists($i, $this->marketplaceList)) {
@@ -295,7 +295,7 @@ class AmazonParticipationList extends AmazonSellersCore
      */
     public function getCountry($i = 0)
     {
-        if (!isset($this->marketplaceList)) {
+        if (! isset($this->marketplaceList)) {
             return false;
         }
         if (is_numeric($i) && array_key_exists($i, $this->marketplaceList)) {
@@ -316,7 +316,7 @@ class AmazonParticipationList extends AmazonSellersCore
      */
     public function getCurreny($i = 0)
     {
-        if (!isset($this->marketplaceList)) {
+        if (! isset($this->marketplaceList)) {
             return false;
         }
         if (is_numeric($i) && array_key_exists($i, $this->marketplaceList)) {
@@ -337,7 +337,7 @@ class AmazonParticipationList extends AmazonSellersCore
      */
     public function getLanguage($i = 0)
     {
-        if (!isset($this->marketplaceList)) {
+        if (! isset($this->marketplaceList)) {
             return false;
         }
         if (is_numeric($i) && array_key_exists($i, $this->marketplaceList)) {
@@ -358,7 +358,7 @@ class AmazonParticipationList extends AmazonSellersCore
      */
     public function getDomain($i = 0)
     {
-        if (!isset($this->marketplaceList)) {
+        if (! isset($this->marketplaceList)) {
             return false;
         }
         if (is_numeric($i) && array_key_exists($i, $this->marketplaceList)) {
@@ -379,7 +379,7 @@ class AmazonParticipationList extends AmazonSellersCore
      */
     public function getSellerId($i = 0)
     {
-        if (!isset($this->participationList)) {
+        if (! isset($this->participationList)) {
             return false;
         }
         if (is_numeric($i) && array_key_exists($i, $this->participationList)) {
@@ -400,7 +400,7 @@ class AmazonParticipationList extends AmazonSellersCore
      */
     public function getSuspensionStatus($i = 0)
     {
-        if (!isset($this->participationList)) {
+        if (! isset($this->participationList)) {
             return false;
         }
         if (is_numeric($i) && array_key_exists($i, $this->participationList)) {

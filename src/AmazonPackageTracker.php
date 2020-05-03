@@ -86,7 +86,7 @@ class AmazonPackageTracker extends AmazonOutboundCore
      */
     public function fetchTrackingDetails()
     {
-        if (!array_key_exists('PackageNumber', $this->options)) {
+        if (! array_key_exists('PackageNumber', $this->options)) {
             $this->log('Package Number must be set in order to fetch it!', 'Warning');
 
             return false;
@@ -102,7 +102,7 @@ class AmazonPackageTracker extends AmazonOutboundCore
         } else {
             $response = $this->sendRequest($url, ['Post' => $query]);
 
-            if (!$this->checkResponse($response)) {
+            if (! $this->checkResponse($response)) {
                 return false;
             }
 
@@ -123,7 +123,7 @@ class AmazonPackageTracker extends AmazonOutboundCore
      */
     protected function parseXML($d)
     {
-        if (!$d) {
+        if (! $d) {
             return false;
         }
         $this->details['PackageNumber'] = (string) $d->PackageNumber;

@@ -103,7 +103,7 @@ class AmazonOrder extends AmazonOrderCore
      */
     public function fetchOrder()
     {
-        if (!array_key_exists('AmazonOrderId.Id.1', $this->options)) {
+        if (! array_key_exists('AmazonOrderId.Id.1', $this->options)) {
             $this->log('Order ID must be set in order to fetch it!', 'Warning');
 
             return false;
@@ -118,7 +118,7 @@ class AmazonOrder extends AmazonOrderCore
         } else {
             $response = $this->sendRequest($url, ['Post' => $query]);
 
-            if (!$this->checkResponse($response)) {
+            if (! $this->checkResponse($response)) {
                 return false;
             }
 
@@ -139,10 +139,10 @@ class AmazonOrder extends AmazonOrderCore
      */
     public function fetchItems($token = false)
     {
-        if (!isset($this->data['AmazonOrderId'])) {
+        if (! isset($this->data['AmazonOrderId'])) {
             return false;
         }
-        if (!is_bool($token)) {
+        if (! is_bool($token)) {
             $token = false;
         }
         $items = new AmazonOrderItemList(
@@ -170,7 +170,7 @@ class AmazonOrder extends AmazonOrderCore
      */
     protected function parseXML($xml)
     {
-        if (!$xml) {
+        if (! $xml) {
             return false;
         }
         $d = [];

@@ -195,7 +195,7 @@ class AmazonProductInfo extends AmazonProductsCore
      */
     public function fetchCompetitivePricing()
     {
-        if (!array_key_exists('SellerSKUList.SellerSKU.1', $this->options) && !array_key_exists(
+        if (! array_key_exists('SellerSKUList.SellerSKU.1', $this->options) && ! array_key_exists(
             'ASINList.ASIN.1',
             $this->options
         )
@@ -216,7 +216,7 @@ class AmazonProductInfo extends AmazonProductsCore
         } else {
             $response = $this->sendRequest($url, ['Post' => $query]);
 
-            if (!$this->checkResponse($response)) {
+            if (! $this->checkResponse($response)) {
                 return false;
             }
 
@@ -265,7 +265,7 @@ class AmazonProductInfo extends AmazonProductsCore
      */
     public function fetchLowestOffer()
     {
-        if (!array_key_exists('SellerSKUList.SellerSKU.1', $this->options) && !array_key_exists(
+        if (! array_key_exists('SellerSKUList.SellerSKU.1', $this->options) && ! array_key_exists(
             'ASINList.ASIN.1',
             $this->options
         )
@@ -286,7 +286,7 @@ class AmazonProductInfo extends AmazonProductsCore
         } else {
             $response = $this->sendRequest($url, ['Post' => $query]);
 
-            if (!$this->checkResponse($response)) {
+            if (! $this->checkResponse($response)) {
                 return false;
             }
 
@@ -330,7 +330,7 @@ class AmazonProductInfo extends AmazonProductsCore
      */
     public function fetchMyPrice()
     {
-        if (!array_key_exists('SellerSKUList.SellerSKU.1', $this->options) && !array_key_exists(
+        if (! array_key_exists('SellerSKUList.SellerSKU.1', $this->options) && ! array_key_exists(
             'ASINList.ASIN.1',
             $this->options
         )
@@ -351,7 +351,7 @@ class AmazonProductInfo extends AmazonProductsCore
         } else {
             $response = $this->sendRequest($url, ['Post' => $query]);
 
-            if (!$this->checkResponse($response)) {
+            if (! $this->checkResponse($response)) {
                 return false;
             }
 
@@ -398,7 +398,7 @@ class AmazonProductInfo extends AmazonProductsCore
      */
     public function fetchCategories()
     {
-        if (!array_key_exists('SellerSKUList.SellerSKU.1', $this->options) && !array_key_exists(
+        if (! array_key_exists('SellerSKUList.SellerSKU.1', $this->options) && ! array_key_exists(
             'ASINList.ASIN.1',
             $this->options
         )
@@ -419,7 +419,7 @@ class AmazonProductInfo extends AmazonProductsCore
         } else {
             $response = $this->sendRequest($url, ['Post' => $query]);
 
-            if (!$this->checkResponse($response)) {
+            if (! $this->checkResponse($response)) {
                 return false;
             }
 
