@@ -75,7 +75,7 @@ class AmazonCoreTest extends PHPUnit_Framework_TestCase
             'keyId'            => 'TESTKEYID',
             'secretKey'        => 'TESTSECRETID',
             'amazonServiceUrl' => 'http://test.com',
-            'muteLog' => true,
+            'muteLog'          => true,
         ];
 
         $this->object->setConfig($config);
@@ -165,7 +165,7 @@ class AmazonCoreTest extends PHPUnit_Framework_TestCase
             'keyId'            => 'TESTKEYID',
             'secretKey'        => 'TESTSECRETID',
             'amazonServiceUrl' => 'http://test.com',
-            'muteLog' => true,
+            'muteLog'          => true,
         ];
 
         $this->object->setConfig($config);
