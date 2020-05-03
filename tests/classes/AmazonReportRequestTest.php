@@ -132,6 +132,22 @@ class AmazonReportRequestTest extends PHPUnit_Framework_TestCase
         $this->assertArrayNotHasKey('MarketplaceIdList.Id.1', $o3);
     }
 
+    public function testSetCustomReport()
+    {
+        $o = $this->object->getOptions();
+        $this->assertArrayNotHasKey('ReportOptions=custom', $o);
+
+        $this->object->setCustomReport(true);
+        $o2 = $this->object->getOptions();
+        $this->assertArrayHasKey('ReportOptions=custom', $o2);
+        $this->assertTrue($o2['ReportOptions=custom']);
+
+        $this->object->setCustomReport(false);
+        $o3 = $this->object->getOptions();
+        $this->assertArrayHasKey('ReportOptions=custom', $o3);
+        $this->assertFalse($o3['ReportOptions=custom']);
+    }
+
     public function testRequestReport()
     {
         resetLog();

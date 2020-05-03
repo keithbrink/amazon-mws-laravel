@@ -137,6 +137,17 @@ class AmazonReportRequest extends AmazonReportsCore
     }
 
     /**
+     * Sets whether or not to use the custom report (Optional).
+     *
+     * @param bool $custom
+     * @return void
+     */
+    public function setCustomReport(bool $custom)
+    {
+        $this->options['ReportOptions=custom'] = $custom;
+    }
+
+    /**
      * Sets the time frame options. (Optional).
      *
      * This method sets the start and end times for the report request. If this
