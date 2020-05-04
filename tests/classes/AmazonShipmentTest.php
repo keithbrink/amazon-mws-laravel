@@ -226,9 +226,17 @@ class AmazonShipmentTest extends PHPUnit_Framework_TestCase
         $this->assertNull($this->object->usePlan($plan));
 
         $o = $this->object->getOptions();
-        $this->assertEquals('FBA63J76R', $o['ShipmentId']);
+        $this->assertEquals('FBA63J76R', $o['InboundShipmentHeader.ShipmentId']);
         $this->assertEquals('PHX6', $o['InboundShipmentHeader.DestinationFulfillmentCenterId']);
-        $this->assertEquals('SELLER_LABEL', $o['InboundShipmentHeader.LabelPrepPreference']);
+        $this->assertEquals('NO_LABEL', $o['InboundShipmentHeader.LabelPrepType']);
+        $this->assertEquals('Amazon.com', $o['InboundShipmentHeader.ShipFromAddress.Name']);
+        $this->assertEquals('4750 West Mohave St', $o['InboundShipmentHeader.ShipFromAddress.AddressLine1']);
+        $this->assertEquals(null, $o['InboundShipmentHeader.ShipFromAddress.AddressLine2']);
+        $this->assertEquals('Phoenix', $o['InboundShipmentHeader.ShipFromAddress.City']);
+        $this->assertEquals(null, $o['InboundShipmentHeader.ShipFromAddress.DistrictOrCounty']);
+        $this->assertEquals('AZ', $o['InboundShipmentHeader.ShipFromAddress.StateOrProvinceCode']);
+        $this->assertEquals('US', $o['InboundShipmentHeader.ShipFromAddress.CountryCode']);
+        $this->assertEquals('85043', $o['InboundShipmentHeader.ShipFromAddress.PostalCode']);
         $this->assertEquals('Football2415', $o['InboundShipmentItems.member.1.SellerSKU']);
         $this->assertEquals('3', $o['InboundShipmentItems.member.1.QuantityShipped']);
         $this->assertEquals('TeeballBall3251', $o['InboundShipmentItems.member.2.SellerSKU']);

@@ -138,7 +138,7 @@ class AmazonProductSearch extends AmazonProductsCore
          * VideoGames
          * Watches
          * Wireless
-         * WirelessAccessories
+         * WirelessAccessories.
          */
     }
 

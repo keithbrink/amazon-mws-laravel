@@ -94,6 +94,26 @@ class AmazonFulfillmentOrderCreator extends AmazonOutboundCore
     }
 
     /**
+     * Sets the marketplace Id.
+     *
+     * @param null $id
+     * @return bool
+     */
+    public function setMarketPlaceId($id = null)
+    {
+        if (! $id && $this->marketplaceId) {
+            $id = $this->marketplaceId;
+        }
+        if ($id) {
+            $this->options['MarketplaceId'] = $id;
+
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
      * Sets the displayed order comment. (Optional).
      *
      * Order-specific text that appears in customer-facing materials such as the outbound shipment packing slip.

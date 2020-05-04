@@ -227,6 +227,17 @@ class AmazonOrderItemList extends AmazonOrderCore implements Iterator
             if (isset($item->QuantityShipped)) {
                 $this->itemList[$n]['QuantityShipped'] = (string) $item->QuantityShipped;
             }
+            if (isset($item->BuyerCustomizedInfo->CustomizedURL)) {
+                $this->itemList[$n]['BuyerCustomizedInfo'] = (string) $item->BuyerCustomizedInfo->CustomizedURL;
+            }
+            if (isset($item->PointsGranted)) {
+                $this->itemList[$n]['PointsGranted']['PointsNumber'] = (string) $item->PointsGranted->PointsNumber;
+                $this->itemList[$n]['PointsGranted']['Amount'] = (string) $item->PointsGranted->PointsMonetaryValue->Amount;
+                $this->itemList[$n]['PointsGranted']['CurrencyCode'] = (string) $item->PointsGranted->PointsMonetaryValue->CurrencyCode;
+            }
+            if (isset($item->PriceDesignation)) {
+                $this->itemList[$n]['PriceDesignation'] = (string) $item->PriceDesignation;
+            }
             if (isset($item->GiftMessageText)) {
                 $this->itemList[$n]['GiftMessageText'] = (string) $item->GiftMessageText;
             }
@@ -279,6 +290,35 @@ class AmazonOrderItemList extends AmazonOrderCore implements Iterator
                     $this->itemList[$n]['PromotionIds'][$i] = (string) $x;
                     $i++;
                 }
+            }
+            if (isset($item->InvoiceData)) {
+                if (isset($item->InvoiceData->InvoiceRequirement)) {
+                    $this->itemList[$n]['InvoiceData']['InvoiceRequirement'] = (string) $item->InvoiceData->InvoiceRequirement;
+                }
+                if (isset($item->InvoiceData->BuyerSelectedInvoiceCategory)) {
+                    $this->itemList[$n]['InvoiceData']['BuyerSelectedInvoiceCategory'] = (string) $item->InvoiceData->BuyerSelectedInvoiceCategory;
+                }
+                if (isset($item->InvoiceData->InvoiceTitle)) {
+                    $this->itemList[$n]['InvoiceData']['InvoiceTitle'] = (string) $item->InvoiceData->InvoiceTitle;
+                }
+                if (isset($item->InvoiceData->InvoiceInformation)) {
+                    $this->itemList[$n]['InvoiceData']['InvoiceInformation'] = (string) $item->InvoiceData->InvoiceInformation;
+                }
+            }
+            if (isset($item->ConditionId)) {
+                $this->itemList[$n]['ConditionId'] = (string) $item->ConditionId;
+            }
+            if (isset($item->ConditionSubtypeId)) {
+                $this->itemList[$n]['ConditionSubtypeId'] = (string) $item->ConditionSubtypeId;
+            }
+            if (isset($item->ConditionNote)) {
+                $this->itemList[$n]['ConditionNote'] = (string) $item->ConditionNote;
+            }
+            if (isset($item->ScheduledDeliveryStartDate)) {
+                $this->itemList[$n]['ScheduledDeliveryStartDate'] = (string) $item->ScheduledDeliveryStartDate;
+            }
+            if (isset($item->ScheduledDeliveryEndDate)) {
+                $this->itemList[$n]['ScheduledDeliveryEndDate'] = (string) $item->ScheduledDeliveryEndDate;
             }
             $this->index++;
         }
@@ -432,6 +472,60 @@ class AmazonOrderItemList extends AmazonOrderCore implements Iterator
     {
         if (isset($this->itemList[$i]['QuantityShipped'])) {
             return $this->itemList[$i]['QuantityShipped'];
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Returns the URL for the ZIP file containing the customized options for the specified entry.
+     *
+     * This method will return <b>FALSE</b> if the list has not yet been filled.
+     * @param int $i [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
+     * @return string|bool single value, or <b>FALSE</b> if Non-numeric index
+     */
+    public function getCustomizedInfo($i = 0)
+    {
+        if (isset($this->itemList[$i]['BuyerCustomizedInfo'])) {
+            return $this->itemList[$i]['BuyerCustomizedInfo'];
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Returns the number of Amazon Points granted for the specified entry.
+     *
+     * This method will return <b>FALSE</b> if the list has not yet been filled.
+     * If an array is returned, it will have the fields <b>PointsNumber</b>, <b>Amount</b> and <b>CurrencyCode</b>.
+     * @param int $i [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
+     * @param bool $only [optional] <p>set to <b>TRUE</b> to get only the number of points</p>
+     * @return array|string|bool array, single value, or <b>FALSE</b> if Non-numeric index
+     */
+    public function getPointsGranted($i = 0, $only = false)
+    {
+        if (isset($this->itemList[$i]['PointsGranted'])) {
+            if ($only) {
+                return $this->itemList[$i]['PointsGranted']['PointsNumber'];
+            } else {
+                return $this->itemList[$i]['PointsGranted'];
+            }
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Returns the price designation for the specified entry.
+     *
+     * This method will return <b>FALSE</b> if the list has not yet been filled.
+     * @param int $i [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
+     * @return string|bool single value, or <b>FALSE</b> if Non-numeric index
+     */
+    public function getPriceDesignation($i = 0)
+    {
+        if (isset($this->itemList[$i]['PriceDesignation'])) {
+            return $this->itemList[$i]['PriceDesignation'];
         } else {
             return false;
         }
@@ -710,8 +804,136 @@ class AmazonOrderItemList extends AmazonOrderCore implements Iterator
     }
 
     /**
-     * Iterator function.
+     * Returns invoice data for the specified item.
      *
+     * This method will return <b>FALSE</b> if the list has not yet been filled.
+     * The array for invoice data may have the following fields:
+     * <ul>
+     * <li><b>InvoiceRequirement</b> - invoice requirement information</li>
+     * <li><b>BuyerSelectedInvoiceCategory</b> - invoice category information selected by the buyer</li>
+     * <li><b>InvoiceTitle</b> - the title of the invoice as specified by the buyer</li>
+     * <li><b>InvoiceInformation</b> - additional invoice information</li>
+     * </ul>
+     * @param int $i [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
+     * @return array|bool array, or <b>FALSE</b> if incorrect index
+     */
+    public function getInvoiceData($i = 0)
+    {
+        if (isset($this->itemList[$i]['InvoiceData'])) {
+            return $this->itemList[$i]['InvoiceData'];
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Returns the condition for the specified item.
+     *
+     * This method will return <b>FALSE</b> if the list has not yet been filled.
+     * Possible values for the condition ID are...
+     * <ul>
+     * <li>New</li>
+     * <li>Used</li>
+     * <li>Collectible</li>
+     * <li>Refurbished</li>
+     * <li>Preorder</li>
+     * <li>Club</li>
+     * </ul>
+     * @param int $i [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
+     * @return string|bool single value, or <b>FALSE</b> if incorrect index
+     */
+    public function getConditionId($i = 0)
+    {
+        if (isset($this->itemList[$i]['ConditionId'])) {
+            return $this->itemList[$i]['ConditionId'];
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Returns the subcondition for the specified item.
+     *
+     * This method will return <b>FALSE</b> if the list has not yet been filled.
+     * Possible values for the subcondition ID are...
+     * <ul>
+     * <li>New</li>
+     * <li>Mint</li>
+     * <li>Very Good</li>
+     * <li>Good</li>
+     * <li>Acceptable</li>
+     * <li>Poor</li>
+     * <li>Club</li>
+     * <li>OEM</li>
+     * <li>Warranty</li>
+     * <li>Refurbished Warranty</li>
+     * <li>Refurbished</li>
+     * <li>Open Box</li>
+     * <li>Any</li>
+     * <li>Other</li>
+     * </ul>
+     * @param int $i [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
+     * @return string|bool single value, or <b>FALSE</b> if incorrect index
+     */
+    public function getConditionSubtypeId($i = 0)
+    {
+        if (isset($this->itemList[$i]['ConditionSubtypeId'])) {
+            return $this->itemList[$i]['ConditionSubtypeId'];
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Returns the condition description for the specified item.
+     *
+     * This method will return <b>FALSE</b> if the list has not yet been filled.
+     * @param int $i [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
+     * @return string|bool single value, or <b>FALSE</b> if incorrect index
+     */
+    public function getConditionNote($i = 0)
+    {
+        if (isset($this->itemList[$i]['ConditionNote'])) {
+            return $this->itemList[$i]['ConditionNote'];
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Returns the earliest date in the scheduled delivery window for the specified item.
+     *
+     * This method will return <b>FALSE</b> if the list has not yet been filled.
+     * @param int $i [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
+     * @return string|bool single value, or <b>FALSE</b> if incorrect index
+     */
+    public function getScheduledDeliveryStartDate($i = 0)
+    {
+        if (isset($this->itemList[$i]['ScheduledDeliveryStartDate'])) {
+            return $this->itemList[$i]['ScheduledDeliveryStartDate'];
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Returns the latest date in the scheduled delivery window for the specified item.
+     *
+     * This method will return <b>FALSE</b> if the list has not yet been filled.
+     * @param int $i [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
+     * @return string|bool single value, or <b>FALSE</b> if incorrect index
+     */
+    public function getScheduledDeliveryEndDate($i = 0)
+    {
+        if (isset($this->itemList[$i]['ScheduledDeliveryEndDate'])) {
+            return $this->itemList[$i]['ScheduledDeliveryEndDate'];
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Iterator function.
      * @return type
      */
     public function current()
