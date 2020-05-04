@@ -131,7 +131,7 @@ class AmazonOrderTest extends PHPUnit_Framework_TestCase
         $x['MarketplaceId'] = 'ATVPDKIKX0DER';
         $x['BuyerName'] = 'Amazon User';
         $x['BuyerEmail'] = '5vlh04mgfmjh9h5@marketplace.amazon.com';
-        $x['ShipServiceLevelCategory'] = 'Standard';
+        $x['ShipmentServiceLevelCategory'] = 'Standard';
 
         $this->assertEquals($x, $get);
 
@@ -372,12 +372,12 @@ class AmazonOrderTest extends PHPUnit_Framework_TestCase
     /**
      * @depends testFetchOrder
      */
-    public function testGetShipServiceLevelCategory($o)
+    public function testGetShipmentServiceLevelCategory($o)
     {
-        $get = $o->getShipServiceLevelCategory();
+        $get = $o->getShipmentServiceLevelCategory();
         $this->assertEquals('Standard', $get);
 
-        $this->assertFalse($this->object->getShipServiceLevelCategory()); //not fetched yet for this object
+        $this->assertFalse($this->object->getShipmentServiceLevelCategory()); //not fetched yet for this object
     }
 
     /**

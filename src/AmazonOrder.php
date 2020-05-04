@@ -703,16 +703,6 @@ class AmazonOrder extends AmazonOrderCore
     }
 
     /**
-     * Use getShipmentServiceLevelCategory instead.
-     * @deprecated since version 1.3.0
-     * @return string|bool single value, or <b>FALSE</b> if category not set yet
-     */
-    public function getShipServiceLevelCategory()
-    {
-        return $this->getShipmentServiceLevelCategory();
-    }
-
-    /**
      * Returns the customized Checkout by Amazon (CBA) label of the Order.
      *
      * This method will return <b>FALSE</b> if the CBA label category has not been set yet.
