@@ -149,7 +149,7 @@ class AmazonShipmentItemList extends AmazonInboundCore implements \Iterator
                 );
             }
         } catch (Exception $e) {
-            throw new InvalidArgumentException('Parameters should be timestamps.');
+            throw new \InvalidArgumentException('Parameters should be timestamps.');
         }
     }
 

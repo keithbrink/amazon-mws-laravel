@@ -285,7 +285,7 @@ class AmazonShipment extends AmazonInboundCore
      */
     protected function resetItems()
     {
-        foreach ($this->options as $op=>$junk) {
+        foreach ($this->options as $op => $junk) {
             if (preg_match('#InboundShipmentItems#', $op)) {
                 unset($this->options[$op]);
             }

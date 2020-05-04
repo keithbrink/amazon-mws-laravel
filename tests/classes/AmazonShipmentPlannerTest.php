@@ -257,7 +257,7 @@ class AmazonShipmentPlannerTest extends PHPUnit_Framework_TestCase
 //        $x['MarketplaceId'] = 'ATVPDKIKX0DER';
 //        $x['BuyerName'] = 'Amazon User';
 //        $x['BuyerEmail'] = '5vlh04mgfmjh9h5@marketplace.amazon.com';
-//        $x['ShipServiceLevelCategory'] = 'Standard';
+//        $x['ShipmentServiceLevelCategory'] = 'Standard';
 //
 //        $this->assertEquals($x,$get);
 //

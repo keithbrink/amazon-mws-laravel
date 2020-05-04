@@ -145,13 +145,33 @@ class AmazonProduct extends AmazonProductsCore
         //Relationships
         if ($xml->Relationships) {
             foreach ($xml->Relationships->children() as $x) {
+                $temp = [];
                 foreach ($x->children() as $y) {
                     foreach ($y->children() as $z) {
                         foreach ($z->children() as $zzz) {
-                            $this->data['Relationships'][$x->getName()][$y->getName()][$z->getName()][$zzz->getName()] = (string) $zzz;
+                            $temp[$y->getName()][$z->getName()][$zzz->getName()] = (string) $zzz;
                         }
                     }
                 }
+                foreach ($x->children('ns2', true) as $y) {
+                    $temp[$y->getName()] = (string) $y;
+                }
+                $this->data['Relationships'][$x->getName()][] = $temp;
+            }
+            //child relations use namespace but parent does not
+            foreach ($xml->Relationships->children('ns2', true) as $x) {
+                $temp = [];
+                foreach ($x->children() as $y) {
+                    foreach ($y->children() as $z) {
+                        foreach ($z->children() as $zzz) {
+                            $temp[$y->getName()][$z->getName()][$zzz->getName()] = (string) $zzz;
+                        }
+                    }
+                }
+                foreach ($x->children('ns2', true) as $y) {
+                    $temp[$y->getName()] = (string) $y;
+                }
+                $this->data['Relationships'][$x->getName()][] = $temp;
             }
         }
 

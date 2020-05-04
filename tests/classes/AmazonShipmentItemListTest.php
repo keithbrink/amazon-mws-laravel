@@ -64,8 +64,9 @@ class AmazonShipmentItemListTest extends PHPUnit_Framework_TestCase
     {
         return [
             [null, null], //nothing given, so no change
-            [true, true], //not strings or numbers
+            [time(), time(), 1], //numbers
             ['', ''], //strings, but empty
+            [0, 0], //numbers, but empty
             ['-1 min', null], //one set
             [null, '-1 min'], //other set
             ['-1 min', '-1 min'], //both set
