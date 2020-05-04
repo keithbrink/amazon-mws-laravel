@@ -59,7 +59,7 @@ class AmazonOrderListTest extends PHPUnit_Framework_TestCase
         $this->assertFalse($this->object->setLimits('Created', [5]));
         $check = parseLog();
         $this->assertEquals('First parameter should be either "Created" or "Modified".', $check[1]);
-        $this->assertEquals('Error: strtotime() expects parameter 1 to be string, array given', $check[2]);
+        $this->assertEquals('Error: Invalid time input given', $check[2]);
     }
 
     public function testSetOrderStatusFilter()
@@ -317,6 +317,24 @@ class AmazonOrderListTest extends PHPUnit_Framework_TestCase
         $this->assertInternalType('object', $get[0]);
 
         $this->assertFalse($this->object->getList()); //not fetched yet for this object
+    }
+
+    public function testSetMarkplaceIdFromConfigArray()
+    {
+        $config = [
+            'merchantId'       => 'TEST123',
+            'marketplaceId'    => 'TESTMARKETPLACE',
+            'keyId'            => 'TESTKEYID',
+            'secretKey'        => 'TESTSECRETID',
+            'amazonServiceUrl' => 'http://test.com',
+            'muteLog' => true,
+        ];
+
+        $o = new AmazonOrderList('testStore', true, null);
+        $o->setConfig($config);
+        $options = $o->getOptions();
+
+        $this->assertEquals('TESTMARKETPLACE', $options['MarketplaceId.Id.1']);
     }
 }
 

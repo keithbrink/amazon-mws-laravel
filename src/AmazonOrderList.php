@@ -69,6 +69,18 @@ class AmazonOrderList extends AmazonOrderCore implements Iterator
     }
 
     /**
+     * Override the setCofnig function in order to dynamically set Marketplace ID.
+     *
+     * @return void
+     */
+    public function setConfig($config)
+    {
+        parent::setConfig($config);
+
+        $this->options['MarketplaceId.Id.1'] = $config['marketplaceId'];
+    }
+
+    /**
      * Returns whether or not a token is available.
      *
      * @return bool
@@ -365,7 +377,7 @@ class AmazonOrderList extends AmazonOrderCore implements Iterator
      */
     public function fetchOrders($r = true)
     {
-        if (!array_key_exists('CreatedAfter', $this->options) && !array_key_exists(
+        if (! array_key_exists('CreatedAfter', $this->options) && ! array_key_exists(
             'LastUpdatedAfter',
             $this->options
         )
@@ -385,7 +397,7 @@ class AmazonOrderList extends AmazonOrderCore implements Iterator
         } else {
             $response = $this->sendRequest($url, ['Post' => $query]);
 
-            if (!$this->checkResponse($response)) {
+            if (! $this->checkResponse($response)) {
                 return false;
             }
 
@@ -448,7 +460,7 @@ class AmazonOrderList extends AmazonOrderCore implements Iterator
      */
     protected function parseXML($xml)
     {
-        if (!$xml) {
+        if (! $xml) {
             return false;
         }
 
@@ -483,10 +495,10 @@ class AmazonOrderList extends AmazonOrderCore implements Iterator
      */
     public function fetchItems($token = false, $i = null)
     {
-        if (!isset($this->orderList)) {
+        if (! isset($this->orderList)) {
             return false;
         }
-        if (!is_bool($token)) {
+        if (! is_bool($token)) {
             $token = false;
         }
         if (is_int($i)) {

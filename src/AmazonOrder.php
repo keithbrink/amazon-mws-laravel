@@ -103,7 +103,7 @@ class AmazonOrder extends AmazonOrderCore
      */
     public function fetchOrder()
     {
-        if (!array_key_exists('AmazonOrderId.Id.1', $this->options)) {
+        if (! array_key_exists('AmazonOrderId.Id.1', $this->options)) {
             $this->log('Order ID must be set in order to fetch it!', 'Warning');
 
             return false;
@@ -118,7 +118,7 @@ class AmazonOrder extends AmazonOrderCore
         } else {
             $response = $this->sendRequest($url, ['Post' => $query]);
 
-            if (!$this->checkResponse($response)) {
+            if (! $this->checkResponse($response)) {
                 return false;
             }
 
@@ -139,10 +139,10 @@ class AmazonOrder extends AmazonOrderCore
      */
     public function fetchItems($token = false)
     {
-        if (!isset($this->data['AmazonOrderId'])) {
+        if (! isset($this->data['AmazonOrderId'])) {
             return false;
         }
-        if (!is_bool($token)) {
+        if (! is_bool($token)) {
             $token = false;
         }
         $items = new AmazonOrderItemList(
@@ -170,7 +170,7 @@ class AmazonOrder extends AmazonOrderCore
      */
     protected function parseXML($xml)
     {
-        if (!$xml) {
+        if (! $xml) {
             return false;
         }
         $d = [];
@@ -239,8 +239,29 @@ class AmazonOrder extends AmazonOrderCore
         if (isset($xml->BuyerEmail)) {
             $d['BuyerEmail'] = (string) $xml->BuyerEmail;
         }
-        if (isset($xml->ShipServiceLevelCategory)) {
-            $d['ShipServiceLevelCategory'] = (string) $xml->ShipServiceLevelCategory;
+        if (isset($xml->PaymentMethodDetails)) {
+            $d['PaymentMethodDetails'] = [];
+
+            $i = 0;
+            foreach ($xml->PaymentMethodDetails->children() as $x) {
+                $d['PaymentMethodDetails']['PaymentMethodDetail'][] = (string) $x;
+                $i++;
+            }
+        }
+        if (isset($xml->ShipmentServiceLevelCategory)) {
+            $d['ShipmentServiceLevelCategory'] = (string) $xml->ShipmentServiceLevelCategory;
+        }
+        if (isset($xml->CbaDisplayableShippingLabel)) {
+            $d['CbaDisplayableShippingLabel'] = (string) $xml->CbaDisplayableShippingLabel;
+        }
+        if (isset($xml->ShippedByAmazonTFM)) {
+            $d['ShippedByAmazonTFM'] = (string) $xml->ShippedByAmazonTFM;
+        }
+        if (isset($xml->TFMShipmentStatus)) {
+            $d['TFMShipmentStatus'] = (string) $xml->TFMShipmentStatus;
+        }
+        if (isset($xml->OrderType)) {
+            $d['OrderType'] = (string) $xml->OrderType;
         }
         if (isset($xml->EarliestShipDate)) {
             $d['EarliestShipDate'] = (string) $xml->EarliestShipDate;
@@ -253,6 +274,18 @@ class AmazonOrder extends AmazonOrderCore
         }
         if (isset($xml->LatestDeliveryDate)) {
             $d['LatestDeliveryDate'] = (string) $xml->LatestDeliveryDate;
+        }
+        if (isset($xml->IsBusinessOrder)) {
+            $d['IsBusinessOrder'] = (string) $xml->IsBusinessOrder;
+        }
+        if (isset($xml->PurchaseOrderNumber)) {
+            $d['PurchaseOrderNumber'] = (string) $xml->PurchaseOrderNumber;
+        }
+        if (isset($xml->IsPrime)) {
+            $d['IsPrime'] = (string) $xml->IsPrime;
+        }
+        if (isset($xml->IsPremiumOrder)) {
+            $d['IsPremiumOrder'] = (string) $xml->IsPremiumOrder;
         }
 
         $this->data = $d;
@@ -282,7 +315,8 @@ class AmazonOrder extends AmazonOrderCore
      * <li><b>PaymentMethod</b> (optional) - "COD", "CVS", or "Other"</li>
      * <li><b>BuyerName</b> (optional) - name of the buyer</li>
      * <li><b>BuyerEmail</b> (optional) - Amazon-generated email for the buyer</li>
-     * <li><b>ShipServiceLevelCategory</b> (optional) - "Expedited", "NextDay", "SecondDay", or "Standard"</li>
+     * <li><b>ShipmentServiceLevelCategory</b> (optional) - "Expedited", "FreeEconomy", "NextDay",
+     * "SameDay", "SecondDay", "Scheduled", or "Standard"</li>
      * </ul>
      *
      * @return array|bool array of data, or <b>FALSE</b> if data not filled yet
@@ -641,17 +675,104 @@ class AmazonOrder extends AmazonOrderCore
      * Valid values for the service level category are...
      * <ul>
      * <li>Expedited</li>
+     * <li>FreeEconomy</li>
      * <li>NextDay</li>
+     * <li>SameDay</li>
      * <li>SecondDay</li>
+     * <li>Scheduled</li>
      * <li>Standard</li>
      * </ul>
-     *
      * @return string|bool single value, or <b>FALSE</b> if category not set yet
      */
-    public function getShipServiceLevelCategory()
+    public function getShipmentServiceLevelCategory()
     {
-        if (isset($this->data['ShipServiceLevelCategory'])) {
-            return $this->data['ShipServiceLevelCategory'];
+        if (isset($this->data['ShipmentServiceLevelCategory'])) {
+            return $this->data['ShipmentServiceLevelCategory'];
+        } else {
+            return false;
+        }
+    }
+
+    public function getPaymentMethodDetails()
+    {
+        if (isset($this->data['PaymentMethodDetails'])) {
+            return $this->data['PaymentMethodDetails'];
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Returns the customized Checkout by Amazon (CBA) label of the Order.
+     *
+     * This method will return <b>FALSE</b> if the CBA label category has not been set yet.
+     * @return string|bool single value, or <b>FALSE</b> if label not set yet
+     */
+    public function getCbaDisplayableShippingLabel()
+    {
+        if (isset($this->data['CbaDisplayableShippingLabel'])) {
+            return $this->data['CbaDisplayableShippingLabel'];
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Returns an indication of whether or not the Order was shipped with the Amazon TFM service.
+     *
+     * This method will return <b>FALSE</b> if the Amazon TFM flag has not been set yet.
+     * @return string|bool single value, or <b>FALSE</b> if value not set yet
+     */
+    public function getShippedByAmazonTfm()
+    {
+        if (isset($this->data['ShippedByAmazonTFM'])) {
+            return $this->data['ShippedByAmazonTFM'];
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Returns the status of an Order shipped using Amazon TFM.
+     *
+     * This method will return <b>FALSE</b> if the status has not been set yet.
+     * Valid values for the status are...
+     * <ul>
+     * <li>PendingPickUp</li>
+     * <li>LabelCanceled</li>
+     * <li>PickedUp</li>
+     * <li>AtDestinationFC</li>
+     * <li>Delivered</li>
+     * <li>RejectedByBuyer</li>
+     * <li>Undeliverable</li>
+     * <li>ReturnedToSeller</li>
+     * </ul>
+     * @return string|bool single value, or <b>FALSE</b> if status not set yet
+     */
+    public function getTfmShipmentStatus()
+    {
+        if (isset($this->data['TFMShipmentStatus'])) {
+            return $this->data['TFMShipmentStatus'];
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Returns the type of the order.
+     *
+     * This method will return <b>FALSE</b> if the type has not been set yet.
+     * Valid values for the type are...
+     * <ul>
+     * <li>StandardOrder</li>
+     * <li>Preorder</li>
+     * </ul>
+     * @return string|bool single value, or <b>FALSE</b> if order type not set yet
+     */
+    public function getOrderType()
+    {
+        if (isset($this->data['OrderType'])) {
+            return $this->data['OrderType'];
         } else {
             return false;
         }
@@ -744,6 +865,66 @@ class AmazonOrder extends AmazonOrderCore
             $ratio = $this->data['NumberOfItemsShipped'] / $total;
 
             return $ratio;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Returns an indication of whether or not the Order is a business number.
+     *
+     * This method will return <b>FALSE</b> if the business order flag has not been set yet.
+     * @return string|bool single value, or <b>FALSE</b> if value not set yet
+     */
+    public function getIsBusinessOrder()
+    {
+        if (isset($this->data['IsBusinessOrder'])) {
+            return $this->data['IsBusinessOrder'];
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Returns the purchase order number associated with the order.
+     *
+     * This method will return <b>FALSE</b> if the purchase order number has not been set yet.
+     * @return string|bool single value, or <b>FALSE</b> if value not set yet
+     */
+    public function getPurchaseOrderNumber()
+    {
+        if (isset($this->data['PurchaseOrderNumber'])) {
+            return $this->data['PurchaseOrderNumber'];
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Returns an indication of whether or not the Order uses the Amazon Prime service.
+     *
+     * This method will return <b>FALSE</b> if the Prime flag has not been set yet.
+     * @return string|bool "true" or "false", or <b>FALSE</b> if value not set yet
+     */
+    public function getIsPrime()
+    {
+        if (isset($this->data['IsPrime'])) {
+            return $this->data['IsPrime'];
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Returns an indication of whether or not the Order is a premium order.
+     *
+     * This method will return <b>FALSE</b> if the premium order flag has not been set yet.
+     * @return string|bool single value, or <b>FALSE</b> if value not set yet
+     */
+    public function getIsPremiumOrder()
+    {
+        if (isset($this->data['IsPremiumOrder'])) {
+            return $this->data['IsPremiumOrder'];
         } else {
             return false;
         }

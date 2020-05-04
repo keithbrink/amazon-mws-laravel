@@ -105,6 +105,7 @@ abstract class AmazonCore
     protected $throttleSafe;
     protected $throttleGroup;
     protected $throttleStop = false;
+    protected $throttleCount = 0;
     protected $storeName;
     protected $options;
     protected $secretKey;
@@ -114,25 +115,26 @@ abstract class AmazonCore
     protected $mockFiles;
     protected $mockIndex = 0;
     protected $env;
+    protected $marketplaceId;
     protected $rawResponses = [];
+    protected $proxyInfo = [];
 
     /**
      * AmazonCore constructor sets up key information used in all Amazon requests.
      *
      * This constructor is called when initializing all objects in this library.
      * The parameters are passed by the child objects' constructors.
-     *
-     * @param string       $s      <p>Name for the store you want to use as seen in the config file.
-     *                             If this is not set to a valid name, none of these objects will work.</p>
-     * @param bool         $mock   [optional] <p>This is a flag for enabling Mock Mode.
-     *                             When this is set to <b>TRUE</b>, the object will fetch responses from
-     *                             files you specify instead of sending the requests to Amazon.
-     *                             The log will indicate whether mock mode is on or off each time
-     *                             an object is initialized. This defaults to <b>FALSE</b>.</p>
-     * @param array|string $m      [optional] <p>The files (or file) to use in Mock Mode.
-     *                             When Mock Mode is enabled, the object will retrieve one of these files
-     *                             from the list to use as a response. See <i>setMock</i> for more information.</p>
-     * @param string       $config [optional] <p>An alternate config file to set. Used for testing.</p>
+     * @param string $s <p>Name for the store you want to use as seen in the config file.
+     * If this is not set to a valid name, none of these objects will work.</p>
+     * @param bool $mock [optional] <p>This is a flag for enabling Mock Mode.
+     * When this is set to <b>TRUE</b>, the object will fetch responses from
+     * files you specify instead of sending the requests to Amazon.
+     * The log will indicate whether mock mode is on or off each time
+     * an object is initialized. This defaults to <b>FALSE</b>.</p>
+     * @param array|string $m [optional] <p>The files (or file) to use in Mock Mode.
+     * When Mock Mode is enabled, the object will retrieve one of these files
+     * from the list to use as a response. See <i>setMock</i> for more information.</p>
+     * @param string $config [optional] <p>An alternate config file to set. Used for testing.</p>
      */
     protected function __construct($s, $mock = false, $m = null)
     {
@@ -157,13 +159,12 @@ abstract class AmazonCore
      * This method is also used to set response codes used by certain functions.
      * Mock Mode is particularly useful when you need
      * to test functions such as canceling orders or adding new products.
-     *
-     * @param bool             $b     [optional] <p>When set to <b>TRUE</b>, Mock Mode is
-     *                                enabled for the object. Defaults to <b>TRUE</b>.</p>
+     * @param bool $b [optional] <p>When set to <b>TRUE</b>, Mock Mode is
+     * enabled for the object. Defaults to <b>TRUE</b>.</p>
      * @param array|string|int $files [optional] <p>The list of files (or single file)
-     *                                to be used with Mock Mode. If a single string is given, this method will
-     *                                put it into an array. Integers can also be given, for use in <i>fetchMockResponse</i>.
-     *                                These numbers should only be response codes, such as <b>200</b> or <b>404</b>.</p>
+     * to be used with Mock Mode. If a single string is given, this method will
+     * put it into an array. Integers can also be given, for use in <i>fetchMockResponse</i>.
+     * These numbers should only be response codes, such as <b>200</b> or <b>404</b>.</p>
      */
     public function setMock($b = true, $files = null)
     {
@@ -201,25 +202,23 @@ abstract class AmazonCore
      * The success or failure of the operation will be recorded in the log,
      * including the name and path of the file involved. For retrieving response
      * codes, see <i>fetchMockResponse</i>.
-     *
      * @param bool $load [optional] <p>Set this to <b>FALSE</b> to prevent the
-     *                   method from loading the file's contents into a SimpleXMLObject. This is
-     *                   for when the contents of the file are not in XML format, or if you simply
-     *                   want to retrieve the raw string of the file.</p>
-     *
+     * method from loading the file's contents into a SimpleXMLObject. This is
+     * for when the contents of the file are not in XML format, or if you simply
+     * want to retrieve the raw string of the file.</p>
      * @return SimpleXMLObject|string|bool <p>A SimpleXMLObject holding the
-     *                                     contents of the file, or a string of said contents if <i>$load</i> is set to
-     *                                     <b>FALSE</b>. The return will be <b>FALSE</b> if the file cannot be
-     *                                     fetched for any reason.</p>
+     * contents of the file, or a string of said contents if <i>$load</i> is set to
+     * <b>FALSE</b>. The return will be <b>FALSE</b> if the file cannot be
+     * fetched for any reason.</p>
      */
     protected function fetchMockFile($load = true)
     {
-        if (!is_array($this->mockFiles) || !array_key_exists(0, $this->mockFiles)) {
+        if (! is_array($this->mockFiles) || ! array_key_exists(0, $this->mockFiles)) {
             $this->log('Attempted to retrieve mock files, but no mock files present', 'Warning');
 
             return false;
         }
-        if (!array_key_exists($this->mockIndex, $this->mockFiles)) {
+        if (! array_key_exists($this->mockIndex, $this->mockFiles)) {
             $this->log('End of Mock List, resetting to 0');
             $this->resetMock();
         }
@@ -261,13 +260,12 @@ abstract class AmazonCore
      * Sets mock index back to 0.
      *
      * This method is used for returning to the beginning of the mock file list.
-     *
      * @param bool $mute [optional]<p>Set to <b>TRUE</b> to prevent logging.</p>
      */
     protected function resetMock($mute = false)
     {
         $this->mockIndex = 0;
-        if (!$mute) {
+        if (! $mute) {
             $this->log('Mock List index reset to 0');
         }
     }
@@ -287,23 +285,22 @@ abstract class AmazonCore
      * <li><b>error</b> - error message, same value as answer, not set if status is 200</li>
      * <li><b>ok</b> - 1 or 0, depending on if the status is 200</li>
      * </ul>
-     *
      * @return bool|array An array containing the HTTP response, or simply
-     *                    the value <b>FALSE</b> if the response could not be found or does not
-     *                    match the list of valid responses.
+     * the value <b>FALSE</b> if the response could not be found or does not
+     * match the list of valid responses.
      */
     protected function fetchMockResponse()
     {
-        if (!is_array($this->mockFiles) || !array_key_exists(0, $this->mockFiles)) {
+        if (! is_array($this->mockFiles) || ! array_key_exists(0, $this->mockFiles)) {
             $this->log('Attempted to retrieve mock responses, but no mock responses present', 'Warning');
 
             return false;
         }
-        if (!array_key_exists($this->mockIndex, $this->mockFiles)) {
+        if (! array_key_exists($this->mockIndex, $this->mockFiles)) {
             $this->log('End of Mock List, resetting to 0');
             $this->resetMock();
         }
-        if (!is_numeric($this->mockFiles[$this->mockIndex])) {
+        if (! is_numeric($this->mockFiles[$this->mockIndex])) {
             $this->log('fetchMockResponse only works with response code numbers', 'Warning');
 
             return false;
@@ -362,13 +359,12 @@ abstract class AmazonCore
      * is not 200, the incident and error message returned are logged.
      *
      * @param array $r <p>The HTTP response array. Expects the array to have
-     *                 the fields <i>code</i>, <i>body</i>, and <i>error</i>.</p>
-     *
+     * the fields <i>code</i>, <i>body</i>, and <i>error</i>.</p>
      * @return bool <b>TRUE</b> if the status is 200 OK, <b>FALSE</b> otherwise.
      */
     protected function checkResponse($r)
     {
-        if (!is_array($r) || !array_key_exists('code', $r)) {
+        if (! is_array($r) || ! array_key_exists('code', $r)) {
             $this->log('No Response found', 'Warning');
 
             return false;
@@ -397,7 +393,7 @@ abstract class AmazonCore
      */
     public function setConfig($config)
     {
-        if (!$this->validateAndSetConfig($config)) {
+        if (! $this->validateAndSetConfig($config)) {
             throw new \Exception('Configuration values not set correctly. See log for details.');
         }
     }
@@ -478,12 +474,11 @@ abstract class AmazonCore
      *
      * When the throttle stop is enabled, throttled requests will not  be repeated.
      * This setting is off by default.
-     *
      * @param bool $b <p>Defaults to <b>TRUE</b>.</p>
      */
     public function setThrottleStop($b = true)
     {
-        $this->throttleStop = !empty($b);
+        $this->throttleStop = ! empty($b);
     }
 
     /**
@@ -494,10 +489,10 @@ abstract class AmazonCore
      *
      * @param string $msg   <p>The message to write to the log.</p>
      * @param string $level [optional] <p>The priority level of the message.
-     *                      This is merely for the benefit of the user and does not affect how
-     *                      the code runs. The values used in this library are "Info", "Warning",
-     *                      "Urgent", and "Throttle".</p>
-     *
+     * This is merely for the benefit of the user and does not affect how
+     * the code runs. The values used in this library are "Info", "Warning",
+     * "Urgent", and "Throttle".</p>
+     * @return bool <b>FALSE</b> if the message is empty, NULL if logging is muted
      * @throws Exception If the file can't be written to.
      *
      * @return bool <b>FALSE</b> if the message is empty, NULL if logging is muted
@@ -508,6 +503,10 @@ abstract class AmazonCore
             $backtrace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS);
 
             $muteLog = $this->muteLog;
+
+            if (isset($muteLog) && $muteLog == true) {
+                return;
+            }
 
             switch ($level) {
                 case 'Info':
@@ -525,40 +524,11 @@ abstract class AmazonCore
                 default:
                     $loglevel = 'info';
             }
+
             call_user_func(['Log', $loglevel], $msg);
-
-            if (isset($muteLog) && $muteLog == true) {
-                return;
-            }
-
-            if (isset($userName) && $userName != '') {
-                $name = $userName;
-            } else {
-                $name = 'guest';
-            }
-
-            if (isset($backtrace) && isset($backtrace[1]) && isset($backtrace[1]['file']) && isset($backtrace[1]['line']) && isset($backtrace[1]['function'])) {
-                $fileName = basename($backtrace[1]['file']);
-                $file = $backtrace[1]['file'];
-                $line = $backtrace[1]['line'];
-                $function = $backtrace[1]['function'];
-            } else {
-                $fileName = basename($backtrace[0]['file']);
-                $file = $backtrace[0]['file'];
-                $line = $backtrace[0]['line'];
-                $function = $backtrace[0]['function'];
-            }
-            if (isset($_SERVER['REMOTE_ADDR'])) {
-                $ip = $_SERVER['REMOTE_ADDR'];
-                if ($ip == '127.0.0.1') {
-                    $ip = 'local';
-                }//save some char
-            } else {
-                $ip = 'cli';
-            }
-        } else {
-            return false;
         }
+
+        return false;
     }
 
     /**
@@ -579,21 +549,24 @@ abstract class AmazonCore
      *
      * This method creates a timestamp from the provided string in ISO8601 format.
      * The string given is passed through <i>strtotime</i> before being used. The
-     * value returned is actually two minutes early, to prevent it from tripping up
+     * value returned is actually 30 seconds early, to prevent it from tripping up
      * Amazon. If no time is given, the current time is used.
      *
      * @param string $time [optional] <p>The time to use. Since this value is
-     *                     passed through <i>strtotime</i> first, values such as "-1 hour" are fine.
-     *                     Defaults to the current time.</p>
-     *
-     * @return string Unix timestamp of the time, minus 2 minutes.
+     * passed through <i>strtotime</i> first, values such as "-1 hour" are fine.
+     * Defaults to the current time.</p>
+     * @return string Unix timestamp of the time, minus 30 seconds.
      */
     protected function genTime($time = false)
     {
-        if (!$time) {
+        if (! $time) {
             $time = time();
-        } else {
+        } elseif (is_numeric($time)) {
+            $time = (int) $time;
+        } elseif (is_string($time)) {
             $time = strtotime($time);
+        } else {
+            throw new Exception('Invalid time input given');
         }
 
         return date('c', $time - 120);
@@ -638,9 +611,16 @@ abstract class AmazonCore
     protected function sendRequest($url, $param)
     {
         $this->log('Making request to Amazon: '.$this->options['Action']);
+        $this->throttleCount = 0;
         $response = $this->fetchURL($url, $param);
 
+        if (! isset($response['code'])) {
+            $this->log('Unrecognized response: '.print_r($response, true));
+
+            return;
+        }
         while ($response['code'] == '503' && $this->throttleStop == false) {
+            $this->throttleCount++;
             $this->sleep();
             $response = $this->fetchURL($url, $param);
         }
@@ -661,7 +641,6 @@ abstract class AmazonCore
      * <li><b>ok</b> - Contains a <b>1</b> if the response was normal, or <b>0</b> if there was a problem</li>
      * <li><b>headarray</b> - An associative array of the head data, for convenience</li>
      * </ul>.
-     *
      * @param int $i [optional] <p>If set, retrieves the specific response instead of the last one.
      *               If the index for the response is not used, <b>FALSE</b> will be returned.</p>
      *
@@ -669,7 +648,7 @@ abstract class AmazonCore
      */
     public function getLastResponse($i = null)
     {
-        if (!isset($i)) {
+        if (! isset($i)) {
             $i = count($this->rawResponses) - 1;
         }
         if ($i >= 0 && isset($this->rawResponses[$i])) {
@@ -688,11 +667,21 @@ abstract class AmazonCore
      */
     public function getRawResponses()
     {
-        if (!empty($this->rawResponses)) {
+        if (! empty($this->rawResponses)) {
             return $this->rawResponses;
         } else {
             return false;
         }
+    }
+
+    /**
+     * Gives the number of times the last call to sendRequest was throttled.
+     * @return int
+     * @see sendRequest
+     */
+    public function getThrottleCountForLastRequest()
+    {
+        return $this->throttleCount;
     }
 
     /**
@@ -708,14 +697,12 @@ abstract class AmazonCore
 
     /**
      * Checks for a token and changes the proper options.
-     *
      * @param SimpleXMLObject $xml <p>response data</p>
-     *
      * @return bool <b>FALSE</b> if no XML data
      */
     protected function checkToken($xml)
     {
-        if (!$xml) {
+        if (! $xml) {
             return false;
         }
         if ($xml->NextToken) {
@@ -731,7 +718,6 @@ abstract class AmazonCore
 
     /**
      * Get url or send POST data.
-     *
      * @param string $url
      * @param array  $param ['Header']
      *                      $param['Post']
@@ -753,13 +739,26 @@ abstract class AmazonCore
         curl_setopt($ch, CURLOPT_FRESH_CONNECT, 1);
         curl_setopt($ch, CURLOPT_HEADER, 1);
         curl_setopt($ch, CURLOPT_URL, $url);
-        if (!empty($param)) {
-            if (!empty($param['Header'])) {
+        if (! empty($param)) {
+            if (! empty($param['Header'])) {
                 curl_setopt($ch, CURLOPT_HTTPHEADER, $param['Header']);
             }
-            if (!empty($param['Post'])) {
+            if (! empty($param['Post'])) {
                 curl_setopt($ch, CURLOPT_POSTFIELDS, $param['Post']);
             }
+        }
+
+        if (! empty($this->proxyInfo)
+            && ! empty($this->proxyInfo['ip'])
+            && ! empty($this->proxyInfo['port'])
+        ) {
+            curl_setopt($ch, CURLOPT_PROXYAUTH, CURLAUTH_BASIC);
+            curl_setopt($ch, CURLOPT_PROXY, $this->proxyInfo['ip']);
+            curl_setopt($ch, CURLOPT_PROXYPORT, $this->proxyInfo['port']);
+            if (! empty($this->proxyInfo['user_pwd'])) {
+                curl_setopt($ch, CURLOPT_PROXYUSERPWD, $this->proxyInfo['user_pwd']);
+            }
+            curl_setopt($ch, CURLOPT_PROXYTYPE, CURLPROXY_SOCKS5);
         }
 
         $data = curl_exec($ch);
@@ -774,7 +773,7 @@ abstract class AmazonCore
             $data = str_replace('HTTP/1.1 100 Continue', '', $data);
         }
         $data = preg_split("/\r\n\r\n/", $data, 2, PREG_SPLIT_NO_EMPTY);
-        if (!empty($data)) {
+        if (! empty($data)) {
             $return['head'] = (isset($data[0]) ? $data[0] : null);
             $return['body'] = (isset($data[1]) ? $data[1] : null);
         } else {
@@ -784,13 +783,13 @@ abstract class AmazonCore
 
         $matches = [];
         $data = preg_match("/HTTP\/[0-9.]+ ([0-9]+) (.+)\r\n/", $return['head'], $matches);
-        if (!empty($matches)) {
+        if (! empty($matches)) {
             $return['code'] = $matches[1];
             $return['answer'] = $matches[2];
         }
 
         $data = preg_match("/meta http-equiv=.refresh. +content=.[0-9]*;url=([^'\"]*)/i", $return['body'], $matches);
-        if (!empty($matches)) {
+        if (! empty($matches)) {
             $return['location'] = $matches[1];
             $return['code'] = '301';
         }
@@ -836,7 +835,6 @@ abstract class AmazonCore
 
     /**
      * Fuses all of the parameters together into a string, copied from Amazon.
-     *
      * @param array $parameters
      *
      * @return string
@@ -853,8 +851,7 @@ abstract class AmazonCore
 
     /**
      * validates signature and sets up signing of them, copied from Amazon.
-     *
-     * @param array  $parameters
+     * @param array $parameters
      * @param string $key
      *
      * @throws Exception
@@ -877,7 +874,6 @@ abstract class AmazonCore
 
     /**
      * generates the string to sign, copied from Amazon.
-     *
      * @param array $parameters
      *
      * @return type
@@ -890,7 +886,7 @@ abstract class AmazonCore
         $data .= $endpoint['host'];
         $data .= "\n";
         $uri = array_key_exists('path', $endpoint) ? $endpoint['path'] : null;
-        if (!isset($uri)) {
+        if (! isset($uri)) {
             $uri = '/';
         }
         $uriencoded = implode('/', array_map([$this, '_urlencode'], explode('/', $uri)));
@@ -904,7 +900,6 @@ abstract class AmazonCore
 
     /**
      * Runs the hash, copied from Amazon.
-     *
      * @param string $data
      * @param string $key
      * @param string $algorithm 'HmacSHA1' or 'HmacSHA256'

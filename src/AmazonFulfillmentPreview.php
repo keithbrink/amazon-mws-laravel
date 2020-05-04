@@ -36,12 +36,11 @@ class AmazonFulfillmentPreview extends AmazonOutboundCore
      * The parameters are passed to the parent constructor, which are
      * in turn passed to the AmazonCore constructor. See it for more information
      * on these parameters and common methods.
-     *
-     * @param string       $s      <p>Name for the store you want to use.</p>
-     * @param bool         $mock   [optional] <p>This is a flag for enabling Mock Mode.
-     *                             This defaults to <b>FALSE</b>.</p>
-     * @param array|string $m      [optional] <p>The files (or file) to use in Mock Mode.</p>
-     * @param string       $config [optional] <p>An alternate config file to set. Used for testing.</p>
+     * @param string $s <p>Name for the store you want to use.</p>
+     * @param bool $mock [optional] <p>This is a flag for enabling Mock Mode.
+     * This defaults to <b>FALSE</b>.</p>
+     * @param array|string $m [optional] <p>The files (or file) to use in Mock Mode.</p>
+     * @param string $config [optional] <p>An alternate config file to set. Used for testing.</p>
      */
     public function __construct($s, $mock = false, $m = null)
     {
@@ -75,7 +74,7 @@ class AmazonFulfillmentPreview extends AmazonOutboundCore
      */
     public function setAddress($a)
     {
-        if (is_null($a) || is_string($a) || !$a) {
+        if (is_null($a) || is_string($a) || ! $a) {
             $this->log('Tried to set address to invalid values', 'Warning');
 
             return false;
@@ -147,7 +146,7 @@ class AmazonFulfillmentPreview extends AmazonOutboundCore
      */
     public function setItems($a)
     {
-        if (is_null($a) || is_string($a) || !$a) {
+        if (is_null($a) || is_string($a) || ! $a) {
             $this->log('Tried to set Items to invalid values', 'Warning');
 
             return false;
@@ -245,12 +244,12 @@ class AmazonFulfillmentPreview extends AmazonOutboundCore
      */
     public function fetchPreview()
     {
-        if (!array_key_exists('Address.Name', $this->options)) {
+        if (! array_key_exists('Address.Name', $this->options)) {
             $this->log('Address must be set in order to create a preview', 'Warning');
 
             return false;
         }
-        if (!array_key_exists('Items.member.1.SellerSKU', $this->options)) {
+        if (! array_key_exists('Items.member.1.SellerSKU', $this->options)) {
             $this->log('Items must be set in order to create a preview', 'Warning');
 
             return false;
@@ -266,7 +265,7 @@ class AmazonFulfillmentPreview extends AmazonOutboundCore
         } else {
             $response = $this->sendRequest($url, ['Post' => $query]);
 
-            if (!$this->checkResponse($response)) {
+            if (! $this->checkResponse($response)) {
                 return false;
             }
 
@@ -287,7 +286,7 @@ class AmazonFulfillmentPreview extends AmazonOutboundCore
      */
     protected function parseXML($xml)
     {
-        if (!$xml) {
+        if (! $xml) {
             return false;
         }
         $i = 0;
@@ -396,7 +395,7 @@ class AmazonFulfillmentPreview extends AmazonOutboundCore
      */
     public function getPreview($i = null)
     {
-        if (!isset($this->previewList)) {
+        if (! isset($this->previewList)) {
             return false;
         }
         if (is_numeric($i)) {
@@ -418,7 +417,7 @@ class AmazonFulfillmentPreview extends AmazonOutboundCore
      */
     public function getEstimatedWeight($i = 0, $mode = 0)
     {
-        if (!isset($this->previewList)) {
+        if (! isset($this->previewList)) {
             return false;
         }
         if (is_int($i) && $i >= 0) {

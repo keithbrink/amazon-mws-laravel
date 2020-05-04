@@ -138,7 +138,7 @@ class AmazonProductSearch extends AmazonProductsCore
          * VideoGames
          * Watches
          * Wireless
-         * WirelessAccessories
+         * WirelessAccessories.
          */
     }
 
@@ -153,7 +153,7 @@ class AmazonProductSearch extends AmazonProductsCore
      */
     public function searchProducts()
     {
-        if (!array_key_exists('Query', $this->options)) {
+        if (! array_key_exists('Query', $this->options)) {
             $this->log('Search Query must be set in order to search for a query!', 'Warning');
 
             return false;
@@ -168,7 +168,7 @@ class AmazonProductSearch extends AmazonProductsCore
         } else {
             $response = $this->sendRequest($url, ['Post' => $query]);
 
-            if (!$this->checkResponse($response)) {
+            if (! $this->checkResponse($response)) {
                 return false;
             }
 

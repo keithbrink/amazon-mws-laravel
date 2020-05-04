@@ -149,7 +149,7 @@ class AmazonShipmentItemList extends AmazonInboundCore implements \Iterator
                 );
             }
         } catch (Exception $e) {
-            throw new InvalidArgumentException('Parameters should be timestamps.');
+            throw new \InvalidArgumentException('Parameters should be timestamps.');
         }
     }
 
@@ -179,7 +179,7 @@ class AmazonShipmentItemList extends AmazonInboundCore implements \Iterator
      */
     public function fetchItems($r = true)
     {
-        if (!array_key_exists('ShipmentId', $this->options)) {
+        if (! array_key_exists('ShipmentId', $this->options)) {
             $this->log('Shipment ID must be set before requesting items!', 'Warning');
 
             return false;
@@ -197,7 +197,7 @@ class AmazonShipmentItemList extends AmazonInboundCore implements \Iterator
         } else {
             $response = $this->sendRequest($url, ['Post' => $query]);
 
-            if (!$this->checkResponse($response)) {
+            if (! $this->checkResponse($response)) {
                 return false;
             }
 
@@ -247,7 +247,7 @@ class AmazonShipmentItemList extends AmazonInboundCore implements \Iterator
      */
     protected function parseXML($xml)
     {
-        if (!$xml) {
+        if (! $xml) {
             return false;
         }
         $a = [];
@@ -283,7 +283,7 @@ class AmazonShipmentItemList extends AmazonInboundCore implements \Iterator
      */
     public function getShipmentId($i = 0)
     {
-        if (!isset($this->itemList)) {
+        if (! isset($this->itemList)) {
             return false;
         }
         if (is_int($i)) {
@@ -304,7 +304,7 @@ class AmazonShipmentItemList extends AmazonInboundCore implements \Iterator
      */
     public function getSellerSKU($i = 0)
     {
-        if (!isset($this->itemList)) {
+        if (! isset($this->itemList)) {
             return false;
         }
         if (is_int($i)) {
@@ -325,7 +325,7 @@ class AmazonShipmentItemList extends AmazonInboundCore implements \Iterator
      */
     public function getFulfillmentNetworkSKU($i = 0)
     {
-        if (!isset($this->itemList)) {
+        if (! isset($this->itemList)) {
             return false;
         }
         if (is_int($i)) {
@@ -346,7 +346,7 @@ class AmazonShipmentItemList extends AmazonInboundCore implements \Iterator
      */
     public function getQuantityShipped($i = 0)
     {
-        if (!isset($this->itemList)) {
+        if (! isset($this->itemList)) {
             return false;
         }
         if (is_int($i)) {
@@ -367,7 +367,7 @@ class AmazonShipmentItemList extends AmazonInboundCore implements \Iterator
      */
     public function getQuantityReceived($i = 0)
     {
-        if (!isset($this->itemList)) {
+        if (! isset($this->itemList)) {
             return false;
         }
         if (is_int($i)) {
@@ -388,7 +388,7 @@ class AmazonShipmentItemList extends AmazonInboundCore implements \Iterator
      */
     public function getQuantityInCase($i = 0)
     {
-        if (!isset($this->itemList)) {
+        if (! isset($this->itemList)) {
             return false;
         }
         if (is_int($i)) {
@@ -418,7 +418,7 @@ class AmazonShipmentItemList extends AmazonInboundCore implements \Iterator
      */
     public function getItems($i = null)
     {
-        if (!isset($this->itemList)) {
+        if (! isset($this->itemList)) {
             return false;
         }
         if (is_int($i)) {

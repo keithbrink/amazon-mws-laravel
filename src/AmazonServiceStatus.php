@@ -176,7 +176,7 @@ class AmazonServiceStatus extends AmazonCore
      */
     public function fetchServiceStatus()
     {
-        if (!$this->ready) {
+        if (! $this->ready) {
             $this->log('Service must be set in order to retrieve status', 'Warning');
 
             return false;
@@ -192,7 +192,7 @@ class AmazonServiceStatus extends AmazonCore
         } else {
             $response = $this->sendRequest($url, ['Post' => $query]);
 
-            if (!$this->checkResponse($response)) {
+            if (! $this->checkResponse($response)) {
                 return false;
             }
 
@@ -213,7 +213,7 @@ class AmazonServiceStatus extends AmazonCore
      */
     protected function parseXML($xml)
     {
-        if (!$xml) {
+        if (! $xml) {
             return false;
         }
         $this->lastTimestamp = (string) $xml->Timestamp;

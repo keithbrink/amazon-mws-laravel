@@ -159,14 +159,14 @@ class AmazonPrepInfo extends AmazonInboundCore implements Iterator
      */
     public function fetchPrepInstructions()
     {
-        if (!array_key_exists('SellerSKUList.Id.1', $this->options) &&
-                !array_key_exists('ASINList.Id.1', $this->options)) {
+        if (! array_key_exists('SellerSKUList.Id.1', $this->options) &&
+                ! array_key_exists('ASINList.Id.1', $this->options)) {
             $this->log('Product IDs must be set in order to get prep instructions!', 'Warning');
 
             return false;
         }
 
-        if (!array_key_exists('ShipToCountryCode', $this->options)) {
+        if (! array_key_exists('ShipToCountryCode', $this->options)) {
             $this->log('Country Code must be set in order to get prep instructions!', 'Warning');
 
             return false;
@@ -184,7 +184,7 @@ class AmazonPrepInfo extends AmazonInboundCore implements Iterator
         } else {
             $response = $this->sendRequest($url, ['Post'=>$query]);
 
-            if (!$this->checkResponse($response)) {
+            if (! $this->checkResponse($response)) {
                 return false;
             }
 
@@ -224,7 +224,7 @@ class AmazonPrepInfo extends AmazonInboundCore implements Iterator
      */
     protected function parseXml($xml)
     {
-        if (!$xml) {
+        if (! $xml) {
             return false;
         }
 
@@ -435,7 +435,7 @@ class AmazonPrepInfo extends AmazonInboundCore implements Iterator
      */
     public function getPrepList($i = null)
     {
-        if (!isset($this->prepList)) {
+        if (! isset($this->prepList)) {
             return false;
         }
         if (is_int($i)) {
@@ -461,7 +461,7 @@ class AmazonPrepInfo extends AmazonInboundCore implements Iterator
      */
     public function getInvalidItemList($i = null)
     {
-        if (!isset($this->invalidList)) {
+        if (! isset($this->invalidList)) {
             return false;
         }
         if (is_int($i)) {

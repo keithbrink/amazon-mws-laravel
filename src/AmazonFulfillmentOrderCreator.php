@@ -94,6 +94,26 @@ class AmazonFulfillmentOrderCreator extends AmazonOutboundCore
     }
 
     /**
+     * Sets the marketplace Id.
+     *
+     * @param null $id
+     * @return bool
+     */
+    public function setMarketPlaceId($id = null)
+    {
+        if (! $id && $this->marketplaceId) {
+            $id = $this->marketplaceId;
+        }
+        if ($id) {
+            $this->options['MarketplaceId'] = $id;
+
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
      * Sets the displayed order comment. (Optional).
      *
      * Order-specific text that appears in customer-facing materials such as the outbound shipment packing slip.
@@ -210,7 +230,7 @@ class AmazonFulfillmentOrderCreator extends AmazonOutboundCore
      */
     public function setAddress($a)
     {
-        if (is_null($a) || is_string($a) || !$a) {
+        if (is_null($a) || is_string($a) || ! $a) {
             $this->log('Tried to set address to invalid values', 'Warning');
 
             return false;
@@ -407,7 +427,7 @@ class AmazonFulfillmentOrderCreator extends AmazonOutboundCore
      */
     public function setItems($a)
     {
-        if (is_null($a) || is_string($a) || !$a) {
+        if (is_null($a) || is_string($a) || ! $a) {
             $this->log('Tried to set Items to invalid values', 'Warning');
 
             return false;
@@ -480,37 +500,37 @@ class AmazonFulfillmentOrderCreator extends AmazonOutboundCore
      */
     public function createOrder()
     {
-        if (!array_key_exists('SellerFulfillmentOrderId', $this->options)) {
+        if (! array_key_exists('SellerFulfillmentOrderId', $this->options)) {
             $this->log('Seller Fulfillment OrderID must be set in order to create an order', 'Warning');
 
             return false;
         }
-        if (!array_key_exists('DisplayableOrderId', $this->options)) {
+        if (! array_key_exists('DisplayableOrderId', $this->options)) {
             $this->log('Displayable Order ID must be set in order to create an order', 'Warning');
 
             return false;
         }
-        if (!array_key_exists('DisplayableOrderDateTime', $this->options)) {
+        if (! array_key_exists('DisplayableOrderDateTime', $this->options)) {
             $this->log('Date must be set in order to create an order', 'Warning');
 
             return false;
         }
-        if (!array_key_exists('DisplayableOrderComment', $this->options)) {
+        if (! array_key_exists('DisplayableOrderComment', $this->options)) {
             $this->log('Comment must be set in order to create an order', 'Warning');
 
             return false;
         }
-        if (!array_key_exists('ShippingSpeedCategory', $this->options)) {
+        if (! array_key_exists('ShippingSpeedCategory', $this->options)) {
             $this->log('Shipping Speed must be set in order to create an order', 'Warning');
 
             return false;
         }
-        if (!array_key_exists('DestinationAddress.Name', $this->options)) {
+        if (! array_key_exists('DestinationAddress.Name', $this->options)) {
             $this->log('Address must be set in order to create an order', 'Warning');
 
             return false;
         }
-        if (!array_key_exists('Items.member.1.SellerSKU', $this->options)) {
+        if (! array_key_exists('Items.member.1.SellerSKU', $this->options)) {
             $this->log('Items must be set in order to create an order', 'Warning');
 
             return false;
@@ -525,7 +545,7 @@ class AmazonFulfillmentOrderCreator extends AmazonOutboundCore
         } else {
             $response = $this->sendRequest($url, ['Post' => $query]);
         }
-        if (!$this->checkResponse($response)) {
+        if (! $this->checkResponse($response)) {
             return false;
         } else {
             $this->log('Successfully created Fulfillment Order '.$this->options['SellerFulfillmentOrderId'].' / '.$this->options['DisplayableOrderId']);
