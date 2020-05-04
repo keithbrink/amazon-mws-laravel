@@ -1,9 +1,9 @@
-<?php namespace Sonnenglas\AmazonMws;
+<?php
 
-use Sonnenglas\AmazonMws\AmazonCore;
+namespace Sonnenglas\AmazonMws;
 
 /**
- * Copyright 2013 CPI Group, LLC
+ * Copyright 2013 CPI Group, LLC.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  *
@@ -28,14 +28,14 @@ use Sonnenglas\AmazonMws\AmazonCore;
 abstract class AmazonReportsCore extends AmazonCore
 {
     /**
-     * AmazonReportsCore constructor sets up key information used in all Amazon Reports Core requests
+     * AmazonReportsCore constructor sets up key information used in all Amazon Reports Core requests.
      *
      * This constructor is called when initializing all objects in the Amazon Reports Core.
      * The parameters are passed by the child objects' constructors, which are
      * in turn passed to the AmazonCore constructor. See it for more information
      * on these parameters and common methods.
      * @param string $s <p>Name for the store you want to use.</p>
-     * @param boolean $mock [optional] <p>This is a flag for enabling Mock Mode.
+     * @param bool $mock [optional] <p>This is a flag for enabling Mock Mode.
      * This defaults to <b>FALSE</b>.</p>
      * @param array|string $m [optional] <p>The files (or file) to use in Mock Mode.</p>
      * @param string $config [optional] <p>An alternate config file to set. Used for testing.</p>
@@ -43,7 +43,7 @@ abstract class AmazonReportsCore extends AmazonCore
     public function __construct($s, $mock = false, $m = null)
     {
         parent::__construct($s, $mock, $m);
-        include($this->env);
+        include $this->env;
 
         $this->urlbranch = '';
         if (isset($AMAZON_VERSION_REPORTS)) {
@@ -52,23 +52,21 @@ abstract class AmazonReportsCore extends AmazonCore
     }
 
     /**
-     * Checks for a token and changes the proper options
+     * Checks for a token and changes the proper options.
      * @param SimpleXMLObject $xml <p>response data</p>
-     * @return boolean <b>FALSE</b> if no XML data
+     * @return bool <b>FALSE</b> if no XML data
      */
     protected function checkToken($xml)
     {
-        if (!$xml) {
+        if (! $xml) {
             return false;
         }
-        if ((string)$xml->HasNext == 'true') {
+        if ((string) $xml->HasNext == 'true') {
             $this->tokenFlag = true;
-            $this->options['NextToken'] = (string)$xml->NextToken;
+            $this->options['NextToken'] = (string) $xml->NextToken;
         } else {
             unset($this->options['NextToken']);
             $this->tokenFlag = false;
         }
     }
 }
-
-?>

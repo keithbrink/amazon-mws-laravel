@@ -1,9 +1,9 @@
-<?php namespace Sonnenglas\AmazonMws;
+<?php
 
-use Sonnenglas\AmazonMws\AmazonFeedsCore;
+namespace Sonnenglas\AmazonMws;
 
 /**
- * Copyright 2013 CPI Group, LLC
+ * Copyright 2013 CPI Group, LLC.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  *
@@ -40,7 +40,7 @@ class AmazonFeed extends AmazonFeedsCore
      * in turn passed to the AmazonCore constructor. See it for more information
      * on these parameters and common methods.
      * @param string $s <p>Name for the store you want to use.</p>
-     * @param boolean $mock [optional] <p>This is a flag for enabling Mock Mode.
+     * @param bool $mock [optional] <p>This is a flag for enabling Mock Mode.
      * This defaults to <b>FALSE</b>.</p>
      * @param array|string $m [optional] <p>The files (or file) to use in Mock Mode.</p>
      * @param string $config [optional] <p>An alternate config file to set. Used for testing.</p>
@@ -48,7 +48,7 @@ class AmazonFeed extends AmazonFeedsCore
     public function __construct($s, $mock = false, $m = null)
     {
         parent::__construct($s, $mock, $m);
-        include($this->env);
+        include $this->env;
 
         $this->options['Action'] = 'SubmitFeed';
 
@@ -62,13 +62,13 @@ class AmazonFeed extends AmazonFeedsCore
     }
 
     /**
-     * Sets the Feed Content. (Required)
+     * Sets the Feed Content. (Required).
      *
      * Thie method sets the feed's contents from direct input.
      * This parameter is required in order to submit a feed to Amazon.
      * @param string $s <p>The contents to put in the file.</p>
      * It can be relative or absolute.</p>
-     * @return boolean <b>FALSE</b> if improper input
+     * @return bool <b>FALSE</b> if improper input
      */
     public function setFeedContent($s)
     {
@@ -81,7 +81,7 @@ class AmazonFeed extends AmazonFeedsCore
     }
 
     /**
-     * Sets the Feed Content. (Required)
+     * Sets the Feed Content. (Required).
      *
      * This method loads the contents of a file to send as the feed. This
      * parameter is required in order to submit a feed to Amazon.
@@ -94,7 +94,7 @@ class AmazonFeed extends AmazonFeedsCore
             if (strpos($path, '/') == 0) {
                 $this->feedContent = file_get_contents($path);
             } else {
-                $url = __DIR__ . '/../../' . $path; //todo: change to current install dir
+                $url = __DIR__.'/../../'.$path; //todo: change to current install dir
                 $this->feedContent = file_get_contents($url);
             }
             $this->feedMD5 = base64_encode(md5($this->feedContent, true));
@@ -102,14 +102,14 @@ class AmazonFeed extends AmazonFeedsCore
     }
 
     /**
-     * Sets the Feed Type. (Required)
+     * Sets the Feed Type. (Required).
      *
      * This method sets the Feed Type to be sent in the next request. This tells
      * Amazon how the Feed should be processsed.
      * This parameter is required in order to submit a feed to Amazon.
      * @param string $s <p>A value from the list of valid Feed Types.
      * See the comment inside the function for the complete list.</p>
-     * @return boolean <b>FALSE</b> if improper input
+     * @return bool <b>FALSE</b> if improper input
      */
     public function setFeedType($s)
     {
@@ -158,7 +158,7 @@ class AmazonFeed extends AmazonFeedsCore
     }
 
     /**
-     * Sets the request ID(s). (Optional)
+     * Sets the request ID(s). (Optional).
      *
      * This method sets the list of Marketplace IDs to be sent in the next request.
      * Setting this parameter tells Amazon to apply the Feed to more than one
@@ -166,7 +166,7 @@ class AmazonFeed extends AmazonFeedsCore
      * to sell in. If this is not set, Amazon will only use the first Marketplace
      * you are registered for.
      * @param array|string $s <p>A list of Marketplace IDs, or a single ID string.</p>
-     * @return boolean <b>FALSE</b> if improper input
+     * @return bool <b>FALSE</b> if improper input
      */
     public function setMarketplaceIds($s)
     {
@@ -178,7 +178,7 @@ class AmazonFeed extends AmazonFeedsCore
                 $this->resetMarketplaceIds();
                 $i = 1;
                 foreach ($s as $x) {
-                    $this->options['MarketplaceIdList.Id.' . $i] = $x;
+                    $this->options['MarketplaceIdList.Id.'.$i] = $x;
                     $i++;
                 }
             } else {
@@ -196,14 +196,14 @@ class AmazonFeed extends AmazonFeedsCore
     public function resetMarketplaceIds()
     {
         foreach ($this->options as $op => $junk) {
-            if (preg_match("#MarketplaceIdList#", $op)) {
+            if (preg_match('#MarketplaceIdList#', $op)) {
                 unset($this->options[$op]);
             }
         }
     }
 
     /**
-     * Turns on or off Purge mode. (Optional)
+     * Turns on or off Purge mode. (Optional).
      *
      *
      * <b>Warning! This parameter can only be used once every 24 hours!</b>
@@ -211,21 +211,21 @@ class AmazonFeed extends AmazonFeedsCore
      * This method sets whether or not the tab delimited feed you provide should
      * completely replace old data. Use this parameter only in exceptional cases.
      * If this is not set, Amazon assumes it to be false.
-     * @param boolean|string $s [optional] <p>The value "true" or "false", either as
+     * @param bool|string $s [optional] <p>The value "true" or "false", either as
      * a boolean or a string. It defaults to "true".</p>
-     * @return boolean <b>FALSE</b> if improper input
+     * @return bool <b>FALSE</b> if improper input
      */
     public function setPurge($s = 'true')
     {
         if ($s == 'true' || ($s && is_bool($s))) {
-            $this->log("Caution! Purge mode set!", 'Warning');
+            $this->log('Caution! Purge mode set!', 'Warning');
             $this->options['PurgeAndReplace'] = 'true';
             $this->throttleTime = 86400;
         } else {
-            if ($s == 'false' || (!$s && is_bool($s))) {
-                $this->log("Purge mode deactivated.");
+            if ($s == 'false' || (! $s && is_bool($s))) {
+                $this->log('Purge mode deactivated.');
                 $this->options['PurgeAndReplace'] = 'false';
-                include($this->env);
+                include $this->env;
                 if (isset($THROTTLE_TIME_FEEDSUBMIT)) {
                     $this->throttleTime = $THROTTLE_TIME_FEEDSUBMIT;
                 }
@@ -242,31 +242,33 @@ class AmazonFeed extends AmazonFeedsCore
      * the feed's contents and feed type are required. The request will not be
      * sent if either of these are not set. Amazon will send a response back,
      * which can be retrieved using <i>getResponse</i>.
-     * @return boolean <b>FALSE</b> if something goes wrong
+     * @return bool <b>FALSE</b> if something goes wrong
      */
     public function submitFeed()
     {
-        if (!$this->feedContent) {
+        if (! $this->feedContent) {
             $this->log("Feed's contents must be set in order to submit it!", 'Warning');
+
             return false;
         }
-        if (!array_key_exists('FeedType', $this->options)) {
-            $this->log("Feed Type must be set in order to submit a feed!", 'Warning');
+        if (! array_key_exists('FeedType', $this->options)) {
+            $this->log('Feed Type must be set in order to submit a feed!', 'Warning');
+
             return false;
         }
 
-        $url = $this->urlbase . $this->urlbranch;
+        $url = $this->urlbase.$this->urlbranch;
 
         $query = $this->genQuery();
 
-        $path = $this->options['Action'] . 'Result';
+        $path = $this->options['Action'].'Result';
         if ($this->mockMode) {
             $xml = $this->fetchMockFile()->$path;
         } else {
             $headers = $this->genHeader();
-            $response = $this->sendRequest("$url?$query", array('Header' => $headers, 'Post' => $this->feedContent));
+            $response = $this->sendRequest("$url?$query", ['Header' => $headers, 'Post' => $this->feedContent]);
 
-            if (!$this->checkResponse($response)) {
+            if (! $this->checkResponse($response)) {
                 return false;
             }
 
@@ -274,15 +276,12 @@ class AmazonFeed extends AmazonFeedsCore
                 $body = strstr($response['body'], '<');
                 $xml = simplexml_load_string($body)->$path;
             } else {
-                $this->log("Unexpected response: " . print_r($response, true), 'Warning');
+                $this->log('Unexpected response: '.print_r($response, true), 'Warning');
                 $xml = simplexml_load_string($response['body'])->$path;
             }
-
-
         }
 
         $this->parseXML($xml->FeedSubmissionInfo);
-
     }
 
     /**
@@ -290,21 +289,21 @@ class AmazonFeed extends AmazonFeedsCore
      *
      * This is what reads the response XML and converts it into an array.
      * @param SimpleXMLObject $xml <p>The XML response from Amazon.</p>
-     * @return boolean <b>FALSE</b> if no XML data is found
+     * @return bool <b>FALSE</b> if no XML data is found
      */
     protected function parseXML($xml)
     {
-        if (!$xml) {
+        if (! $xml) {
             return false;
         }
 
-        $this->response = array();
-        $this->response['FeedSubmissionId'] = (string)$xml->FeedSubmissionId;
-        $this->response['FeedType'] = (string)$xml->FeedType;
-        $this->response['SubmittedDate'] = (string)$xml->SubmittedDate;
-        $this->response['FeedProcessingStatus'] = (string)$xml->FeedProcessingStatus;
+        $this->response = [];
+        $this->response['FeedSubmissionId'] = (string) $xml->FeedSubmissionId;
+        $this->response['FeedType'] = (string) $xml->FeedType;
+        $this->response['SubmittedDate'] = (string) $xml->SubmittedDate;
+        $this->response['FeedProcessingStatus'] = (string) $xml->FeedProcessingStatus;
 
-        $this->log("Successfully submitted feed #" . $this->response['FeedSubmissionId'] . ' (' . $this->response['FeedType'] . ')');
+        $this->log('Successfully submitted feed #'.$this->response['FeedSubmissionId'].' ('.$this->response['FeedType'].')');
     }
 
     /**
@@ -315,7 +314,8 @@ class AmazonFeed extends AmazonFeedsCore
      */
     protected function genHeader()
     {
-        $return[0] = "Content-MD5:" . $this->feedMD5;
+        $return[0] = 'Content-MD5:'.$this->feedMD5;
+
         return $return;
     }
 
@@ -328,20 +328,23 @@ class AmazonFeed extends AmazonFeedsCore
      * 100 Continue responses in addition to the usual response.
      * @param array $r <p>The HTTP response array. Expects the array to have
      * the fields <i>code</i>, <i>body</i>, and <i>error</i>.</p>
-     * @return boolean <b>TRUE</b> if the status is 200 OK, <b>FALSE</b> otherwise.
+     * @return bool <b>TRUE</b> if the status is 200 OK, <b>FALSE</b> otherwise.
      */
     protected function checkResponse($r)
     {
-        if (!is_array($r)) {
-            $this->log("No Response found", 'Warning');
+        if (! is_array($r)) {
+            $this->log('No Response found', 'Warning');
+
             return false;
         }
         //for dealing with 100 response
         if (array_key_exists('error', $r) && $r['ok'] == 0) {
-            $this->log("Response Not OK! Error: " . $r['error'], 'Urgent');
+            $this->log('Response Not OK! Error: '.$r['error'], 'Urgent');
+
             return false;
         } else {
-            $this->log("Response OK!");
+            $this->log('Response OK!');
+
             return true;
         }
     }
@@ -366,8 +369,4 @@ class AmazonFeed extends AmazonFeedsCore
             return false;
         }
     }
-
-
 }
-
-?>

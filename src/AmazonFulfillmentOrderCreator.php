@@ -1,9 +1,9 @@
-<?php namespace Sonnenglas\AmazonMws;
+<?php
 
-use Sonnenglas\AmazonMws\AmazonOutboundCore;
+namespace Sonnenglas\AmazonMws;
 
 /**
- * Copyright 2013 CPI Group, LLC
+ * Copyright 2013 CPI Group, LLC.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  *
@@ -29,7 +29,6 @@ use Sonnenglas\AmazonMws\AmazonOutboundCore;
  */
 class AmazonFulfillmentOrderCreator extends AmazonOutboundCore
 {
-
     /**
      * AmazonFulfillmentOrderCreator creates a fulfillment order. You need a fulfillment order ID.
      *
@@ -37,7 +36,7 @@ class AmazonFulfillmentOrderCreator extends AmazonOutboundCore
      * in turn passed to the AmazonCore constructor. See it for more information
      * on these parameters and common methods.
      * @param string $s <p>Name for the store you want to use.</p>
-     * @param boolean $mock [optional] <p>This is a flag for enabling Mock Mode.
+     * @param bool $mock [optional] <p>This is a flag for enabling Mock Mode.
      * This defaults to <b>FALSE</b>.</p>
      * @param array|string $m [optional] <p>The files (or file) to use in Mock Mode.</p>
      * @param string $config [optional] <p>An alternate config file to set. Used for testing.</p>
@@ -50,18 +49,19 @@ class AmazonFulfillmentOrderCreator extends AmazonOutboundCore
     }
 
     /**
-     * Sets the fulfillment order ID. (Required)
+     * Sets the fulfillment order ID. (Required).
      *
      * This method sets the Fulfillment Order ID to be sent in the next request.
      * This parameter is required for creating a fulfillment order with Amazon.
      * A fulfillment order ID can be generated using the <i>AmazonFulfillmentPreview</i> object.
      * @param string $s <p>Maximum 40 characters.</p>
-     * @return boolean <b>FALSE</b> if improper input
+     * @return bool <b>FALSE</b> if improper input
      */
     public function setFulfillmentOrderId($s)
     {
         if (is_string($s)) {
             $this->options['SellerFulfillmentOrderId'] = $s;
+
             return true;
         } else {
             return false;
@@ -69,18 +69,19 @@ class AmazonFulfillmentOrderCreator extends AmazonOutboundCore
     }
 
     /**
-     * Sets the displayed order ID. (Required)
+     * Sets the displayed order ID. (Required).
      *
      * This method sets the Displayable Order ID to be sent in the next request.
      * This parameter is required for creating a fulfillment order with Amazon.
      * This is your own order ID, and is the ID that is displayed on the packing slip.
      * @param string $s <p>Must be alpha-numeric or ISO-8559-1 compliant. Maximum 40 characters.</p>
-     * @return boolean <b>FALSE</b> if improper input
+     * @return bool <b>FALSE</b> if improper input
      */
     public function setDisplayableOrderId($s)
     {
         if (is_string($s)) {
             $this->options['DisplayableOrderId'] = $s;
+
             return true;
         } else {
             return false;
@@ -88,25 +89,27 @@ class AmazonFulfillmentOrderCreator extends AmazonOutboundCore
     }
 
     /**
-     * Sets the marketplace Id
+     * Sets the marketplace Id.
      *
      * @param null $id
      * @return bool
      */
     public function setMarketPlaceId($id = null)
     {
-        if (!$id && $this->marketplaceId) {
+        if (! $id && $this->marketplaceId) {
             $id = $this->marketplaceId;
         }
         if ($id) {
             $this->options['MarketplaceId'] = $id;
+
             return true;
         }
+
         return false;
     }
 
     /**
-     * Sets the displayed order comment. (Optional)
+     * Sets the displayed order comment. (Optional).
      *
      * Order-specific text that appears in customer-facing materials such as the outbound shipment packing slip.
      * Maximum: 1000 characters
@@ -118,6 +121,7 @@ class AmazonFulfillmentOrderCreator extends AmazonOutboundCore
     {
         if (is_string($s)) {
             $this->options['DisplayableOrderComment'] = $s;
+
             return true;
         } else {
             return false;
@@ -125,19 +129,20 @@ class AmazonFulfillmentOrderCreator extends AmazonOutboundCore
     }
 
     /**
-     * Sets the displayed timestamp. (Required)
+     * Sets the displayed timestamp. (Required).
      *
      * This method sets the displayed timestamp to be sent in the next request.
      * This parameter is required for creating a fulfillment order with Amazon.
      * The parameter is passed through <i>strtotime</i>, so values such as "-1 hour" are fine.
      * @param string $s <p>Time string.</p>
-     * @return boolean <b>FALSE</b> if improper input
+     * @return bool <b>FALSE</b> if improper input
      */
     public function setDate($s)
     {
         if (is_string($s)) {
             $time = $this->genTime($s);
             $this->options['DisplayableOrderDateTime'] = $time;
+
             return true;
         } else {
             return false;
@@ -145,17 +150,18 @@ class AmazonFulfillmentOrderCreator extends AmazonOutboundCore
     }
 
     /**
-     * Sets the displayed comment. (Required)
+     * Sets the displayed comment. (Required).
      *
      * This method sets the displayed order comment to be sent in the next request.
      * This parameter is required for creating a fulfillment order with Amazon.
      * @param string $s <p>Maximum 1000 characters.</p>
-     * @return boolean <b>FALSE</b> if improper input
+     * @return bool <b>FALSE</b> if improper input
      */
     public function setComment($s)
     {
         if (is_string($s)) {
             $this->options['DisplayableOrderComment'] = $s;
+
             return true;
         } else {
             return false;
@@ -163,21 +169,23 @@ class AmazonFulfillmentOrderCreator extends AmazonOutboundCore
     }
 
     /**
-     * Sets the shipping speed. (Required)
+     * Sets the shipping speed. (Required).
      *
      * This method sets the shipping speed to be sent in the next request.
      * This parameter is required for creating a fulfillment order with Amazon.
      * @param string $s <p>"Standard", "Expedited", or "Priority"</p>
-     * @return boolean <b>FALSE</b> if improper input
+     * @return bool <b>FALSE</b> if improper input
      */
     public function setShippingSpeed($s)
     {
         if (is_string($s)) {
             if ($s == 'Standard' || $s == 'Expedited' || $s == 'Priority') {
                 $this->options['ShippingSpeedCategory'] = $s;
+
                 return true;
             } else {
-                $this->log("Tried to set shipping status to invalid value", 'Warning');
+                $this->log('Tried to set shipping status to invalid value', 'Warning');
+
                 return false;
             }
         } else {
@@ -186,7 +194,7 @@ class AmazonFulfillmentOrderCreator extends AmazonOutboundCore
     }
 
     /**
-     * Sets the address. (Required)
+     * Sets the address. (Required).
      *
      * This method sets the destination address to be sent in the next request.
      * This parameter is required for creating a fulfillment order with Amazon.
@@ -204,12 +212,13 @@ class AmazonFulfillmentOrderCreator extends AmazonOutboundCore
      * <li><b>PhoneNumber</b> - max: 20 char</li>
      * </ul>
      * @param array $a <p>See above.</p>
-     * @return boolean <b>FALSE</b> if improper input
+     * @return bool <b>FALSE</b> if improper input
      */
     public function setAddress($a)
     {
-        if (is_null($a) || is_string($a) || !$a) {
-            $this->log("Tried to set address to invalid values", 'Warning');
+        if (is_null($a) || is_string($a) || ! $a) {
+            $this->log('Tried to set address to invalid values', 'Warning');
+
             return false;
         }
         $this->resetAddress();
@@ -239,6 +248,7 @@ class AmazonFulfillmentOrderCreator extends AmazonOutboundCore
         } else {
             $this->options['DestinationAddress.PhoneNumber'] = null;
         }
+
         return true;
     }
 
@@ -263,7 +273,7 @@ class AmazonFulfillmentOrderCreator extends AmazonOutboundCore
     }
 
     /**
-     * Sets the fulfillment policy. (Optional)
+     * Sets the fulfillment policy. (Optional).
      *
      * This method sets the Fulfillment Policy to be sent in the next request.
      * If this parameter is not set, Amazon will assume a <i>FillOrKill</i> policy.
@@ -274,16 +284,18 @@ class AmazonFulfillmentOrderCreator extends AmazonOutboundCore
      * <li><b>FillAllAvailable</b> - send all possible, cancel any unfulfillable items</li>
      * </ul>
      * @param string $s <p>"FillOrKill", "FillAll", or "FillAllAvailable"</p>
-     * @return boolean <b>FALSE</b> if improper input
+     * @return bool <b>FALSE</b> if improper input
      */
     public function setFulfillmentPolicy($s)
     {
         if (is_string($s)) {
             if ($s == 'FillOrKill' || $s == 'FillAll' || $s == 'FillAllAvailable') {
                 $this->options['FulfillmentPolicy'] = $s;
+
                 return true;
             } else {
-                $this->log("Tried to set fulfillment policy to invalid value", 'Warning');
+                $this->log('Tried to set fulfillment policy to invalid value', 'Warning');
+
                 return false;
             }
         } else {
@@ -292,7 +304,7 @@ class AmazonFulfillmentOrderCreator extends AmazonOutboundCore
     }
 
     /**
-     * Sets the fulfillment method. (Optional)
+     * Sets the fulfillment method. (Optional).
      *
      * This method sets the Fulfillment Method to be sent in the next request.
      * If this parameter is not set, Amazon will assume a <i>Consumer</i> method.
@@ -302,16 +314,18 @@ class AmazonFulfillmentOrderCreator extends AmazonOutboundCore
      * <li><b>Removal</b> - inventory will be returned to the given address</li>
      * </ul>
      * @param string $s <p>"Consumer" or "Removal"</p>
-     * @return boolean <b>FALSE</b> if improper input
+     * @return bool <b>FALSE</b> if improper input
      */
     public function setFulfillmentMethod($s)
     {
         if (is_string($s)) {
             if ($s == 'Consumer' || $s == 'Removal') {
                 $this->options['FulfillmentMethod'] = $s;
+
                 return true;
             } else {
-                $this->log("Tried to set fulfillment method to invalid value", 'Warning');
+                $this->log('Tried to set fulfillment method to invalid value', 'Warning');
+
                 return false;
             }
         } else {
@@ -320,13 +334,13 @@ class AmazonFulfillmentOrderCreator extends AmazonOutboundCore
     }
 
     /**
-     * Sets the email(s). (Optional)
+     * Sets the email(s). (Optional).
      *
      * This method sets the list of Email addresses to be sent in the next request.
      * Setting this parameter tells Amazon who to send emails to regarding the
      * completion of the shipment.
      * @param array|string $s <p>A list of email addresses, or a single email address. (max: 64 chars each)</p>
-     * @return boolean <b>FALSE</b> if improper input
+     * @return bool <b>FALSE</b> if improper input
      */
     public function setEmails($s)
     {
@@ -338,7 +352,7 @@ class AmazonFulfillmentOrderCreator extends AmazonOutboundCore
                 $this->resetEmails();
                 $i = 1;
                 foreach ($s as $x) {
-                    $this->options['NotificationEmailList.member.' . $i] = $x;
+                    $this->options['NotificationEmailList.member.'.$i] = $x;
                     $i++;
                 }
             } else {
@@ -356,14 +370,14 @@ class AmazonFulfillmentOrderCreator extends AmazonOutboundCore
     public function resetEmails()
     {
         foreach ($this->options as $op => $junk) {
-            if (preg_match("#NotificationEmailList#", $op)) {
+            if (preg_match('#NotificationEmailList#', $op)) {
                 unset($this->options[$op]);
             }
         }
     }
 
     /**
-     * Sets the items. (Required)
+     * Sets the items. (Required).
      *
      * This method sets the Fulfillment Order ID to be sent in the next request.
      * This parameter is required for creating a fulfillment order with Amazon.
@@ -383,12 +397,13 @@ class AmazonFulfillmentOrderCreator extends AmazonOutboundCore
      * </ul>
      * </ul>
      * @param array $a <p>See above.</p>
-     * @return boolean <b>FALSE</b> if improper input
+     * @return bool <b>FALSE</b> if improper input
      */
     public function setItems($a)
     {
-        if (is_null($a) || is_string($a) || !$a) {
-            $this->log("Tried to set Items to invalid values", 'Warning');
+        if (is_null($a) || is_string($a) || ! $a) {
+            $this->log('Tried to set Items to invalid values', 'Warning');
+
             return false;
         }
         $this->resetItems();
@@ -397,33 +412,35 @@ class AmazonFulfillmentOrderCreator extends AmazonOutboundCore
             if (is_array($x) && array_key_exists('SellerSKU', $x) && array_key_exists('SellerFulfillmentOrderItemId',
                     $x) && array_key_exists('Quantity', $x)
             ) {
-                $this->options['Items.member.' . $i . '.SellerSKU'] = $x['SellerSKU'];
-                $this->options['Items.member.' . $i . '.SellerFulfillmentOrderItemId'] = $x['SellerFulfillmentOrderItemId'];
-                $this->options['Items.member.' . $i . '.Quantity'] = $x['Quantity'];
+                $this->options['Items.member.'.$i.'.SellerSKU'] = $x['SellerSKU'];
+                $this->options['Items.member.'.$i.'.SellerFulfillmentOrderItemId'] = $x['SellerFulfillmentOrderItemId'];
+                $this->options['Items.member.'.$i.'.Quantity'] = $x['Quantity'];
                 if (array_key_exists('GiftMessage', $x)) {
-                    $this->options['Items.member.' . $i . '.GiftMessage'] = $x['GiftMessage'];
+                    $this->options['Items.member.'.$i.'.GiftMessage'] = $x['GiftMessage'];
                 }
                 if (array_key_exists('Comment', $x)) {
-                    $this->options['Items.member.' . $i . '.DisplayableComment'] = $x['Comment'];
+                    $this->options['Items.member.'.$i.'.DisplayableComment'] = $x['Comment'];
                 }
                 if (array_key_exists('FulfillmentNetworkSKU', $x)) {
-                    $this->options['Items.member.' . $i . '.FulfillmentNetworkSKU'] = $x['FulfillmentNetworkSKU'];
+                    $this->options['Items.member.'.$i.'.FulfillmentNetworkSKU'] = $x['FulfillmentNetworkSKU'];
                 }
                 if (array_key_exists('OrderItemDisposition', $x)) {
-                    $this->options['Items.member.' . $i . '.OrderItemDisposition'] = $x['OrderItemDisposition'];
+                    $this->options['Items.member.'.$i.'.OrderItemDisposition'] = $x['OrderItemDisposition'];
                 }
                 if (array_key_exists('PerUnitDeclaredValue', $x)) {
-                    $this->options['Items.member.' . $i . '.PerUnitDeclaredValue.CurrencyCode'] = $x['PerUnitDeclaredValue']['CurrencyCode'];
-                    $this->options['Items.member.' . $i . '.PerUnitDeclaredValue.Value'] = $x['PerUnitDeclaredValue']['Value'];
+                    $this->options['Items.member.'.$i.'.PerUnitDeclaredValue.CurrencyCode'] = $x['PerUnitDeclaredValue']['CurrencyCode'];
+                    $this->options['Items.member.'.$i.'.PerUnitDeclaredValue.Value'] = $x['PerUnitDeclaredValue']['Value'];
                 }
 
                 $i++;
             } else {
                 $this->resetItems();
-                $this->log("Tried to set Items with invalid array", 'Warning');
+                $this->log('Tried to set Items with invalid array', 'Warning');
+
                 return false;
             }
         }
+
         return true;
     }
 
@@ -436,7 +453,7 @@ class AmazonFulfillmentOrderCreator extends AmazonOutboundCore
     protected function resetItems()
     {
         foreach ($this->options as $op => $junk) {
-            if (preg_match("#Items#", $op)) {
+            if (preg_match('#Items#', $op)) {
                 unset($this->options[$op]);
             }
         }
@@ -450,56 +467,61 @@ class AmazonFulfillmentOrderCreator extends AmazonOutboundCore
      * so there is no data to retrieve afterwards. The following parameters are required:
      * fulfillment order ID, displayed order ID, displayed timestamp, comment,
      * shipping speed, address, items.
-     * @return boolean <b>TRUE</b> if the order creation was successful, <b>FALSE</b> if something goes wrong
+     * @return bool <b>TRUE</b> if the order creation was successful, <b>FALSE</b> if something goes wrong
      */
     public function createOrder()
     {
-        if (!array_key_exists('SellerFulfillmentOrderId', $this->options)) {
-            $this->log("Seller Fulfillment OrderID must be set in order to create an order", 'Warning');
+        if (! array_key_exists('SellerFulfillmentOrderId', $this->options)) {
+            $this->log('Seller Fulfillment OrderID must be set in order to create an order', 'Warning');
+
             return false;
         }
-        if (!array_key_exists('DisplayableOrderId', $this->options)) {
-            $this->log("Displayable Order ID must be set in order to create an order", 'Warning');
+        if (! array_key_exists('DisplayableOrderId', $this->options)) {
+            $this->log('Displayable Order ID must be set in order to create an order', 'Warning');
+
             return false;
         }
-        if (!array_key_exists('DisplayableOrderDateTime', $this->options)) {
-            $this->log("Date must be set in order to create an order", 'Warning');
+        if (! array_key_exists('DisplayableOrderDateTime', $this->options)) {
+            $this->log('Date must be set in order to create an order', 'Warning');
+
             return false;
         }
-        if (!array_key_exists('DisplayableOrderComment', $this->options)) {
-            $this->log("Comment must be set in order to create an order", 'Warning');
+        if (! array_key_exists('DisplayableOrderComment', $this->options)) {
+            $this->log('Comment must be set in order to create an order', 'Warning');
+
             return false;
         }
-        if (!array_key_exists('ShippingSpeedCategory', $this->options)) {
-            $this->log("Shipping Speed must be set in order to create an order", 'Warning');
+        if (! array_key_exists('ShippingSpeedCategory', $this->options)) {
+            $this->log('Shipping Speed must be set in order to create an order', 'Warning');
+
             return false;
         }
-        if (!array_key_exists('DestinationAddress.Name', $this->options)) {
-            $this->log("Address must be set in order to create an order", 'Warning');
+        if (! array_key_exists('DestinationAddress.Name', $this->options)) {
+            $this->log('Address must be set in order to create an order', 'Warning');
+
             return false;
         }
-        if (!array_key_exists('Items.member.1.SellerSKU', $this->options)) {
-            $this->log("Items must be set in order to create an order", 'Warning');
+        if (! array_key_exists('Items.member.1.SellerSKU', $this->options)) {
+            $this->log('Items must be set in order to create an order', 'Warning');
+
             return false;
         }
 
-        $url = $this->urlbase . $this->urlbranch;
+        $url = $this->urlbase.$this->urlbranch;
 
         $query = $this->genQuery();
 
         if ($this->mockMode) {
             $response = $this->fetchMockResponse();
         } else {
-            $response = $this->sendRequest($url, array('Post' => $query));
+            $response = $this->sendRequest($url, ['Post' => $query]);
         }
-        if (!$this->checkResponse($response)) {
+        if (! $this->checkResponse($response)) {
             return false;
         } else {
-            $this->log("Successfully created Fulfillment Order " . $this->options['SellerFulfillmentOrderId'] . " / " . $this->options['DisplayableOrderId']);
+            $this->log('Successfully created Fulfillment Order '.$this->options['SellerFulfillmentOrderId'].' / '.$this->options['DisplayableOrderId']);
+
             return true;
         }
     }
-
 }
-
-?>

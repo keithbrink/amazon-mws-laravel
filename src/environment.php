@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2013 CPI Group, LLC
+ * Copyright 2013 CPI Group, LLC.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  *
@@ -33,7 +33,7 @@ $AMAZON_VERSION_PRODUCTS = '2011-10-01';
 $AMAZON_VERSION_REPORTS = '2009-01-01';
 $AMAZON_VERSION_SELLERS = '2011-07-01';
 
-$AMAZON_VERSION_FINANCE     = '2015-05-01';
+$AMAZON_VERSION_FINANCE = '2015-05-01';
 //Recommendations
 $THROTTLE_LIMIT_FINANCE = 30;
 $THROTTLE_TIME_FINANCE = 2;
@@ -90,5 +90,3 @@ $THROTTLE_TIME_FEEDLIST = 45;
 //Getting a Feed
 $THROTTLE_LIMIT_FEEDRESULT = 15;
 $THROTTLE_TIME_FEEDRESULT = 60;
-
-?>

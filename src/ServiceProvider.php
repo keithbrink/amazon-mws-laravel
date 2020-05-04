@@ -1,10 +1,11 @@
-<?php namespace Sonnenglas\AmazonMws;
+<?php
+
+namespace Sonnenglas\AmazonMws;
 
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 
 class ServiceProvider extends BaseServiceProvider
 {
-
     /**
      * Indicates if loading of the provider is deferred.
      *
@@ -19,7 +20,7 @@ class ServiceProvider extends BaseServiceProvider
      */
     public function register()
     {
-        $configPath = __DIR__ . '/config/amazon-mws.php';
+        $configPath = __DIR__.'/config/amazon-mws.php';
         $this->mergeConfigFrom($configPath, 'amazon-mws');
 
         $this->app->alias('AmazonOrderList', 'Sonnenglas\AmazonMws\AmazonOrderList');
@@ -28,7 +29,7 @@ class ServiceProvider extends BaseServiceProvider
 
     public function boot()
     {
-        $configPath = __DIR__ . '/../../config/amazon-mws.php';
+        $configPath = __DIR__.'/../../config/amazon-mws.php';
         $this->publishes([$configPath => config_path('amazon-mws.php')], 'config');
     }
 
@@ -39,7 +40,6 @@ class ServiceProvider extends BaseServiceProvider
      */
     public function provides()
     {
-        return array();
+        return [];
     }
-
 }

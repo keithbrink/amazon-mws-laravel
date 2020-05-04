@@ -1,8 +1,9 @@
-<?php namespace Sonnenglas\AmazonMws;
+<?php
 
-use Sonnenglas\AmazonMws\AmazonCore;
+namespace Sonnenglas\AmazonMws;
+
 /**
- * Copyright 2013 CPI Group, LLC
+ * Copyright 2013 CPI Group, LLC.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  *
@@ -25,16 +26,18 @@ use Sonnenglas\AmazonMws\AmazonCore;
  * from Amazon. Because the object has separate lists for each event type,
  * the object cannot be iterated over.
  */
-class AmazonFinancialEventList extends AmazonFinanceCore {
+class AmazonFinancialEventList extends AmazonFinanceCore
+{
     protected $tokenFlag = false;
     protected $tokenUseFlag = false;
     protected $list;
 
     /**
      * Returns whether or not a token is available.
-     * @return boolean
+     * @return bool
      */
-    public function hasToken() {
+    public function hasToken()
+    {
         return $this->tokenFlag;
     }
 
@@ -45,10 +48,11 @@ class AmazonFinancialEventList extends AmazonFinanceCore {
      * the necessary operations to retrieve the rest of the list using tokens. If
      * this option is off, the object will only ever retrieve the first section of
      * the list.
-     * @param boolean $b [optional] <p>Defaults to <b>TRUE</b></p>
-     * @return boolean <b>FALSE</b> if improper input
+     * @param bool $b [optional] <p>Defaults to <b>TRUE</b></p>
+     * @return bool <b>FALSE</b> if improper input
      */
-    public function setUseToken($b = true) {
+    public function setUseToken($b = true)
+    {
         if (is_bool($b)) {
             $this->tokenUseFlag = $b;
         } else {
@@ -57,15 +61,16 @@ class AmazonFinancialEventList extends AmazonFinanceCore {
     }
 
     /**
-     * Sets the maximum number of responses per page. (Optional)
+     * Sets the maximum number of responses per page. (Optional).
      *
      * This method sets the maximum number of Financial Events for Amazon to return per page.
      * If this parameter is not set, Amazon will send 100 at a time.
      * @param int $num <p>Positive integer from 1 to 100.</p>
-     * @return boolean <b>FALSE</b> if improper input
+     * @return bool <b>FALSE</b> if improper input
      */
-    public function setMaxResultsPerPage($num){
-        if (is_numeric($num) && $num <= 100 && $num >= 1){
+    public function setMaxResultsPerPage($num)
+    {
+        if (is_numeric($num) && $num <= 100 && $num >= 1) {
             $this->options['MaxResultsPerPage'] = $num;
         } else {
             return false;
@@ -73,16 +78,17 @@ class AmazonFinancialEventList extends AmazonFinanceCore {
     }
 
     /**
-     * Sets the order ID filter. (Required*)
+     * Sets the order ID filter. (Required*).
      *
      * If this parameter is set, Amazon will only return Financial Events that
      * relate to the given order. This parameter is required if none of the
      * other filter options are set.
      * If this parameter is set, the group ID and time range options will be removed.
      * @param string $s <p>Amazon Order ID in 3-7-7 format</p>
-     * @return boolean <b>FALSE</b> if improper input
+     * @return bool <b>FALSE</b> if improper input
      */
-    public function setOrderFilter($s){
+    public function setOrderFilter($s)
+    {
         if ($s && is_string($s)) {
             $this->resetFilters();
             $this->options['AmazonOrderId'] = $s;
@@ -92,16 +98,17 @@ class AmazonFinancialEventList extends AmazonFinanceCore {
     }
 
     /**
-     * Sets the financial event group ID filter. (Required*)
+     * Sets the financial event group ID filter. (Required*).
      *
      * If this parameter is set, Amazon will only return Financial Events that
      * belong to the given financial event group. This parameter is required if
      * none of the other filter options are set.
      * If this parameter is set, the order ID and time range options will be removed.
      * @param string $s <p>Financial Event Group ID</p>
-     * @return boolean <b>FALSE</b> if improper input
+     * @return bool <b>FALSE</b> if improper input
      */
-    public function setGroupFilter($s){
+    public function setGroupFilter($s)
+    {
         if ($s && is_string($s)) {
             $this->resetFilters();
             $this->options['FinancialEventGroupId'] = $s;
@@ -111,7 +118,7 @@ class AmazonFinancialEventList extends AmazonFinanceCore {
     }
 
     /**
-     * Sets the time frame options. (Required*)
+     * Sets the time frame options. (Required*).
      *
      * This method sets the start and end times for the next request. If this
      * parameter is set, Amazon will only return Financial Events posted
@@ -121,17 +128,18 @@ class AmazonFinancialEventList extends AmazonFinanceCore {
      * If this parameter is set, the order ID and group ID options will be removed.
      * @param string $s <p>A time string for the earliest time.</p>
      * @param string $e [optional] <p>A time string for the latest time.</p>
-     * @return boolean <b>FALSE</b> if improper input
+     * @return bool <b>FALSE</b> if improper input
      */
-    public function setTimeLimits($s, $e = null) {
+    public function setTimeLimits($s, $e = null)
+    {
         if (empty($s)) {
-            return FALSE;
+            return false;
         }
         $this->resetFilters();
 
         $times = $this->genTime($s);
         $this->options['PostedAfter'] = $times;
-        if (!empty($e)) {
+        if (! empty($e)) {
             $timee = $this->genTime($e);
             $this->options['PostedBefore'] = $timee;
         }
@@ -143,7 +151,8 @@ class AmazonFinancialEventList extends AmazonFinanceCore {
      * Use this in case you change your mind and want to remove the time limit
      * parameters you previously set.
      */
-    public function resetTimeLimits(){
+    public function resetTimeLimits()
+    {
         unset($this->options['PostedAfter']);
         unset($this->options['PostedBefore']);
     }
@@ -154,7 +163,8 @@ class AmazonFinancialEventList extends AmazonFinanceCore {
      * Use this in case you change your mind and want to remove all filter
      * parameters you previously set.
      */
-    public function resetFilters(){
+    public function resetFilters()
+    {
         unset($this->options['AmazonOrderId']);
         unset($this->options['FinancialEventGroupId']);
         $this->resetTimeLimits();
@@ -167,10 +177,11 @@ class AmazonFinancialEventList extends AmazonFinanceCore {
      * the list back as a response, which can be retrieved using <i>getEvents</i>.
      * Other methods are available for fetching specific values from the list.
      * This operation can potentially involve tokens.
-     * @param boolean $r [optional] <p>When set to <b>FALSE</b>, the function will not recurse, defaults to <b>TRUE</b></p>
-     * @return boolean <b>FALSE</b> if something goes wrong
+     * @param bool $r [optional] <p>When set to <b>FALSE</b>, the function will not recurse, defaults to <b>TRUE</b></p>
+     * @return bool <b>FALSE</b> if something goes wrong
      */
-    public function fetchEventList($r = true) {
+    public function fetchEventList($r = true)
+    {
         $this->prepareToken();
 
         $url = $this->urlbase.$this->urlbranch;
@@ -182,9 +193,9 @@ class AmazonFinancialEventList extends AmazonFinanceCore {
         if ($this->mockMode) {
             $xml = $this->fetchMockFile()->$path;
         } else {
-            $response = $this->sendRequest($url, array('Post' => $query));
+            $response = $this->sendRequest($url, ['Post' => $query]);
 
-            if (!$this->checkResponse($response)) {
+            if (! $this->checkResponse($response)) {
                 return false;
             }
 
@@ -197,7 +208,7 @@ class AmazonFinancialEventList extends AmazonFinanceCore {
 
         if ($this->tokenFlag && $this->tokenUseFlag && $r === true) {
             while ($this->tokenFlag) {
-                $this->log("Recursively fetching more Financial Events");
+                $this->log('Recursively fetching more Financial Events');
                 $this->fetchEventList(false);
             }
         }
@@ -211,7 +222,8 @@ class AmazonFinancialEventList extends AmazonFinanceCore {
      * operation for using tokens does not use any other parameters, all other
      * parameters will be removed.
      */
-    protected function prepareToken() {
+    protected function prepareToken()
+    {
         if ($this->tokenFlag && $this->tokenUseFlag) {
             $this->options['Action'] = 'ListFinancialEventsByNextToken';
             unset($this->options['MaxResultsPerPage']);
@@ -219,7 +231,7 @@ class AmazonFinancialEventList extends AmazonFinanceCore {
         } else {
             $this->options['Action'] = 'ListFinancialEvents';
             unset($this->options['NextToken']);
-            $this->list = array();
+            $this->list = [];
         }
     }
 
@@ -228,167 +240,168 @@ class AmazonFinancialEventList extends AmazonFinanceCore {
      *
      * This is what reads the response XML and converts it into an array.
      * @param SimpleXMLElement $xml <p>The XML response from Amazon.</p>
-     * @return boolean <b>FALSE</b> if no XML data is found
+     * @return bool <b>FALSE</b> if no XML data is found
      */
-    protected function parseXml($xml) {
-        if (!$xml) {
+    protected function parseXml($xml)
+    {
+        if (! $xml) {
             return false;
         }
         if (isset($xml->ShipmentEventList)) {
-            foreach($xml->ShipmentEventList->children() as $x) {
+            foreach ($xml->ShipmentEventList->children() as $x) {
                 $this->list['Shipment'][] = $this->parseShipmentEvent($x);
             }
         }
         if (isset($xml->RefundEventList)) {
-            foreach($xml->RefundEventList->children() as $x) {
+            foreach ($xml->RefundEventList->children() as $x) {
                 $this->list['Refund'][] = $this->parseShipmentEvent($x);
             }
         }
         if (isset($xml->GuaranteeClaimEventList)) {
-            foreach($xml->GuaranteeClaimEventList->children() as $x) {
+            foreach ($xml->GuaranteeClaimEventList->children() as $x) {
                 $this->list['GuaranteeClaim'][] = $this->parseShipmentEvent($x);
             }
         }
         if (isset($xml->ChargebackEventList)) {
-            foreach($xml->ChargebackEventList->children() as $x) {
+            foreach ($xml->ChargebackEventList->children() as $x) {
                 $this->list['Chargeback'][] = $this->parseShipmentEvent($x);
             }
         }
         if (isset($xml->PayWithAmazonEventList)) {
-            foreach($xml->PayWithAmazonEventList->children() as $x) {
-                $temp = array();
-                $temp['SellerOrderId'] = (string)$x->SellerOrderId;
-                $temp['TransactionPostedDate'] = (string)$x->TransactionPostedDate;
-                $temp['BusinessObjectType'] = (string)$x->BusinessObjectType;
-                $temp['SalesChannel'] = (string)$x->SalesChannel;
+            foreach ($xml->PayWithAmazonEventList->children() as $x) {
+                $temp = [];
+                $temp['SellerOrderId'] = (string) $x->SellerOrderId;
+                $temp['TransactionPostedDate'] = (string) $x->TransactionPostedDate;
+                $temp['BusinessObjectType'] = (string) $x->BusinessObjectType;
+                $temp['SalesChannel'] = (string) $x->SalesChannel;
                 $temp['Charge'] = $this->parseCharge($x->Charge);
                 if (isset($x->FeeList)) {
-                    foreach($x->FeeList->children() as $z) {
+                    foreach ($x->FeeList->children() as $z) {
                         $temp['FeeList'][] = $this->parseFee($z);
                     }
                 }
-                $temp['PaymentAmountType'] = (string)$x->PaymentAmountType;
-                $temp['AmountDescription'] = (string)$x->AmountDescription;
-                $temp['FulfillmentChannel'] = (string)$x->FulfillmentChannel;
-                $temp['StoreName'] = (string)$x->StoreName;
+                $temp['PaymentAmountType'] = (string) $x->PaymentAmountType;
+                $temp['AmountDescription'] = (string) $x->AmountDescription;
+                $temp['FulfillmentChannel'] = (string) $x->FulfillmentChannel;
+                $temp['StoreName'] = (string) $x->StoreName;
                 $this->list['PayWithAmazon'][] = $temp;
             }
         }
         if (isset($xml->ServiceProviderCreditEventList)) {
-            foreach($xml->ServiceProviderCreditEventList->children() as $x) {
-                $temp = array();
-                $temp['ProviderTransactionType'] = (string)$x->ProviderTransactionType;
-                $temp['SellerOrderId'] = (string)$x->SellerOrderId;
-                $temp['MarketplaceId'] = (string)$x->MarketplaceId;
-                $temp['MarketplaceCountryCode'] = (string)$x->MarketplaceCountryCode;
-                $temp['SellerId'] = (string)$x->SellerId;
-                $temp['SellerStoreName'] = (string)$x->SellerStoreName;
-                $temp['ProviderId'] = (string)$x->ProviderId;
-                $temp['ProviderStoreName'] = (string)$x->ProviderStoreName;
+            foreach ($xml->ServiceProviderCreditEventList->children() as $x) {
+                $temp = [];
+                $temp['ProviderTransactionType'] = (string) $x->ProviderTransactionType;
+                $temp['SellerOrderId'] = (string) $x->SellerOrderId;
+                $temp['MarketplaceId'] = (string) $x->MarketplaceId;
+                $temp['MarketplaceCountryCode'] = (string) $x->MarketplaceCountryCode;
+                $temp['SellerId'] = (string) $x->SellerId;
+                $temp['SellerStoreName'] = (string) $x->SellerStoreName;
+                $temp['ProviderId'] = (string) $x->ProviderId;
+                $temp['ProviderStoreName'] = (string) $x->ProviderStoreName;
                 $this->list['ServiceProviderCredit'][] = $temp;
             }
         }
         if (isset($xml->RetrochargeEventList)) {
-            foreach($xml->RetrochargeEventList->children() as $x) {
-                $temp = array();
-                $temp['RetrochargeEventType'] = (string)$x->RetrochargeEventType;
-                $temp['AmazonOrderId'] = (string)$x->AmazonOrderId;
-                $temp['PostedDate'] = (string)$x->PostedDate;
-                $temp['BaseTax']['Amount'] = (string)$x->BaseTax->CurrencyAmount;
-                $temp['BaseTax']['CurrencyCode'] = (string)$x->BaseTax->CurrencyCode;
-                $temp['ShippingTax']['Amount'] = (string)$x->ShippingTax->CurrencyAmount;
-                $temp['ShippingTax']['CurrencyCode'] = (string)$x->ShippingTax->CurrencyCode;
-                $temp['MarketplaceName'] = (string)$x->MarketplaceName;
+            foreach ($xml->RetrochargeEventList->children() as $x) {
+                $temp = [];
+                $temp['RetrochargeEventType'] = (string) $x->RetrochargeEventType;
+                $temp['AmazonOrderId'] = (string) $x->AmazonOrderId;
+                $temp['PostedDate'] = (string) $x->PostedDate;
+                $temp['BaseTax']['Amount'] = (string) $x->BaseTax->CurrencyAmount;
+                $temp['BaseTax']['CurrencyCode'] = (string) $x->BaseTax->CurrencyCode;
+                $temp['ShippingTax']['Amount'] = (string) $x->ShippingTax->CurrencyAmount;
+                $temp['ShippingTax']['CurrencyCode'] = (string) $x->ShippingTax->CurrencyCode;
+                $temp['MarketplaceName'] = (string) $x->MarketplaceName;
                 $this->list['Retrocharge'][] = $temp;
             }
         }
         if (isset($xml->RentalTransactionEventList)) {
-            foreach($xml->RentalTransactionEventList->children() as $x) {
-                $temp = array();
-                $temp['AmazonOrderId'] = (string)$x->AmazonOrderId;
-                $temp['RentalEventType'] = (string)$x->RentalEventType;
-                $temp['ExtensionLength'] = (string)$x->ExtensionLength;
-                $temp['PostedDate'] = (string)$x->PostedDate;
+            foreach ($xml->RentalTransactionEventList->children() as $x) {
+                $temp = [];
+                $temp['AmazonOrderId'] = (string) $x->AmazonOrderId;
+                $temp['RentalEventType'] = (string) $x->RentalEventType;
+                $temp['ExtensionLength'] = (string) $x->ExtensionLength;
+                $temp['PostedDate'] = (string) $x->PostedDate;
                 if (isset($x->RentalChargeList)) {
-                    foreach($x->RentalChargeList->children() as $z) {
+                    foreach ($x->RentalChargeList->children() as $z) {
                         $temp['RentalChargeList'][] = $this->parseCharge($z);
                     }
                 }
                 if (isset($x->RentalFeeList)) {
-                    foreach($x->RentalFeeList->children() as $z) {
+                    foreach ($x->RentalFeeList->children() as $z) {
                         $temp['RentalFeeList'][] = $this->parseFee($z);
                     }
                 }
-                $temp['MarketplaceName'] = (string)$x->MarketplaceName;
+                $temp['MarketplaceName'] = (string) $x->MarketplaceName;
                 if (isset($x->RentalInitialValue)) {
-                    $temp['RentalInitialValue']['Amount'] = (string)$x->RentalInitialValue->CurrencyAmount;
-                    $temp['RentalInitialValue']['CurrencyCode'] = (string)$x->RentalInitialValue->CurrencyCode;
+                    $temp['RentalInitialValue']['Amount'] = (string) $x->RentalInitialValue->CurrencyAmount;
+                    $temp['RentalInitialValue']['CurrencyCode'] = (string) $x->RentalInitialValue->CurrencyCode;
                 }
                 if (isset($x->RentalReimbursement)) {
-                    $temp['RentalReimbursement']['Amount'] = (string)$x->RentalReimbursement->CurrencyAmount;
-                    $temp['RentalReimbursement']['CurrencyCode'] = (string)$x->RentalReimbursement->CurrencyCode;
+                    $temp['RentalReimbursement']['Amount'] = (string) $x->RentalReimbursement->CurrencyAmount;
+                    $temp['RentalReimbursement']['CurrencyCode'] = (string) $x->RentalReimbursement->CurrencyCode;
                 }
                 $this->list['RentalTransaction'][] = $temp;
             }
         }
         if (isset($xml->PerformanceBondRefundEventList)) {
-            foreach($xml->PerformanceBondRefundEventList->children() as $x) {
-                $temp = array();
-                $temp['MarketplaceCountryCode'] = (string)$x->MarketplaceCountryCode;
-                $temp['Amount'] = (string)$x->Amount->CurrencyAmount;
-                $temp['CurrencyCode'] = (string)$x->Amount->CurrencyCode;
+            foreach ($xml->PerformanceBondRefundEventList->children() as $x) {
+                $temp = [];
+                $temp['MarketplaceCountryCode'] = (string) $x->MarketplaceCountryCode;
+                $temp['Amount'] = (string) $x->Amount->CurrencyAmount;
+                $temp['CurrencyCode'] = (string) $x->Amount->CurrencyCode;
                 if (isset($x->ProductGroupList)) {
-                    foreach($x->ProductGroupList->children() as $z) {
-                        $temp['ProductGroupList'][] = (string)$z;
+                    foreach ($x->ProductGroupList->children() as $z) {
+                        $temp['ProductGroupList'][] = (string) $z;
                     }
                 }
                 $this->list['PerformanceBondRefund'][] = $temp;
             }
         }
         if (isset($xml->ServiceFeeEventList)) {
-            foreach($xml->ServiceFeeEventList->children() as $x) {
-                $temp = array();
-                $temp['AmazonOrderId'] = (string)$x->AmazonOrderId;
-                $temp['FeeReason'] = (string)$x->FeeReason;
+            foreach ($xml->ServiceFeeEventList->children() as $x) {
+                $temp = [];
+                $temp['AmazonOrderId'] = (string) $x->AmazonOrderId;
+                $temp['FeeReason'] = (string) $x->FeeReason;
                 if (isset($x->FeeList)) {
-                    foreach($x->FeeList->children() as $z) {
+                    foreach ($x->FeeList->children() as $z) {
                         $temp['FeeList'][] = $this->parseFee($z);
                     }
                 }
-                $temp['SellerSKU'] = (string)$x->SellerSKU;
-                $temp['FnSKU'] = (string)$x->FnSKU;
-                $temp['FeeDescription'] = (string)$x->FeeDescription;
-                $temp['ASIN'] = (string)$x->ASIN;
+                $temp['SellerSKU'] = (string) $x->SellerSKU;
+                $temp['FnSKU'] = (string) $x->FnSKU;
+                $temp['FeeDescription'] = (string) $x->FeeDescription;
+                $temp['ASIN'] = (string) $x->ASIN;
                 $this->list['ServiceFee'][] = $temp;
             }
         }
         if (isset($xml->DebtRecoveryEventList)) {
-            foreach($xml->DebtRecoveryEventList->children() as $x) {
-                $temp = array();
-                $temp['DebtRecoveryType'] = (string)$x->DebtRecoveryType;
-                $temp['RecoveryAmount']['Amount'] = (string)$x->RecoveryAmount->CurrencyAmount;
-                $temp['RecoveryAmount']['CurrencyCode'] = (string)$x->RecoveryAmount->CurrencyCode;
-                $temp['OverPaymentCredit']['Amount'] = (string)$x->OverPaymentCredit->CurrencyAmount;
-                $temp['OverPaymentCredit']['CurrencyCode'] = (string)$x->OverPaymentCredit->CurrencyCode;
+            foreach ($xml->DebtRecoveryEventList->children() as $x) {
+                $temp = [];
+                $temp['DebtRecoveryType'] = (string) $x->DebtRecoveryType;
+                $temp['RecoveryAmount']['Amount'] = (string) $x->RecoveryAmount->CurrencyAmount;
+                $temp['RecoveryAmount']['CurrencyCode'] = (string) $x->RecoveryAmount->CurrencyCode;
+                $temp['OverPaymentCredit']['Amount'] = (string) $x->OverPaymentCredit->CurrencyAmount;
+                $temp['OverPaymentCredit']['CurrencyCode'] = (string) $x->OverPaymentCredit->CurrencyCode;
                 if (isset($x->DebtRecoveryItemList)) {
-                    foreach($x->DebtRecoveryItemList->children() as $z) {
-                        $ztemp = array();
-                        $ztemp['RecoveryAmount']['Amount'] = (string)$z->RecoveryAmount->CurrencyAmount;
-                        $ztemp['RecoveryAmount']['CurrencyCode'] = (string)$z->RecoveryAmount->CurrencyCode;
-                        $ztemp['OriginalAmount']['Amount'] = (string)$z->OriginalAmount->CurrencyAmount;
-                        $ztemp['OriginalAmount']['CurrencyCode'] = (string)$z->OriginalAmount->CurrencyCode;
-                        $ztemp['GroupBeginDate'] = (string)$z->GroupBeginDate;
-                        $ztemp['GroupEndDate'] = (string)$z->GroupEndDate;
+                    foreach ($x->DebtRecoveryItemList->children() as $z) {
+                        $ztemp = [];
+                        $ztemp['RecoveryAmount']['Amount'] = (string) $z->RecoveryAmount->CurrencyAmount;
+                        $ztemp['RecoveryAmount']['CurrencyCode'] = (string) $z->RecoveryAmount->CurrencyCode;
+                        $ztemp['OriginalAmount']['Amount'] = (string) $z->OriginalAmount->CurrencyAmount;
+                        $ztemp['OriginalAmount']['CurrencyCode'] = (string) $z->OriginalAmount->CurrencyCode;
+                        $ztemp['GroupBeginDate'] = (string) $z->GroupBeginDate;
+                        $ztemp['GroupEndDate'] = (string) $z->GroupEndDate;
                         $temp['DebtRecoveryItemList'][] = $ztemp;
                     }
                 }
                 if (isset($x->ChargeInstrumentList)) {
-                    foreach($x->ChargeInstrumentList->children() as $z) {
-                        $ztemp = array();
-                        $ztemp['Description'] = (string)$z->Description;
-                        $ztemp['Tail'] = (string)$z->Tail;
-                        $ztemp['Amount'] = (string)$z->Amount->CurrencyAmount;
-                        $ztemp['CurrencyCode'] = (string)$z->Amount->CurrencyCode;
+                    foreach ($x->ChargeInstrumentList->children() as $z) {
+                        $ztemp = [];
+                        $ztemp['Description'] = (string) $z->Description;
+                        $ztemp['Tail'] = (string) $z->Tail;
+                        $ztemp['Amount'] = (string) $z->Amount->CurrencyAmount;
+                        $ztemp['CurrencyCode'] = (string) $z->Amount->CurrencyCode;
                         $temp['ChargeInstrumentList'][] = $ztemp;
                     }
                 }
@@ -396,32 +409,32 @@ class AmazonFinancialEventList extends AmazonFinanceCore {
             }
         }
         if (isset($xml->LoanServicingEventList)) {
-            foreach($xml->LoanServicingEventList->children() as $x) {
-                $temp = array();
-                $temp['Amount'] = (string)$x->LoanAmount->CurrencyAmount;
-                $temp['CurrencyCode'] = (string)$x->LoanAmount->CurrencyCode;
-                $temp['SourceBusinessEventType'] = (string)$x->SourceBusinessEventType;
+            foreach ($xml->LoanServicingEventList->children() as $x) {
+                $temp = [];
+                $temp['Amount'] = (string) $x->LoanAmount->CurrencyAmount;
+                $temp['CurrencyCode'] = (string) $x->LoanAmount->CurrencyCode;
+                $temp['SourceBusinessEventType'] = (string) $x->SourceBusinessEventType;
                 $this->list['LoanServicing'][] = $temp;
             }
         }
         if (isset($xml->AdjustmentEventList)) {
-            foreach($xml->AdjustmentEventList->children() as $x) {
-                $temp = array();
-                $temp['AdjustmentType'] = (string)$x->AdjustmentType;
-                $temp['Amount'] = (string)$x->AdjustmentAmount->CurrencyAmount;
-                $temp['CurrencyCode'] = (string)$x->AdjustmentAmount->CurrencyCode;
+            foreach ($xml->AdjustmentEventList->children() as $x) {
+                $temp = [];
+                $temp['AdjustmentType'] = (string) $x->AdjustmentType;
+                $temp['Amount'] = (string) $x->AdjustmentAmount->CurrencyAmount;
+                $temp['CurrencyCode'] = (string) $x->AdjustmentAmount->CurrencyCode;
                 if (isset($x->AdjustmentItemList)) {
-                    foreach($x->AdjustmentItemList->children() as $z) {
-                        $ztemp = array();
-                        $ztemp['Quantity'] = (string)$z->Quantity;
-                        $ztemp['PerUnitAmount']['Amount'] = (string)$z->PerUnitAmount->CurrencyAmount;
-                        $ztemp['PerUnitAmount']['CurrencyCode'] = (string)$z->PerUnitAmount->CurrencyCode;
-                        $ztemp['TotalAmount']['Amount'] = (string)$z->TotalAmount->CurrencyAmount;
-                        $ztemp['TotalAmount']['CurrencyCode'] = (string)$z->TotalAmount->CurrencyCode;
-                        $ztemp['SellerSKU'] = (string)$z->SellerSKU;
-                        $ztemp['FnSKU'] = (string)$z->FnSKU;
-                        $ztemp['ProductDescription'] = (string)$z->ProductDescription;
-                        $ztemp['ASIN'] = (string)$z->ASIN;
+                    foreach ($x->AdjustmentItemList->children() as $z) {
+                        $ztemp = [];
+                        $ztemp['Quantity'] = (string) $z->Quantity;
+                        $ztemp['PerUnitAmount']['Amount'] = (string) $z->PerUnitAmount->CurrencyAmount;
+                        $ztemp['PerUnitAmount']['CurrencyCode'] = (string) $z->PerUnitAmount->CurrencyCode;
+                        $ztemp['TotalAmount']['Amount'] = (string) $z->TotalAmount->CurrencyAmount;
+                        $ztemp['TotalAmount']['CurrencyCode'] = (string) $z->TotalAmount->CurrencyCode;
+                        $ztemp['SellerSKU'] = (string) $z->SellerSKU;
+                        $ztemp['FnSKU'] = (string) $z->FnSKU;
+                        $ztemp['ProductDescription'] = (string) $z->ProductDescription;
+                        $ztemp['ASIN'] = (string) $z->ASIN;
                         $temp['AdjustmentItemList'][] = $ztemp;
                     }
                 }
@@ -435,109 +448,111 @@ class AmazonFinancialEventList extends AmazonFinanceCore {
      * @param SimpleXMLElement $xml <p>The XML response from Amazon.</p>
      * @return array parsed structure from XML
      */
-    protected function parseShipmentEvent($xml) {
-        $r = array();
-        $r['AmazonOrderId'] = (string)$xml->AmazonOrderId;
-        $r['SellerOrderId'] = (string)$xml->SellerOrderId;
-        $r['MarketplaceName'] = (string)$xml->MarketplaceName;
-        $chargeLists = array(
+    protected function parseShipmentEvent($xml)
+    {
+        $r = [];
+        $r['AmazonOrderId'] = (string) $xml->AmazonOrderId;
+        $r['SellerOrderId'] = (string) $xml->SellerOrderId;
+        $r['MarketplaceName'] = (string) $xml->MarketplaceName;
+        $chargeLists = [
             'OrderChargeList',
             'OrderChargeAdjustmentList',
-        );
+        ];
         foreach ($chargeLists as $key) {
             if (isset($xml->$key)) {
-                foreach($xml->$key->children() as $x) {
+                foreach ($xml->$key->children() as $x) {
                     $r[$key][] = $this->parseCharge($x);
                 }
             }
         }
-        $feelists = array(
+        $feelists = [
             'ShipmentFeeList',
             'ShipmentFeeAdjustmentList',
             'OrderFeeList',
             'OrderFeeAdjustmentList',
-        );
+        ];
         foreach ($feelists as $key) {
             if (isset($xml->$key)) {
-                foreach($xml->$key->children() as $x) {
+                foreach ($xml->$key->children() as $x) {
                     $r[$key][] = $this->parseFee($x);
                 }
             }
         }
         if (isset($xml->DirectPaymentList)) {
-            foreach($xml->DirectPaymentList->children() as $x){
-                $temp = array();
-                $temp['DirectPaymentType'] = (string)$x->DirectPaymentType;
-                $temp['Amount'] = (string)$x->DirectPaymentAmount->CurrencyAmount;
-                $temp['CurrencyCode'] = (string)$x->DirectPaymentAmount->CurrencyCode;
+            foreach ($xml->DirectPaymentList->children() as $x) {
+                $temp = [];
+                $temp['DirectPaymentType'] = (string) $x->DirectPaymentType;
+                $temp['Amount'] = (string) $x->DirectPaymentAmount->CurrencyAmount;
+                $temp['CurrencyCode'] = (string) $x->DirectPaymentAmount->CurrencyCode;
                 $r['DirectPaymentList'][] = $temp;
             }
         }
-        $r['PostedDate'] = (string)$xml->PostedDate;
-        $itemLists = array(
+        $r['PostedDate'] = (string) $xml->PostedDate;
+        $itemLists = [
             'ShipmentItemList',
             'ShipmentItemAdjustmentList',
-        );
-        $itemChargeLists = array(
+        ];
+        $itemChargeLists = [
             'ItemChargeList',
             'ItemChargeAdjustmentList',
-        );
-        $itemFeeLists = array(
+        ];
+        $itemFeeLists = [
             'ItemFeeList',
             'ItemFeeAdjustmentList',
-        );
-        $itemPromoLists = array(
+        ];
+        $itemPromoLists = [
             'PromotionList',
             'PromotionAdjustmentList',
-        );
+        ];
         foreach ($itemLists as $key) {
             if (isset($xml->$key)) {
-                foreach($xml->$key->children() as $x) {
-                    $temp = array();
-                    $temp['SellerSKU'] = (string)$x->SellerSKU;
-                    $temp['OrderItemId'] = (string)$x->OrderItemId;
+                foreach ($xml->$key->children() as $x) {
+                    $temp = [];
+                    $temp['SellerSKU'] = (string) $x->SellerSKU;
+                    $temp['OrderItemId'] = (string) $x->OrderItemId;
                     if (isset($x->OrderAdjustmentItemId)) {
-                        $temp['OrderAdjustmentItemId'] = (string)$x->OrderAdjustmentItemId;
+                        $temp['OrderAdjustmentItemId'] = (string) $x->OrderAdjustmentItemId;
                     }
-                    $temp['QuantityShipped'] = (string)$x->QuantityShipped;
+                    $temp['QuantityShipped'] = (string) $x->QuantityShipped;
                     foreach ($itemChargeLists as $zkey) {
                         if (isset($x->$zkey)) {
-                            foreach($x->$zkey->children() as $z) {
+                            foreach ($x->$zkey->children() as $z) {
                                 $temp[$zkey][] = $this->parseCharge($z);
                             }
                         }
                     }
                     foreach ($itemFeeLists as $zkey) {
                         if (isset($x->$zkey)) {
-                            foreach($x->$zkey->children() as $z) {
+                            foreach ($x->$zkey->children() as $z) {
                                 $temp[$zkey][] = $this->parseFee($z);
                             }
                         }
                     }
                     foreach ($itemPromoLists as $zkey) {
                         if (isset($x->$zkey)) {
-                            foreach($x->$zkey->children() as $z) {
-                                $ztemp = array();
-                                $ztemp['PromotionType'] = (string)$z->PromotionType;
-                                $ztemp['PromotionId'] = (string)$z->PromotionId;
-                                $ztemp['Amount'] = (string)$z->PromotionAmount->CurrencyAmount;
-                                $ztemp['CurrencyCode'] = (string)$z->PromotionAmount->CurrencyCode;
+                            foreach ($x->$zkey->children() as $z) {
+                                $ztemp = [];
+                                $ztemp['PromotionType'] = (string) $z->PromotionType;
+                                $ztemp['PromotionId'] = (string) $z->PromotionId;
+                                $ztemp['Amount'] = (string) $z->PromotionAmount->CurrencyAmount;
+                                $ztemp['CurrencyCode'] = (string) $z->PromotionAmount->CurrencyCode;
                                 $temp[$zkey][] = $ztemp;
                             }
                         }
                     }
                     if (isset($x->CostOfPointsGranted)) {
-                        $temp['CostOfPointsGranted']['Amount'] = (string)$x->CostOfPointsGranted->CurrencyAmount;
-                        $temp['CostOfPointsGranted']['CurrencyCode'] = (string)$x->CostOfPointsGranted->CurrencyCode;
+                        $temp['CostOfPointsGranted']['Amount'] = (string) $x->CostOfPointsGranted->CurrencyAmount;
+                        $temp['CostOfPointsGranted']['CurrencyCode'] = (string) $x->CostOfPointsGranted->CurrencyCode;
                     }
                     if (isset($x->CostOfPointsReturned)) {
-                        $temp['CostOfPointsReturned']['Amount'] = (string)$x->CostOfPointsReturned->CurrencyAmount;
-                        $temp['CostOfPointsReturned']['CurrencyCode'] = (string)$x->CostOfPointsReturned->CurrencyCode;
+                        $temp['CostOfPointsReturned']['Amount'] = (string) $x->CostOfPointsReturned->CurrencyAmount;
+                        $temp['CostOfPointsReturned']['CurrencyCode'] = (string) $x->CostOfPointsReturned->CurrencyCode;
                     }
                     $r[$key][] = $temp;
                 }
             }
         }
+
         return $r;
     }
 
@@ -547,11 +562,13 @@ class AmazonFinancialEventList extends AmazonFinanceCore {
      * @param SimpleXMLElement $xml <p>The XML response from Amazon.</p>
      * @return array parsed structure from XML
      */
-    protected function parseCharge($xml) {
-        $r = array();
-        $r['ChargeType'] = (string)$xml->ChargeType;
-        $r['Amount'] = (string)$xml->ChargeAmount->CurrencyAmount;
-        $r['CurrencyCode'] = (string)$xml->ChargeAmount->CurrencyCode;
+    protected function parseCharge($xml)
+    {
+        $r = [];
+        $r['ChargeType'] = (string) $xml->ChargeType;
+        $r['Amount'] = (string) $xml->ChargeAmount->CurrencyAmount;
+        $r['CurrencyCode'] = (string) $xml->ChargeAmount->CurrencyCode;
+
         return $r;
     }
 
@@ -561,11 +578,13 @@ class AmazonFinancialEventList extends AmazonFinanceCore {
      * @param SimpleXMLElement $xml <p>The XML response from Amazon.</p>
      * @return array parsed structure from XML
      */
-    protected function parseFee($xml) {
-        $r = array();
-        $r['FeeType'] = (string)$xml->FeeType;
-        $r['Amount'] = (string)$xml->FeeAmount->CurrencyAmount;
-        $r['CurrencyCode'] = (string)$xml->FeeAmount->CurrencyCode;
+    protected function parseFee($xml)
+    {
+        $r = [];
+        $r['FeeType'] = (string) $xml->FeeType;
+        $r['Amount'] = (string) $xml->FeeAmount->CurrencyAmount;
+        $r['CurrencyCode'] = (string) $xml->FeeAmount->CurrencyCode;
+
         return $r;
     }
 
@@ -588,7 +607,7 @@ class AmazonFinancialEventList extends AmazonFinanceCore {
      * <li><b>LoanServicing</b> - see <i>getLoanServicingEvents</i></li>
      * <li><b>Adjustment</b> - see <i>getAdjustmentEvents</i></li>
      * </ul>
-     * @return array|boolean multi-dimensional array, or <b>FALSE</b> if list not filled yet
+     * @return array|bool multi-dimensional array, or <b>FALSE</b> if list not filled yet
      * @see getShipmentEvents
      * @see getRefundEvents
      * @see getGuaranteeClaimEvents
@@ -603,8 +622,9 @@ class AmazonFinancialEventList extends AmazonFinanceCore {
      * @see getLoanServicingEvents
      * @see getAdjustmentEvents
      */
-    public function getEvents(){
-        if (isset($this->list)){
+    public function getEvents()
+    {
+        if (isset($this->list)) {
             return $this->list;
         } else {
             return false;
@@ -666,10 +686,11 @@ class AmazonFinancialEventList extends AmazonFinanceCore {
      * <li><b>Amount</b> - number</li>
      * <li><b>CurrencyCode</b> - ISO 4217 currency code</li>
      * </ul>
-     * @return array|boolean multi-dimensional array, or <b>FALSE</b> if list not filled yet
+     * @return array|bool multi-dimensional array, or <b>FALSE</b> if list not filled yet
      */
-    public function getShipmentEvents(){
-        if (isset($this->list['Shipment'])){
+    public function getShipmentEvents()
+    {
+        if (isset($this->list['Shipment'])) {
             return $this->list['Shipment'];
         } else {
             return false;
@@ -698,11 +719,12 @@ class AmazonFinancialEventList extends AmazonFinanceCore {
      * <li><b>CurrencyCode</b> - ISO 4217 currency code</li>
      * </ul>
      * </ul>
-     * @return array|boolean multi-dimensional array, or <b>FALSE</b> if list not filled yet
+     * @return array|bool multi-dimensional array, or <b>FALSE</b> if list not filled yet
      * @see getShipmentEvents
      */
-    public function getRefundEvents(){
-        if (isset($this->list['Refund'])){
+    public function getRefundEvents()
+    {
+        if (isset($this->list['Refund'])) {
             return $this->list['Refund'];
         } else {
             return false;
@@ -713,11 +735,12 @@ class AmazonFinancialEventList extends AmazonFinanceCore {
      * Returns all guarantee claim events.
      *
      * The structure for each event array is the same as in <i>getRefundEvents</i>.
-     * @return array|boolean multi-dimensional array, or <b>FALSE</b> if list not filled yet
+     * @return array|bool multi-dimensional array, or <b>FALSE</b> if list not filled yet
      * @see getRefundEvents
      */
-    public function getGuaranteeClaimEvents(){
-        if (isset($this->list['GuaranteeClaim'])){
+    public function getGuaranteeClaimEvents()
+    {
+        if (isset($this->list['GuaranteeClaim'])) {
             return $this->list['GuaranteeClaim'];
         } else {
             return false;
@@ -728,11 +751,12 @@ class AmazonFinancialEventList extends AmazonFinanceCore {
      * Returns all chargeback events.
      *
      * The structure for each event array is the same as in <i>getRefundEvents</i>.
-     * @return array|boolean multi-dimensional array, or <b>FALSE</b> if list not filled yet
+     * @return array|bool multi-dimensional array, or <b>FALSE</b> if list not filled yet
      * @see getRefundEvents
      */
-    public function getChargebackEvents(){
-        if (isset($this->list['Chargeback'])){
+    public function getChargebackEvents()
+    {
+        if (isset($this->list['Chargeback'])) {
             return $this->list['Chargeback'];
         } else {
             return false;
@@ -765,10 +789,11 @@ class AmazonFinancialEventList extends AmazonFinanceCore {
      * <li><b>FulfillmentChannel</b> - "MFN" or "AFN"</li>
      * <li><b>StoreName</b></li>
      * </ul>
-     * @return array|boolean multi-dimensional array, or <b>FALSE</b> if list not filled yet
+     * @return array|bool multi-dimensional array, or <b>FALSE</b> if list not filled yet
      */
-    public function getPayWithAmazonEvents(){
-        if (isset($this->list['PayWithAmazon'])){
+    public function getPayWithAmazonEvents()
+    {
+        if (isset($this->list['PayWithAmazon'])) {
             return $this->list['PayWithAmazon'];
         } else {
             return false;
@@ -789,10 +814,11 @@ class AmazonFinancialEventList extends AmazonFinanceCore {
      * <li><b>ProviderId</b></li>
      * <li><b>ProviderStoreName</b></li>
      * </ul>
-     * @return array|boolean multi-dimensional array, or <b>FALSE</b> if list not filled yet
+     * @return array|bool multi-dimensional array, or <b>FALSE</b> if list not filled yet
      */
-    public function getServiceProviderCreditEvents(){
-        if (isset($this->list['ServiceProviderCredit'])){
+    public function getServiceProviderCreditEvents()
+    {
+        if (isset($this->list['ServiceProviderCredit'])) {
             return $this->list['ServiceProviderCredit'];
         } else {
             return false;
@@ -815,10 +841,11 @@ class AmazonFinancialEventList extends AmazonFinanceCore {
      * <li><b>ShippingTax</b> - array with <b>Amount</b> and <b>CurrencyCode</b></li>
      * <li><b>MarketplaceName</b></li>
      * </ul>
-     * @return array|boolean multi-dimensional array, or <b>FALSE</b> if list not filled yet
+     * @return array|bool multi-dimensional array, or <b>FALSE</b> if list not filled yet
      */
-    public function getRetrochargeEvents(){
-        if (isset($this->list['Retrocharge'])){
+    public function getRetrochargeEvents()
+    {
+        if (isset($this->list['Retrocharge'])) {
             return $this->list['Retrocharge'];
         } else {
             return false;
@@ -850,10 +877,11 @@ class AmazonFinancialEventList extends AmazonFinanceCore {
      * <li><b>RentalInitialValue</b> (optional) - array with <b>Amount</b> and <b>CurrencyCode</b></li>
      * <li><b>RentalReimbursement</b> (optional) - array with <b>Amount</b> and <b>CurrencyCode</b></li>
      * </ul>
-     * @return array|boolean multi-dimensional array, or <b>FALSE</b> if list not filled yet
+     * @return array|bool multi-dimensional array, or <b>FALSE</b> if list not filled yet
      */
-    public function getRentalTransactionEvents(){
-        if (isset($this->list['RentalTransaction'])){
+    public function getRentalTransactionEvents()
+    {
+        if (isset($this->list['RentalTransaction'])) {
             return $this->list['RentalTransaction'];
         } else {
             return false;
@@ -870,10 +898,11 @@ class AmazonFinancialEventList extends AmazonFinanceCore {
      * <li><b>CurrencyCode</b> - ISO 4217 currency code</li>
      * <li><b>ProductGroupList</b> - simple array of category names</li>
      * </ul>
-     * @return array|boolean multi-dimensional array, or <b>FALSE</b> if list not filled yet
+     * @return array|bool multi-dimensional array, or <b>FALSE</b> if list not filled yet
      */
-    public function getPerformanceBondRefundEvents(){
-        if (isset($this->list['PerformanceBondRefund'])){
+    public function getPerformanceBondRefundEvents()
+    {
+        if (isset($this->list['PerformanceBondRefund'])) {
             return $this->list['PerformanceBondRefund'];
         } else {
             return false;
@@ -898,10 +927,11 @@ class AmazonFinancialEventList extends AmazonFinanceCore {
      * <li><b>FeeDescription</b></li>
      * <li><b>ASIN</b></li>
      * </ul>
-     * @return array|boolean multi-dimensional array, or <b>FALSE</b> if list not filled yet
+     * @return array|bool multi-dimensional array, or <b>FALSE</b> if list not filled yet
      */
-    public function getServiceFeeEvents(){
-        if (isset($this->list['ServiceFee'])){
+    public function getServiceFeeEvents()
+    {
+        if (isset($this->list['ServiceFee'])) {
             return $this->list['ServiceFee'];
         } else {
             return false;
@@ -935,10 +965,11 @@ class AmazonFinancialEventList extends AmazonFinanceCore {
      * <li><b>CurrencyCode</b> - ISO 4217 currency code</li>
      * </ul>
      * </ul>
-     * @return array|boolean multi-dimensional array, or <b>FALSE</b> if list not filled yet
+     * @return array|bool multi-dimensional array, or <b>FALSE</b> if list not filled yet
      */
-    public function getDebtRecoveryEvents(){
-        if (isset($this->list['DebtRecovery'])){
+    public function getDebtRecoveryEvents()
+    {
+        if (isset($this->list['DebtRecovery'])) {
             return $this->list['DebtRecovery'];
         } else {
             return false;
@@ -954,10 +985,11 @@ class AmazonFinancialEventList extends AmazonFinanceCore {
      * <li><b>CurrencyCode</b> - ISO 4217 currency code</li>
      * <li><b>SourceBusinessEventType</b> - "LoanAdvance", "LoanPayment", or "LoanRefund"</li>
      * </ul>
-     * @return array|boolean multi-dimensional array, or <b>FALSE</b> if list not filled yet
+     * @return array|bool multi-dimensional array, or <b>FALSE</b> if list not filled yet
      */
-    public function getLoanServicingEvents(){
-        if (isset($this->list['LoanServicing'])){
+    public function getLoanServicingEvents()
+    {
+        if (isset($this->list['LoanServicing'])) {
             return $this->list['LoanServicing'];
         } else {
             return false;
@@ -983,14 +1015,14 @@ class AmazonFinancialEventList extends AmazonFinanceCore {
      * <li><b>ASIN</b></li>
      * </ul>
      * </ul>
-     * @return array|boolean multi-dimensional array, or <b>FALSE</b> if list not filled yet
+     * @return array|bool multi-dimensional array, or <b>FALSE</b> if list not filled yet
      */
-    public function getAdjustmentEvents(){
-        if (isset($this->list['Adjustment'])){
+    public function getAdjustmentEvents()
+    {
+        if (isset($this->list['Adjustment'])) {
             return $this->list['Adjustment'];
         } else {
             return false;
         }
     }
-
 }

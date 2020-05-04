@@ -1,9 +1,9 @@
-<?php namespace Sonnenglas\AmazonMws;
+<?php
 
-use Sonnenglas\AmazonMws\AmazonOutboundCore;
+namespace Sonnenglas\AmazonMws;
 
 /**
- * Copyright 2013 CPI Group, LLC
+ * Copyright 2013 CPI Group, LLC.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  *
@@ -39,7 +39,7 @@ class AmazonPackageTracker extends AmazonOutboundCore
      * so be careful when setting up the object.
      * @param string $s <p>Name for the store you want to use.</p>
      * @param string $id [optional] <p>The package ID to set for the object.</p>
-     * @param boolean $mock [optional] <p>This is a flag for enabling Mock Mode.
+     * @param bool $mock [optional] <p>This is a flag for enabling Mock Mode.
      * This defaults to <b>FALSE</b>.</p>
      * @param array|string $m [optional] <p>The files (or file) to use in Mock Mode.</p>
      * @param string $config [optional] <p>An alternate config file to set. Used for testing.</p>
@@ -56,12 +56,12 @@ class AmazonPackageTracker extends AmazonOutboundCore
     }
 
     /**
-     * Sets the package ID. (Required)
+     * Sets the package ID. (Required).
      *
      * This method sets the package ID to be sent in the next request.
      * This parameter is required for fetching the tracking information from Amazon.
-     * @param string|integer $n <p>Must be numeric</p>
-     * @return boolean <b>FALSE</b> if improper input
+     * @param string|int $n <p>Must be numeric</p>
+     * @return bool <b>FALSE</b> if improper input
      */
     public function setPackageNumber($n)
     {
@@ -78,26 +78,27 @@ class AmazonPackageTracker extends AmazonOutboundCore
      * Submits a <i>GetPackageTrackingDetails</i> request to Amazon. In order to do this,
      * a package ID is required. Amazon will send
      * the data back as a response, which can be retrieved using <i>getDetails</i>.
-     * @return boolean <b>FALSE</b> if something goes wrong
+     * @return bool <b>FALSE</b> if something goes wrong
      */
     public function fetchTrackingDetails()
     {
-        if (!array_key_exists('PackageNumber', $this->options)) {
-            $this->log("Package Number must be set in order to fetch it!", 'Warning');
+        if (! array_key_exists('PackageNumber', $this->options)) {
+            $this->log('Package Number must be set in order to fetch it!', 'Warning');
+
             return false;
         }
 
-        $url = $this->urlbase . $this->urlbranch;
+        $url = $this->urlbase.$this->urlbranch;
 
         $query = $this->genQuery();
 
-        $path = $this->options['Action'] . 'Result';
+        $path = $this->options['Action'].'Result';
         if ($this->mockMode) {
             $xml = $this->fetchMockFile()->$path;
         } else {
-            $response = $this->sendRequest($url, array('Post' => $query));
+            $response = $this->sendRequest($url, ['Post' => $query]);
 
-            if (!$this->checkResponse($response)) {
+            if (! $this->checkResponse($response)) {
                 return false;
             }
 
@@ -112,42 +113,41 @@ class AmazonPackageTracker extends AmazonOutboundCore
      *
      * This is what reads the response XML and converts it into an array.
      * @param SimpleXMLObject $d <p>The XML response from Amazon.</p>
-     * @return boolean <b>FALSE</b> if no XML data is found
+     * @return bool <b>FALSE</b> if no XML data is found
      */
     protected function parseXML($d)
     {
-        if (!$d) {
+        if (! $d) {
             return false;
         }
-        $this->details['PackageNumber'] = (string)$d->PackageNumber;
-        $this->details['TrackingNumber'] = (string)$d->TrackingNumber;
-        $this->details['CarrierCode'] = (string)$d->CarrierCode;
-        $this->details['CarrierPhoneNumber'] = (string)$d->CarrierPhoneNumber;
-        $this->details['CarrierURL'] = (string)$d->CarrierURL;
-        $this->details['ShipDate'] = (string)$d->ShipDate;
+        $this->details['PackageNumber'] = (string) $d->PackageNumber;
+        $this->details['TrackingNumber'] = (string) $d->TrackingNumber;
+        $this->details['CarrierCode'] = (string) $d->CarrierCode;
+        $this->details['CarrierPhoneNumber'] = (string) $d->CarrierPhoneNumber;
+        $this->details['CarrierURL'] = (string) $d->CarrierURL;
+        $this->details['ShipDate'] = (string) $d->ShipDate;
         //Address
-        $this->details['ShipToAddress']['City'] = (string)$d->ShipToAddress->City;
-        $this->details['ShipToAddress']['State'] = (string)$d->ShipToAddress->State;
-        $this->details['ShipToAddress']['Country'] = (string)$d->ShipToAddress->Country;
+        $this->details['ShipToAddress']['City'] = (string) $d->ShipToAddress->City;
+        $this->details['ShipToAddress']['State'] = (string) $d->ShipToAddress->State;
+        $this->details['ShipToAddress']['Country'] = (string) $d->ShipToAddress->Country;
         //End of Address
-        $this->details['CurrentStatus'] = (string)$d->CurrentStatus;
-        $this->details['SignedForBy'] = (string)$d->SignedForBy;
-        $this->details['EstimatedArrivalDate'] = (string)$d->EstimatedArrivalDate;
+        $this->details['CurrentStatus'] = (string) $d->CurrentStatus;
+        $this->details['SignedForBy'] = (string) $d->SignedForBy;
+        $this->details['EstimatedArrivalDate'] = (string) $d->EstimatedArrivalDate;
 
         $i = 0;
         foreach ($d->TrackingEvents->children() as $y) {
-            $this->details['TrackingEvents'][$i]['EventDate'] = (string)$y->EventDate;
+            $this->details['TrackingEvents'][$i]['EventDate'] = (string) $y->EventDate;
             //Address
-            $this->details['TrackingEvents'][$i]['EventAddress']['City'] = (string)$y->EventAddress->City;
-            $this->details['TrackingEvents'][$i]['EventAddress']['State'] = (string)$y->EventAddress->State;
-            $this->details['TrackingEvents'][$i]['EventAddress']['Country'] = (string)$y->EventAddress->Country;
+            $this->details['TrackingEvents'][$i]['EventAddress']['City'] = (string) $y->EventAddress->City;
+            $this->details['TrackingEvents'][$i]['EventAddress']['State'] = (string) $y->EventAddress->State;
+            $this->details['TrackingEvents'][$i]['EventAddress']['Country'] = (string) $y->EventAddress->Country;
             //End of Address
-            $this->details['TrackingEvents'][$i]['EventCode'] = (string)$y->EventCode;
+            $this->details['TrackingEvents'][$i]['EventCode'] = (string) $y->EventCode;
             $i++;
         }
 
-        $this->details['AdditionalLocationInfo'] = (string)$d->AdditionalLocationInfo;
-
+        $this->details['AdditionalLocationInfo'] = (string) $d->AdditionalLocationInfo;
     }
 
     /**
@@ -174,7 +174,7 @@ class AmazonPackageTracker extends AmazonOutboundCore
      * </ul>
      * <li><b>AdditionalLocationInfo</b> - further information on how the package was delivered (ex: to a front door)</li>
      * </ul>
-     * @return array|boolean data array, or <b>FALSE</b> if data not filled yet
+     * @return array|bool data array, or <b>FALSE</b> if data not filled yet
      */
     public function getDetails()
     {
@@ -183,9 +183,5 @@ class AmazonPackageTracker extends AmazonOutboundCore
         } else {
             return false;
         }
-
     }
-
 }
-
-?>

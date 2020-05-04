@@ -1,13 +1,11 @@
 <?php
 
 /**
- * Simple Laravel Config mock class
- *
+ * Simple Laravel Config mock class.
  */
-
 class Config
 {
-    static function get($name)
+    public static function get($name)
     {
         $fakeConfig = [
             'amazon-mws.muteLog' => 'Info',
