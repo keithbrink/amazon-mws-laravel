@@ -2,19 +2,22 @@
 
 class Log
 {
-    static function info($message)
+    public static function info($message)
     {
         // do nothing
     }
-    static function notice($message)
+
+    public static function notice($message)
     {
         // do nothing
     }
-    static function warning($message)
+
+    public static function warning($message)
     {
         // do nothing
     }
-    static function error($message)
+
+    public static function error($message)
     {
         // do nothing
     }

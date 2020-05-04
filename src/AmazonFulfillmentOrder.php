@@ -1,9 +1,9 @@
-<?php namespace Sonnenglas\AmazonMws;
+<?php
 
-use Sonnenglas\AmazonMws\AmazonOutboundCore;
+namespace Sonnenglas\AmazonMws;
 
 /**
- * Copyright 2013 CPI Group, LLC
+ * Copyright 2013 CPI Group, LLC.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  *
@@ -41,7 +41,7 @@ class AmazonFulfillmentOrder extends AmazonOutboundCore
      * so be careful when setting up the object.
      * @param string $s <p>Name for the store you want to use.</p>
      * @param string $id [optional] <p>The Fulfillment Order ID to set for the object.</p>
-     * @param boolean $mock [optional] <p>This is a flag for enabling Mock Mode.
+     * @param bool $mock [optional] <p>This is a flag for enabling Mock Mode.
      * This defaults to <b>FALSE</b>.</p>
      * @param array|string $m [optional] <p>The files (or file) to use in Mock Mode.</p>
      * @param string $config [optional] <p>An alternate config file to set. Used for testing.</p>
@@ -56,12 +56,12 @@ class AmazonFulfillmentOrder extends AmazonOutboundCore
     }
 
     /**
-     * Sets the fulfillment order ID. (Required)
+     * Sets the fulfillment order ID. (Required).
      *
      * This method sets the Fulfillment Order ID to be sent in the next request.
      * This parameter is required for fetching the fulfillment order from Amazon.
      * @param string $s <p>Maximum 40 characters.</p>
-     * @return boolean <b>FALSE</b> if improper input
+     * @return bool <b>FALSE</b> if improper input
      */
     public function setOrderId($s)
     {
@@ -78,28 +78,29 @@ class AmazonFulfillmentOrder extends AmazonOutboundCore
      * Submits a <i>GetFulfillmentOrder</i> request to Amazon. In order to do this,
      * a fulfillment order ID is required. Amazon will send
      * the data back as a response, which can be retrieved using <i>getOrder</i>.
-     * @return boolean <b>FALSE</b> if something goes wrong
+     * @return bool <b>FALSE</b> if something goes wrong
      */
     public function fetchOrder()
     {
-        if (!array_key_exists('SellerFulfillmentOrderId', $this->options)) {
-            $this->log("Fulfillment Order ID must be set in order to fetch it!", 'Warning');
+        if (! array_key_exists('SellerFulfillmentOrderId', $this->options)) {
+            $this->log('Fulfillment Order ID must be set in order to fetch it!', 'Warning');
+
             return false;
         }
 
         $this->options['Action'] = 'GetFulfillmentOrder';
 
-        $url = $this->urlbase . $this->urlbranch;
+        $url = $this->urlbase.$this->urlbranch;
 
         $query = $this->genQuery();
 
-        $path = $this->options['Action'] . 'Result';
+        $path = $this->options['Action'].'Result';
         if ($this->mockMode) {
             $xml = $this->fetchMockFile()->$path;
         } else {
-            $response = $this->sendRequest($url, array('Post' => $query));
+            $response = $this->sendRequest($url, ['Post' => $query]);
 
-            if (!$this->checkResponse($response)) {
+            if (! $this->checkResponse($response)) {
                 return false;
             }
 
@@ -114,96 +115,96 @@ class AmazonFulfillmentOrder extends AmazonOutboundCore
      *
      * This is what reads the response XML and converts it into an array.
      * @param SimpleXMLObject $xml <p>The XML response from Amazon.</p>
-     * @return boolean <b>FALSE</b> if no XML data is found
+     * @return bool <b>FALSE</b> if no XML data is found
      */
     protected function parseXML($xml)
     {
-        if (!$xml) {
+        if (! $xml) {
             return false;
         }
-        if (!$xml->FulfillmentOrder) {
+        if (! $xml->FulfillmentOrder) {
             return false;
         }
-        if (!$xml->FulfillmentOrderItem) {
+        if (! $xml->FulfillmentOrderItem) {
             return false;
         }
-        if (!$xml->FulfillmentShipment) {
+        if (! $xml->FulfillmentShipment) {
             return false;
         }
         //Section 1: ShipmentOrder
         $d = $xml->FulfillmentOrder;
-        $this->order['Details']['SellerFulfillmentOrderId'] = (string)$d->SellerFulfillmentOrderId;
-        $this->order['Details']['DisplayableOrderId'] = (string)$d->DisplayableOrderId;
-        $this->order['Details']['DisplayableOrderDateTime'] = (string)$d->DisplayableOrderDateTime;
-        $this->order['Details']['DisplayableOrderComment'] = (string)$d->DisplayableOrderComment;
-        $this->order['Details']['ShippingSpeedCategory'] = (string)$d->ShippingSpeedCategory;
+        $this->order['Details']['SellerFulfillmentOrderId'] = (string) $d->SellerFulfillmentOrderId;
+        $this->order['Details']['DisplayableOrderId'] = (string) $d->DisplayableOrderId;
+        $this->order['Details']['DisplayableOrderDateTime'] = (string) $d->DisplayableOrderDateTime;
+        $this->order['Details']['DisplayableOrderComment'] = (string) $d->DisplayableOrderComment;
+        $this->order['Details']['ShippingSpeedCategory'] = (string) $d->ShippingSpeedCategory;
         //Address
-        $this->order['Details']['DestinationAddress']['Name'] = (string)$d->DestinationAddress->Name;
-        $this->order['Details']['DestinationAddress']['Line1'] = (string)$d->DestinationAddress->Line1;
+        $this->order['Details']['DestinationAddress']['Name'] = (string) $d->DestinationAddress->Name;
+        $this->order['Details']['DestinationAddress']['Line1'] = (string) $d->DestinationAddress->Line1;
         if (isset($d->DestinationAddress->Line2)) {
-            $this->order['Details']['DestinationAddress']['Line2'] = (string)$d->DestinationAddress->Line2;
+            $this->order['Details']['DestinationAddress']['Line2'] = (string) $d->DestinationAddress->Line2;
         }
         if (isset($d->DestinationAddress->Line3)) {
-            $this->order['Details']['DestinationAddress']['Line3'] = (string)$d->DestinationAddress->Line3;
+            $this->order['Details']['DestinationAddress']['Line3'] = (string) $d->DestinationAddress->Line3;
         }
         if (isset($d->DestinationAddress->DistrictOrCounty)) {
-            $this->order['Details']['DestinationAddress']['DistrictOrCounty'] = (string)$d->DestinationAddress->DistrictOrCounty;
+            $this->order['Details']['DestinationAddress']['DistrictOrCounty'] = (string) $d->DestinationAddress->DistrictOrCounty;
         }
-        $this->order['Details']['DestinationAddress']['City'] = (string)$d->DestinationAddress->City;
-        $this->order['Details']['DestinationAddress']['StateOrProvinceCode'] = (string)$d->DestinationAddress->StateOrProvinceCode;
-        $this->order['Details']['DestinationAddress']['CountryCode'] = (string)$d->DestinationAddress->CountryCode;
+        $this->order['Details']['DestinationAddress']['City'] = (string) $d->DestinationAddress->City;
+        $this->order['Details']['DestinationAddress']['StateOrProvinceCode'] = (string) $d->DestinationAddress->StateOrProvinceCode;
+        $this->order['Details']['DestinationAddress']['CountryCode'] = (string) $d->DestinationAddress->CountryCode;
         if (isset($d->DestinationAddress->PostalCode)) {
-            $this->order['Details']['DestinationAddress']['PostalCode'] = (string)$d->DestinationAddress->PostalCode;
+            $this->order['Details']['DestinationAddress']['PostalCode'] = (string) $d->DestinationAddress->PostalCode;
         }
         if (isset($d->DestinationAddress->PhoneNumber)) {
-            $this->order['Details']['DestinationAddress']['PhoneNumber'] = (string)$d->DestinationAddress->PhoneNumber;
+            $this->order['Details']['DestinationAddress']['PhoneNumber'] = (string) $d->DestinationAddress->PhoneNumber;
         }
         //End of Address
         if (isset($d->FulfillmentPolicy)) {
-            $this->order['Details']['FulfillmentPolicy'] = (string)$d->FulfillmentPolicy;
+            $this->order['Details']['FulfillmentPolicy'] = (string) $d->FulfillmentPolicy;
         }
         if (isset($d->FulfillmentMethod)) {
-            $this->order['Details']['FulfillmentMethod'] = (string)$d->FulfillmentMethod;
+            $this->order['Details']['FulfillmentMethod'] = (string) $d->FulfillmentMethod;
         }
-        $this->order['Details']['ReceivedDateTime'] = (string)$d->ReceivedDateTime;
-        $this->order['Details']['FulfillmentOrderStatus'] = (string)$d->FulfillmentOrderStatus;
-        $this->order['Details']['StatusUpdatedDateTime'] = (string)$d->StatusUpdatedDateTime;
+        $this->order['Details']['ReceivedDateTime'] = (string) $d->ReceivedDateTime;
+        $this->order['Details']['FulfillmentOrderStatus'] = (string) $d->FulfillmentOrderStatus;
+        $this->order['Details']['StatusUpdatedDateTime'] = (string) $d->StatusUpdatedDateTime;
         if (isset($d->NotificationEmailList)) {
             $i = 0;
             foreach ($d->NotificationEmailList->children() as $x) {
-                $this->order['Details']['NotificationEmailList'][$i++] = (string)$x;
+                $this->order['Details']['NotificationEmailList'][$i++] = (string) $x;
             }
         }
 
         //Section 2: Order Items
         $i = 0;
         foreach ($xml->FulfillmentOrderItem->children() as $x) {
-            $this->order['Items'][$i]['SellerSKU'] = (string)$x->SellerSKU;
-            $this->order['Items'][$i]['SellerFulfillmentOrderItemId'] = (string)$x->SellerFulfillmentOrderItemId;
-            $this->order['Items'][$i]['Quantity'] = (string)$x->Quantity;
+            $this->order['Items'][$i]['SellerSKU'] = (string) $x->SellerSKU;
+            $this->order['Items'][$i]['SellerFulfillmentOrderItemId'] = (string) $x->SellerFulfillmentOrderItemId;
+            $this->order['Items'][$i]['Quantity'] = (string) $x->Quantity;
             if (isset($x->GiftMessage)) {
-                $this->order['Items'][$i]['GiftMessage'] = (string)$x->GiftMessage;
+                $this->order['Items'][$i]['GiftMessage'] = (string) $x->GiftMessage;
             }
             if (isset($x->DisplayableComment)) {
-                $this->order['Items'][$i]['DisplayableComment'] = (string)$x->DisplayableComment;
+                $this->order['Items'][$i]['DisplayableComment'] = (string) $x->DisplayableComment;
             }
             if (isset($x->FulfillmentNetworkSKU)) {
-                $this->order['Items'][$i]['FulfillmentNetworkSKU'] = (string)$x->FulfillmentNetworkSKU;
+                $this->order['Items'][$i]['FulfillmentNetworkSKU'] = (string) $x->FulfillmentNetworkSKU;
             }
             if (isset($x->OrderItemDisposition)) {
-                $this->order['Items'][$i]['OrderItemDisposition'] = (string)$x->OrderItemDisposition;
+                $this->order['Items'][$i]['OrderItemDisposition'] = (string) $x->OrderItemDisposition;
             }
-            $this->order['Items'][$i]['CancelledQuantity'] = (string)$x->CancelledQuantity;
-            $this->order['Items'][$i]['UnfulfillableQuantity'] = (string)$x->UnfulfillableQuantity;
+            $this->order['Items'][$i]['CancelledQuantity'] = (string) $x->CancelledQuantity;
+            $this->order['Items'][$i]['UnfulfillableQuantity'] = (string) $x->UnfulfillableQuantity;
             if (isset($x->EstimatedShipDateTime)) {
-                $this->order['Items'][$i]['EstimatedShipDateTime'] = (string)$x->EstimatedShipDateTime;
+                $this->order['Items'][$i]['EstimatedShipDateTime'] = (string) $x->EstimatedShipDateTime;
             }
             if (isset($x->EstimatedArrivalDateTime)) {
-                $this->order['Items'][$i]['EstimatedArrivalDateTime'] = (string)$x->EstimatedArrivalDateTime;
+                $this->order['Items'][$i]['EstimatedArrivalDateTime'] = (string) $x->EstimatedArrivalDateTime;
             }
             if (isset($x->PerUnitDeclaredValue)) {
-                $this->order['Items'][$i]['PerUnitDeclaredValue']['CurrencyCode'] = (string)$x->PerUnitDeclaredValue->CurrencyCode;
-                $this->order['Items'][$i]['PerUnitDeclaredValue']['Value'] = (string)$x->PerUnitDeclaredValue->Value;
+                $this->order['Items'][$i]['PerUnitDeclaredValue']['CurrencyCode'] = (string) $x->PerUnitDeclaredValue->CurrencyCode;
+                $this->order['Items'][$i]['PerUnitDeclaredValue']['Value'] = (string) $x->PerUnitDeclaredValue->Value;
             }
             $i++;
         }
@@ -211,38 +212,38 @@ class AmazonFulfillmentOrder extends AmazonOutboundCore
         //Section 3: Order Shipments
         $i = 0;
         foreach ($xml->FulfillmentShipment->children() as $x) {
-            $this->order['Shipments'][$i]['AmazonShipmentId'] = (string)$x->AmazonShipmentId;
-            $this->order['Shipments'][$i]['FulfillmentCenterId'] = (string)$x->FulfillmentCenterId;
-            $this->order['Shipments'][$i]['FulfillmentShipmentStatus'] = (string)$x->FulfillmentShipmentStatus;
+            $this->order['Shipments'][$i]['AmazonShipmentId'] = (string) $x->AmazonShipmentId;
+            $this->order['Shipments'][$i]['FulfillmentCenterId'] = (string) $x->FulfillmentCenterId;
+            $this->order['Shipments'][$i]['FulfillmentShipmentStatus'] = (string) $x->FulfillmentShipmentStatus;
             if (isset($x->ShippingDateTime)) {
-                $this->order['Shipments'][$i]['ShippingDateTime'] = (string)$x->ShippingDateTime;
+                $this->order['Shipments'][$i]['ShippingDateTime'] = (string) $x->ShippingDateTime;
             }
             if (isset($x->EstimatedArrivalDateTime)) {
-                $this->order['Shipments'][$i]['EstimatedArrivalDateTime'] = (string)$x->EstimatedArrivalDateTime;
+                $this->order['Shipments'][$i]['EstimatedArrivalDateTime'] = (string) $x->EstimatedArrivalDateTime;
             }
             //FulfillmentShipmentItem
             $j = 0;
             foreach ($x->FulfillmentShipmentItem->children() as $y) {
                 if (isset($y->SellerSKU)) {
-                    $this->order['Shipments'][$i]['FulfillmentShipmentItem'][$j]['SellerSKU'] = (string)$y->SellerSKU;
+                    $this->order['Shipments'][$i]['FulfillmentShipmentItem'][$j]['SellerSKU'] = (string) $y->SellerSKU;
                 }
-                $this->order['Shipments'][$i]['FulfillmentShipmentItem'][$j]['SellerFulfillmentOrderItemId'] = (string)$y->SellerFulfillmentOrderItemId;
-                $this->order['Shipments'][$i]['FulfillmentShipmentItem'][$j]['Quantity'] = (string)$y->Quantity;
+                $this->order['Shipments'][$i]['FulfillmentShipmentItem'][$j]['SellerFulfillmentOrderItemId'] = (string) $y->SellerFulfillmentOrderItemId;
+                $this->order['Shipments'][$i]['FulfillmentShipmentItem'][$j]['Quantity'] = (string) $y->Quantity;
                 if (isset($y->PackageNumber)) {
-                    $this->order['Shipments'][$i]['FulfillmentShipmentItem'][$j]['PackageNumber'] = (string)$y->PackageNumber;
+                    $this->order['Shipments'][$i]['FulfillmentShipmentItem'][$j]['PackageNumber'] = (string) $y->PackageNumber;
                 }
                 $j++;
             }
             if (isset($x->FulfillmentShipmentPackage)) {
                 $j = 0;
                 foreach ($x->FulfillmentShipmentPackage->children() as $y) {
-                    $this->order['Shipments'][$i]['FulfillmentShipmentPackage'][$j]['PackageNumber'] = (string)$y->PackageNumber;
-                    $this->order['Shipments'][$i]['FulfillmentShipmentPackage'][$j]['CarrierCode'] = (string)$y->CarrierCode;
+                    $this->order['Shipments'][$i]['FulfillmentShipmentPackage'][$j]['PackageNumber'] = (string) $y->PackageNumber;
+                    $this->order['Shipments'][$i]['FulfillmentShipmentPackage'][$j]['CarrierCode'] = (string) $y->CarrierCode;
                     if (isset($y->TrackingNumber)) {
-                        $this->order['Shipments'][$i]['FulfillmentShipmentPackage'][$j]['TrackingNumber'] = (string)$y->TrackingNumber;
+                        $this->order['Shipments'][$i]['FulfillmentShipmentPackage'][$j]['TrackingNumber'] = (string) $y->TrackingNumber;
                     }
                     if (isset($y->EstimatedArrivalDateTime)) {
-                        $this->order['Shipments'][$i]['FulfillmentShipmentPackage'][$j]['EstimatedArrivalDateTime'] = (string)$y->EstimatedArrivalDateTime;
+                        $this->order['Shipments'][$i]['FulfillmentShipmentPackage'][$j]['EstimatedArrivalDateTime'] = (string) $y->EstimatedArrivalDateTime;
                     }
                     $j++;
                 }
@@ -258,30 +259,32 @@ class AmazonFulfillmentOrder extends AmazonOutboundCore
      * Submits a <i>CancelFulfillmentOrder</i> request to Amazon. In order to do this,
      * a fulfillment order ID is required. Amazon will send back an HTTP response,
      * so there is no data to retrieve afterwards.
-     * @return boolean <b>TRUE</b> if the cancellation was successful, <b>FALSE</b> if something goes wrong
+     * @return bool <b>TRUE</b> if the cancellation was successful, <b>FALSE</b> if something goes wrong
      */
     public function cancelOrder()
     {
-        if (!array_key_exists('SellerFulfillmentOrderId', $this->options)) {
-            $this->log("Fulfillment Order ID must be set in order to cancel it!", 'Warning');
+        if (! array_key_exists('SellerFulfillmentOrderId', $this->options)) {
+            $this->log('Fulfillment Order ID must be set in order to cancel it!', 'Warning');
+
             return false;
         }
 
         $this->options['Action'] = 'CancelFulfillmentOrder';
 
-        $url = $this->urlbase . $this->urlbranch;
+        $url = $this->urlbase.$this->urlbranch;
 
         $query = $this->genQuery();
 
         if ($this->mockMode) {
             $response = $this->fetchMockResponse();
         } else {
-            $response = $this->sendRequest($url, array('Post' => $query));
+            $response = $this->sendRequest($url, ['Post' => $query]);
         }
-        if (!$this->checkResponse($response)) {
+        if (! $this->checkResponse($response)) {
             return false;
         } else {
-            $this->log("Successfully deleted Fulfillment Order " . $this->options['SellerFulfillmentOrderId']);
+            $this->log('Successfully deleted Fulfillment Order '.$this->options['SellerFulfillmentOrderId']);
+
             return true;
         }
     }
@@ -296,7 +299,7 @@ class AmazonFulfillmentOrder extends AmazonOutboundCore
      * <li><b>Items</b> - multi-dimensional array of item data</li>
      * <li><b>Shipments</b> - multi-dimensional array of shipment data</li>
      * </ul>
-     * @return array|boolean data array, or <b>FALSE</b> if data not filled yet
+     * @return array|bool data array, or <b>FALSE</b> if data not filled yet
      */
     public function getOrder()
     {
@@ -307,5 +310,3 @@ class AmazonFulfillmentOrder extends AmazonOutboundCore
         }
     }
 }
-
-?>

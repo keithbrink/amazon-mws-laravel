@@ -1,9 +1,9 @@
-<?php namespace Sonnenglas\AmazonMws;
+<?php
 
-use Sonnenglas\AmazonMws\AmazonProductsCore;
+namespace Sonnenglas\AmazonMws;
 
 /**
- * Copyright 2013 CPI Group, LLC
+ * Copyright 2013 CPI Group, LLC.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  *
@@ -29,8 +29,6 @@ use Sonnenglas\AmazonMws\AmazonProductsCore;
  */
 class AmazonProductSearch extends AmazonProductsCore
 {
-
-
     /**
      * AmazonProductList fetches a list of products from Amazon that match a search query.
      *
@@ -41,7 +39,7 @@ class AmazonProductSearch extends AmazonProductsCore
      * so be careful when setting up the object.
      * @param string $s <p>Name for the store you want to use.</p>
      * @param string $q [optional] <p>The query string to set for the object.</p>
-     * @param boolean $mock [optional] <p>This is a flag for enabling Mock Mode.
+     * @param bool $mock [optional] <p>This is a flag for enabling Mock Mode.
      * This defaults to <b>FALSE</b>.</p>
      * @param array|string $m [optional] <p>The files (or file) to use in Mock Mode.</p>
      * @param string $config [optional] <p>An alternate config file to set. Used for testing.</p>
@@ -49,7 +47,7 @@ class AmazonProductSearch extends AmazonProductsCore
     public function __construct($s, $q = null, $mock = false, $m = null)
     {
         parent::__construct($s, $mock, $m);
-        include($this->env);
+        include $this->env;
 
         if ($q) {
             $this->setQuery($q);
@@ -64,9 +62,9 @@ class AmazonProductSearch extends AmazonProductsCore
     }
 
     /**
-     * Sets the query to search for. (Required)
+     * Sets the query to search for. (Required).
      * @param string $q <p>search query</p>
-     * @return boolean <b>FALSE</b> if improper input
+     * @return bool <b>FALSE</b> if improper input
      */
     public function setQuery($q)
     {
@@ -78,13 +76,13 @@ class AmazonProductSearch extends AmazonProductsCore
     }
 
     /**
-     * Sets the query context ID. (Optional)
+     * Sets the query context ID. (Optional).
      *
      * Setting this parameter tells Amazon to only return products from the given
      * context. If this parameter is not set, Amazon will return products from
      * any context.
      * @param string $q <p>See comment inside for list of valid values.</p>
-     * @return boolean <b>FALSE</b> if improper input
+     * @return bool <b>FALSE</b> if improper input
      */
     public function setContextId($q)
     {
@@ -135,7 +133,7 @@ class AmazonProductSearch extends AmazonProductsCore
          * VideoGames
          * Watches
          * Wireless
-         * WirelessAccessories
+         * WirelessAccessories.
          */
     }
 
@@ -145,25 +143,26 @@ class AmazonProductSearch extends AmazonProductsCore
      * Submits a <i>ListMatchingProducts</i> request to Amazon. Amazon will send
      * the list back as a response, which can be retrieved using <i>getProduct</i>.
      * In order to perform this action, a search query is required.
-     * @return boolean <b>FALSE</b> if something goes wrong
+     * @return bool <b>FALSE</b> if something goes wrong
      */
     public function searchProducts()
     {
-        if (!array_key_exists('Query', $this->options)) {
-            $this->log("Search Query must be set in order to search for a query!", 'Warning');
+        if (! array_key_exists('Query', $this->options)) {
+            $this->log('Search Query must be set in order to search for a query!', 'Warning');
+
             return false;
         }
 
-        $url = $this->urlbase . $this->urlbranch;
+        $url = $this->urlbase.$this->urlbranch;
 
         $query = $this->genQuery();
 
         if ($this->mockMode) {
             $xml = $this->fetchMockFile();
         } else {
-            $response = $this->sendRequest($url, array('Post' => $query));
+            $response = $this->sendRequest($url, ['Post' => $query]);
 
-            if (!$this->checkResponse($response)) {
+            if (! $this->checkResponse($response)) {
                 return false;
             }
 
@@ -172,7 +171,4 @@ class AmazonProductSearch extends AmazonProductsCore
 
         $this->parseXML($xml);
     }
-
 }
-
-?>

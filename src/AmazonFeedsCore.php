@@ -1,9 +1,9 @@
-<?php namespace Sonnenglas\AmazonMws;
+<?php
 
-use Sonnenglas\AmazonMws\AmazonCore;
+namespace Sonnenglas\AmazonMws;
 
 /**
- * Copyright 2013 CPI Group, LLC
+ * Copyright 2013 CPI Group, LLC.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  *
@@ -28,14 +28,14 @@ use Sonnenglas\AmazonMws\AmazonCore;
 abstract class AmazonFeedsCore extends AmazonCore
 {
     /**
-     * AmazonFeedsCore constructor sets up key information used in all Amazon Feeds Core requests
+     * AmazonFeedsCore constructor sets up key information used in all Amazon Feeds Core requests.
      *
      * This constructor is called when initializing all objects in the Amazon Feeds Core.
      * The parameters are passed by the child objects' constructors, which are
      * in turn passed to the AmazonCore constructor. See it for more information
      * on these parameters and common methods.
      * @param string $s <p>Name for the store you want to use.</p>
-     * @param boolean $mock [optional] <p>This is a flag for enabling Mock Mode.
+     * @param bool $mock [optional] <p>This is a flag for enabling Mock Mode.
      * This defaults to <b>FALSE</b>.</p>
      * @param array|string $m [optional] <p>The files (or file) to use in Mock Mode.</p>
      * @param string $config [optional] <p>An alternate config file to set. Used for testing.</p>
@@ -43,7 +43,7 @@ abstract class AmazonFeedsCore extends AmazonCore
     public function __construct($s, $mock = false, $m = null)
     {
         parent::__construct($s, $mock, $m);
-        include($this->env);
+        include $this->env;
 
         $this->urlbranch = '';
         if (isset($AMAZON_VERSION_FEEDS)) {
@@ -51,5 +51,3 @@ abstract class AmazonFeedsCore extends AmazonCore
         }
     }
 }
-
-?>
