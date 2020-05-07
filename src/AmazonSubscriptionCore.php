@@ -2,8 +2,6 @@
 
 namespace KeithBrink\AmazonMws;
 
-use Exception;
-
 /**
  * Copyright 2013 CPI Group, LLC.
  *

@@ -3,8 +3,8 @@
 use KeithBrink\AmazonMws\AmazonMerchantServiceList;
 use KeithBrink\AmazonMws\AmazonMerchantShipmentCreator;
 
-class AmazonMerchantServiceListTest extends PHPUnit_Framework_TestCase {
-
+class AmazonMerchantServiceListTest extends PHPUnit_Framework_TestCase
+{
     /**
      * @var AmazonMerchantServiceList
      */
@@ -14,12 +14,14 @@ class AmazonMerchantServiceListTest extends PHPUnit_Framework_TestCase {
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
      */
-    protected function setUp() {
+    protected function setUp()
+    {
         resetLog();
         $this->object = new AmazonMerchantServiceList('testStore', true, null);
     }
 
-    public function testSetOrderId(){
+    public function testSetOrderId()
+    {
         $key = 'ShipmentRequestDetails.AmazonOrderId';
         $this->assertNull($this->object->setOrderId('777'));
         $o = $this->object->getOptions();
@@ -27,16 +29,17 @@ class AmazonMerchantServiceListTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals('777', $o[$key]);
 
         $this->assertFalse($this->object->setOrderId(77)); //won't work for this
-        $this->assertFalse($this->object->setOrderId(array())); //won't work for other things
+        $this->assertFalse($this->object->setOrderId([])); //won't work for other things
         $this->assertFalse($this->object->setOrderId(null)); //won't work for other things
 
         $check = parseLog();
-        $this->assertEquals('Tried to set AmazonOrderId to invalid value',$check[1]);
-        $this->assertEquals('Tried to set AmazonOrderId to invalid value',$check[2]);
-        $this->assertEquals('Tried to set AmazonOrderId to invalid value',$check[3]);
+        $this->assertEquals('Tried to set AmazonOrderId to invalid value', $check[1]);
+        $this->assertEquals('Tried to set AmazonOrderId to invalid value', $check[2]);
+        $this->assertEquals('Tried to set AmazonOrderId to invalid value', $check[3]);
     }
 
-    public function testSetSellerOrderId(){
+    public function testSetSellerOrderId()
+    {
         $key = 'ShipmentRequestDetails.SellerOrderId';
         $this->assertNull($this->object->setSellerOrderId('777'));
         $o = $this->object->getOptions();
@@ -47,20 +50,21 @@ class AmazonMerchantServiceListTest extends PHPUnit_Framework_TestCase {
         $this->assertArrayHasKey($key, $o2);
         $this->assertEquals(77, $o2[$key]);
 
-        $this->assertFalse($this->object->setSellerOrderId(array())); //won't work for this
+        $this->assertFalse($this->object->setSellerOrderId([])); //won't work for this
         $this->assertFalse($this->object->setSellerOrderId(null)); //won't work for other things
 
         $check = parseLog();
-        $this->assertEquals('Tried to set SellerOrderId to invalid value',$check[1]);
-        $this->assertEquals('Tried to set SellerOrderId to invalid value',$check[2]);
+        $this->assertEquals('Tried to set SellerOrderId to invalid value', $check[1]);
+        $this->assertEquals('Tried to set SellerOrderId to invalid value', $check[2]);
     }
 
-    public function testSetItems(){
+    public function testSetItems()
+    {
         $key = 'ShipmentRequestDetails.ItemList.Item.';
-        $items = array(
-            array('OrderItemId' => '123987', 'Quantity' => 2),
-            array('OrderItemId' => '555432', 'Quantity' => 1),
-        );
+        $items = [
+            ['OrderItemId' => '123987', 'Quantity' => 2],
+            ['OrderItemId' => '555432', 'Quantity' => 1],
+        ];
         $this->assertNull($this->object->setItems($items));
         $o = $this->object->getOptions();
         $this->assertArrayHasKey($key.'1.OrderItemId', $o);
@@ -83,17 +87,18 @@ class AmazonMerchantServiceListTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals($items[1]['OrderItemId'], $o2[$key.'1.OrderItemId']);
         $this->assertEquals($items[1]['Quantity'], $o2[$key.'1.Quantity']);
 
-        $this->assertFalse($this->object->setItems(array())); //won't work for this
+        $this->assertFalse($this->object->setItems([])); //won't work for this
         $this->assertFalse($this->object->setItems('something')); //won't work for other things
         $this->assertFalse($this->object->setItems(null)); //won't work for other things
 
         $check = parseLog();
-        $this->assertEquals('Tried to set Items to invalid values',$check[1]);
-        $this->assertEquals('Tried to set Items to invalid values',$check[2]);
-        $this->assertEquals('Tried to set Items to invalid values',$check[3]);
+        $this->assertEquals('Tried to set Items to invalid values', $check[1]);
+        $this->assertEquals('Tried to set Items to invalid values', $check[2]);
+        $this->assertEquals('Tried to set Items to invalid values', $check[3]);
     }
 
-    public function testSetAddress(){
+    public function testSetAddress()
+    {
         $key = 'ShipmentRequestDetails.ShipFromAddress.';
         $address = $this->genAddress();
         $address['AddressLine2'] = 'line 2';
@@ -124,19 +129,20 @@ class AmazonMerchantServiceListTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals($address['CountryCode'], $o[$key.'CountryCode']);
         $this->assertEquals($address['Phone'], $o[$key.'Phone']);
 
-        $this->assertFalse($this->object->setAddress(array())); //won't work for this
+        $this->assertFalse($this->object->setAddress([])); //won't work for this
         $this->assertFalse($this->object->setAddress('something')); //won't work for other things
         $this->assertFalse($this->object->setAddress(null)); //won't work for other things
 
         $check = parseLog();
-        $this->assertEquals('Tried to set ShipFromAddress to invalid values',$check[1]);
-        $this->assertEquals('Tried to set ShipFromAddress to invalid values',$check[2]);
-        $this->assertEquals('Tried to set ShipFromAddress to invalid values',$check[3]);
+        $this->assertEquals('Tried to set ShipFromAddress to invalid values', $check[1]);
+        $this->assertEquals('Tried to set ShipFromAddress to invalid values', $check[2]);
+        $this->assertEquals('Tried to set ShipFromAddress to invalid values', $check[3]);
     }
 
-    public function testSetPackageDimensions(){
+    public function testSetPackageDimensions()
+    {
         $key = 'ShipmentRequestDetails.PackageDimensions.';
-        $dims = array('Length' => 5, 'Width' => 5, 'Height' => 5, 'Unit' => 'inches');
+        $dims = ['Length' => 5, 'Width' => 5, 'Height' => 5, 'Unit' => 'inches'];
         $this->assertNull($this->object->setPredefinedPackage('something'));
         $this->assertNull($this->object->setPackageDimensions($dims));
         $o = $this->object->getOptions();
@@ -150,19 +156,20 @@ class AmazonMerchantServiceListTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals($dims['Height'], $o[$key.'Height']);
         $this->assertEquals($dims['Unit'], $o[$key.'Unit']);
 
-        $this->assertFalse($this->object->setPackageDimensions(array())); //won't work for this
+        $this->assertFalse($this->object->setPackageDimensions([])); //won't work for this
         $this->assertFalse($this->object->setPackageDimensions('something')); //won't work for other things
         $this->assertFalse($this->object->setPackageDimensions(null)); //won't work for other things
 
         $check = parseLog();
-        $this->assertEquals('Tried to set PackageDimensions to invalid values',$check[1]);
-        $this->assertEquals('Tried to set PackageDimensions to invalid values',$check[2]);
-        $this->assertEquals('Tried to set PackageDimensions to invalid values',$check[3]);
+        $this->assertEquals('Tried to set PackageDimensions to invalid values', $check[1]);
+        $this->assertEquals('Tried to set PackageDimensions to invalid values', $check[2]);
+        $this->assertEquals('Tried to set PackageDimensions to invalid values', $check[3]);
     }
 
-    public function testSetPredefinedPackage(){
+    public function testSetPredefinedPackage()
+    {
         $key = 'ShipmentRequestDetails.PackageDimensions.';
-        $dims = array('Length' => 5, 'Width' => 5, 'Height' => 5, 'Unit' => 'inches');
+        $dims = ['Length' => 5, 'Width' => 5, 'Height' => 5, 'Unit' => 'inches'];
         $this->assertNull($this->object->setPackageDimensions($dims));
         $this->assertNull($this->object->setPredefinedPackage('something'));
         $o = $this->object->getOptions();
@@ -174,11 +181,12 @@ class AmazonMerchantServiceListTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals('something', $o[$key.'PredefinedPackageDimensions']);
 
         $this->assertFalse($this->object->setPredefinedPackage(77)); //won't work for this
-        $this->assertFalse($this->object->setPredefinedPackage(array())); //won't work for other things
+        $this->assertFalse($this->object->setPredefinedPackage([])); //won't work for other things
         $this->assertFalse($this->object->setPredefinedPackage(null)); //won't work for other things
     }
 
-    public function testSetWeight() {
+    public function testSetWeight()
+    {
         $key = 'ShipmentRequestDetails.Weight.';
         $this->assertNull($this->object->setWeight('777'));
         $o = $this->object->getOptions();
@@ -194,37 +202,40 @@ class AmazonMerchantServiceListTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals('oz', $o2[$key.'Unit']);
 
         $this->assertFalse($this->object->setWeight('word')); //won't work for this
-        $this->assertFalse($this->object->setWeight(array())); //won't work for other things
+        $this->assertFalse($this->object->setWeight([])); //won't work for other things
         $this->assertFalse($this->object->setWeight(null)); //won't work for other things
     }
 
-    public function testSetMaxArrivalDate(){
+    public function testSetMaxArrivalDate()
+    {
         $key = 'ShipmentRequestDetails.MustArriveByDate';
         $this->assertNull($this->object->setMaxArrivalDate('+50 min'));
         $o = $this->object->getOptions();
         $this->assertArrayHasKey($key, $o);
         $this->assertNotEmpty($o[$key]);
 
-        $this->assertFalse($this->object->setMaxArrivalDate(array(5))); //won't work for this
+        $this->assertFalse($this->object->setMaxArrivalDate([5])); //won't work for this
 
         $check = parseLog();
-        $this->assertEquals('Error: Invalid time input given',$check[1]);
+        $this->assertEquals('Error: Invalid time input given', $check[1]);
     }
 
-    public function testSetShipDate(){
+    public function testSetShipDate()
+    {
         $key = 'ShipmentRequestDetails.ShipDate';
         $this->assertNull($this->object->setShipDate('+50 min'));
         $o = $this->object->getOptions();
         $this->assertArrayHasKey($key, $o);
         $this->assertNotEmpty($o[$key]);
 
-        $this->assertFalse($this->object->setShipDate(array(5))); //won't work for this
+        $this->assertFalse($this->object->setShipDate([5])); //won't work for this
 
         $check = parseLog();
-        $this->assertEquals('Error: Invalid time input given',$check[1]);
+        $this->assertEquals('Error: Invalid time input given', $check[1]);
     }
 
-    public function testSetDeliveryOption(){
+    public function testSetDeliveryOption()
+    {
         $key = 'ShipmentRequestDetails.ShippingServiceOptions.DeliveryExperience';
         $this->assertNull($this->object->setDeliveryOption('NoTracking'));
         $o = $this->object->getOptions();
@@ -232,16 +243,17 @@ class AmazonMerchantServiceListTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals('NoTracking', $o[$key]);
 
         $this->assertFalse($this->object->setDeliveryOption('something')); //won't work for this
-        $this->assertFalse($this->object->setDeliveryOption(array())); //won't work for other things
+        $this->assertFalse($this->object->setDeliveryOption([])); //won't work for other things
         $this->assertFalse($this->object->setDeliveryOption(null)); //won't work for other things
 
         $check = parseLog();
-        $this->assertEquals('Tried to set DeliveryExperience to invalid value',$check[1]);
-        $this->assertEquals('Tried to set DeliveryExperience to invalid value',$check[2]);
-        $this->assertEquals('Tried to set DeliveryExperience to invalid value',$check[3]);
+        $this->assertEquals('Tried to set DeliveryExperience to invalid value', $check[1]);
+        $this->assertEquals('Tried to set DeliveryExperience to invalid value', $check[2]);
+        $this->assertEquals('Tried to set DeliveryExperience to invalid value', $check[3]);
     }
 
-    public function testSetDeclaredValue() {
+    public function testSetDeclaredValue()
+    {
         $key = 'ShipmentRequestDetails.ShippingServiceOptions.DeclaredValue.';
         $this->assertNull($this->object->setDeclaredValue('777', 'USD'));
         $o = $this->object->getOptions();
@@ -252,13 +264,14 @@ class AmazonMerchantServiceListTest extends PHPUnit_Framework_TestCase {
 
         $this->assertFalse($this->object->setDeclaredValue('word', 'USD')); //won't work for this
         $this->assertFalse($this->object->setDeclaredValue('777', '77')); //won't work for this
-        $this->assertFalse($this->object->setDeclaredValue('777', array())); //won't work for this
-        $this->assertFalse($this->object->setDeclaredValue(array(), 'USD')); //won't work for this
-        $this->assertFalse($this->object->setDeclaredValue('777', NULL)); //won't work for this
-        $this->assertFalse($this->object->setDeclaredValue(NULL, 'USD')); //won't work for this
+        $this->assertFalse($this->object->setDeclaredValue('777', [])); //won't work for this
+        $this->assertFalse($this->object->setDeclaredValue([], 'USD')); //won't work for this
+        $this->assertFalse($this->object->setDeclaredValue('777', null)); //won't work for this
+        $this->assertFalse($this->object->setDeclaredValue(null, 'USD')); //won't work for this
     }
 
-    public function testSetCarrierWillPickUp() {
+    public function testSetCarrierWillPickUp()
+    {
         $key = 'ShipmentRequestDetails.ShippingServiceOptions.CarrierWillPickUp';
         $this->assertNull($this->object->setCarrierWillPickUp());
         $o = $this->object->getOptions();
@@ -278,22 +291,23 @@ class AmazonMerchantServiceListTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals('false', $o4[$key]);
     }
 
-    public function testListFetchServices(){
+    public function testListFetchServices()
+    {
         resetLog();
-        $this->object->setMock(true,'fetchMerchantServiceList.xml');
+        $this->object->setMock(true, 'fetchMerchantServiceList.xml');
         $this->assertFalse($this->object->getServiceList()); //no list yet
         $this->assertFalse($this->object->getUnavailableCarrierList()); //no list yet
         $this->assertFalse($this->object->getRestrictedCarrierList()); //no list yet
         $this->assertFalse($this->object->fetchServices()); //no order ID yet
         $this->object->setOrderId('903-1713775-3598252');
         $this->assertFalse($this->object->fetchServices()); //no items yet
-        $this->object->setItems(array(
-            array('OrderItemId' => '40525960574974', 'Quantity' => 1)
-        ));
+        $this->object->setItems([
+            ['OrderItemId' => '40525960574974', 'Quantity' => 1],
+        ]);
         $this->assertFalse($this->object->fetchServices()); //no address yet
         $this->object->setAddress($this->genAddress());
         $this->assertFalse($this->object->fetchServices()); //no dimensions yet
-        $this->object->setPackageDimensions(array('Length' => 5, 'Width' => 5, 'Height' => 5, 'Unit' => 'inches'));
+        $this->object->setPackageDimensions(['Length' => 5, 'Width' => 5, 'Height' => 5, 'Unit' => 'inches']);
         $this->assertFalse($this->object->fetchServices()); //no weight yet
         $this->object->setWeight(10, 'oz');
         $this->assertFalse($this->object->fetchServices()); //no delivery option yet
@@ -332,7 +346,8 @@ class AmazonMerchantServiceListTest extends PHPUnit_Framework_TestCase {
         return $this->object;
     }
 
-    public function testSetDetailsByCreator() {
+    public function testSetDetailsByCreator()
+    {
         $creator = new AmazonMerchantShipmentCreator('testStore', true, null);
 
         //no settings transferred yet
@@ -350,16 +365,17 @@ class AmazonMerchantServiceListTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals('903-1713775-3598252', $o2['ShipmentRequestDetails.AmazonOrderId']);
     }
 
-    public function testListFetchServicesByCreator() {
+    public function testListFetchServicesByCreator()
+    {
         $creator = new AmazonMerchantShipmentCreator('testStore', true, null);
-        $creator->setMock(true,'fetchMerchantServiceList.xml');
+        $creator->setMock(true, 'fetchMerchantServiceList.xml');
 
         $creator->setOrderId('903-1713775-3598252');
-        $creator->setItems(array(
-            array('OrderItemId' => '40525960574974', 'Quantity' => 1)
-        ));
+        $creator->setItems([
+            ['OrderItemId' => '40525960574974', 'Quantity' => 1],
+        ]);
         $creator->setAddress($this->genAddress());
-        $creator->setPackageDimensions(array('Length' => 5, 'Width' => 5, 'Height' => 5, 'Unit' => 'inches'));
+        $creator->setPackageDimensions(['Length' => 5, 'Width' => 5, 'Height' => 5, 'Unit' => 'inches']);
         $creator->setWeight(10, 'oz');
         $creator->setDeliveryOption('DeliveryConfirmationWithoutSignature');
         $creator->setCarrierWillPickUp();
@@ -383,8 +399,9 @@ class AmazonMerchantServiceListTest extends PHPUnit_Framework_TestCase {
      * Creates a basic adress with the minimum amount of information.
      * @return array
      */
-    private function genAddress() {
-        return array(
+    private function genAddress()
+    {
+        return [
             'Name' => 'Jane Smith',
             'AddressLine1' => '321 Main St',
             'City' => 'Seattle',
@@ -393,7 +410,7 @@ class AmazonMerchantServiceListTest extends PHPUnit_Framework_TestCase {
             'CountryCode' => 'US',
             'Phone' => '5551237777',
             'Email' => 'test@test.com',
-        );
+        ];
     }
 }
 
