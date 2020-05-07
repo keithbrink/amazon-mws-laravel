@@ -2,8 +2,8 @@
 
 use KeithBrink\AmazonMws\AmazonProductFeeEstimate;
 
-class AmazonProductFeeEstimateTest extends PHPUnit_Framework_TestCase {
-
+class AmazonProductFeeEstimateTest extends PHPUnit_Framework_TestCase
+{
     /**
      * @var AmazonProductFeeEstimate
      */
@@ -13,39 +13,41 @@ class AmazonProductFeeEstimateTest extends PHPUnit_Framework_TestCase {
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
      */
-    protected function setUp() {
+    protected function setUp()
+    {
         resetLog();
         $this->object = new AmazonProductFeeEstimate('testStore', true, null);
     }
 
-    public function testSetRequest() {
+    public function testSetRequest()
+    {
         //bad input
         $this->assertFalse($this->object->setRequests(null));
         $this->assertFalse($this->object->setRequests(123));
         $this->assertFalse($this->object->setRequests('word'));
-        $this->assertFalse($this->object->setRequests(array()));
-        $this->assertFalse($this->object->setRequests(array(123)));
-        $this->assertFalse($this->object->setRequests(array('word')));
+        $this->assertFalse($this->object->setRequests([]));
+        $this->assertFalse($this->object->setRequests([123]));
+        $this->assertFalse($this->object->setRequests(['word']));
 
-        $op = array();
-        $this->assertFalse($this->object->setRequests(array($op))); //missing keys
+        $op = [];
+        $this->assertFalse($this->object->setRequests([$op])); //missing keys
 
         $op['MarketplaceId'] = 'Marketplace';
-        $this->assertFalse($this->object->setRequests(array($op))); //still missing keys
+        $this->assertFalse($this->object->setRequests([$op])); //still missing keys
         $op['IdType'] = 'ASIN';
-        $this->assertFalse($this->object->setRequests(array($op))); //still missing keys
+        $this->assertFalse($this->object->setRequests([$op])); //still missing keys
         $op['IdValue'] = 'B00123ASIN';
-        $this->assertFalse($this->object->setRequests(array($op))); //still missing keys
-        $op['ListingPrice'] = array();
-        $this->assertFalse($this->object->setRequests(array($op))); //still missing keys
+        $this->assertFalse($this->object->setRequests([$op])); //still missing keys
+        $op['ListingPrice'] = [];
+        $this->assertFalse($this->object->setRequests([$op])); //still missing keys
         $op['ListingPrice']['CurrencyCode'] = 'USD';
-        $this->assertFalse($this->object->setRequests(array($op))); //still missing keys
+        $this->assertFalse($this->object->setRequests([$op])); //still missing keys
         $op['ListingPrice']['Value'] = '123';
-        $this->assertFalse($this->object->setRequests(array($op))); //still missing keys
+        $this->assertFalse($this->object->setRequests([$op])); //still missing keys
         $op['Identifier'] = 'TEST123';
-        $this->assertFalse($this->object->setRequests(array($op))); //still missing keys
+        $this->assertFalse($this->object->setRequests([$op])); //still missing keys
         $op['IsAmazonFulfilled'] = 'false';
-        $this->assertNull($this->object->setRequests(array($op))); //finally good
+        $this->assertNull($this->object->setRequests([$op])); //finally good
 
         //test doubles
         $op2 = $op;
@@ -53,7 +55,7 @@ class AmazonProductFeeEstimateTest extends PHPUnit_Framework_TestCase {
         $op2['Shipping']['CurrencyCode'] = 'USD';
         $op2['Shipping']['Value'] = '1.23';
         $op2['Points'] = '3';
-        $this->assertNull($this->object->setRequests(array($op, $op2)));
+        $this->assertNull($this->object->setRequests([$op, $op2]));
 
         //verify options were set correctly
         $o = $this->object->getOptions();
@@ -82,7 +84,7 @@ class AmazonProductFeeEstimateTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals('3', $o[$pre.'2.PriceToEstimateFees.Points.PointsNumber']);
 
         //setting again should reset
-        $this->assertNull($this->object->setRequests(array($op)));
+        $this->assertNull($this->object->setRequests([$op]));
         $o2 = $this->object->getOptions();
         $this->assertArrayHasKey($pre.'1.MarketplaceId', $o2);
         $this->assertArrayNotHasKey($pre.'2.MarketplaceId', $o2);
@@ -114,7 +116,8 @@ class AmazonProductFeeEstimateTest extends PHPUnit_Framework_TestCase {
      * @depends testSetRequest
      * @param AmazonProductFeeEstimate $o
      */
-    public function testFetchEstimates($o) {
+    public function testFetchEstimates($o)
+    {
         resetLog();
         $this->object->setMock(true, 'fetchEstimates.xml');
         $this->assertFalse($this->object->getEstimates()); //no data yet
@@ -133,10 +136,11 @@ class AmazonProductFeeEstimateTest extends PHPUnit_Framework_TestCase {
      * @depends testFetchEstimates
      * @param AmazonProductFeeEstimate $o
      */
-    public function testGetEstimates($o) {
+    public function testGetEstimates($o)
+    {
         $get = $o->getEstimates();
         $this->assertInternalType('array', $get);
-        $x = array();
+        $x = [];
         $x[0]['MarketplaceId'] = 'ATVPDKIKX0DER';
         $x[0]['IdType'] = 'ASIN';
         $x[0]['IdValue'] = 'B0002GTTRC';
@@ -207,7 +211,6 @@ class AmazonProductFeeEstimateTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals($x, $get);
         $this->assertFalse($this->object->getEstimates()); //not fetched yet for this object
     }
-
 }
 
 require_once __DIR__.'/../helperFunctions.php';
