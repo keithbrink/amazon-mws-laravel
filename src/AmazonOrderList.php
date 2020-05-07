@@ -58,6 +58,7 @@ class AmazonOrderList extends AmazonOrderCore implements Iterator
 
         $config_options = $this->getOptions();
         $this->options['MarketplaceId.Id.1'] = $config_options['MarketplaceId'];
+        unset($this->options['marketplaceId']);
 
         if (isset($THROTTLE_LIMIT_ORDERLIST)) {
             $this->throttleLimit = $THROTTLE_LIMIT_ORDERLIST;
@@ -78,7 +79,6 @@ class AmazonOrderList extends AmazonOrderCore implements Iterator
         parent::setConfig($config);
 
         $this->options['MarketplaceId.Id.1'] = $config['marketplaceId'];
-        unset($this->options['marketplaceId']);
     }
 
     /**
