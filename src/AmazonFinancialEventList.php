@@ -442,20 +442,20 @@ class AmazonFinancialEventList extends AmazonFinanceCore
             }
         }
         if (isset($xml->SAFETReimbursementEventList)) {
-            foreach($xml->SAFETReimbursementEventList->children() as $x) {
-                $temp = array();
-                $temp['PostedDate'] = (string)$x->PostedDate;
-                $temp['SAFETClaimId'] = (string)$x->SAFETClaimId;
-                $temp['Amount'] = (string)$x->ReimbursedAmount->CurrencyAmount;
-                $temp['CurrencyCode'] = (string)$x->ReimbursedAmount->CurrencyCode;
-                $temp['SAFETReimbursementItemList'] = array();
+            foreach ($xml->SAFETReimbursementEventList->children() as $x) {
+                $temp = [];
+                $temp['PostedDate'] = (string) $x->PostedDate;
+                $temp['SAFETClaimId'] = (string) $x->SAFETClaimId;
+                $temp['Amount'] = (string) $x->ReimbursedAmount->CurrencyAmount;
+                $temp['CurrencyCode'] = (string) $x->ReimbursedAmount->CurrencyCode;
+                $temp['SAFETReimbursementItemList'] = [];
                 if (isset($x->SAFETReimbursementItemList)) {
-                    foreach($x->SAFETReimbursementItemList->children() as $y) {
-                        if (!isset($y->ItemChargeList)) {
+                    foreach ($x->SAFETReimbursementItemList->children() as $y) {
+                        if (! isset($y->ItemChargeList)) {
                             continue;
                         }
-                        $ztemp = array();
-                        foreach($y->ItemChargeList->children() as $z) {
+                        $ztemp = [];
+                        foreach ($y->ItemChargeList->children() as $z) {
                             $ztemp['ItemChargeList'][] = $this->parseCharge($z);
                         }
                         $temp['SAFETReimbursementItemList'][] = $ztemp;
@@ -1070,10 +1070,11 @@ class AmazonFinancialEventList extends AmazonFinanceCore
      * </ul>
      * </ul>
      * </ul>
-     * @return array|boolean multi-dimensional array, or <b>FALSE</b> if list not filled yet
+     * @return array|bool multi-dimensional array, or <b>FALSE</b> if list not filled yet
      */
-    public function getSafetEvents(){
-        if (isset($this->list['SAFET'])){
+    public function getSafetEvents()
+    {
+        if (isset($this->list['SAFET'])) {
             return $this->list['SAFET'];
         } else {
             return false;
