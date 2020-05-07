@@ -78,6 +78,7 @@ class AmazonOrderList extends AmazonOrderCore implements Iterator
         parent::setConfig($config);
 
         $this->options['MarketplaceId.Id.1'] = $config['marketplaceId'];
+        unset($this->options['marketplaceId']);
     }
 
     /**
