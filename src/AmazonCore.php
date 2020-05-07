@@ -236,7 +236,7 @@ abstract class AmazonCore
 
         if (file_exists($url)) {
             try {
-                $this->log("Fetched Mock File: $url");
+                $this->log('Fetched Mock File: '.basename($url));
                 if ($load) {
                     $return = simplexml_load_file($url);
                 } else {
@@ -415,7 +415,7 @@ abstract class AmazonCore
     {
         $store = Config::get('amazon-mws.store');
 
-        if (array_key_exists($s, $store)) {
+        if ($store && array_key_exists($s, $store)) {
             if ($this->validateAndSetConfig($store[$s])) {
                 $this->storeName = $s;
             } else {

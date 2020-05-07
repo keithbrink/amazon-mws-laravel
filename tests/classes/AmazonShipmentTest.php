@@ -253,7 +253,7 @@ class AmazonShipmentTest extends PHPUnit_Framework_TestCase
         $o = clone $this->object;
         $o->usePlan($plan);
         resetLog();
-        $this->object = new AmazonShipment('testStore', true, null, __DIR__.'/../../test-config.php');
+        $this->object = new AmazonShipment('testStore', true, null);
         $this->assertFalse($this->object->createShipment()); //no ID set
 
         $this->object->setShipmentId('55');
@@ -313,7 +313,7 @@ class AmazonShipmentTest extends PHPUnit_Framework_TestCase
         $o = clone $this->object;
         $o->usePlan($plan);
         resetLog();
-        $this->object = new AmazonShipment('testStore', true, null, __DIR__.'/../../test-config.php');
+        $this->object = new AmazonShipment('testStore', true, null);
         $this->assertFalse($this->object->updateShipment()); //no ID set
 
         $this->object->setShipmentId('55');
