@@ -136,10 +136,13 @@ abstract class AmazonCore
      * from the list to use as a response. See <i>setMock</i> for more information.</p>
      * @param string $config [optional] <p>An alternate config file to set. Used for testing.</p>
      */
-    protected function __construct($s, $mock = false, $m = null)
+    protected function __construct($s, $mock = false, $m = null, $config = null)
     {
         $this->setStore($s);
         $this->setMock($mock, $m);
+        if ($config) {
+            $this->setConfig($config);
+        }
 
         $this->env = __DIR__.'/environment.php';
         $this->options['SignatureVersion'] = 2;
@@ -465,6 +468,8 @@ abstract class AmazonCore
         if (array_key_exists('muteLog', $config) && $config['muteLog']) {
             $this->muteLog = $config['muteLog'];
         }
+
+        $this->config = $config;
 
         return $valid;
     }
