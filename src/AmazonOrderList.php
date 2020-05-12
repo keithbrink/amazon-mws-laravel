@@ -479,7 +479,7 @@ class AmazonOrderList extends AmazonOrderCore implements Iterator
                 $this->mockFiles,
                 $this->config
             );
-
+            $this->orderList[$this->index]->mockIndex = $this->mockIndex;
             $this->orderList[$this->index] = $order->getData();
             $this->index++;
         }
