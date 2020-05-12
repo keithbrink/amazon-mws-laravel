@@ -58,7 +58,7 @@ class AmazonOrderList extends AmazonOrderCore implements Iterator
 
         $config_options = $this->getOptions();
         $this->options['MarketplaceId.Id.1'] = $config_options['MarketplaceId'];
-        unset($this->options['marketplaceId']);
+        unset($this->options['MarketplaceId']);
 
         if (isset($THROTTLE_LIMIT_ORDERLIST)) {
             $this->throttleLimit = $THROTTLE_LIMIT_ORDERLIST;
@@ -79,6 +79,7 @@ class AmazonOrderList extends AmazonOrderCore implements Iterator
         parent::setConfig($config);
 
         $this->options['MarketplaceId.Id.1'] = $config['marketplaceId'];
+        unset($this->options['MarketplaceId']);
     }
 
     /**
@@ -469,7 +470,8 @@ class AmazonOrderList extends AmazonOrderCore implements Iterator
             if ($key != 'Order') {
                 break;
             }
-            $this->orderList[$this->index] = new AmazonOrder(
+
+            $order = new AmazonOrder(
                 $this->storeName,
                 null,
                 $data,
@@ -477,7 +479,8 @@ class AmazonOrderList extends AmazonOrderCore implements Iterator
                 $this->mockFiles,
                 $this->config
             );
-            $this->orderList[$this->index]->mockIndex = $this->mockIndex;
+
+            $this->orderList[$this->index] = $order->getData();
             $this->index++;
         }
     }
