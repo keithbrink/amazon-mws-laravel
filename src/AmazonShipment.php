@@ -44,9 +44,9 @@ class AmazonShipment extends AmazonInboundCore
      * @param array|string $m      [optional] <p>The files (or file) to use in Mock Mode.</p>
      * @param string       $config [optional] <p>An alternate config file to set. Used for testing.</p>
      */
-    public function __construct($s, $mock = false, $m = null)
+    public function __construct($s, $mock = false, $m = null, $config = null)
     {
-        parent::__construct($s, $mock, $m);
+        parent::__construct($s, $mock, $m, $config);
 
         $this->options['InboundShipmentHeader.ShipmentStatus'] = 'WORKING';
     }
@@ -205,6 +205,22 @@ class AmazonShipment extends AmazonInboundCore
     {
         if (in_array($p, ['SELLER_LABEL', 'AMAZON_LABEL_ONLY', 'AMAZON_LABEL_PREFERRED'])) {
             $this->options['InboundShipmentHeader.LabelPrepPreference'] = $p;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Sets the intended box contents source for the shipment. (Optional).
+     *
+     * @param string $p <p>"NONE", "FEED", or "2D_BARCODE"</p>
+     *
+     * @return bool <b>FALSE</b> if improper input
+     */
+    public function setIntendedBoxContentsSource($str)
+    {
+        if (in_array($str, ['NONE', 'FEED', '2D_BARCODE'])) {
+            $this->options['InboundShipmentHeader.IntendedBoxContentsSource'] = $str;
         } else {
             return false;
         }

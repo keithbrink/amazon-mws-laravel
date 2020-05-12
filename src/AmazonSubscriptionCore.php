@@ -58,8 +58,8 @@ abstract class AmazonSubscriptionCore extends AmazonCore
             $this->throttleTime = $THROTTLE_TIME_SUBSCRIBE;
         }
 
-        if (isset($store[$this->storeName]['marketplaceId'])) {
-            $this->setMarketplace($store[$this->storeName]['marketplaceId']);
+        if (isset($s[$this->storeName]['marketplaceId'])) {
+            $this->setMarketplace($s[$this->storeName]['marketplaceId']);
         } else {
             $this->log('Marketplace ID is missing', 'Urgent');
         }
