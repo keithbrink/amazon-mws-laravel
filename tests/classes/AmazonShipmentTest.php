@@ -208,7 +208,7 @@ class AmazonShipmentTest extends PHPUnit_Framework_TestCase
 
     public function testUsePlan()
     {
-        $planner = new AmazonShipmentPlanner('testStore', true, 'fetchPlan.xml', __DIR__.'/../../test-config.php');
+        $planner = new AmazonShipmentPlanner('testStore', true, 'fetchPlan.xml');
         $a = [];
         $a['Name'] = 'Name';
         $a['AddressLine1'] = 'AddressLine1';
