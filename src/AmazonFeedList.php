@@ -432,7 +432,7 @@ class AmazonFeedList extends AmazonFeedsCore implements Iterator
     protected function prepareCount()
     {
         include $this->env;
-        
+
         $this->options['Action'] = 'GetFeedSubmissionCount';
         if (isset($THROTTLE_LIMIT_FEEDLIST)) {
             $this->throttleLimit = $THROTTLE_LIMIT_FEEDLIST;
