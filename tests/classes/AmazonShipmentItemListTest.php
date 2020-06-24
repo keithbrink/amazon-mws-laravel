@@ -103,9 +103,16 @@ class AmazonShipmentItemListTest extends PHPUnit_Framework_TestCase
     {
         resetLog();
         $this->object->setMock(true, 'fetchShipmentItems.xml'); //no token
-        $this->assertFalse($this->object->fetchItems()); //no ID set yet
+        $this->assertFalse($this->object->fetchItems()); //no ID and no time is set yet
 
-        $this->object->setShipmentId('123');
+        $this->object->setShipmentId('123'); //Only ID
+        $this->assertNull($this->object->fetchItems());
+
+        $this->object->setShipmentId(null); //Only Tine
+        $this->object->setTimeLimits(strtotime('now -9999 years'), strtotime('now'));
+        $this->assertNull($this->object->fetchItems());
+
+        $this->object->setShipmentId('123'); //Both (Time gets ignored)
         $this->assertNull($this->object->fetchItems());
 
         $o = $this->object->getOptions();
@@ -113,7 +120,8 @@ class AmazonShipmentItemListTest extends PHPUnit_Framework_TestCase
 
         $check = parseLog();
         $this->assertEquals('Single Mock File set: fetchShipmentItems.xml', $check[1]);
-        $this->assertEquals('Shipment ID must be set before requesting items!', $check[2]);
+        $this->assertEquals('Shipment ID or TimeLimits must be set before requesting items!', $check[2]);
+        $this->assertEquals('If Shipment ID  AND TimeLimits is set, TimeLimits get ignored!', $check[4]);
 
         $this->assertFalse($this->object->hasToken());
 
