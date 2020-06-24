@@ -179,7 +179,7 @@ class AmazonShipmentItemList extends AmazonInboundCore implements \Iterator
      */
     public function fetchItems($r = true)
     {
-        if (! array_key_exists('ShipmentId', $this->options) and !(array_key_exists('LastUpdatedAfter', $this->options) and array_key_exists('LastUpdatedBefore', $this->options))) {
+        if (! array_key_exists('ShipmentId', $this->options) and ! (array_key_exists('LastUpdatedAfter', $this->options) and array_key_exists('LastUpdatedBefore', $this->options))) {
             $this->log('Shipment ID or TimeLimits must be set before requesting items!', 'Warning');
 
             return false;
