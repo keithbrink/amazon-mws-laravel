@@ -179,8 +179,8 @@ class AmazonShipmentItemList extends AmazonInboundCore implements \Iterator
      */
     public function fetchItems($r = true)
     {
-        if (! array_key_exists('ShipmentId', $this->options)) {
-            $this->log('Shipment ID must be set before requesting items!', 'Warning');
+        if (array_key_exists('ShipmentId', $this->options) or array_key_exists('setTimeLimits', $this->options)) {
+            $this->log('Shipment ID or TimeLimits must be set before requesting items!', 'Warning');
 
             return false;
         }
