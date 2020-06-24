@@ -184,8 +184,8 @@ class AmazonShipmentItemList extends AmazonInboundCore implements \Iterator
 
             return false;
         }
-		
-		if (array_key_exists('ShipmentId', $this->options) and (array_key_exists('LastUpdatedAfter', $this->options) or array_key_exists('LastUpdatedBefore', $this->options))) {
+
+        if (array_key_exists('ShipmentId', $this->options) and (array_key_exists('LastUpdatedAfter', $this->options) or array_key_exists('LastUpdatedBefore', $this->options))) {
             $this->log('If Shipment ID  AND TimeLimits is set, TimeLimits get ignored!', 'Warning');
         }
 
