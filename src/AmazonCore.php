@@ -619,7 +619,7 @@ abstract class AmazonCore
         $this->throttleCount = 0;
         $response = $this->fetchURL($url, $param);
 
-        if (! isset($response['code'])) {
+        if (! isset($response['code']) || ! array_key_exists('code', $response)) {
             $this->log('Unrecognized response: '.print_r($response, true));
 
             return;
