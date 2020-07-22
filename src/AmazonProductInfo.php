@@ -456,4 +456,64 @@ class AmazonProductInfo extends AmazonProductsCore
             }
         }
     }
+    
+    /**
+     * Fetches product from Amazon.
+     *
+     * Submits a <i>GetMatchingProduct</i> request to Amazon. Amazon will send
+     * the list back as a response, which can be retrieved using <i>getProduct</i>.
+     *
+     * @return bool <b>FALSE</b> if something goes wrong
+     */
+    public function fetchMatchingProduct()
+    {
+        if (! array_key_exists('ASINList.ASIN.1', $this->options)) {
+            $this->log('Product IDs must be set in order to look them up!', 'Warning');
+
+            return false;
+        }
+
+        $this->prepareMatchingProduct();
+
+        $url = $this->urlbase . $this->urlbranch;
+
+        $query = $this->genQuery();
+
+        if ($this->mockMode) {
+            $xml = $this->fetchMockFile();
+        } else {
+            $response = $this->sendRequest($url, ['Post' => $query]);
+
+            if (! $this->checkResponse($response)) {
+                return false;
+            }
+
+            $xml = simplexml_load_string($response['body']);
+        }
+
+        $this->parseXML($xml);
+    }
+    
+    /**
+     * Sets up options for using <i>getMatchingProduct</i>.
+     *
+     * This changes key options for using <i>getMatchingProduct</i>.
+     * Please note: because the operation does not use all of the parameters,
+     * some of the parameters will be removed. The following parameters are removed:
+     * ItemCondition and ExcludeMe.
+     */
+    protected function prepareMatchingProduct()
+    {
+        include $this->env;
+        if (isset($THROTTLE_TIME_PRODUCTLIST)) {
+            $this->throttleTime = $THROTTLE_TIME_PRODUCTLIST;
+        }
+        $this->throttleGroup = 'GetMatchingProduct';
+        unset($this->options['ExcludeMe']);
+        unset($this->options['ItemCondition']);
+        if (array_key_exists('ASINList.ASIN.1', $this->options)) {
+            $this->options['Action'] = 'GetMatchingProduct';
+            $this->resetSKUs();
+        }
+    }
 }
