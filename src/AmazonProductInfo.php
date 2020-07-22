@@ -456,7 +456,7 @@ class AmazonProductInfo extends AmazonProductsCore
             }
         }
     }
-    
+
     /**
      * Fetches product from Amazon.
      *
@@ -475,7 +475,7 @@ class AmazonProductInfo extends AmazonProductsCore
 
         $this->prepareMatchingProduct();
 
-        $url = $this->urlbase . $this->urlbranch;
+        $url = $this->urlbase.$this->urlbranch;
 
         $query = $this->genQuery();
 
