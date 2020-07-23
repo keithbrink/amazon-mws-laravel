@@ -352,6 +352,8 @@ abstract class AmazonCore
         $r['headarray'] = [];
         $this->log('Returning Mock Response: '.$r['code']);
 
+        $this->rawResponses[] = $r;
+
         return $r;
     }
 
@@ -661,6 +663,35 @@ abstract class AmazonCore
         } else {
             return false;
         }
+    }
+
+    /**
+     * Attempt to parse the last error from Amazon
+     * Response arrays contain the following keys:
+     * <ul>
+     * <li><b>type</b> - The raw HTTP head, including the response code and content length</li>
+     * <li><b>code</b> - The raw HTTP body, which will almost always be in XML format</li>
+     * <li><b>message</b> - The HTTP response code extracted from the head for convenience</li>
+     * </ul>.
+     * @param int $i [optional] <p>If set, retrieves the specific response instead of the last one.
+     *               If the index for the response is not used, <b>FALSE</b> will be returned.</p>
+     *
+     * @return array associative array of the error or <b>FALSE</b> if not set yet
+     */
+    public function getLastError($i = null)
+    {
+        if (! isset($i)) {
+            $i = count($this->rawResponses) - 1;
+        }
+        if ($i >= 0 && isset($this->rawResponses[$i])) {
+            if (array_key_exists('body', $this->rawResponses[$i])) {
+                $xml = simplexml_load_string($this->rawResponses[$i]['body'])->Error;
+
+                return array_change_key_case((array) $xml);
+            }
+        }
+
+        return false;
     }
 
     /**

@@ -232,6 +232,26 @@ class AmazonFulfillmentOrderTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('Returning Mock Response: 404', $check[20]);
         $this->assertEquals('Bad Response! 404 Not Found: Not Found - Not Found', $check[21]);
     }
+
+    public function testErrorResponse()
+    {
+        $this->object->setMock(true, 400);
+        $this->object->setOrderId('777');
+        resetLog();
+        $this->assertFalse($this->object->cancelOrder());
+
+        $check = parseLog();
+        $this->assertEquals('Returning Mock Response: 400', $check[0]);
+        $this->assertEquals('Bad Response! 400 Bad Request: Bad Request - Bad Request', $check[1]);
+
+        $last_error = $this->object->getLastError();
+        $this->assertArrayHasKey('type', $last_error);
+        $this->assertArrayHasKey('code', $last_error);
+        $this->assertArrayHasKey('message', $last_error);
+        $this->assertEquals('Sender', $last_error['type']);
+        $this->assertEquals('Bad Request', $last_error['code']);
+        $this->assertEquals('Bad Request', $last_error['message']);
+    }
 }
 
 require_once __DIR__.'/../helperFunctions.php';
