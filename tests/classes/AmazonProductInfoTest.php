@@ -263,6 +263,48 @@ class AmazonProductInfoTest extends PHPUnit_Framework_TestCase
 
         $this->assertFalse($this->object->getProduct()); //not fetched yet for this object
     }
+
+    public function testFetchMatchingProduct()
+    {
+        resetLog();
+        $this->object->setMock(true, 'fetchMatchingProduct.xml');
+        $this->assertFalse($this->object->fetchMatchingProduct()); //no IDs yet
+        $this->object->setASINs('1933890517');
+        $this->assertNull($this->object->fetchMatchingProduct());
+        $o = $this->object->getOptions();
+        $this->assertEquals('GetMatchingProduct', $o['Action']);
+
+        $check = parseLog();
+        $this->assertEquals('Single Mock File set: fetchMatchingProduct.xml', $check[1]);
+        $this->assertEquals('Product IDs must be set in order to look them up!', $check[2]);
+
+        return $this->object;
+    }
+
+    /**
+     * @depends testFetchMatchingProduct
+     */
+    public function testGetMatchingProduct($o)
+    {
+        $product = $o->getProduct(0);
+        $this->assertInternalType('object', $product);
+
+        $list = $o->getProduct(null);
+        $this->assertInternalType('array', $list);
+        $this->assertArrayHasKey(0, $list);
+        $this->assertArrayNotHasKey(1, $list);
+        $this->assertEquals($product, $list[0]);
+
+        $default = $o->getProduct();
+        $this->assertEquals($list, $default);
+
+        $check = $product->getData();
+        $this->assertInternalType('array', $check);
+        $this->assertArrayHasKey('Identifiers', $check);
+        $this->assertArrayHasKey('SalesRankings', $check);
+
+        $this->assertFalse($this->object->getProduct()); //not fetched yet for this object
+    }
 }
 
 require_once __DIR__.'/../helperFunctions.php';
