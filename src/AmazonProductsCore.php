@@ -84,6 +84,9 @@ abstract class AmazonProductsCore extends AmazonCore
                 continue;
             }
             $attributes = (array) $x->attributes();
+            if (! isset($attributes['@attributes'])) {
+                $attributes['@attributes'] = [];
+            }
             if (isset($attributes['@attributes']['status']) && $attributes['@attributes']['status'] != 'Success') {
                 $this->log('Warning: product return was not successful', 'Warning');
             }
