@@ -83,8 +83,8 @@ abstract class AmazonProductsCore extends AmazonCore
             if ($x->getName() == 'ResponseMetadata') {
                 continue;
             }
-            $temp = (array) $x->attributes();
-            if (isset($temp['@attributes']['status']) && $temp['@attributes']['status'] != 'Success') {
+            $attributes = (array) $x->attributes();
+            if (isset($attributes['@attributes']['status']) && $attributes['@attributes']['status'] != 'Success') {
                 $this->log('Warning: product return was not successful', 'Warning');
             }
             if (isset($x->Products)) {
@@ -92,6 +92,7 @@ abstract class AmazonProductsCore extends AmazonCore
                     $this->productList[$this->index] = new AmazonProduct(
                         $this->storeName,
                         $z,
+                        $attributes['@attributes'],
                         $this->mockMode,
                         $this->mockFiles
                     );
@@ -102,6 +103,7 @@ abstract class AmazonProductsCore extends AmazonCore
                     $this->productList[$this->index] = new AmazonProduct(
                         $this->storeName,
                         $x,
+                        $attributes['@attributes'],
                         $this->mockMode,
                         $this->mockFiles
                     );
@@ -119,6 +121,7 @@ abstract class AmazonProductsCore extends AmazonCore
                             $this->productList[$this->index] = new AmazonProduct(
                                 $this->storeName,
                                 $z,
+                                $attributes['@attributes'],
                                 $this->mockMode,
                                 $this->mockFiles
                             );

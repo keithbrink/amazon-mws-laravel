@@ -19,7 +19,7 @@ class AmazonProductTest extends PHPUnit_Framework_TestCase
     protected function setUp()
     {
         resetLog();
-        $this->object = new AmazonProduct('testStore', null, true, null);
+        $this->object = new AmazonProduct('testStore', null, null, true, null);
     }
 
     /**
@@ -34,7 +34,7 @@ class AmazonProductTest extends PHPUnit_Framework_TestCase
     {
         $data = simplexml_load_file(__DIR__.'/../mocks/searchProducts.xml');
         $p = $data->ListMatchingProductsResult->Products->Product;
-        $obj = new AmazonProduct('testStore', $p, true, null);
+        $obj = new AmazonProduct('testStore', $p, null, true, null);
         $o = $obj->getData();
         $this->assertInternalType('array', $o);
         $this->assertFalse($this->object->getData());

@@ -40,17 +40,18 @@ class AmazonProduct extends AmazonProductsCore
      *
      * @param string           $s      <p>Name for the store you want to use.</p>
      * @param SimpleXMLElement $data   [optional] <p>XML data from Amazon to be parsed.</p>
+     * @param array            $attributes   [optional] <p>Additional attributes, specifically the original IDs from the the request</p>
      * @param bool             $mock   [optional] <p>This is a flag for enabling Mock Mode.
      *                                 This defaults to <b>FALSE</b>.</p>
      * @param array|string     $m      [optional] <p>The files (or file) to use in Mock Mode.</p>
      * @param string           $config [optional] <p>An alternate config file to set. Used for testing.</p>
      */
-    public function __construct($s, $data = null, $mock = false, $m = null, $config = null)
+    public function __construct($s, $data = null, $attributes = null, $mock = false, $m = null, $config = null)
     {
         parent::__construct($s, $mock, $m, $config);
 
         if ($data) {
-            $this->loadXML($data);
+            $this->loadXML($data, $attributes);
         }
 
         unset($this->productList);
@@ -60,10 +61,11 @@ class AmazonProduct extends AmazonProductsCore
      * Takes in XML data and converts it to an array for the object to use.
      *
      * @param SimpleXMLObject $xml <p>XML Product data from Amazon</p>
+     * @param array           $attributes   [optional] <p>Additional attributes, specifically the original IDs from the the request</p>
      *
      * @return bool <b>FALSE</b> if no XML data is found
      */
-    public function loadXML($xml)
+    public function loadXML($xml, $attributes = null)
     {
         if (! $xml) {
             return false;
@@ -80,6 +82,11 @@ class AmazonProduct extends AmazonProductsCore
 
         if ($xml->getName() != 'Product') {
             return;
+        }
+
+        // Attributes
+        if ($attributes) {
+            $this->data['Attributes'] = $attributes;
         }
 
         //Identifiers

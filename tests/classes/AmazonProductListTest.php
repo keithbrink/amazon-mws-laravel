@@ -63,10 +63,10 @@ class AmazonProductListTest extends PHPUnit_Framework_TestCase
         resetLog();
         $this->object->setMock(true, 'fetchProductList.xml');
         $this->assertFalse($this->object->fetchProductList()); //no IDs yet
-        $this->object->setProductIds('789');
+        $this->object->setProductIds('9781933988665');
 
         $this->assertFalse($this->object->fetchProductList()); //no ID type yet
-        $this->object->setIdType('ASIN');
+        $this->object->setIdType('ISBN');
 
         $this->assertNull($this->object->fetchProductList());
 
@@ -98,6 +98,7 @@ class AmazonProductListTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($list, $default);
 
         $check = $product->getData();
+        $this->assertArrayHasKey('Attributes', $check);
         $this->assertArrayHasKey('Identifiers', $check);
         $this->assertArrayHasKey('SalesRankings', $check);
 
