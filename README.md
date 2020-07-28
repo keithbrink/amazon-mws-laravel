@@ -64,7 +64,12 @@ function getAmazonOrders() {
         ); //no shipped or pending
     $amz->setUseToken(); //Amazon sends orders 100 at a time, but we want them all
     $amz->fetchOrders();
-    return $amz->getList();
+    
+    $orders = [];
+    foreach($amz->getList() as $order) {
+        $orders = $order->getData();
+    }
+    return $orders;
 }
 ```
 This example shows a function used to send a previously-created XML feed to Amazon to update Inventory numbers, and includes an example of a dynamic config:
