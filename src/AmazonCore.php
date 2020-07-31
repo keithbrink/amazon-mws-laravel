@@ -695,6 +695,9 @@ abstract class AmazonCore
     protected function sleep()
     {
         flush();
+        if($this->throttleCount > 1 && $this->throttleTime <= 600){
+            $this->throttleTime += rand(1,600);
+        }
         $s = ($this->throttleTime == 1) ? '' : 's';
         $this->log('Request was throttled, Sleeping for '.$this->throttleTime." second$s", 'Throttle');
         sleep($this->throttleTime);

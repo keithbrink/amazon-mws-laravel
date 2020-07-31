@@ -40,6 +40,7 @@ $THROTTLE_LIMIT_FINANCE = 30;
 $THROTTLE_TIME_FINANCE = 2;
 
 //Amazon Throttle Values in seconds
+$MAX_THROTTLE_TIME = 600;
 //Fetching Orders
 $THROTTLE_LIMIT_ORDER = 6;
 $THROTTLE_TIME_ORDER = 60;
