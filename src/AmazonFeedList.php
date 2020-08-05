@@ -309,7 +309,7 @@ class AmazonFeedList extends AmazonFeedsCore implements Iterator
         } else {
             $response = $this->sendRequest($url, ['Post'=>$query]);
 
-            if (!$this->checkResponse($response)) {
+            if (! $this->checkResponse($response)) {
                 return false;
             }
 
@@ -379,7 +379,7 @@ class AmazonFeedList extends AmazonFeedsCore implements Iterator
      */
     protected function parseXML($xml)
     {
-        if (!$xml) {
+        if (! $xml) {
             return false;
         }
         foreach ($xml->children() as $key=>$x) {
@@ -423,7 +423,7 @@ class AmazonFeedList extends AmazonFeedsCore implements Iterator
         } else {
             $response = $this->sendRequest($url, ['Post'=>$query]);
 
-            if (!$this->checkResponse($response)) {
+            if (! $this->checkResponse($response)) {
                 return false;
             }
 
@@ -480,7 +480,7 @@ class AmazonFeedList extends AmazonFeedsCore implements Iterator
         } else {
             $response = $this->sendRequest($url, ['Post'=>$query]);
 
-            if (!$this->checkResponse($response)) {
+            if (! $this->checkResponse($response)) {
                 return false;
             }
 

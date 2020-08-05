@@ -126,12 +126,12 @@ class AmazonShipment extends AmazonInboundCore
      */
     public function setAddress($a)
     {
-        if (!$a || is_null($a) || is_string($a)) {
+        if (! $a || is_null($a) || is_string($a)) {
             $this->log('Tried to set address to invalid values', 'Warning');
 
             return false;
         }
-        if (!array_key_exists('AddressLine1', $a)) {
+        if (! array_key_exists('AddressLine1', $a)) {
             $this->resetAddress();
             $this->log('Tried to set address with invalid array', 'Warning');
 
@@ -235,7 +235,7 @@ class AmazonShipment extends AmazonInboundCore
      */
     public function setItems($a)
     {
-        if (!$a || is_null($a) || is_string($a)) {
+        if (! $a || is_null($a) || is_string($a)) {
             $this->log('Tried to set Items to invalid values', 'Warning');
 
             return false;
@@ -254,7 +254,7 @@ class AmazonShipment extends AmazonInboundCore
                 if (array_key_exists('PrepDetailsList', $x) && is_array($x['PrepDetailsList'])) {
                     $j = 1;
                     foreach ($x['PrepDetailsList'] as $z) {
-                        if (!isset($z['PrepInstruction']) || !isset($z['PrepOwner'])) {
+                        if (! isset($z['PrepInstruction']) || ! isset($z['PrepOwner'])) {
                             $this->log('Tried to set invalid prep details for item', 'Warning');
                             continue;
                         }
@@ -354,22 +354,22 @@ class AmazonShipment extends AmazonInboundCore
      */
     public function createShipment()
     {
-        if (!isset($this->options['ShipmentId'])) {
+        if (! isset($this->options['ShipmentId'])) {
             $this->log('Shipment ID must be set in order to create it', 'Warning');
 
             return false;
         }
-        if (!array_key_exists('InboundShipmentHeader.ShipmentName', $this->options)) {
+        if (! array_key_exists('InboundShipmentHeader.ShipmentName', $this->options)) {
             $this->log('Header must be set in order to make a shipment', 'Warning');
 
             return false;
         }
-        if (!array_key_exists('InboundShipmentHeader.ShipFromAddress.Name', $this->options)) {
+        if (! array_key_exists('InboundShipmentHeader.ShipFromAddress.Name', $this->options)) {
             $this->log('Address must be set in order to make a shipment', 'Warning');
 
             return false;
         }
-        if (!array_key_exists('InboundShipmentItems.member.1.SellerSKU', $this->options)) {
+        if (! array_key_exists('InboundShipmentItems.member.1.SellerSKU', $this->options)) {
             $this->log('Items must be set in order to make a shipment', 'Warning');
 
             return false;
@@ -386,7 +386,7 @@ class AmazonShipment extends AmazonInboundCore
         } else {
             $response = $this->sendRequest($url, ['Post'=>$query]);
 
-            if (!$this->checkResponse($response)) {
+            if (! $this->checkResponse($response)) {
                 return false;
             }
 
@@ -415,22 +415,22 @@ class AmazonShipment extends AmazonInboundCore
      */
     public function updateShipment()
     {
-        if (!isset($this->options['ShipmentId'])) {
+        if (! isset($this->options['ShipmentId'])) {
             $this->log('Shipment ID must be set in order to update it', 'Warning');
 
             return false;
         }
-        if (!array_key_exists('InboundShipmentHeader.ShipmentName', $this->options)) {
+        if (! array_key_exists('InboundShipmentHeader.ShipmentName', $this->options)) {
             $this->log('Header must be set in order to update a shipment', 'Warning');
 
             return false;
         }
-        if (!array_key_exists('InboundShipmentHeader.ShipFromAddress.Name', $this->options)) {
+        if (! array_key_exists('InboundShipmentHeader.ShipFromAddress.Name', $this->options)) {
             $this->log('Address must be set in order to update a shipment', 'Warning');
 
             return false;
         }
-        if (!array_key_exists('InboundShipmentItems.member.1.SellerSKU', $this->options)) {
+        if (! array_key_exists('InboundShipmentItems.member.1.SellerSKU', $this->options)) {
             $this->log('Items must be set in order to update a shipment', 'Warning');
 
             return false;
@@ -447,7 +447,7 @@ class AmazonShipment extends AmazonInboundCore
         } else {
             $response = $this->sendRequest($url, ['Post'=>$query]);
 
-            if (!$this->checkResponse($response)) {
+            if (! $this->checkResponse($response)) {
                 return false;
             }
 

@@ -75,7 +75,7 @@ abstract class AmazonProductsCore extends AmazonCore
      */
     protected function parseXML($xml)
     {
-        if (!$xml) {
+        if (! $xml) {
             return false;
         }
 
@@ -141,7 +141,7 @@ abstract class AmazonProductsCore extends AmazonCore
      */
     public function getProduct($num = null)
     {
-        if (!isset($this->productList)) {
+        if (! isset($this->productList)) {
             return false;
         }
         if (is_numeric($num)) {

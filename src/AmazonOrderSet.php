@@ -129,7 +129,7 @@ class AmazonOrderSet extends AmazonOrderCore implements \Iterator
      */
     public function fetchOrders()
     {
-        if (!array_key_exists('AmazonOrderId.Id.1', $this->options)) {
+        if (! array_key_exists('AmazonOrderId.Id.1', $this->options)) {
             $this->log('Order IDs must be set in order to fetch them!', 'Warning');
 
             return false;
@@ -145,7 +145,7 @@ class AmazonOrderSet extends AmazonOrderCore implements \Iterator
         } else {
             $response = $this->sendRequest($url, ['Post' => $query]);
 
-            if (!$this->checkResponse($response)) {
+            if (! $this->checkResponse($response)) {
                 return false;
             }
 
@@ -166,7 +166,7 @@ class AmazonOrderSet extends AmazonOrderCore implements \Iterator
      */
     protected function parseXML($xml)
     {
-        if (!$xml) {
+        if (! $xml) {
             return false;
         }
         foreach ($xml->Orders->children() as $key => $order) {
@@ -200,10 +200,10 @@ class AmazonOrderSet extends AmazonOrderCore implements \Iterator
      */
     public function fetchItems($token = false, $i = null)
     {
-        if (!isset($this->orderList)) {
+        if (! isset($this->orderList)) {
             return false;
         }
-        if (!is_bool($token)) {
+        if (! is_bool($token)) {
             $token = false;
         }
         if (is_int($i)) {
