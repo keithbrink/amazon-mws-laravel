@@ -57,7 +57,7 @@ class AmazonOrderItemList extends AmazonOrderCore implements Iterator
         parent::__construct($s, $mock, $m);
         include $this->env;
 
-        if (!is_null($id)) {
+        if (! is_null($id)) {
             $this->setOrderId($id);
         }
 
@@ -147,7 +147,7 @@ class AmazonOrderItemList extends AmazonOrderCore implements Iterator
         } else {
             $response = $this->sendRequest($url, ['Post' => $query]);
 
-            if (!$this->checkResponse($response)) {
+            if (! $this->checkResponse($response)) {
                 return false;
             }
 
@@ -212,7 +212,7 @@ class AmazonOrderItemList extends AmazonOrderCore implements Iterator
      */
     protected function parseXML($xml)
     {
-        if (!$xml) {
+        if (! $xml) {
             return false;
         }
 
@@ -448,7 +448,7 @@ class AmazonOrderItemList extends AmazonOrderCore implements Iterator
      */
     public function getPercentShipped($i = 0)
     {
-        if (!$this->getQuantityOrdered($i) || !$this->getQuantityShipped($i)) {
+        if (! $this->getQuantityOrdered($i) || ! $this->getQuantityShipped($i)) {
             return false;
         }
         if (isset($this->itemList[$i]['QuantityOrdered']) && isset($this->itemList[$i]['QuantityShipped'])) {

@@ -232,7 +232,7 @@ class AmazonFeed extends AmazonFeedsCore
             $this->options['PurgeAndReplace'] = 'true';
             $this->throttleTime = 86400;
         } else {
-            if ($s == 'false' || (!$s && is_bool($s))) {
+            if ($s == 'false' || (! $s && is_bool($s))) {
                 $this->log('Purge mode deactivated.');
                 $this->options['PurgeAndReplace'] = 'false';
                 include $this->env;
@@ -257,12 +257,12 @@ class AmazonFeed extends AmazonFeedsCore
      */
     public function submitFeed()
     {
-        if (!$this->feedContent) {
+        if (! $this->feedContent) {
             $this->log("Feed's contents must be set in order to submit it!", 'Warning');
 
             return false;
         }
-        if (!array_key_exists('FeedType', $this->options)) {
+        if (! array_key_exists('FeedType', $this->options)) {
             $this->log('Feed Type must be set in order to submit a feed!', 'Warning');
 
             return false;
@@ -279,7 +279,7 @@ class AmazonFeed extends AmazonFeedsCore
             $headers = $this->genHeader();
             $response = $this->sendRequest("$url?$query", ['Header' => $headers, 'Post' => $this->feedContent]);
 
-            if (!$this->checkResponse($response)) {
+            if (! $this->checkResponse($response)) {
                 return false;
             }
 
@@ -306,7 +306,7 @@ class AmazonFeed extends AmazonFeedsCore
      */
     protected function parseXML($xml)
     {
-        if (!$xml) {
+        if (! $xml) {
             return false;
         }
 
@@ -348,7 +348,7 @@ class AmazonFeed extends AmazonFeedsCore
      */
     protected function checkResponse($r)
     {
-        if (!is_array($r)) {
+        if (! is_array($r)) {
             $this->log('No Response found', 'Warning');
 
             return false;

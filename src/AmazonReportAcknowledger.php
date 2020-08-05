@@ -153,7 +153,7 @@ class AmazonReportAcknowledger extends AmazonReportsCore implements \Iterator
      */
     public function acknowledgeReports()
     {
-        if (!array_key_exists('ReportIdList.Id.1', $this->options)) {
+        if (! array_key_exists('ReportIdList.Id.1', $this->options)) {
             $this->log('Report IDs must be set in order to acknowledge reports!', 'Warning');
 
             return false;
@@ -169,7 +169,7 @@ class AmazonReportAcknowledger extends AmazonReportsCore implements \Iterator
         } else {
             $response = $this->sendRequest($url, ['Post' => $query]);
 
-            if (!$this->checkResponse($response)) {
+            if (! $this->checkResponse($response)) {
                 return false;
             }
 
@@ -190,7 +190,7 @@ class AmazonReportAcknowledger extends AmazonReportsCore implements \Iterator
      */
     protected function parseXML($xml)
     {
-        if (!$xml) {
+        if (! $xml) {
             return false;
         }
         foreach ($xml->children() as $key => $x) {
@@ -224,7 +224,7 @@ class AmazonReportAcknowledger extends AmazonReportsCore implements \Iterator
      */
     public function getReportId($i = 0)
     {
-        if (!isset($this->reportList)) {
+        if (! isset($this->reportList)) {
             return false;
         }
         if (is_int($i)) {
@@ -245,7 +245,7 @@ class AmazonReportAcknowledger extends AmazonReportsCore implements \Iterator
      */
     public function getReportType($i = 0)
     {
-        if (!isset($this->reportList)) {
+        if (! isset($this->reportList)) {
             return false;
         }
         if (is_int($i)) {
@@ -266,7 +266,7 @@ class AmazonReportAcknowledger extends AmazonReportsCore implements \Iterator
      */
     public function getReportRequestId($i = 0)
     {
-        if (!isset($this->reportList)) {
+        if (! isset($this->reportList)) {
             return false;
         }
         if (is_int($i)) {
@@ -287,7 +287,7 @@ class AmazonReportAcknowledger extends AmazonReportsCore implements \Iterator
      */
     public function getAvailableDate($i = 0)
     {
-        if (!isset($this->reportList)) {
+        if (! isset($this->reportList)) {
             return false;
         }
         if (is_int($i)) {
@@ -308,7 +308,7 @@ class AmazonReportAcknowledger extends AmazonReportsCore implements \Iterator
      */
     public function getIsAcknowledged($i = 0)
     {
-        if (!isset($this->reportList)) {
+        if (! isset($this->reportList)) {
             return false;
         }
         if (is_int($i)) {
@@ -329,7 +329,7 @@ class AmazonReportAcknowledger extends AmazonReportsCore implements \Iterator
      */
     public function getAcknowledgedDate($i = 0)
     {
-        if (!isset($this->reportList)) {
+        if (! isset($this->reportList)) {
             return false;
         }
         if (is_int($i)) {
@@ -373,7 +373,7 @@ class AmazonReportAcknowledger extends AmazonReportsCore implements \Iterator
      */
     public function getList($i = null)
     {
-        if (!isset($this->reportList)) {
+        if (! isset($this->reportList)) {
             return false;
         }
         if (is_int($i)) {

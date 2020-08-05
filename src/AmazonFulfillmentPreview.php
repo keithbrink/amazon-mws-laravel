@@ -75,7 +75,7 @@ class AmazonFulfillmentPreview extends AmazonOutboundCore
      */
     public function setAddress($a)
     {
-        if (is_null($a) || is_string($a) || !$a) {
+        if (is_null($a) || is_string($a) || ! $a) {
             $this->log('Tried to set address to invalid values', 'Warning');
 
             return false;
@@ -147,7 +147,7 @@ class AmazonFulfillmentPreview extends AmazonOutboundCore
      */
     public function setItems($a)
     {
-        if (is_null($a) || is_string($a) || !$a) {
+        if (is_null($a) || is_string($a) || ! $a) {
             $this->log('Tried to set Items to invalid values', 'Warning');
 
             return false;
@@ -245,12 +245,12 @@ class AmazonFulfillmentPreview extends AmazonOutboundCore
      */
     public function fetchPreview()
     {
-        if (!array_key_exists('Address.Name', $this->options)) {
+        if (! array_key_exists('Address.Name', $this->options)) {
             $this->log('Address must be set in order to create a preview', 'Warning');
 
             return false;
         }
-        if (!array_key_exists('Items.member.1.SellerSKU', $this->options)) {
+        if (! array_key_exists('Items.member.1.SellerSKU', $this->options)) {
             $this->log('Items must be set in order to create a preview', 'Warning');
 
             return false;
@@ -266,7 +266,7 @@ class AmazonFulfillmentPreview extends AmazonOutboundCore
         } else {
             $response = $this->sendRequest($url, ['Post' => $query]);
 
-            if (!$this->checkResponse($response)) {
+            if (! $this->checkResponse($response)) {
                 return false;
             }
 
@@ -287,7 +287,7 @@ class AmazonFulfillmentPreview extends AmazonOutboundCore
      */
     protected function parseXML($xml)
     {
-        if (!$xml) {
+        if (! $xml) {
             return false;
         }
         $i = 0;
@@ -396,7 +396,7 @@ class AmazonFulfillmentPreview extends AmazonOutboundCore
      */
     public function getPreview($i = null)
     {
-        if (!isset($this->previewList)) {
+        if (! isset($this->previewList)) {
             return false;
         }
         if (is_numeric($i)) {
@@ -418,7 +418,7 @@ class AmazonFulfillmentPreview extends AmazonOutboundCore
      */
     public function getEstimatedWeight($i = 0, $mode = 0)
     {
-        if (!isset($this->previewList)) {
+        if (! isset($this->previewList)) {
             return false;
         }
         if (is_int($i) && $i >= 0) {

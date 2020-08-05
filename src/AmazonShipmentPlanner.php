@@ -76,7 +76,7 @@ class AmazonShipmentPlanner extends AmazonInboundCore implements \Iterator
      */
     public function setAddress($a)
     {
-        if (!$a || is_null($a) || is_string($a)) {
+        if (! $a || is_null($a) || is_string($a)) {
             $this->log('Tried to set address to invalid values', 'Warning');
 
             return false;
@@ -222,7 +222,7 @@ class AmazonShipmentPlanner extends AmazonInboundCore implements \Iterator
      */
     public function setItems($a)
     {
-        if (!$a || is_null($a) || is_string($a)) {
+        if (! $a || is_null($a) || is_string($a)) {
             $this->log('Tried to set Items to invalid values', 'Warning');
 
             return false;
@@ -245,7 +245,7 @@ class AmazonShipmentPlanner extends AmazonInboundCore implements \Iterator
                 if (array_key_exists('PrepDetailsList', $x) && is_array($x['PrepDetailsList'])) {
                     $j = 1;
                     foreach ($x['PrepDetailsList'] as $z) {
-                        if (!isset($z['PrepInstruction']) || !isset($z['PrepOwner'])) {
+                        if (! isset($z['PrepInstruction']) || ! isset($z['PrepOwner'])) {
                             $this->log('Tried to set invalid prep details for item', 'Warning');
                             continue;
                         }
@@ -291,12 +291,12 @@ class AmazonShipmentPlanner extends AmazonInboundCore implements \Iterator
      */
     public function fetchPlan()
     {
-        if (!array_key_exists('ShipFromAddress.Name', $this->options)) {
+        if (! array_key_exists('ShipFromAddress.Name', $this->options)) {
             $this->log('Address must be set in order to make a plan', 'Warning');
 
             return false;
         }
-        if (!array_key_exists('InboundShipmentPlanRequestItems.member.1.SellerSKU', $this->options)) {
+        if (! array_key_exists('InboundShipmentPlanRequestItems.member.1.SellerSKU', $this->options)) {
             $this->log('Items must be set in order to make a plan', 'Warning');
 
             return false;
@@ -312,7 +312,7 @@ class AmazonShipmentPlanner extends AmazonInboundCore implements \Iterator
         } else {
             $response = $this->sendRequest($url, ['Post'=>$query]);
 
-            if (!$this->checkResponse($response)) {
+            if (! $this->checkResponse($response)) {
                 return false;
             }
 
@@ -333,7 +333,7 @@ class AmazonShipmentPlanner extends AmazonInboundCore implements \Iterator
      */
     protected function parseXML($xml)
     {
-        if (!$xml) {
+        if (! $xml) {
             return false;
         }
         $i = 0;
@@ -383,7 +383,7 @@ class AmazonShipmentPlanner extends AmazonInboundCore implements \Iterator
      */
     public function getPlan($i = null)
     {
-        if (!isset($this->planList)) {
+        if (! isset($this->planList)) {
             return false;
         } else {
             if (is_int($i)) {
@@ -403,7 +403,7 @@ class AmazonShipmentPlanner extends AmazonInboundCore implements \Iterator
      */
     public function getShipmentIdList()
     {
-        if (!isset($this->planList)) {
+        if (! isset($this->planList)) {
             return false;
         }
         $a = [];
@@ -425,7 +425,7 @@ class AmazonShipmentPlanner extends AmazonInboundCore implements \Iterator
      */
     public function getShipmentId($i = 0)
     {
-        if (!isset($this->planList)) {
+        if (! isset($this->planList)) {
             return false;
         }
         if (is_int($i)) {

@@ -165,7 +165,7 @@ class AmazonReportScheduleList extends AmazonReportsCore implements \Iterator
         } else {
             $response = $this->sendRequest($url, ['Post' => $query]);
 
-            if (!$this->checkResponse($response)) {
+            if (! $this->checkResponse($response)) {
                 return false;
             }
 
@@ -231,7 +231,7 @@ class AmazonReportScheduleList extends AmazonReportsCore implements \Iterator
      */
     protected function parseXML($xml)
     {
-        if (!$xml) {
+        if (! $xml) {
             return false;
         }
         foreach ($xml->children() as $key => $x) {
@@ -270,7 +270,7 @@ class AmazonReportScheduleList extends AmazonReportsCore implements \Iterator
         } else {
             $response = $this->sendRequest($url, ['Post' => $query]);
 
-            if (!$this->checkResponse($response)) {
+            if (! $this->checkResponse($response)) {
                 return false;
             }
 
@@ -313,7 +313,7 @@ class AmazonReportScheduleList extends AmazonReportsCore implements \Iterator
      */
     public function getReportType($i = 0)
     {
-        if (!isset($this->scheduleList)) {
+        if (! isset($this->scheduleList)) {
             return false;
         }
         if (is_int($i)) {
@@ -334,7 +334,7 @@ class AmazonReportScheduleList extends AmazonReportsCore implements \Iterator
      */
     public function getSchedule($i = 0)
     {
-        if (!isset($this->scheduleList)) {
+        if (! isset($this->scheduleList)) {
             return false;
         }
         if (is_int($i)) {
@@ -355,7 +355,7 @@ class AmazonReportScheduleList extends AmazonReportsCore implements \Iterator
      */
     public function getScheduledDate($i = 0)
     {
-        if (!isset($this->scheduleList)) {
+        if (! isset($this->scheduleList)) {
             return false;
         }
         if (is_int($i)) {
@@ -382,7 +382,7 @@ class AmazonReportScheduleList extends AmazonReportsCore implements \Iterator
      */
     public function getList($i = null)
     {
-        if (!isset($this->scheduleList)) {
+        if (! isset($this->scheduleList)) {
             return false;
         }
         if (is_int($i)) {

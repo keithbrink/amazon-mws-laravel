@@ -28,7 +28,7 @@ function getLog()
  */
 function parseLog($s = null)
 {
-    if (!$s) {
+    if (! $s) {
         $s = getLog();
     }
     $temp = explode("\n", $s);

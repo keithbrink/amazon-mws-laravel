@@ -254,10 +254,10 @@ class AmazonShipmentList extends AmazonInboundCore implements \Iterator
      */
     public function fetchShipments($r = true)
     {
-        if (!array_key_exists(
+        if (! array_key_exists(
             'ShipmentStatusList.member.1',
             $this->options
-        ) && !array_key_exists('ShipmentIdList.member.1', $this->options)
+        ) && ! array_key_exists('ShipmentIdList.member.1', $this->options)
         ) {
             $this->log('Either status filter or ID filter must be set before requesting a list!', 'Warning');
 
@@ -276,7 +276,7 @@ class AmazonShipmentList extends AmazonInboundCore implements \Iterator
         } else {
             $response = $this->sendRequest($url, ['Post' => $query]);
 
-            if (!$this->checkResponse($response)) {
+            if (! $this->checkResponse($response)) {
                 return false;
             }
 
@@ -326,7 +326,7 @@ class AmazonShipmentList extends AmazonInboundCore implements \Iterator
      */
     protected function parseXML($xml)
     {
-        if (!$xml) {
+        if (! $xml) {
             return false;
         }
         foreach ($xml->ShipmentData->children() as $x) {
@@ -388,7 +388,7 @@ class AmazonShipmentList extends AmazonInboundCore implements \Iterator
      */
     public function fetchItems($i = null, $token = false)
     {
-        if (!isset($this->shipmentList)) {
+        if (! isset($this->shipmentList)) {
             return false;
         }
         if (is_null($i)) {
@@ -440,7 +440,7 @@ class AmazonShipmentList extends AmazonInboundCore implements \Iterator
      */
     public function getShipmentId($i = 0)
     {
-        if (!isset($this->shipmentList)) {
+        if (! isset($this->shipmentList)) {
             return false;
         }
         if (is_int($i)) {
@@ -461,7 +461,7 @@ class AmazonShipmentList extends AmazonInboundCore implements \Iterator
      */
     public function getShipmentName($i = 0)
     {
-        if (!isset($this->shipmentList)) {
+        if (! isset($this->shipmentList)) {
             return false;
         }
         if (is_int($i)) {
@@ -493,7 +493,7 @@ class AmazonShipmentList extends AmazonInboundCore implements \Iterator
      */
     public function getAddress($i = 0)
     {
-        if (!isset($this->shipmentList)) {
+        if (! isset($this->shipmentList)) {
             return false;
         }
         if (is_int($i)) {
@@ -514,7 +514,7 @@ class AmazonShipmentList extends AmazonInboundCore implements \Iterator
      */
     public function getDestinationFulfillmentCenterId($i = 0)
     {
-        if (!isset($this->shipmentList)) {
+        if (! isset($this->shipmentList)) {
             return false;
         }
         if (is_int($i)) {
@@ -535,7 +535,7 @@ class AmazonShipmentList extends AmazonInboundCore implements \Iterator
      */
     public function getLabelPrepType($i = 0)
     {
-        if (!isset($this->shipmentList)) {
+        if (! isset($this->shipmentList)) {
             return false;
         }
         if (is_int($i)) {
@@ -556,7 +556,7 @@ class AmazonShipmentList extends AmazonInboundCore implements \Iterator
      */
     public function getShipmentStatus($i = 0)
     {
-        if (!isset($this->shipmentList)) {
+        if (! isset($this->shipmentList)) {
             return false;
         }
         if (is_int($i)) {
@@ -577,7 +577,7 @@ class AmazonShipmentList extends AmazonInboundCore implements \Iterator
      */
     public function getIfCasesRequired($i = 0)
     {
-        if (!isset($this->shipmentList)) {
+        if (! isset($this->shipmentList)) {
             return false;
         }
         if (is_int($i)) {
@@ -608,7 +608,7 @@ class AmazonShipmentList extends AmazonInboundCore implements \Iterator
      */
     public function getShipment($i = null)
     {
-        if (!isset($this->shipmentList)) {
+        if (! isset($this->shipmentList)) {
             return false;
         }
         if (is_int($i)) {

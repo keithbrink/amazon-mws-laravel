@@ -82,7 +82,7 @@ class AmazonFeedTest extends PHPUnit_Framework_TestCase
         $ok = $this->object->setPurge($a);
         $this->assertEquals($b, $ok);
         $o = $this->object->getOptions();
-        if (!is_null($a)) {
+        if (! is_null($a)) {
             $this->assertArrayHasKey('PurgeAndReplace', $o);
             $this->assertEquals($c, $o['PurgeAndReplace']);
             $check = parseLog();
