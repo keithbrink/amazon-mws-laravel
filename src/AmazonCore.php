@@ -620,6 +620,7 @@ abstract class AmazonCore
 
         unset($this->options['Signature']);
         $this->options['Timestamp'] = $this->genTime();
+        uksort($this->options, 'strcmp');
         $this->options['Signature'] = $this->_signParameters($this->options, $secretKey);
 
         return $this->_getParametersAsString($this->options);
@@ -896,7 +897,6 @@ abstract class AmazonCore
         $uriencoded = implode('/', array_map([$this, '_urlencode'], explode('/', $uri)));
         $data .= $uriencoded;
         $data .= "\n";
-        uksort($parameters, 'strcmp');
         $data .= $this->_getParametersAsString($parameters);
 
         return $data;
