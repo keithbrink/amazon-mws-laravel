@@ -216,6 +216,62 @@ class AmazonTransportDocument extends AmazonInboundCore
     }
 
     /**
+     * Gets a document containing package labels for a shipment from Amazon using GetPackageLabels,
+     * a depreciated method.
+     *
+     * Submits a <i>GetPackageLabels</i> request to Amazon. In order to do this,
+     * a fulfillment shipment ID is required.
+     * Amazon will send a document back as a response, which can be retrieved using <i>getDocument</i>.
+     * @return bool <b>FALSE</b> if something goes wrong
+     */
+    public function fetchPackageLabelsOldMethod()
+    {
+        if (! array_key_exists('ShipmentId', $this->options)) {
+            $this->log('ShipmentId must be set in order to get package labels!', 'Warning');
+
+            return false;
+        }
+
+        $this->preparePackageOldMethod();
+
+        $url = $this->urlbase.$this->urlbranch;
+
+        $query = $this->genQuery();
+
+        $path = $this->options['Action'].'Result';
+        if ($this->mockMode) {
+            $xml = $this->fetchMockFile();
+        } else {
+            $response = $this->sendRequest($url, ['Post'=>$query]);
+
+            if (! $this->checkResponse($response)) {
+                return false;
+            }
+
+            $xml = simplexml_load_string($response['body']);
+        }
+
+        $this->parseXml($xml->$path);
+    }
+
+    /**
+     * Sets up options for using <i>fetchPackageLabelsOldMethod</i>.
+     *
+     * This changes key options for using <i>fetchPackageLabelsOldMethod</i>.
+     * Please note: because the operation does not use all of the parameters,
+     * some of the parameters will be removed. The following parameters are removed:
+     * number of pallets, package label IDs
+     * @see resetSendParams
+     */
+    protected function preparePackageOldMethod()
+    {
+        $this->throttleGroup = 'GetPackageLabels';
+        $this->options['Action'] = 'GetPackageLabels';
+        unset($this->options['NumberOfPallets']);
+        unset($this->options['PackageLabelsToPrint']);
+    }
+
+    /**
      * Gets a document containing package labels for a shipment from Amazon.
      *
      * Submits a <i>GetPalletLabels</i> request to Amazon. In order to do this,

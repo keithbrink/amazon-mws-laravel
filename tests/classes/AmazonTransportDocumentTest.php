@@ -95,6 +95,28 @@ class AmazonTransportDocumentTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(base64_encode('this is a checksum'), $this->object->getChecksum(true));
     }
 
+    public function testFetchPackageLabelsOldMethod()
+    {
+        //not fetched for the object yet
+        $this->assertFalse($this->object->getDocument());
+        $this->assertFalse($this->object->getChecksum());
+        resetLog();
+        $this->object->setMock(true, 'fetchPackageLabelsOldMethod.xml');
+        $this->assertFalse($this->object->fetchPackageLabelsOldMethod()); //no shipment ID set yet
+        $this->object->setShipmentId('77');
+        $this->assertNull($this->object->fetchPackageLabelsOldMethod());
+
+        $check = parseLog();
+        $this->assertEquals('Single Mock File set: fetchPackageLabelsOldMethod.xml', $check[1]);
+        $this->assertEquals('ShipmentId must be set in order to get package labels!', $check[2]);
+        $this->assertEquals('Fetched Mock File: fetchPackageLabelsOldMethod.xml', $check[3]);
+
+        $this->assertEquals('package test', $this->object->getDocument());
+        $this->assertEquals(base64_encode('package test'), $this->object->getDocument(true));
+        $this->assertEquals('this is a checksum', $this->object->getChecksum());
+        $this->assertEquals(base64_encode('this is a checksum'), $this->object->getChecksum(true));
+    }
+
     public function testFetchPalletLabels()
     {
         //not fetched for the object yet
