@@ -1,8 +1,9 @@
 <?php
 
 use KeithBrink\AmazonMws\AmazonFinancialGroupList;
+use PHPUnit\Framework\TestCase;
 
-class AmazonFinancialGroupListTest extends PHPUnit_Framework_TestCase
+class AmazonFinancialGroupListTest extends TestCase
 {
     /**
      * @var AmazonFinancialGroupList
@@ -13,7 +14,7 @@ class AmazonFinancialGroupListTest extends PHPUnit_Framework_TestCase
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         resetLog();
         $this->object = new AmazonFinancialGroupList('testStore', true, null);
@@ -120,7 +121,7 @@ class AmazonFinancialGroupListTest extends PHPUnit_Framework_TestCase
         $o = $this->object->getOptions();
         $this->assertEquals('ListFinancialEventGroups', $o['Action']);
         $r = $this->object->getGroups();
-        $this->assertInternalType('array', $r);
+        $this->assertIsArray($r);
         $this->assertCount(1, $r);
     }
 
@@ -143,7 +144,7 @@ class AmazonFinancialGroupListTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('ListFinancialEventGroupsByNextToken', $o['Action']);
         $this->assertArrayNotHasKey('FinancialEventGroupStartedAfter', $o);
         $r = $this->object->getGroups();
-        $this->assertInternalType('array', $r);
+        $this->assertIsArray($r);
         $this->assertCount(2, $r);
         $this->assertNotEquals($r[0], $r[1]);
     }
@@ -155,7 +156,7 @@ class AmazonFinancialGroupListTest extends PHPUnit_Framework_TestCase
     public function testGetGroups($o)
     {
         $list = $o->getGroups();
-        $this->assertInternalType('array', $list);
+        $this->assertIsArray($list);
         $this->assertCount(2, $list);
         $this->assertArrayHasKey(0, $list);
         $this->assertArrayHasKey(1, $list);

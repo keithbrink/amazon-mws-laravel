@@ -2,8 +2,9 @@
 
 use KeithBrink\AmazonMws\AmazonMerchantShipment;
 use KeithBrink\AmazonMws\AmazonMerchantShipmentCreator;
+use PHPUnit\Framework\TestCase;
 
-class AmazonMerchantShipmentTest extends PHPUnit_Framework_TestCase
+class AmazonMerchantShipmentTest extends TestCase
 {
     /**
      * @var AmazonMerchantShipmentCreator
@@ -14,7 +15,7 @@ class AmazonMerchantShipmentTest extends PHPUnit_Framework_TestCase
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         resetLog();
         $this->object = new AmazonMerchantShipmentCreator('testStore', true, null);
@@ -429,8 +430,8 @@ class AmazonMerchantShipmentTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('Single Mock File set: createMerchantShipment.xml', $check[1]);
 
         $ship = $this->object->getShipment();
-        $this->assertInternalType('object', $ship);
-        $this->assertRegexp('/AmazonMerchantShipment$/', get_class($ship));
+        $this->assertIsObject($ship);
+        $this->assertMatchesRegularExpression('/AmazonMerchantShipment$/', get_class($ship));
 
         return $ship;
     }
@@ -454,7 +455,7 @@ class AmazonMerchantShipmentTest extends PHPUnit_Framework_TestCase
     public function testGetItems($o)
     {
         $get = $o->getItems();
-        $this->assertInternalType('array', $get);
+        $this->assertIsArray($get);
         $this->assertCount(1, $get);
         $this->assertArrayHasKey(0, $get);
         $this->assertArrayHasKey('OrderItemId', $get[0]);
@@ -473,7 +474,7 @@ class AmazonMerchantShipmentTest extends PHPUnit_Framework_TestCase
     public function testGetShipFromAddress($o)
     {
         $get = $o->getShipFromAddress();
-        $this->assertInternalType('array', $get);
+        $this->assertIsArray($get);
         $x = [];
         $x['Name'] = 'John Doe';
         $x['AddressLine1'] = '1234 Westlake Ave';
@@ -496,7 +497,7 @@ class AmazonMerchantShipmentTest extends PHPUnit_Framework_TestCase
     public function testGetShipToAddress($o)
     {
         $get = $o->getShipToAddress();
-        $this->assertInternalType('array', $get);
+        $this->assertIsArray($get);
         $x = [];
         $x['Name'] = 'Jane Smith';
         $x['AddressLine1'] = '321 Main St';
@@ -519,7 +520,7 @@ class AmazonMerchantShipmentTest extends PHPUnit_Framework_TestCase
     public function testGetPackageDimensions($o)
     {
         $get = $o->getPackageDimensions();
-        $this->assertInternalType('array', $get);
+        $this->assertIsArray($get);
         $x = [];
         $x['Length'] = '5';
         $x['Width'] = '5';
@@ -538,7 +539,7 @@ class AmazonMerchantShipmentTest extends PHPUnit_Framework_TestCase
     public function testGetWeight($o)
     {
         $get = $o->getWeight();
-        $this->assertInternalType('array', $get);
+        $this->assertIsArray($get);
         $x = [];
         $x['Value'] = '10';
         $x['Unit'] = 'oz';
@@ -556,7 +557,7 @@ class AmazonMerchantShipmentTest extends PHPUnit_Framework_TestCase
     public function testGetInsurance($o)
     {
         $get = $o->getInsurance();
-        $this->assertInternalType('array', $get);
+        $this->assertIsArray($get);
         $x = [];
         $x['Amount'] = '10.00';
         $x['CurrencyCode'] = 'USD';
@@ -574,7 +575,7 @@ class AmazonMerchantShipmentTest extends PHPUnit_Framework_TestCase
     public function testGetService($o)
     {
         $get = $o->getService();
-        $this->assertInternalType('array', $get);
+        $this->assertIsArray($get);
         $x = [];
         $x['ShippingServiceName'] = 'FedEx Priority Overnight®';
         $x['CarrierName'] = 'FEDEX';
@@ -604,7 +605,7 @@ class AmazonMerchantShipmentTest extends PHPUnit_Framework_TestCase
     public function testGetServiceRate($o)
     {
         $get = $o->getServiceRate();
-        $this->assertInternalType('array', $get);
+        $this->assertIsArray($get);
         $x = [];
         $x['Amount'] = '27.81';
         $x['CurrencyCode'] = 'USD';
@@ -622,7 +623,7 @@ class AmazonMerchantShipmentTest extends PHPUnit_Framework_TestCase
     public function testGetDeclaredValue($o)
     {
         $get = $o->getDeclaredValue();
-        $this->assertInternalType('array', $get);
+        $this->assertIsArray($get);
         $x = [];
         $x['Amount'] = '10.00';
         $x['CurrencyCode'] = 'USD';
@@ -640,7 +641,7 @@ class AmazonMerchantShipmentTest extends PHPUnit_Framework_TestCase
     public function testGetLabelData($o)
     {
         $get = $o->getLabelData();
-        $this->assertInternalType('array', $get);
+        $this->assertIsArray($get);
         $x = [];
         $x['Dimensions'] = [];
         $x['Dimensions']['Length'] = '11.00000';
@@ -659,7 +660,7 @@ class AmazonMerchantShipmentTest extends PHPUnit_Framework_TestCase
         //try with raw file
         $x['FileContents']['Contents'] = 'H4sIAAAAAAAAAwvJyCxWAKJEhZLU4hIAMp96wA4AAAA=';
         $get2 = $o->getLabelData(true);
-        $this->assertInternalType('array', $get2);
+        $this->assertIsArray($get2);
         $this->assertEquals($x, $get2);
         $this->assertEquals($x['FileContents']['Contents'], $o->getLabelFileContents(true));
 

@@ -2,8 +2,9 @@
 
 use KeithBrink\AmazonMws\AmazonMerchantServiceList;
 use KeithBrink\AmazonMws\AmazonMerchantShipmentCreator;
+use PHPUnit\Framework\TestCase;
 
-class AmazonMerchantServiceListTest extends PHPUnit_Framework_TestCase
+class AmazonMerchantServiceListTest extends TestCase
 {
     /**
      * @var AmazonMerchantServiceList
@@ -14,7 +15,7 @@ class AmazonMerchantServiceListTest extends PHPUnit_Framework_TestCase
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         resetLog();
         $this->object = new AmazonMerchantServiceList('testStore', true, null);
@@ -326,9 +327,9 @@ class AmazonMerchantServiceListTest extends PHPUnit_Framework_TestCase
         $s = $this->object->getServiceList();
         $u = $this->object->getUnavailableCarrierList();
         $r = $this->object->getRestrictedCarrierList();
-        $this->assertInternalType('array', $s);
-        $this->assertInternalType('array', $u);
-        $this->assertInternalType('array', $r);
+        $this->assertIsArray($s);
+        $this->assertIsArray($u);
+        $this->assertIsArray($r);
         $this->assertNotEmpty($s);
         $this->assertNotEmpty($u);
         $this->assertNotEmpty($r);
@@ -340,7 +341,7 @@ class AmazonMerchantServiceListTest extends PHPUnit_Framework_TestCase
         $this->assertArrayHasKey(0, $r);
         $this->assertEquals('USPS', $u[0]);
         $this->assertEquals('ACME', $r[0]);
-        $this->assertInternalType('array', $s[0]);
+        $this->assertIsArray($s[0]);
         $this->assertNotEmpty($s[0]);
 
         return $this->object;
@@ -381,15 +382,15 @@ class AmazonMerchantServiceListTest extends PHPUnit_Framework_TestCase
         $creator->setCarrierWillPickUp();
 
         $list = $creator->fetchServices();
-        $this->assertInternalType('object', $list);
-        $this->assertRegexp('/AmazonMerchantServiceList$/', get_class($list));
+        $this->assertIsObject($list);
+        $this->assertMatchesRegularExpression('/AmazonMerchantServiceList$/', get_class($list));
 
         $s = $list->getServiceList();
         $u = $list->getUnavailableCarrierList();
         $r = $list->getRestrictedCarrierList();
-        $this->assertInternalType('array', $s);
-        $this->assertInternalType('array', $u);
-        $this->assertInternalType('array', $r);
+        $this->assertIsArray($s);
+        $this->assertIsArray($u);
+        $this->assertIsArray($r);
         $this->assertNotEmpty($s);
         $this->assertNotEmpty($u);
         $this->assertNotEmpty($r);

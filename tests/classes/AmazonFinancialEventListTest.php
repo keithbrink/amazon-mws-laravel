@@ -1,8 +1,9 @@
 <?php
 
 use KeithBrink\AmazonMws\AmazonFinancialEventList;
+use PHPUnit\Framework\TestCase;
 
-class AmazonFinancialEventListTest extends PHPUnit_Framework_TestCase
+class AmazonFinancialEventListTest extends TestCase
 {
     /**
      * @var AmazonFinancialEventList
@@ -13,7 +14,7 @@ class AmazonFinancialEventListTest extends PHPUnit_Framework_TestCase
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         resetLog();
         $this->object = new AmazonFinancialEventList('testStore', true, null);
@@ -119,7 +120,7 @@ class AmazonFinancialEventListTest extends PHPUnit_Framework_TestCase
         $o = $this->object->getOptions();
         $this->assertEquals('ListFinancialEvents', $o['Action']);
         $r = $this->object->getEvents();
-        $this->assertInternalType('array', $r);
+        $this->assertIsArray($r);
         foreach ($r as $x) {
             $this->assertCount(1, $x);
         }
@@ -144,7 +145,7 @@ class AmazonFinancialEventListTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('ListFinancialEventsByNextToken', $o['Action']);
         $this->assertArrayNotHasKey('FinancialEventGroupStartedAfter', $o);
         $r = $this->object->getEvents();
-        $this->assertInternalType('array', $r);
+        $this->assertIsArray($r);
         foreach ($r as $x) {
             $this->assertCount(2, $x);
         }
@@ -157,7 +158,7 @@ class AmazonFinancialEventListTest extends PHPUnit_Framework_TestCase
     public function testGetEvents($o)
     {
         $list = $o->getEvents();
-        $this->assertInternalType('array', $list);
+        $this->assertIsArray($list);
         $this->assertArrayHasKey('Shipment', $list);
         $this->assertEquals($o->getShipmentEvents(), $list['Shipment']);
         $this->assertArrayHasKey('Refund', $list);
@@ -288,7 +289,7 @@ class AmazonFinancialEventListTest extends PHPUnit_Framework_TestCase
         $x[1]['ShipmentItemList'][0]['CostOfPointsGranted']['CurrencyCode'] = 'USD';
 
         $list = $o->getShipmentEvents();
-        $this->assertInternalType('array', $list);
+        $this->assertIsArray($list);
         $this->assertEquals($x, $list);
         //not fetched yet for this object
         $this->assertFalse($this->object->getShipmentEvents());
@@ -386,7 +387,7 @@ class AmazonFinancialEventListTest extends PHPUnit_Framework_TestCase
         $x[1]['ShipmentItemAdjustmentList'][0]['CostOfPointsReturned']['CurrencyCode'] = 'USD';
 
         $list = $o->getRefundEvents();
-        $this->assertInternalType('array', $list);
+        $this->assertIsArray($list);
         $this->assertEquals($x, $list);
         //not fetched yet for this object
         $this->assertFalse($this->object->getRefundEvents());
@@ -432,7 +433,7 @@ class AmazonFinancialEventListTest extends PHPUnit_Framework_TestCase
         $x[1]['PostedDate'] = '2012-07-21T00:00:00Z';
 
         $list = $o->getGuaranteeClaimEvents();
-        $this->assertInternalType('array', $list);
+        $this->assertIsArray($list);
         $this->assertEquals($x, $list);
         //not fetched yet for this object
         $this->assertFalse($this->object->getGuaranteeClaimEvents());
@@ -467,7 +468,7 @@ class AmazonFinancialEventListTest extends PHPUnit_Framework_TestCase
         $x[1]['PostedDate'] = '2012-07-26T00:00:00Z';
 
         $list = $o->getChargebackEvents();
-        $this->assertInternalType('array', $list);
+        $this->assertIsArray($list);
         $this->assertEquals($x, $list);
         //not fetched yet for this object
         $this->assertFalse($this->object->getChargebackEvents());
@@ -513,7 +514,7 @@ class AmazonFinancialEventListTest extends PHPUnit_Framework_TestCase
         $x[1]['StoreName'] = 'TestStoreName2';
 
         $list = $o->getPayWithAmazonEvents();
-        $this->assertInternalType('array', $list);
+        $this->assertIsArray($list);
         $this->assertEquals($x, $list);
         //not fetched yet for this object
         $this->assertFalse($this->object->getPayWithAmazonEvents());
@@ -544,7 +545,7 @@ class AmazonFinancialEventListTest extends PHPUnit_Framework_TestCase
         $x[1]['ProviderStoreName'] = 'TestProviderStoreName2';
 
         $list = $o->getServiceProviderCreditEvents();
-        $this->assertInternalType('array', $list);
+        $this->assertIsArray($list);
         $this->assertEquals($x, $list);
         //not fetched yet for this object
         $this->assertFalse($this->object->getServiceProviderCreditEvents());
@@ -575,7 +576,7 @@ class AmazonFinancialEventListTest extends PHPUnit_Framework_TestCase
         $x[1]['MarketplaceName'] = 'amazon2.com';
 
         $list = $o->getRetrochargeEvents();
-        $this->assertInternalType('array', $list);
+        $this->assertIsArray($list);
         $this->assertEquals($x, $list);
         //not fetched yet for this object
         $this->assertFalse($this->object->getRetrochargeEvents());
@@ -626,7 +627,7 @@ class AmazonFinancialEventListTest extends PHPUnit_Framework_TestCase
         $x[1]['RentalReimbursement']['CurrencyCode'] = 'USD';
 
         $list = $o->getRentalTransactionEvents();
-        $this->assertInternalType('array', $list);
+        $this->assertIsArray($list);
         $this->assertEquals($x, $list);
         //not fetched yet for this object
         $this->assertFalse($this->object->getRentalTransactionEvents());
@@ -650,7 +651,7 @@ class AmazonFinancialEventListTest extends PHPUnit_Framework_TestCase
         $x[1]['ProductGroupList'][0] = 'gl_boxes';
 
         $list = $o->getPerformanceBondRefundEvents();
-        $this->assertInternalType('array', $list);
+        $this->assertIsArray($list);
         $this->assertEquals($x, $list);
         //not fetched yet for this object
         $this->assertFalse($this->object->getPerformanceBondRefundEvents());
@@ -686,7 +687,7 @@ class AmazonFinancialEventListTest extends PHPUnit_Framework_TestCase
         $x[1]['ASIN'] = 'BT0093F0N3';
 
         $list = $o->getServiceFeeEvents();
-        $this->assertInternalType('array', $list);
+        $this->assertIsArray($list);
         $this->assertEquals($x, $list);
         //not fetched yet for this object
         $this->assertFalse($this->object->getServiceFeeEvents());
@@ -741,7 +742,7 @@ class AmazonFinancialEventListTest extends PHPUnit_Framework_TestCase
         $x[1]['ChargeInstrumentList'][0]['CurrencyCode'] = 'USD';
 
         $list = $o->getDebtRecoveryEvents();
-        $this->assertInternalType('array', $list);
+        $this->assertIsArray($list);
         $this->assertEquals($x, $list);
         //not fetched yet for this object
         $this->assertFalse($this->object->getDebtRecoveryEvents());
@@ -762,7 +763,7 @@ class AmazonFinancialEventListTest extends PHPUnit_Framework_TestCase
         $x[1]['SourceBusinessEventType'] = 'LoanAdvance2';
 
         $list = $o->getLoanServicingEvents();
-        $this->assertInternalType('array', $list);
+        $this->assertIsArray($list);
         $this->assertEquals($x, $list);
         //not fetched yet for this object
         $this->assertFalse($this->object->getLoanServicingEvents());
@@ -810,7 +811,7 @@ class AmazonFinancialEventListTest extends PHPUnit_Framework_TestCase
         $x[1]['AdjustmentItemList'][0]['ASIN'] = 'BT0093BNNA';
 
         $list = $o->getAdjustmentEvents();
-        $this->assertInternalType('array', $list);
+        $this->assertIsArray($list);
         $this->assertEquals($x, $list);
         //not fetched yet for this object
         $this->assertFalse($this->object->getAdjustmentEvents());
@@ -845,7 +846,7 @@ class AmazonFinancialEventListTest extends PHPUnit_Framework_TestCase
         $x[1]['SAFETReimbursementItemList'][1]['ItemChargeList'][0]['CurrencyCode'] = 'USD';
 
         $list = $o->getSafetEvents();
-        $this->assertInternalType('array', $list);
+        $this->assertIsArray($list);
         $this->assertEquals($x, $list);
         //not fetched yet for this object
         $this->assertFalse($this->object->getSafetEvents());

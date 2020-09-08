@@ -1,8 +1,9 @@
 <?php
 
 use KeithBrink\AmazonMws\AmazonSubscriptionList;
+use PHPUnit\Framework\TestCase;
 
-class AmazonSubscriptionListTest extends PHPUnit_Framework_TestCase
+class AmazonSubscriptionListTest extends TestCase
 {
     /**
      * @var AmazonSubscriptionList
@@ -13,7 +14,7 @@ class AmazonSubscriptionListTest extends PHPUnit_Framework_TestCase
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         resetLog();
         $this->object = new AmazonSubscriptionList('testStore', true, null);
@@ -41,12 +42,12 @@ class AmazonSubscriptionListTest extends PHPUnit_Framework_TestCase
     public function testGetList($o)
     {
         $list = $o->getList();
-        $this->assertInternalType('array', $list);
+        $this->assertIsArray($list);
         $this->assertCount(2, $list);
         $this->assertEquals($o->getList(0), $list[0]);
         $this->assertEquals($o->getList(1), $list[1]);
-        $this->assertInternalType('array', $list[0]);
-        $this->assertInternalType('array', $list[1]);
+        $this->assertIsArray($list[0]);
+        $this->assertIsArray($list[1]);
     }
 
     /**

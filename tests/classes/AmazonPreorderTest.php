@@ -1,8 +1,9 @@
 <?php
 
 use KeithBrink\AmazonMws\AmazonPreorder;
+use PHPUnit\Framework\TestCase;
 
-class AmazonPreorderTest extends PHPUnit_Framework_TestCase
+class AmazonPreorderTest extends TestCase
 {
     /**
      * @var AmazonPreorder
@@ -13,7 +14,7 @@ class AmazonPreorderTest extends PHPUnit_Framework_TestCase
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         resetLog();
         $this->object = new AmazonPreorder('testStore', null, true, null);
@@ -45,7 +46,7 @@ class AmazonPreorderTest extends PHPUnit_Framework_TestCase
         $o = $this->object->getOptions();
         $this->assertArrayHasKey('NeedByDate', $o);
         $this->assertNotEmpty($o['NeedByDate']);
-        $this->assertRegExp('/[0-9]{4}-[0-9]{2}-[0-9]{2}/', $o['NeedByDate']);
+        $this->assertMatchesRegularExpression('/[0-9]{4}-[0-9]{2}-[0-9]{2}/', $o['NeedByDate']);
 
         $this->assertFalse($this->object->setNeedByDate([5])); //won't work for this
 

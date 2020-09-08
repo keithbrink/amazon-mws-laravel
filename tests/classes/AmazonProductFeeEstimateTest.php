@@ -1,8 +1,9 @@
 <?php
 
 use KeithBrink\AmazonMws\AmazonProductFeeEstimate;
+use PHPUnit\Framework\TestCase;
 
-class AmazonProductFeeEstimateTest extends PHPUnit_Framework_TestCase
+class AmazonProductFeeEstimateTest extends TestCase
 {
     /**
      * @var AmazonProductFeeEstimate
@@ -13,7 +14,7 @@ class AmazonProductFeeEstimateTest extends PHPUnit_Framework_TestCase
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         resetLog();
         $this->object = new AmazonProductFeeEstimate('testStore', true, null);
@@ -139,7 +140,7 @@ class AmazonProductFeeEstimateTest extends PHPUnit_Framework_TestCase
     public function testGetEstimates($o)
     {
         $get = $o->getEstimates();
-        $this->assertInternalType('array', $get);
+        $this->assertIsArray($get);
         $x = [];
         $x[0]['MarketplaceId'] = 'ATVPDKIKX0DER';
         $x[0]['IdType'] = 'ASIN';

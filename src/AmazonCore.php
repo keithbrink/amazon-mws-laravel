@@ -109,7 +109,7 @@ abstract class AmazonCore
     protected $storeName;
     protected $options;
     protected $secretKey;
-    protected $muteLog = false;
+    public $muteLog = false;
     protected $config;
     protected $mockMode = false;
     protected $mockFiles;

@@ -1,8 +1,9 @@
 <?php
 
 use KeithBrink\AmazonMws\AmazonSubscriptionDestinationList;
+use PHPUnit\Framework\TestCase;
 
-class AmazonSubscriptionDestinationListTest extends PHPUnit_Framework_TestCase
+class AmazonSubscriptionDestinationListTest extends TestCase
 {
     /**
      * @var AmazonSubscriptionDestinationList
@@ -13,7 +14,7 @@ class AmazonSubscriptionDestinationListTest extends PHPUnit_Framework_TestCase
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         resetLog();
         $this->object = new AmazonSubscriptionDestinationList('testStore', true, null);

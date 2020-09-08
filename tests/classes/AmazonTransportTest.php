@@ -1,8 +1,9 @@
 <?php
 
 use KeithBrink\AmazonMws\AmazonTransport;
+use PHPUnit\Framework\TestCase;
 
-class AmazonTransportTest extends PHPUnit_Framework_TestCase
+class AmazonTransportTest extends TestCase
 {
     /**
      * @var AmazonTransport
@@ -13,7 +14,7 @@ class AmazonTransportTest extends PHPUnit_Framework_TestCase
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         resetLog();
         $this->object = new AmazonTransport('testStore', null, true, null);
@@ -390,7 +391,7 @@ class AmazonTransportTest extends PHPUnit_Framework_TestCase
         $o = $this->object->getOptions();
         $op = $this->findOp($type, $partnered).'.FreightReadyDate';
         $this->assertArrayHasKey($op, $o);
-        $this->assertRegExp('/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/', $o[$op]);
+        $this->assertMatchesRegularExpression('/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/', $o[$op]);
 
         //invalid values
         $this->assertFalse($this->object->setReadyDate([5]));
@@ -875,7 +876,7 @@ class AmazonTransportTest extends PHPUnit_Framework_TestCase
     {
         foreach ([$psp, $nsp, $pltl, $nltl] as $o) {
             $info = $o->getContentInfo();
-            $this->assertInternalType('array', $info);
+            $this->assertIsArray($info);
             $this->assertNotEmpty($info);
             $this->assertArrayHasKey('SellerId', $info);
             $this->assertEquals($o->getSellerId(), $info['SellerId']);
@@ -908,10 +909,10 @@ class AmazonTransportTest extends PHPUnit_Framework_TestCase
         $nspDetails = $nsp->getContentDetails();
         $pltlDetails = $pltl->getContentDetails();
         $nltlDetails = $nltl->getContentDetails();
-        $this->assertInternalType('array', $pspDetails);
-        $this->assertInternalType('array', $nspDetails);
-        $this->assertInternalType('array', $pltlDetails);
-        $this->assertInternalType('array', $nltlDetails);
+        $this->assertIsArray($pspDetails);
+        $this->assertIsArray($nspDetails);
+        $this->assertIsArray($pltlDetails);
+        $this->assertIsArray($nltlDetails);
         $this->assertNotEmpty($pspDetails);
         $this->assertNotEmpty($nspDetails);
         $this->assertNotEmpty($pltlDetails);
@@ -1060,8 +1061,8 @@ class AmazonTransportTest extends PHPUnit_Framework_TestCase
     {
         $plist = $psp->getPackageList();
         $nlist = $nsp->getPackageList();
-        $this->assertInternalType('array', $plist);
-        $this->assertInternalType('array', $nlist);
+        $this->assertIsArray($plist);
+        $this->assertIsArray($nlist);
         $this->assertCount(3, $plist);
         $this->assertCount(1, $nlist);
 
@@ -1113,7 +1114,7 @@ class AmazonTransportTest extends PHPUnit_Framework_TestCase
     public function testGetPartneredEstimate($psp, $nsp, $pltl, $nltl)
     {
         $list = $psp->getPartneredEstimate();
-        $this->assertInternalType('array', $list);
+        $this->assertIsArray($list);
 
         //replica
         $x = [];
@@ -1186,7 +1187,7 @@ class AmazonTransportTest extends PHPUnit_Framework_TestCase
     public function testGetContact($psp, $nsp, $pltl, $nltl)
     {
         $list = $pltl->getContact();
-        $this->assertInternalType('array', $list);
+        $this->assertIsArray($list);
 
         //replicas
         $x = [];
@@ -1280,7 +1281,7 @@ class AmazonTransportTest extends PHPUnit_Framework_TestCase
     public function testGetPalletList($psp, $nsp, $pltl, $nltl)
     {
         $list = $pltl->getPalletList();
-        $this->assertInternalType('array', $list);
+        $this->assertIsArray($list);
         $this->assertCount(2, $list);
 
         //replica
@@ -1320,7 +1321,7 @@ class AmazonTransportTest extends PHPUnit_Framework_TestCase
     public function testGetTotalWeight($psp, $nsp, $pltl, $nltl)
     {
         $weight = $pltl->getTotalWeight();
-        $this->assertInternalType('array', $weight);
+        $this->assertIsArray($weight);
 
         //replica
         $x = [];
@@ -1350,7 +1351,7 @@ class AmazonTransportTest extends PHPUnit_Framework_TestCase
     public function testGetDeclaredValue($psp, $nsp, $pltl, $nltl)
     {
         $amount = $pltl->getDeclaredValue();
-        $this->assertInternalType('array', $amount);
+        $this->assertIsArray($amount);
 
         //replica
         $x = [];
@@ -1380,7 +1381,7 @@ class AmazonTransportTest extends PHPUnit_Framework_TestCase
     public function testGetCalculatedValue($psp, $nsp, $pltl, $nltl)
     {
         $amount = $pltl->getCalculatedValue();
-        $this->assertInternalType('array', $amount);
+        $this->assertIsArray($amount);
 
         //replica
         $x = [];

@@ -1,8 +1,9 @@
 <?php
 
 use KeithBrink\AmazonMws\AmazonRecommendationList;
+use PHPUnit\Framework\TestCase;
 
-class AmazonRecommendationListTest extends PHPUnit_Framework_TestCase
+class AmazonRecommendationListTest extends TestCase
 {
     /**
      * @var AmazonRecommendationList
@@ -13,7 +14,7 @@ class AmazonRecommendationListTest extends PHPUnit_Framework_TestCase
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         resetLog();
         $this->object = new AmazonRecommendationList('testStore', true, null);
@@ -117,7 +118,7 @@ class AmazonRecommendationListTest extends PHPUnit_Framework_TestCase
         $o = $this->object->getOptions();
         $this->assertEquals('ListRecommendations', $o['Action']);
         $r = $this->object->getLists();
-        $this->assertInternalType('array', $r);
+        $this->assertIsArray($r);
         $this->assertArrayHasKey('ListingQuality', $r);
         $this->assertArrayNotHasKey('Selection', $r);
         $this->assertEquals(1, count($r));
@@ -145,7 +146,7 @@ class AmazonRecommendationListTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('ListRecommendationsByNextToken', $o['Action']);
         $this->assertArrayNotHasKey('RecommendationCategory', $o);
         $r = $this->object->getLists();
-        $this->assertInternalType('array', $r);
+        $this->assertIsArray($r);
         $this->assertArrayHasKey('ListingQuality', $r);
         $this->assertArrayHasKey('Selection', $r);
         $this->assertEquals(2, count($r));
@@ -185,7 +186,7 @@ class AmazonRecommendationListTest extends PHPUnit_Framework_TestCase
     public function testGetLists($o)
     {
         $list = $o->getLists();
-        $this->assertInternalType('array', $list);
+        $this->assertIsArray($list);
         $this->assertArrayHasKey('Inventory', $list);
         $this->assertEquals($o->getInventoryList(), $list['Inventory']);
         $this->assertArrayHasKey('Selection', $list);
@@ -237,7 +238,7 @@ class AmazonRecommendationListTest extends PHPUnit_Framework_TestCase
         $x[1]['InboundQuantity'] = '300';
 
         $list = $o->getInventoryList();
-        $this->assertInternalType('array', $list);
+        $this->assertIsArray($list);
         $this->assertEquals($x, $list);
         //not fetched yet for this object
         $this->assertFalse($this->object->getInventoryList());
@@ -280,7 +281,7 @@ class AmazonRecommendationListTest extends PHPUnit_Framework_TestCase
         $x[1]['NumberOfOffers'] = '2';
 
         $list = $o->getSelectionList();
-        $this->assertInternalType('array', $list);
+        $this->assertIsArray($list);
         $this->assertEquals($x, $list);
         //not fetched yet for this object
         $this->assertFalse($this->object->getSelectionList());
@@ -322,7 +323,7 @@ class AmazonRecommendationListTest extends PHPUnit_Framework_TestCase
         $x[1]['NumberOfOffers'] = '5';
 
         $list = $o->getPricingList();
-        $this->assertInternalType('array', $list);
+        $this->assertIsArray($list);
         $this->assertEquals($x, $list);
         //not fetched yet for this object
         $this->assertFalse($this->object->getPricingList());
@@ -370,7 +371,7 @@ class AmazonRecommendationListTest extends PHPUnit_Framework_TestCase
         $x[1]['NumberOfCustomerReviews'] = '5';
 
         $list = $o->getFulfillmentList();
-        $this->assertInternalType('array', $list);
+        $this->assertIsArray($list);
         $this->assertEquals($x, $list);
         //not fetched yet for this object
         $this->assertFalse($this->object->getFulfillmentList());
@@ -403,7 +404,7 @@ class AmazonRecommendationListTest extends PHPUnit_Framework_TestCase
         $x[1]['ItemIdentifier']['UPC'] = '';
 
         $list = $o->getListingList();
-        $this->assertInternalType('array', $list);
+        $this->assertIsArray($list);
         $this->assertEquals($x, $list);
         //not fetched yet for this object
         $this->assertFalse($this->object->getListingList());
@@ -449,7 +450,7 @@ class AmazonRecommendationListTest extends PHPUnit_Framework_TestCase
         $x[1]['RecommendationId'] = '123-global2';
 
         $list = $o->getGlobalSellingList();
-        $this->assertInternalType('array', $list);
+        $this->assertIsArray($list);
         $this->assertEquals($x, $list);
         //not fetched yet for this object
         $this->assertFalse($this->object->getGlobalSellingList());
@@ -489,7 +490,7 @@ class AmazonRecommendationListTest extends PHPUnit_Framework_TestCase
         $x[1]['SalesForTheLast30Days'] = '5';
 
         $list = $o->getAdvertisingList();
-        $this->assertInternalType('array', $list);
+        $this->assertIsArray($list);
         $this->assertEquals($x, $list);
         //not fetched yet for this object
         $this->assertFalse($this->object->getAdvertisingList());
@@ -502,7 +503,7 @@ class AmazonRecommendationListTest extends PHPUnit_Framework_TestCase
     public function testGetLastUpdateTimes($o)
     {
         $list = $o->getLastUpdateTimes();
-        $this->assertInternalType('array', $list);
+        $this->assertIsArray($list);
         $this->assertArrayHasKey('Inventory', $list);
         $this->assertEquals($o->getInventoryLastUpdateTime(), $list['Inventory']);
         $this->assertArrayHasKey('Selection', $list);
