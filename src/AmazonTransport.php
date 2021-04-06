@@ -349,7 +349,7 @@ class AmazonTransport extends AmazonInboundCore
 
             return false;
         }
-        if (is_numeric($n) && $n > 1) {
+        if (is_numeric($n) && $n >= 1) {
             $this->options[$op.'.BoxCount'] = $n;
         } else {
             return false;
