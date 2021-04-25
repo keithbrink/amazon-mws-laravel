@@ -1,12 +1,12 @@
 {
-    "name": "keithbrink/amazon-mws-laravel",
+    "name": "martinperiphore/amazon-mws-laravel",
     "description": "A Laravel library for Amazon's MWS web services, supporting Laravel 5-7+",
     "license": "Apache-2.0",
     "keywords": ["API", "Amazon", "PHP", "MWS", "Laravel"],
     "authors": [
         {
-            "name": "Keith Brink",
-            "email": "keith.brink@gmail.com"
+            "name": "Martin Ray Gales",
+            "email": "martinperiphore@gmail.com"
         }
     ],
     "require": {
@@ -25,13 +25,13 @@
     },
     "autoload": {
         "psr-4": {
-            "KeithBrink\\AmazonMws\\": "src"
+            "Martinperiphore\\AmazonMws\\": "src"
         }
     },
     "extra": {
         "laravel": {
             "providers": [
-                "KeithBrink\\AmazonMws\\MwsServiceProvider"
+                "Martinperiphore\\AmazonMws\\MwsServiceProvider"
             ]
         }
     },

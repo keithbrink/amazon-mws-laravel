@@ -11,11 +11,9 @@ This is __NOT__ for Amazon Web Services (AWS) - Cloud Computing Services.
 
 ## Installation
 
-Install the package using `composer require keithbrink/amazon-mws-laravel`.
+Install the package using `composer require martinperiphore/amazon-mws-laravel`.
 
-For Laravel 5.5 and up, the package will be automatically discovered. For other versions, you can add `KeithBrink\AmazonMws\MwsServiceProvider` to your `config/app.php` file.
 
-Run `php artisan vendor:publish keithbrink/amazon-mws-laravel` to add the `amazon-mws.php` config file to your config directory.
 
 ## Usage
 
