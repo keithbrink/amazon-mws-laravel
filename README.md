@@ -51,7 +51,7 @@ Here are a couple of examples of the library in use.
 
 Here is an example of a function used to get all warehouse-fulfilled orders from Amazon updated in the past 24 hours:
 ```php
-use KeithBrink\AmazonMws\AmazonOrderList;
+use Martinperiphore\AmazonMws\AmazonOrderList;
 
 function getAmazonOrders() {
     $amz = new AmazonOrderList("myStore"); //store name matches the array key in the config file
@@ -72,7 +72,7 @@ function getAmazonOrders() {
 ```
 This example shows a function used to send a previously-created XML feed to Amazon to update Inventory numbers, and includes an example of a dynamic config:
 ```php
-use KeithBrink\AmazonMws\AmazonFeed;
+use Martinperiphore\AmazonMws\AmazonFeed;
 
 function sendInventoryFeed($feed) {
     $config = [
