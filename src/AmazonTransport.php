@@ -35,6 +35,7 @@ use Exception;
 class AmazonTransport extends AmazonInboundCore
 {
     protected $status;
+
     protected $contents;
 
     /**
@@ -134,15 +135,15 @@ class AmazonTransport extends AmazonInboundCore
         $op = 'TransportDetails.';
         if ($this->options['ShipmentType'] == 'SP') {
             if ($this->options['IsPartnered'] == 'true') {
-                return $op.'PartneredSmallParcelData';
+                return $op . 'PartneredSmallParcelData';
             } else {
-                return $op.'NonPartneredSmallParcelData';
+                return $op . 'NonPartneredSmallParcelData';
             }
         } elseif ($this->options['ShipmentType'] == 'LTL') {
             if ($this->options['IsPartnered'] == 'true') {
-                return $op.'PartneredLtlData';
+                return $op . 'PartneredLtlData';
             } else {
-                return $op.'NonPartneredLtlData';
+                return $op . 'NonPartneredLtlData';
             }
         }
         $this->log('Unknown shipment type, cannot set transport details!', 'Warning');
@@ -170,7 +171,7 @@ class AmazonTransport extends AmazonInboundCore
             return false;
         }
         if (is_string($s) && $s) {
-            $this->options[$op.'.CarrierName'] = $s;
+            $this->options[$op . '.CarrierName'] = $s;
         } else {
             return false;
         }
@@ -235,20 +236,20 @@ class AmazonTransport extends AmazonInboundCore
         $this->resetPackages();
         $i = 1;
         foreach ($a as $x) {
-            $prefix = $op.'.PackageList.member.'.$i;
+            $prefix = $op . '.PackageList.member.' . $i;
             if (is_array($x)) {
                 if (isset($x['Length']) && isset($x['Width']) && isset($x['Height'])) {
-                    $this->options[$prefix.'.Dimensions.Length'] = $x['Length'];
-                    $this->options[$prefix.'.Dimensions.Width'] = $x['Width'];
-                    $this->options[$prefix.'.Dimensions.Height'] = $x['Height'];
-                    $this->options[$prefix.'.Dimensions.Unit'] = $du;
+                    $this->options[$prefix . '.Dimensions.Length'] = $x['Length'];
+                    $this->options[$prefix . '.Dimensions.Width'] = $x['Width'];
+                    $this->options[$prefix . '.Dimensions.Height'] = $x['Height'];
+                    $this->options[$prefix . '.Dimensions.Unit'] = $du;
                 }
                 if (isset($x['Weight'])) {
-                    $this->options[$prefix.'.Weight.Value'] = $x['Weight'];
-                    $this->options[$prefix.'.Weight.Unit'] = $wu;
+                    $this->options[$prefix . '.Weight.Value'] = $x['Weight'];
+                    $this->options[$prefix . '.Weight.Unit'] = $wu;
                 }
                 if (isset($x['TrackingId'])) {
-                    $this->options[$prefix.'.TrackingId'] = $x['TrackingId'];
+                    $this->options[$prefix . '.TrackingId'] = $x['TrackingId'];
                 }
                 $i++;
             } else {
@@ -294,7 +295,7 @@ class AmazonTransport extends AmazonInboundCore
             return false;
         }
         if (is_string($s) && $s) {
-            $this->options[$op.'.ProNumber'] = $s;
+            $this->options[$op . '.ProNumber'] = $s;
         } else {
             return false;
         }
@@ -322,10 +323,10 @@ class AmazonTransport extends AmazonInboundCore
             return false;
         }
         if ($n && $p && $e && $f && is_string($n) && is_string($p) && is_string($e) && is_string($f)) {
-            $this->options[$op.'.Contact.Name'] = $n;
-            $this->options[$op.'.Contact.Phone'] = $p;
-            $this->options[$op.'.Contact.Email'] = $e;
-            $this->options[$op.'.Contact.Fax'] = $f;
+            $this->options[$op . '.Contact.Name'] = $n;
+            $this->options[$op . '.Contact.Phone'] = $p;
+            $this->options[$op . '.Contact.Email'] = $e;
+            $this->options[$op . '.Contact.Fax'] = $f;
         } else {
             return false;
         }
@@ -350,7 +351,7 @@ class AmazonTransport extends AmazonInboundCore
             return false;
         }
         if (is_numeric($n) && $n >= 1) {
-            $this->options[$op.'.BoxCount'] = $n;
+            $this->options[$op . '.BoxCount'] = $n;
         } else {
             return false;
         }
@@ -376,7 +377,7 @@ class AmazonTransport extends AmazonInboundCore
             return false;
         }
         if (is_numeric($n) && $n) {
-            $this->options[$op.'.SellerFreightClass'] = $n;
+            $this->options[$op . '.SellerFreightClass'] = $n;
         } else {
             return false;
         }
@@ -422,10 +423,10 @@ class AmazonTransport extends AmazonInboundCore
             return false;
         }
         try {
-            $this->options[$op.'.FreightReadyDate'] = strstr($this->genTime($d), 'T', true);
+            $this->options[$op . '.FreightReadyDate'] = strstr($this->genTime($d), 'T', true);
         } catch (Exception $e) {
-            unset($this->options[$op.'.FreightReadyDate']);
-            $this->log('Error: '.$e->getMessage(), 'Warning');
+            unset($this->options[$op . '.FreightReadyDate']);
+            $this->log('Error: ' . $e->getMessage(), 'Warning');
 
             return false;
         }
@@ -467,23 +468,23 @@ class AmazonTransport extends AmazonInboundCore
         $this->resetPallets();
         $i = 1;
         foreach ($a as $x) {
-            $prefix = $op.'.PalletList.member.'.$i;
+            $prefix = $op . '.PalletList.member.' . $i;
             if (is_array($x)) {
                 if (isset($x['Length']) && isset($x['Width']) && isset($x['Height'])) {
-                    $this->options[$prefix.'.Dimensions.Length'] = $x['Length'];
-                    $this->options[$prefix.'.Dimensions.Width'] = $x['Width'];
-                    $this->options[$prefix.'.Dimensions.Height'] = $x['Height'];
-                    $this->options[$prefix.'.Dimensions.Unit'] = $du;
+                    $this->options[$prefix . '.Dimensions.Length'] = $x['Length'];
+                    $this->options[$prefix . '.Dimensions.Width'] = $x['Width'];
+                    $this->options[$prefix . '.Dimensions.Height'] = $x['Height'];
+                    $this->options[$prefix . '.Dimensions.Unit'] = $du;
                 }
                 if (isset($x['Weight'])) {
-                    $this->options[$prefix.'.Weight.Value'] = $x['Weight'];
-                    $this->options[$prefix.'.Weight.Unit'] = $wu;
+                    $this->options[$prefix . '.Weight.Value'] = $x['Weight'];
+                    $this->options[$prefix . '.Weight.Unit'] = $wu;
                 }
                 if (isset($x['IsStacked'])) {
                     if ($x['IsStacked']) {
-                        $this->options[$prefix.'.IsStacked'] = 'true';
+                        $this->options[$prefix . '.IsStacked'] = 'true';
                     } else {
-                        $this->options[$prefix.'.IsStacked'] = 'false';
+                        $this->options[$prefix . '.IsStacked'] = 'false';
                     }
                 }
                 $i++;
@@ -530,8 +531,8 @@ class AmazonTransport extends AmazonInboundCore
             return false;
         }
         if (! empty($v) && ! empty($u) && is_numeric($v) && ($u == 'pounds' || $u == 'kilograms')) {
-            $this->options[$op.'.TotalWeight.Value'] = $v;
-            $this->options[$op.'.TotalWeight.Unit'] = $u;
+            $this->options[$op . '.TotalWeight.Value'] = $v;
+            $this->options[$op . '.TotalWeight.Unit'] = $u;
         } else {
             return false;
         }
@@ -557,8 +558,8 @@ class AmazonTransport extends AmazonInboundCore
             return false;
         }
         if (! empty($v) && ! empty($c) && is_numeric($v) && is_string($c) && ! is_numeric($c)) {
-            $this->options[$op.'.SellerDeclaredValue.Value'] = $v;
-            $this->options[$op.'.SellerDeclaredValue.CurrencyCode'] = $c;
+            $this->options[$op . '.SellerDeclaredValue.Value'] = $v;
+            $this->options[$op . '.SellerDeclaredValue.CurrencyCode'] = $c;
         } else {
             return false;
         }
@@ -612,11 +613,11 @@ class AmazonTransport extends AmazonInboundCore
 
         $this->prepareSend();
 
-        $url = $this->urlbase.$this->urlbranch;
+        $url = $this->urlbase . $this->urlbranch;
 
         $query = $this->genQuery();
 
-        $path = $this->options['Action'].'Result';
+        $path = $this->options['Action'] . 'Result';
         if ($this->mockMode) {
             $xml = $this->fetchMockFile();
         } else {
@@ -652,17 +653,17 @@ class AmazonTransport extends AmazonInboundCore
         $m = ' must be set in order to send transport content!';
         //common requirements
         if (! array_key_exists('ShipmentId', $this->options)) {
-            $this->log('Shipment ID'.$m, 'Warning');
+            $this->log('Shipment ID' . $m, 'Warning');
 
             return false;
         }
         if (! array_key_exists('IsPartnered', $this->options)) {
-            $this->log('IsPartnered'.$m, 'Warning');
+            $this->log('IsPartnered' . $m, 'Warning');
 
             return false;
         }
         if (! array_key_exists('ShipmentType', $this->options)) {
-            $this->log('Shipment type'.$m, 'Warning');
+            $this->log('Shipment type' . $m, 'Warning');
 
             return false;
         }
@@ -698,32 +699,32 @@ class AmazonTransport extends AmazonInboundCore
             }
         }
         if (! $p && ! $foundCarrier) {
-            $this->log('Carrier'.$m, 'Warning');
+            $this->log('Carrier' . $m, 'Warning');
 
             return false;
         }
         if ($sp && ! $foundPackages) {
-            $this->log('Packages'.$m, 'Warning');
+            $this->log('Packages' . $m, 'Warning');
 
             return false;
         }
         if (! $p && $ltl && ! $foundPro) {
-            $this->log('PRO number'.$m, 'Warning');
+            $this->log('PRO number' . $m, 'Warning');
 
             return false;
         }
         if ($p && $ltl && ! $foundContact) {
-            $this->log('Contact info'.$m, 'Warning');
+            $this->log('Contact info' . $m, 'Warning');
 
             return false;
         }
         if ($p && $ltl && ! $foundBoxCount) {
-            $this->log('Box count'.$m, 'Warning');
+            $this->log('Box count' . $m, 'Warning');
 
             return false;
         }
         if ($p && $ltl && ! $foundReady) {
-            $this->log('Ready date'.$m, 'Warning');
+            $this->log('Ready date' . $m, 'Warning');
 
             return false;
         }
@@ -753,11 +754,11 @@ class AmazonTransport extends AmazonInboundCore
 
         $this->prepareGetContent();
 
-        $url = $this->urlbase.$this->urlbranch;
+        $url = $this->urlbase . $this->urlbranch;
 
         $query = $this->genQuery();
 
-        $path = $this->options['Action'].'Result';
+        $path = $this->options['Action'] . 'Result';
         if ($this->mockMode) {
             $xml = $this->fetchMockFile();
         } else {
@@ -809,11 +810,11 @@ class AmazonTransport extends AmazonInboundCore
 
         $this->prepareEstimate();
 
-        $url = $this->urlbase.$this->urlbranch;
+        $url = $this->urlbase . $this->urlbranch;
 
         $query = $this->genQuery();
 
-        $path = $this->options['Action'].'Result';
+        $path = $this->options['Action'] . 'Result';
         if ($this->mockMode) {
             $xml = $this->fetchMockFile();
         } else {
@@ -865,11 +866,11 @@ class AmazonTransport extends AmazonInboundCore
 
         $this->prepareConfirm();
 
-        $url = $this->urlbase.$this->urlbranch;
+        $url = $this->urlbase . $this->urlbranch;
 
         $query = $this->genQuery();
 
-        $path = $this->options['Action'].'Result';
+        $path = $this->options['Action'] . 'Result';
         if ($this->mockMode) {
             $xml = $this->fetchMockFile();
         } else {
@@ -921,11 +922,11 @@ class AmazonTransport extends AmazonInboundCore
 
         $this->prepareVoid();
 
-        $url = $this->urlbase.$this->urlbranch;
+        $url = $this->urlbase . $this->urlbranch;
 
         $query = $this->genQuery();
 
-        $path = $this->options['Action'].'Result';
+        $path = $this->options['Action'] . 'Result';
         if ($this->mockMode) {
             $xml = $this->fetchMockFile();
         } else {
@@ -1003,18 +1004,20 @@ class AmazonTransport extends AmazonInboundCore
                     $this->contents['Details']['SellerFreightClass'] = (string) $d->SellerFreightClass;
                 }
                 $this->contents['Details']['FreightReadyDate'] = (string) $d->FreightReadyDate;
-                foreach ($d->PalletList->children() as $x) {
-                    $temp = [];
-                    $temp['IsStacked'] = (string) $x->IsStacked;
-                    $temp['Dimensions']['Unit'] = (string) $x->Dimensions->Unit;
-                    $temp['Dimensions']['Length'] = (string) $x->Dimensions->Length;
-                    $temp['Dimensions']['Width'] = (string) $x->Dimensions->Width;
-                    $temp['Dimensions']['Height'] = (string) $x->Dimensions->Height;
-                    if (isset($x->Weight)) {
-                        $temp['Weight']['Value'] = (string) $x->Weight->Value;
-                        $temp['Weight']['Unit'] = (string) $x->Weight->Unit;
+                if (isset($d->PalletList)) {
+                    foreach ($d->PalletList->children() as $x) {
+                        $temp = [];
+                        $temp['IsStacked'] = (string) $x->IsStacked;
+                        $temp['Dimensions']['Unit'] = (string) $x->Dimensions->Unit;
+                        $temp['Dimensions']['Length'] = (string) $x->Dimensions->Length;
+                        $temp['Dimensions']['Width'] = (string) $x->Dimensions->Width;
+                        $temp['Dimensions']['Height'] = (string) $x->Dimensions->Height;
+                        if (isset($x->Weight)) {
+                            $temp['Weight']['Value'] = (string) $x->Weight->Value;
+                            $temp['Weight']['Unit'] = (string) $x->Weight->Unit;
+                        }
+                        $this->contents['Details']['PalletList'][] = $temp;
                     }
-                    $this->contents['Details']['PalletList'][] = $temp;
                 }
                 $this->contents['Details']['TotalWeight']['Value'] = (string) $d->TotalWeight->Value;
                 $this->contents['Details']['TotalWeight']['Unit'] = (string) $d->TotalWeight->Unit;

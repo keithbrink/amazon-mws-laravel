@@ -94,7 +94,7 @@ class AmazonTransportTest extends TestCase
         $this->assertNull($this->object->setShipmentType($type));
         $this->assertNull($this->object->setCarrier('truck'));
         $o = $this->object->getOptions();
-        $op = $this->findOp($type, $partnered).'.CarrierName';
+        $op = $this->findOp($type, $partnered) . '.CarrierName';
         $this->assertArrayHasKey($op, $o);
         $this->assertEquals('truck', $o[$op]);
 
@@ -144,31 +144,31 @@ class AmazonTransportTest extends TestCase
         $this->assertNull($this->object->setPackages($data1));
         $o = $this->object->getOptions();
         //package 1/3
-        $this->assertArrayHasKey($op.'.PackageList.member.1.Dimensions.Length', $o);
-        $this->assertEquals('6', $o[$op.'.PackageList.member.1.Dimensions.Length']);
-        $this->assertArrayHasKey($op.'.PackageList.member.1.Dimensions.Width', $o);
-        $this->assertEquals('7', $o[$op.'.PackageList.member.1.Dimensions.Width']);
-        $this->assertArrayHasKey($op.'.PackageList.member.1.Dimensions.Height', $o);
-        $this->assertEquals('8', $o[$op.'.PackageList.member.1.Dimensions.Height']);
-        $this->assertArrayHasKey($op.'.PackageList.member.1.Dimensions.Unit', $o);
-        $this->assertEquals('centimeters', $o[$op.'.PackageList.member.1.Dimensions.Unit']);
-        $this->assertArrayHasKey($op.'.PackageList.member.1.Weight.Value', $o);
-        $this->assertEquals('9.8', $o[$op.'.PackageList.member.1.Weight.Value']);
-        $this->assertArrayHasKey($op.'.PackageList.member.1.Weight.Unit', $o);
-        $this->assertEquals('kilograms', $o[$op.'.PackageList.member.1.Weight.Unit']);
-        $this->assertArrayNotHasKey($op.'.PackageList.member.1.TrackingId', $o);
+        $this->assertArrayHasKey($op . '.PackageList.member.1.Dimensions.Length', $o);
+        $this->assertEquals('6', $o[$op . '.PackageList.member.1.Dimensions.Length']);
+        $this->assertArrayHasKey($op . '.PackageList.member.1.Dimensions.Width', $o);
+        $this->assertEquals('7', $o[$op . '.PackageList.member.1.Dimensions.Width']);
+        $this->assertArrayHasKey($op . '.PackageList.member.1.Dimensions.Height', $o);
+        $this->assertEquals('8', $o[$op . '.PackageList.member.1.Dimensions.Height']);
+        $this->assertArrayHasKey($op . '.PackageList.member.1.Dimensions.Unit', $o);
+        $this->assertEquals('centimeters', $o[$op . '.PackageList.member.1.Dimensions.Unit']);
+        $this->assertArrayHasKey($op . '.PackageList.member.1.Weight.Value', $o);
+        $this->assertEquals('9.8', $o[$op . '.PackageList.member.1.Weight.Value']);
+        $this->assertArrayHasKey($op . '.PackageList.member.1.Weight.Unit', $o);
+        $this->assertEquals('kilograms', $o[$op . '.PackageList.member.1.Weight.Unit']);
+        $this->assertArrayNotHasKey($op . '.PackageList.member.1.TrackingId', $o);
         //package 2/3
-        $this->assertArrayHasKey($op.'.PackageList.member.2.TrackingId', $o);
-        $this->assertEquals('Z123', $o[$op.'.PackageList.member.2.TrackingId']);
-        $this->assertArrayNotHasKey($op.'.PackageList.member.2.Dimensions.Length', $o);
-        $this->assertArrayNotHasKey($op.'.PackageList.member.2.Dimensions.Width', $o);
-        $this->assertArrayNotHasKey($op.'.PackageList.member.2.Dimensions.Height', $o);
-        $this->assertArrayNotHasKey($op.'.PackageList.member.2.Dimensions.Unit', $o);
-        $this->assertArrayNotHasKey($op.'.PackageList.member.2.Weight.Value', $o);
-        $this->assertArrayNotHasKey($op.'.PackageList.member.2.Weight.Unit', $o);
+        $this->assertArrayHasKey($op . '.PackageList.member.2.TrackingId', $o);
+        $this->assertEquals('Z123', $o[$op . '.PackageList.member.2.TrackingId']);
+        $this->assertArrayNotHasKey($op . '.PackageList.member.2.Dimensions.Length', $o);
+        $this->assertArrayNotHasKey($op . '.PackageList.member.2.Dimensions.Width', $o);
+        $this->assertArrayNotHasKey($op . '.PackageList.member.2.Dimensions.Height', $o);
+        $this->assertArrayNotHasKey($op . '.PackageList.member.2.Dimensions.Unit', $o);
+        $this->assertArrayNotHasKey($op . '.PackageList.member.2.Weight.Value', $o);
+        $this->assertArrayNotHasKey($op . '.PackageList.member.2.Weight.Unit', $o);
         //package 3/3
-        $this->assertArrayHasKey($op.'.PackageList.member.3.TrackingId', $o);
-        $this->assertEquals('Z456', $o[$op.'.PackageList.member.3.TrackingId']);
+        $this->assertArrayHasKey($op . '.PackageList.member.3.TrackingId', $o);
+        $this->assertEquals('Z456', $o[$op . '.PackageList.member.3.TrackingId']);
 
         //setting again will cause a reset
         $data2 = [
@@ -186,30 +186,30 @@ class AmazonTransportTest extends TestCase
         $this->assertNull($this->object->setPackages($data2, 'inches', 'pounds'));
         $o2 = $this->object->getOptions();
         //package 1/2
-        $this->assertArrayHasKey($op.'.PackageList.member.1.TrackingId', $o2);
-        $this->assertEquals('Z789', $o2[$op.'.PackageList.member.1.TrackingId']);
-        $this->assertArrayNotHasKey($op.'.PackageList.member.1.Dimensions.Length', $o2);
-        $this->assertArrayNotHasKey($op.'.PackageList.member.1.Dimensions.Width', $o2);
-        $this->assertArrayNotHasKey($op.'.PackageList.member.1.Dimensions.Height', $o2);
-        $this->assertArrayNotHasKey($op.'.PackageList.member.1.Dimensions.Unit', $o2);
-        $this->assertArrayNotHasKey($op.'.PackageList.member.1.Weight.Value', $o2);
-        $this->assertArrayNotHasKey($op.'.PackageList.member.1.Weight.Unit', $o2);
+        $this->assertArrayHasKey($op . '.PackageList.member.1.TrackingId', $o2);
+        $this->assertEquals('Z789', $o2[$op . '.PackageList.member.1.TrackingId']);
+        $this->assertArrayNotHasKey($op . '.PackageList.member.1.Dimensions.Length', $o2);
+        $this->assertArrayNotHasKey($op . '.PackageList.member.1.Dimensions.Width', $o2);
+        $this->assertArrayNotHasKey($op . '.PackageList.member.1.Dimensions.Height', $o2);
+        $this->assertArrayNotHasKey($op . '.PackageList.member.1.Dimensions.Unit', $o2);
+        $this->assertArrayNotHasKey($op . '.PackageList.member.1.Weight.Value', $o2);
+        $this->assertArrayNotHasKey($op . '.PackageList.member.1.Weight.Unit', $o2);
         //package 2/2
-        $this->assertArrayHasKey($op.'.PackageList.member.2.Dimensions.Length', $o2);
-        $this->assertEquals('10', $o2[$op.'.PackageList.member.2.Dimensions.Length']);
-        $this->assertArrayHasKey($op.'.PackageList.member.2.Dimensions.Width', $o2);
-        $this->assertEquals('11', $o2[$op.'.PackageList.member.2.Dimensions.Width']);
-        $this->assertArrayHasKey($op.'.PackageList.member.2.Dimensions.Height', $o2);
-        $this->assertEquals('12', $o2[$op.'.PackageList.member.2.Dimensions.Height']);
-        $this->assertArrayHasKey($op.'.PackageList.member.2.Dimensions.Unit', $o2);
-        $this->assertEquals('inches', $o2[$op.'.PackageList.member.2.Dimensions.Unit']);
-        $this->assertArrayHasKey($op.'.PackageList.member.2.Weight.Value', $o2);
-        $this->assertEquals('20', $o2[$op.'.PackageList.member.2.Weight.Value']);
-        $this->assertArrayHasKey($op.'.PackageList.member.2.Weight.Unit', $o2);
-        $this->assertEquals('pounds', $o2[$op.'.PackageList.member.2.Weight.Unit']);
-        $this->assertArrayNotHasKey($op.'.PackageList.member.2.TrackingId', $o2);
+        $this->assertArrayHasKey($op . '.PackageList.member.2.Dimensions.Length', $o2);
+        $this->assertEquals('10', $o2[$op . '.PackageList.member.2.Dimensions.Length']);
+        $this->assertArrayHasKey($op . '.PackageList.member.2.Dimensions.Width', $o2);
+        $this->assertEquals('11', $o2[$op . '.PackageList.member.2.Dimensions.Width']);
+        $this->assertArrayHasKey($op . '.PackageList.member.2.Dimensions.Height', $o2);
+        $this->assertEquals('12', $o2[$op . '.PackageList.member.2.Dimensions.Height']);
+        $this->assertArrayHasKey($op . '.PackageList.member.2.Dimensions.Unit', $o2);
+        $this->assertEquals('inches', $o2[$op . '.PackageList.member.2.Dimensions.Unit']);
+        $this->assertArrayHasKey($op . '.PackageList.member.2.Weight.Value', $o2);
+        $this->assertEquals('20', $o2[$op . '.PackageList.member.2.Weight.Value']);
+        $this->assertArrayHasKey($op . '.PackageList.member.2.Weight.Unit', $o2);
+        $this->assertEquals('pounds', $o2[$op . '.PackageList.member.2.Weight.Unit']);
+        $this->assertArrayNotHasKey($op . '.PackageList.member.2.TrackingId', $o2);
         //no package 3
-        $this->assertArrayNotHasKey($op.'.PackageList.member.3.TrackingId', $o2);
+        $this->assertArrayNotHasKey($op . '.PackageList.member.3.TrackingId', $o2);
 
         //invalid values
         $this->assertFalse($this->object->setPackages(['banana']));
@@ -245,7 +245,7 @@ class AmazonTransportTest extends TestCase
         $this->assertNull($this->object->setShipmentType($type));
         $this->assertNull($this->object->setProNumber('123ABC7'));
         $o = $this->object->getOptions();
-        $op = $this->findOp($type, $partnered).'.ProNumber';
+        $op = $this->findOp($type, $partnered) . '.ProNumber';
         $this->assertArrayHasKey($op, $o);
         $this->assertEquals('123ABC7', $o[$op]);
 
@@ -279,15 +279,15 @@ class AmazonTransportTest extends TestCase
         //good now
         $this->assertNull($this->object->setContact('Bob', '555-1234', 'test@email.com', '555-6789'));
         $o = $this->object->getOptions();
-        $op = $this->findOp($type, $partnered).'.Contact';
-        $this->assertArrayHasKey($op.'.Name', $o);
-        $this->assertEquals('Bob', $o[$op.'.Name']);
-        $this->assertArrayHasKey($op.'.Phone', $o);
-        $this->assertEquals('555-1234', $o[$op.'.Phone']);
-        $this->assertArrayHasKey($op.'.Email', $o);
-        $this->assertEquals('test@email.com', $o[$op.'.Email']);
-        $this->assertArrayHasKey($op.'.Fax', $o);
-        $this->assertEquals('555-6789', $o[$op.'.Fax']);
+        $op = $this->findOp($type, $partnered) . '.Contact';
+        $this->assertArrayHasKey($op . '.Name', $o);
+        $this->assertEquals('Bob', $o[$op . '.Name']);
+        $this->assertArrayHasKey($op . '.Phone', $o);
+        $this->assertEquals('555-1234', $o[$op . '.Phone']);
+        $this->assertArrayHasKey($op . '.Email', $o);
+        $this->assertEquals('test@email.com', $o[$op . '.Email']);
+        $this->assertArrayHasKey($op . '.Fax', $o);
+        $this->assertEquals('555-6789', $o[$op . '.Fax']);
 
         //invalid values
         $this->assertFalse($this->object->setContact(false, '555-1234', 'test@email.com', '555-6789'));
@@ -325,7 +325,7 @@ class AmazonTransportTest extends TestCase
         $this->assertNull($this->object->setShipmentType($type));
         $this->assertNull($this->object->setBoxCount('12'));
         $o = $this->object->getOptions();
-        $op = $this->findOp($type, $partnered).'.BoxCount';
+        $op = $this->findOp($type, $partnered) . '.BoxCount';
         $this->assertArrayHasKey($op, $o);
         $this->assertEquals('12', $o[$op]);
 
@@ -358,7 +358,7 @@ class AmazonTransportTest extends TestCase
         $this->assertNull($this->object->setShipmentType($type));
         $this->assertNull($this->object->setFreightClass('12'));
         $o = $this->object->getOptions();
-        $op = $this->findOp($type, $partnered).'.SellerFreightClass';
+        $op = $this->findOp($type, $partnered) . '.SellerFreightClass';
         $this->assertArrayHasKey($op, $o);
         $this->assertEquals('12', $o[$op]);
 
@@ -389,7 +389,7 @@ class AmazonTransportTest extends TestCase
         $this->assertNull($this->object->setShipmentType($type));
         $this->assertNull($this->object->setReadyDate('+50 min'));
         $o = $this->object->getOptions();
-        $op = $this->findOp($type, $partnered).'.FreightReadyDate';
+        $op = $this->findOp($type, $partnered) . '.FreightReadyDate';
         $this->assertArrayHasKey($op, $o);
         $this->assertMatchesRegularExpression('/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/', $o[$op]);
 
@@ -438,31 +438,31 @@ class AmazonTransportTest extends TestCase
         $this->assertNull($this->object->setPallets($data1));
         $o = $this->object->getOptions();
         //package 1/3
-        $this->assertArrayHasKey($op.'.PalletList.member.1.Dimensions.Length', $o);
-        $this->assertEquals('6', $o[$op.'.PalletList.member.1.Dimensions.Length']);
-        $this->assertArrayHasKey($op.'.PalletList.member.1.Dimensions.Width', $o);
-        $this->assertEquals('7', $o[$op.'.PalletList.member.1.Dimensions.Width']);
-        $this->assertArrayHasKey($op.'.PalletList.member.1.Dimensions.Height', $o);
-        $this->assertEquals('8', $o[$op.'.PalletList.member.1.Dimensions.Height']);
-        $this->assertArrayHasKey($op.'.PalletList.member.1.Dimensions.Unit', $o);
-        $this->assertEquals('centimeters', $o[$op.'.PalletList.member.1.Dimensions.Unit']);
-        $this->assertArrayHasKey($op.'.PalletList.member.1.Weight.Value', $o);
-        $this->assertEquals('9.8', $o[$op.'.PalletList.member.1.Weight.Value']);
-        $this->assertArrayHasKey($op.'.PalletList.member.1.Weight.Unit', $o);
-        $this->assertEquals('kilograms', $o[$op.'.PalletList.member.1.Weight.Unit']);
-        $this->assertArrayNotHasKey($op.'.PalletList.member.1.IsStacked', $o);
+        $this->assertArrayHasKey($op . '.PalletList.member.1.Dimensions.Length', $o);
+        $this->assertEquals('6', $o[$op . '.PalletList.member.1.Dimensions.Length']);
+        $this->assertArrayHasKey($op . '.PalletList.member.1.Dimensions.Width', $o);
+        $this->assertEquals('7', $o[$op . '.PalletList.member.1.Dimensions.Width']);
+        $this->assertArrayHasKey($op . '.PalletList.member.1.Dimensions.Height', $o);
+        $this->assertEquals('8', $o[$op . '.PalletList.member.1.Dimensions.Height']);
+        $this->assertArrayHasKey($op . '.PalletList.member.1.Dimensions.Unit', $o);
+        $this->assertEquals('centimeters', $o[$op . '.PalletList.member.1.Dimensions.Unit']);
+        $this->assertArrayHasKey($op . '.PalletList.member.1.Weight.Value', $o);
+        $this->assertEquals('9.8', $o[$op . '.PalletList.member.1.Weight.Value']);
+        $this->assertArrayHasKey($op . '.PalletList.member.1.Weight.Unit', $o);
+        $this->assertEquals('kilograms', $o[$op . '.PalletList.member.1.Weight.Unit']);
+        $this->assertArrayNotHasKey($op . '.PalletList.member.1.IsStacked', $o);
         //package 2/3
-        $this->assertArrayHasKey($op.'.PalletList.member.2.IsStacked', $o);
-        $this->assertEquals('true', $o[$op.'.PalletList.member.2.IsStacked']);
-        $this->assertArrayNotHasKey($op.'.PalletList.member.2.Dimensions.Length', $o);
-        $this->assertArrayNotHasKey($op.'.PalletList.member.2.Dimensions.Width', $o);
-        $this->assertArrayNotHasKey($op.'.PalletList.member.2.Dimensions.Height', $o);
-        $this->assertArrayNotHasKey($op.'.PalletList.member.2.Dimensions.Unit', $o);
-        $this->assertArrayNotHasKey($op.'.PalletList.member.2.Weight.Value', $o);
-        $this->assertArrayNotHasKey($op.'.PalletList.member.2.Weight.Unit', $o);
+        $this->assertArrayHasKey($op . '.PalletList.member.2.IsStacked', $o);
+        $this->assertEquals('true', $o[$op . '.PalletList.member.2.IsStacked']);
+        $this->assertArrayNotHasKey($op . '.PalletList.member.2.Dimensions.Length', $o);
+        $this->assertArrayNotHasKey($op . '.PalletList.member.2.Dimensions.Width', $o);
+        $this->assertArrayNotHasKey($op . '.PalletList.member.2.Dimensions.Height', $o);
+        $this->assertArrayNotHasKey($op . '.PalletList.member.2.Dimensions.Unit', $o);
+        $this->assertArrayNotHasKey($op . '.PalletList.member.2.Weight.Value', $o);
+        $this->assertArrayNotHasKey($op . '.PalletList.member.2.Weight.Unit', $o);
         //package 3/3
-        $this->assertArrayHasKey($op.'.PalletList.member.3.IsStacked', $o);
-        $this->assertEquals('false', $o[$op.'.PalletList.member.3.IsStacked']);
+        $this->assertArrayHasKey($op . '.PalletList.member.3.IsStacked', $o);
+        $this->assertEquals('false', $o[$op . '.PalletList.member.3.IsStacked']);
 
         //setting again will cause a reset
         $data2 = [
@@ -480,30 +480,30 @@ class AmazonTransportTest extends TestCase
         $this->assertNull($this->object->setPallets($data2, 'inches', 'pounds'));
         $o2 = $this->object->getOptions();
         //package 1/2
-        $this->assertArrayHasKey($op.'.PalletList.member.1.IsStacked', $o2);
-        $this->assertEquals('false', $o2[$op.'.PalletList.member.1.IsStacked']);
-        $this->assertArrayNotHasKey($op.'.PalletList.member.1.Dimensions.Length', $o2);
-        $this->assertArrayNotHasKey($op.'.PalletList.member.1.Dimensions.Width', $o2);
-        $this->assertArrayNotHasKey($op.'.PalletList.member.1.Dimensions.Height', $o2);
-        $this->assertArrayNotHasKey($op.'.PalletList.member.1.Dimensions.Unit', $o2);
-        $this->assertArrayNotHasKey($op.'.PalletList.member.1.Weight.Value', $o2);
-        $this->assertArrayNotHasKey($op.'.PalletList.member.1.Weight.Unit', $o2);
+        $this->assertArrayHasKey($op . '.PalletList.member.1.IsStacked', $o2);
+        $this->assertEquals('false', $o2[$op . '.PalletList.member.1.IsStacked']);
+        $this->assertArrayNotHasKey($op . '.PalletList.member.1.Dimensions.Length', $o2);
+        $this->assertArrayNotHasKey($op . '.PalletList.member.1.Dimensions.Width', $o2);
+        $this->assertArrayNotHasKey($op . '.PalletList.member.1.Dimensions.Height', $o2);
+        $this->assertArrayNotHasKey($op . '.PalletList.member.1.Dimensions.Unit', $o2);
+        $this->assertArrayNotHasKey($op . '.PalletList.member.1.Weight.Value', $o2);
+        $this->assertArrayNotHasKey($op . '.PalletList.member.1.Weight.Unit', $o2);
         //package 2/2
-        $this->assertArrayHasKey($op.'.PalletList.member.2.Dimensions.Length', $o2);
-        $this->assertEquals('10', $o2[$op.'.PalletList.member.2.Dimensions.Length']);
-        $this->assertArrayHasKey($op.'.PalletList.member.2.Dimensions.Width', $o2);
-        $this->assertEquals('11', $o2[$op.'.PalletList.member.2.Dimensions.Width']);
-        $this->assertArrayHasKey($op.'.PalletList.member.2.Dimensions.Height', $o2);
-        $this->assertEquals('12', $o2[$op.'.PalletList.member.2.Dimensions.Height']);
-        $this->assertArrayHasKey($op.'.PalletList.member.2.Dimensions.Unit', $o2);
-        $this->assertEquals('inches', $o2[$op.'.PalletList.member.2.Dimensions.Unit']);
-        $this->assertArrayHasKey($op.'.PalletList.member.2.Weight.Value', $o2);
-        $this->assertEquals('20', $o2[$op.'.PalletList.member.2.Weight.Value']);
-        $this->assertArrayHasKey($op.'.PalletList.member.2.Weight.Unit', $o2);
-        $this->assertEquals('pounds', $o2[$op.'.PalletList.member.2.Weight.Unit']);
-        $this->assertArrayNotHasKey($op.'.PalletList.member.2.IsStacked', $o2);
+        $this->assertArrayHasKey($op . '.PalletList.member.2.Dimensions.Length', $o2);
+        $this->assertEquals('10', $o2[$op . '.PalletList.member.2.Dimensions.Length']);
+        $this->assertArrayHasKey($op . '.PalletList.member.2.Dimensions.Width', $o2);
+        $this->assertEquals('11', $o2[$op . '.PalletList.member.2.Dimensions.Width']);
+        $this->assertArrayHasKey($op . '.PalletList.member.2.Dimensions.Height', $o2);
+        $this->assertEquals('12', $o2[$op . '.PalletList.member.2.Dimensions.Height']);
+        $this->assertArrayHasKey($op . '.PalletList.member.2.Dimensions.Unit', $o2);
+        $this->assertEquals('inches', $o2[$op . '.PalletList.member.2.Dimensions.Unit']);
+        $this->assertArrayHasKey($op . '.PalletList.member.2.Weight.Value', $o2);
+        $this->assertEquals('20', $o2[$op . '.PalletList.member.2.Weight.Value']);
+        $this->assertArrayHasKey($op . '.PalletList.member.2.Weight.Unit', $o2);
+        $this->assertEquals('pounds', $o2[$op . '.PalletList.member.2.Weight.Unit']);
+        $this->assertArrayNotHasKey($op . '.PalletList.member.2.IsStacked', $o2);
         //no package 3
-        $this->assertArrayNotHasKey($op.'.PalletList.member.3.IsStacked', $o2);
+        $this->assertArrayNotHasKey($op . '.PalletList.member.3.IsStacked', $o2);
 
         //invalid values
         $this->assertFalse($this->object->setPallets(['banana']));
@@ -539,11 +539,11 @@ class AmazonTransportTest extends TestCase
         $this->assertNull($this->object->setShipmentType($type));
         $this->assertNull($this->object->setTotalWeight('123'));
         $o = $this->object->getOptions();
-        $op = $this->findOp($type, $partnered).'.TotalWeight';
-        $this->assertArrayHasKey($op.'.Value', $o);
-        $this->assertEquals('123', $o[$op.'.Value']);
-        $this->assertArrayHasKey($op.'.Unit', $o);
-        $this->assertEquals('kilograms', $o[$op.'.Unit']);
+        $op = $this->findOp($type, $partnered) . '.TotalWeight';
+        $this->assertArrayHasKey($op . '.Value', $o);
+        $this->assertEquals('123', $o[$op . '.Value']);
+        $this->assertArrayHasKey($op . '.Unit', $o);
+        $this->assertEquals('kilograms', $o[$op . '.Unit']);
 
         //invalid values
         $this->assertFalse($this->object->setTotalWeight(null));
@@ -575,11 +575,11 @@ class AmazonTransportTest extends TestCase
         $this->assertNull($this->object->setShipmentType($type));
         $this->assertNull($this->object->setDeclaredValue('1.23', 'USD'));
         $o = $this->object->getOptions();
-        $op = $this->findOp($type, $partnered).'.SellerDeclaredValue';
-        $this->assertArrayHasKey($op.'.Value', $o);
-        $this->assertEquals('1.23', $o[$op.'.Value']);
-        $this->assertArrayHasKey($op.'.CurrencyCode', $o);
-        $this->assertEquals('USD', $o[$op.'.CurrencyCode']);
+        $op = $this->findOp($type, $partnered) . '.SellerDeclaredValue';
+        $this->assertArrayHasKey($op . '.Value', $o);
+        $this->assertEquals('1.23', $o[$op . '.Value']);
+        $this->assertArrayHasKey($op . '.CurrencyCode', $o);
+        $this->assertEquals('USD', $o[$op . '.CurrencyCode']);
 
         //invalid values
         $this->assertFalse($this->object->setDeclaredValue(null, 'USD'));
@@ -624,10 +624,10 @@ class AmazonTransportTest extends TestCase
         $check = parseLog();
         $m = ' must be set in order to send transport content!';
         $this->assertEquals('Single Mock File set: sendTransportContents.xml', $check[1]);
-        $this->assertEquals('Shipment ID'.$m, $check[2]);
-        $this->assertEquals('IsPartnered'.$m, $check[3]);
-        $this->assertEquals('Shipment type'.$m, $check[4]);
-        $this->assertEquals('Packages'.$m, $check[5]);
+        $this->assertEquals('Shipment ID' . $m, $check[2]);
+        $this->assertEquals('IsPartnered' . $m, $check[3]);
+        $this->assertEquals('Shipment type' . $m, $check[4]);
+        $this->assertEquals('Packages' . $m, $check[5]);
         $this->assertEquals('Fetched Mock File: sendTransportContents.xml', $check[6]);
     }
 
@@ -661,11 +661,11 @@ class AmazonTransportTest extends TestCase
         $check = parseLog();
         $m = ' must be set in order to send transport content!';
         $this->assertEquals('Single Mock File set: sendTransportContents.xml', $check[1]);
-        $this->assertEquals('Shipment ID'.$m, $check[2]);
-        $this->assertEquals('IsPartnered'.$m, $check[3]);
-        $this->assertEquals('Shipment type'.$m, $check[4]);
-        $this->assertEquals('Carrier'.$m, $check[5]);
-        $this->assertEquals('Packages'.$m, $check[6]);
+        $this->assertEquals('Shipment ID' . $m, $check[2]);
+        $this->assertEquals('IsPartnered' . $m, $check[3]);
+        $this->assertEquals('Shipment type' . $m, $check[4]);
+        $this->assertEquals('Carrier' . $m, $check[5]);
+        $this->assertEquals('Packages' . $m, $check[6]);
         $this->assertEquals('Fetched Mock File: sendTransportContents.xml', $check[7]);
     }
 
@@ -695,12 +695,12 @@ class AmazonTransportTest extends TestCase
         $check = parseLog();
         $m = ' must be set in order to send transport content!';
         $this->assertEquals('Single Mock File set: sendTransportContents.xml', $check[1]);
-        $this->assertEquals('Shipment ID'.$m, $check[2]);
-        $this->assertEquals('IsPartnered'.$m, $check[3]);
-        $this->assertEquals('Shipment type'.$m, $check[4]);
-        $this->assertEquals('Contact info'.$m, $check[5]);
-        $this->assertEquals('Box count'.$m, $check[6]);
-        $this->assertEquals('Ready date'.$m, $check[7]);
+        $this->assertEquals('Shipment ID' . $m, $check[2]);
+        $this->assertEquals('IsPartnered' . $m, $check[3]);
+        $this->assertEquals('Shipment type' . $m, $check[4]);
+        $this->assertEquals('Contact info' . $m, $check[5]);
+        $this->assertEquals('Box count' . $m, $check[6]);
+        $this->assertEquals('Ready date' . $m, $check[7]);
         $this->assertEquals('Fetched Mock File: sendTransportContents.xml', $check[8]);
     }
 
@@ -728,11 +728,11 @@ class AmazonTransportTest extends TestCase
         $check = parseLog();
         $m = ' must be set in order to send transport content!';
         $this->assertEquals('Single Mock File set: sendTransportContents.xml', $check[1]);
-        $this->assertEquals('Shipment ID'.$m, $check[2]);
-        $this->assertEquals('IsPartnered'.$m, $check[3]);
-        $this->assertEquals('Shipment type'.$m, $check[4]);
-        $this->assertEquals('Carrier'.$m, $check[5]);
-        $this->assertEquals('PRO number'.$m, $check[6]);
+        $this->assertEquals('Shipment ID' . $m, $check[2]);
+        $this->assertEquals('IsPartnered' . $m, $check[3]);
+        $this->assertEquals('Shipment type' . $m, $check[4]);
+        $this->assertEquals('Carrier' . $m, $check[5]);
+        $this->assertEquals('PRO number' . $m, $check[6]);
         $this->assertEquals('Fetched Mock File: sendTransportContents.xml', $check[7]);
     }
 
@@ -840,6 +840,24 @@ class AmazonTransportTest extends TestCase
         $this->assertEquals('Single Mock File set: fetchTransportContentLtlPartnered.xml', $check[1]);
         $this->assertEquals('Shipment ID must be set in order to get transport contents!', $check[2]);
         $this->assertEquals('Fetched Mock File: fetchTransportContentLtlPartnered.xml', $check[3]);
+
+        return $this->object;
+    }
+
+    public function testFetchTransportLtlPartneredNoPallets()
+    {
+        resetLog();
+        $this->object->setMock(true, 'fetchTransportContentLtlPartneredNoPallets.xml');
+
+        $this->assertFalse($this->object->fetchTransportContent()); //no shipment ID yet
+        $this->assertNull($this->object->setShipmentId('77'));
+        $this->assertNull($this->object->fetchTransportContent());
+        $this->assertEquals('ERROR_ON_ESTIMATING', $this->object->getStatus());
+
+        $check = parseLog();
+        $this->assertEquals('Single Mock File set: fetchTransportContentLtlPartneredNoPallets.xml', $check[1]);
+        $this->assertEquals('Shipment ID must be set in order to get transport contents!', $check[2]);
+        $this->assertEquals('Fetched Mock File: fetchTransportContentLtlPartneredNoPallets.xml', $check[3]);
 
         return $this->object;
     }
@@ -1496,15 +1514,15 @@ class AmazonTransportTest extends TestCase
         $op = 'TransportDetails.';
         if ($t == 'SP') {
             if ($p) {
-                return $op.'PartneredSmallParcelData';
+                return $op . 'PartneredSmallParcelData';
             } else {
-                return $op.'NonPartneredSmallParcelData';
+                return $op . 'NonPartneredSmallParcelData';
             }
         } elseif ($t == 'LTL') {
             if ($p) {
-                return $op.'PartneredLtlData';
+                return $op . 'PartneredLtlData';
             } else {
-                return $op.'NonPartneredLtlData';
+                return $op . 'NonPartneredLtlData';
             }
         }
 
@@ -1521,4 +1539,4 @@ class AmazonTransportTest extends TestCase
     }
 }
 
-require_once __DIR__.'/../helperFunctions.php';
+require_once __DIR__ . '/../helperFunctions.php';
