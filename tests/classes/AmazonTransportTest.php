@@ -396,6 +396,10 @@ class AmazonTransportTest extends TestCase
         //invalid values
         $this->assertFalse($this->object->setReadyDate([5]));
 
+        $this->assertNull($this->object->setReadyDate('2021-08-12'));
+        $o = $this->object->getOptions();
+        $this->assertEquals('2021-08-12', $o[$op]);
+
         $check = parseLog();
         $this->assertEquals($this->getOpError(), $check[0]);
         $this->assertEquals('Cannot set ready date because of the shipment type and partnered parameters.', $check[1]);
