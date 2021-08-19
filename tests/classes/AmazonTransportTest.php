@@ -1520,7 +1520,7 @@ class AmazonTransportTest extends TestCase
 
         // in error state so it doesn't have void deadline
         $this->assertFalse($pltl->getVoidDeadline());
-        
+
         // not set for these objects
         $this->assertFalse($nsp->getVoidDeadline());
         $this->assertFalse($nltl->getVoidDeadline());

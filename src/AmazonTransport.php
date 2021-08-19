@@ -1104,7 +1104,9 @@ class AmazonTransport extends AmazonInboundCore
     {
         $pe = $this->getPartneredEstimate();
 
-        if (!is_array($pe)) return false;
+        if (! is_array($pe)) {
+            return false;
+        }
 
         if (array_key_exists('VoidDeadline', $pe)) {
             return $pe['VoidDeadline'];
