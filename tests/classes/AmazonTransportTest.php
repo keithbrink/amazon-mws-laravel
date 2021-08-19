@@ -1505,6 +1505,28 @@ class AmazonTransportTest extends TestCase
     }
 
     /**
+     * @depends testFetchTransportSpPartnered
+     * @depends testFetchTransportSpNonPartnered
+     * @depends testFetchTransportLtlPartnered
+     * @depends testFetchTransportLtlNonPartnered
+     * @param AmazonTransport $psp partnered SP
+     * @param AmazonTransport $nsp non-partnered SP
+     * @param AmazonTransport $pltl partnered LTL
+     * @param AmazonTransport $nltl non-partnered LTL
+     */
+    public function testGetVoidDeadline($psp, $nsp, $pltl, $nltl)
+    {
+        $this->assertEquals('2013-08-10T00:25:05.650Z', $psp->getVoidDeadline());
+
+        // in error state so it doesn't have void deadline
+        $this->assertFalse($pltl->getVoidDeadline());
+        
+        // not set for these objects
+        $this->assertFalse($nsp->getVoidDeadline());
+        $this->assertFalse($nltl->getVoidDeadline());
+    }
+
+    /**
      * Simplified copy of method <i>determineDetailOption</i> in class.
      * @param string $t <p>shipment type ("SP" or "LTL")</p>
      * @param bool $p <p>partnered or not</p>

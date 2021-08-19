@@ -1100,6 +1100,19 @@ class AmazonTransport extends AmazonInboundCore
         }
     }
 
+    public function getVoidDeadline()
+    {
+        $pe = $this->getPartneredEstimate();
+
+        if (!is_array($pe)) return false;
+
+        if (array_key_exists('VoidDeadline', $pe)) {
+            return $pe['VoidDeadline'];
+        } else {
+            return false;
+        }
+    }
+
     /**
      * Returns information about transport contents.
      *
