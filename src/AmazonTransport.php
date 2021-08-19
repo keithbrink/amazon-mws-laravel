@@ -1074,7 +1074,7 @@ class AmazonTransport extends AmazonInboundCore
                 if (isset($d->PartneredEstimate->ConfirmDeadline)) {
                     $pe['ConfirmDeadline'] = (string) $d->PartneredEstimate->ConfirmDeadline;
                 }
-                if (isset($d->PartneredEstimate->ConfirmDeadline)) {
+                if (isset($d->PartneredEstimate->VoidDeadline)) {
                     $pe['VoidDeadline'] = (string) $d->PartneredEstimate->VoidDeadline;
                 }
                 $this->contents['Details']['PartneredEstimate'] = $pe;
