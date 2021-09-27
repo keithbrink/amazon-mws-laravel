@@ -3,6 +3,8 @@
 # Amazon MWS for Laravel
 ============
 
+Planning to migrate to the new Selling Partner API? Have a look at our [PHP SDK for Amazon's Selling Partner API](https://github.com/jasara/php-amzn-selling-partner-api), as well as our [Laravel wrapper](https://github.com/jasara/laravel-selling-partner-api).
+
 A Laravel package to connect to Amazon's Merchant Web Services (MWS).
 
 If you are using Laravel 6 or lower, use version 5.0. On Laravel 7, use version 7.0+.
@@ -15,7 +17,7 @@ Install the package using `composer require keithbrink/amazon-mws-laravel`.
 
 For Laravel 5.5 and up, the package will be automatically discovered. For other versions, you can add `KeithBrink\AmazonMws\MwsServiceProvider` to your `config/app.php` file.
 
-Run `php artisan vendor:publish keithbrink/amazon-mws-laravel` to add the `amazon-mws.php` config file to your config directory.
+Run `php artisan vendor:publish --provider="KeithBrink\AmazonMws\MwsServiceProvider" --tag="config"` to add the `amazon-mws.php` config file to your config directory.
 
 ## Usage
 
