@@ -40,11 +40,11 @@ abstract class AmazonProductsCore extends AmazonCore
      * in turn passed to the AmazonCore constructor. See it for more information
      * on these parameters and common methods.
      *
-     * @param string       $s      <p>Name for the store you want to use.</p>
-     * @param bool         $mock   [optional] <p>This is a flag for enabling Mock Mode.
-     *                             This defaults to <b>FALSE</b>.</p>
-     * @param array|string $m      [optional] <p>The files (or file) to use in Mock Mode.</p>
-     * @param string       $config [optional] <p>An alternate config file to set. Used for testing.</p>
+     * @param  string  $s  <p>Name for the store you want to use.</p>
+     * @param  bool  $mock  [optional] <p>This is a flag for enabling Mock Mode.
+     *                      This defaults to <b>FALSE</b>.</p>
+     * @param  array|string  $m  [optional] <p>The files (or file) to use in Mock Mode.</p>
+     * @param  string  $config  [optional] <p>An alternate config file to set. Used for testing.</p>
      */
     public function __construct($s, $mock = false, $m = null, $config = null)
     {
@@ -69,8 +69,7 @@ abstract class AmazonProductsCore extends AmazonCore
      *
      * This is what reads the response XML and converts it into an array.
      *
-     * @param SimpleXMLObject $xml <p>The XML response from Amazon.</p>
-     *
+     * @param  SimpleXMLObject  $xml  <p>The XML response from Amazon.</p>
      * @return bool <b>FALSE</b> if no XML data is found
      */
     protected function parseXML($xml)
@@ -141,8 +140,7 @@ abstract class AmazonProductsCore extends AmazonCore
      *
      * See the <i>AmazonProduct</i> class for more information on the returned objects.
      *
-     * @param int $num [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
-     *
+     * @param  int  $num  [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
      * @return AmazonProduct|array Product (or list of Products)
      */
     public function getProduct($num = null)

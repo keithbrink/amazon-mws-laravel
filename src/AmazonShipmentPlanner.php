@@ -39,12 +39,12 @@ class AmazonShipmentPlanner extends AmazonInboundCore implements \Iterator
      * in turn passed to the AmazonCore constructor. See it for more information
      * on these parameters and common methods.
      *
-     * @param string       $s      [optional] <p>Name for the store you want to use.
-     *                             This parameter is optional if only one store is defined in the config file.</p>
-     * @param bool         $mock   [optional] <p>This is a flag for enabling Mock Mode.
-     *                             This defaults to <b>FALSE</b>.</p>
-     * @param array|string $m      [optional] <p>The files (or file) to use in Mock Mode.</p>
-     * @param string       $config [optional] <p>An alternate config file to set. Used for testing.</p>
+     * @param  string  $s  [optional] <p>Name for the store you want to use.
+     *                     This parameter is optional if only one store is defined in the config file.</p>
+     * @param  bool  $mock  [optional] <p>This is a flag for enabling Mock Mode.
+     *                      This defaults to <b>FALSE</b>.</p>
+     * @param  array|string  $m  [optional] <p>The files (or file) to use in Mock Mode.</p>
+     * @param  string  $config  [optional] <p>An alternate config file to set. Used for testing.</p>
      */
     public function __construct($s = null, $mock = false, $m = null, $config = null)
     {
@@ -70,8 +70,7 @@ class AmazonShipmentPlanner extends AmazonInboundCore implements \Iterator
      * <li><b>PostalCode</b> (recommended) - max: 30 char</li>
      * </ul>
      *
-     * @param array $a <p>See above.</p>
-     *
+     * @param  array  $a  <p>See above.</p>
      * @return bool <b>FALSE</b> if improper input
      */
     public function setAddress($a)
@@ -121,8 +120,7 @@ class AmazonShipmentPlanner extends AmazonInboundCore implements \Iterator
     /**
      * Sets the destination country code. (Optional).
      *
-     * @param string $c <p>Country code in ISO 3166-1 alpha-2 format</p>
-     *
+     * @param  string  $c  <p>Country code in ISO 3166-1 alpha-2 format</p>
      * @return bool <b>FALSE</b> if improper input
      */
     public function setCountry($c)
@@ -137,8 +135,7 @@ class AmazonShipmentPlanner extends AmazonInboundCore implements \Iterator
     /**
      * Sets the destination country subdivision code. (Optional).
      *
-     * @param string $c <p>Country subdivision code in ISO 3166-2 format</p>
-     *
+     * @param  string  $c  <p>Country subdivision code in ISO 3166-2 format</p>
      * @return bool <b>FALSE</b> if improper input
      */
     public function setCountrySubdivision($c)
@@ -155,8 +152,7 @@ class AmazonShipmentPlanner extends AmazonInboundCore implements \Iterator
      *
      * If this parameter is not set, Amazon will assume SELLER_LABEL.
      *
-     * @param string $s <p>"SELLER_LABEL", "AMAZON_LABEL_ONLY", "AMAZON_LABEL_PREFERRED"</p>
-     *
+     * @param  string  $s  <p>"SELLER_LABEL", "AMAZON_LABEL_ONLY", "AMAZON_LABEL_PREFERRED"</p>
      * @return bool <b>FALSE</b> if improper input
      */
     public function setLabelPreference($s)
@@ -216,8 +212,7 @@ class AmazonShipmentPlanner extends AmazonInboundCore implements \Iterator
      * </ul>
      * </ul>
      *
-     * @param array $a <p>See above.</p>
-     *
+     * @param  array  $a  <p>See above.</p>
      * @return bool <b>FALSE</b> if improper input
      */
     public function setItems($a)
@@ -327,8 +322,7 @@ class AmazonShipmentPlanner extends AmazonInboundCore implements \Iterator
      *
      * This is what reads the response XML and converts it into an array.
      *
-     * @param SimpleXMLElement $xml <p>The XML response from Amazon.</p>
-     *
+     * @param  SimpleXMLElement  $xml  <p>The XML response from Amazon.</p>
      * @return bool <b>FALSE</b> if no XML data is found
      */
     protected function parseXML($xml)
@@ -377,8 +371,7 @@ class AmazonShipmentPlanner extends AmazonInboundCore implements \Iterator
      * <li><b>Items</b> - See <i>getItems</i> for details.</li>
      * </ul>
      *
-     * @param int $i [optional] <p>List index to retrieve the value from. Defaults to NULL.</p>
-     *
+     * @param  int  $i  [optional] <p>List index to retrieve the value from. Defaults to NULL.</p>
      * @return array|bool plan array, multi-dimensional array, or <b>FALSE</b> if invalid index
      */
     public function getPlan($i = null)
@@ -419,8 +412,7 @@ class AmazonShipmentPlanner extends AmazonInboundCore implements \Iterator
      *
      * This method will return <b>FALSE</b> if the list has not yet been filled.
      *
-     * @param int $i [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
-     *
+     * @param  int  $i  [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
      * @return string|bool single value, or <b>FALSE</b> if Non-numeric index
      */
     public function getShipmentId($i = 0)

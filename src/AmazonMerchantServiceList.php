@@ -44,12 +44,13 @@ class AmazonMerchantServiceList extends AmazonMerchantCore implements Iterator
      * The parameters are passed to the parent constructor, which are
      * in turn passed to the AmazonCore constructor. See it for more information
      * on these parameters and common methods.
-     * @param string $s [optional] <p>Name for the store you want to use.
-     * This parameter is optional if only one store is defined in the config file.</p>
-     * @param bool $mock [optional] <p>This is a flag for enabling Mock Mode.
-     * This defaults to <b>FALSE</b>.</p>
-     * @param array|string $m [optional] <p>The files (or file) to use in Mock Mode.</p>
-     * @param string $config [optional] <p>An alternate config file to set. Used for testing.</p>
+     *
+     * @param  string  $s  [optional] <p>Name for the store you want to use.
+     *                     This parameter is optional if only one store is defined in the config file.</p>
+     * @param  bool  $mock  [optional] <p>This is a flag for enabling Mock Mode.
+     *                      This defaults to <b>FALSE</b>.</p>
+     * @param  array|string  $m  [optional] <p>The files (or file) to use in Mock Mode.</p>
+     * @param  string  $config  [optional] <p>An alternate config file to set. Used for testing.</p>
      */
     public function __construct($s = null, $mock = false, $m = null, $config = null)
     {
@@ -63,7 +64,8 @@ class AmazonMerchantServiceList extends AmazonMerchantCore implements Iterator
      *
      * This method sets the Amazon Order ID to be sent in the next request.
      * This parameter is required for fetching a list of eligible services from Amazon.
-     * @param string $id <p>Amazon Order ID</p>
+     *
+     * @param  string  $id  <p>Amazon Order ID</p>
      * @return bool <b>FALSE</b> if improper input
      */
     public function setOrderId($id)
@@ -81,7 +83,8 @@ class AmazonMerchantServiceList extends AmazonMerchantCore implements Iterator
      * Sets the Seller Order ID. (Optional).
      *
      * This method sets the Seller Order ID to be sent in the next request.
-     * @param string $id <p>Maximum 64 characters.</p>
+     *
+     * @param  string  $id  <p>Maximum 64 characters.</p>
      * @return bool <b>FALSE</b> if improper input
      */
     public function setSellerOrderId($id)
@@ -105,7 +108,8 @@ class AmazonMerchantServiceList extends AmazonMerchantCore implements Iterator
      * <li><b>OrderItemId</b> - identifier later used in the response</li>
      * <li><b>Quantity</b> - numeric</li>
      * </ul>
-     * @param array $a <p>See above.</p>
+     *
+     * @param  array  $a  <p>See above.</p>
      * @return bool <b>FALSE</b> if improper input
      */
     public function setItems($a)
@@ -165,7 +169,8 @@ class AmazonMerchantServiceList extends AmazonMerchantCore implements Iterator
      * <li><b>CountryCode</b> - 2 digits</li>
      * <li><b>Phone</b> - max: 20 char</li>
      * </ul>
-     * @param array $a <p>See above.</p>
+     *
+     * @param  array  $a  <p>See above.</p>
      * @return bool <b>FALSE</b> if improper input
      */
     public function setAddress($a)
@@ -225,7 +230,8 @@ class AmazonMerchantServiceList extends AmazonMerchantCore implements Iterator
      * <li><b>Height</b> - positive decimal number</li>
      * <li><b>Unit</b> - "inches" or "centimeters"</li>
      * </ul>
-     * @param array $d <p>See above.</p>
+     *
+     * @param  array  $d  <p>See above.</p>
      * @return bool <b>FALSE</b> if improper input
      */
     public function setPackageDimensions($d)
@@ -249,8 +255,9 @@ class AmazonMerchantServiceList extends AmazonMerchantCore implements Iterator
      * Package dimensions are required for fetching a list of eligible services from Amazon.
      * This parameter can be used instead of setting the package dimensions.
      * If this parameter is set, the manual package dimensions cannot be set.
-     * @param string $s <p>A value from the list of valid package names.
-     * See the comment inside the function for the complete list.</p>
+     *
+     * @param  string  $s  <p>A value from the list of valid package names.
+     *                     See the comment inside the function for the complete list.</p>
      * @return bool <b>FALSE</b> if improper input
      */
     public function setPredefinedPackage($s)
@@ -335,8 +342,9 @@ class AmazonMerchantServiceList extends AmazonMerchantCore implements Iterator
      * Sets the weight. (Required).
      *
      * This method sets the shipment weight to be sent in the next request.
-     * @param string $v <p>Decimal number</p>
-     * @param string $u <p>"oz" for ounces, or "g" for grams, defaults to grams</p>
+     *
+     * @param  string  $v  <p>Decimal number</p>
+     * @param  string  $u  <p>"oz" for ounces, or "g" for grams, defaults to grams</p>
      * @return bool <b>FALSE</b> if improper input
      */
     public function setWeight($v, $u = 'g')
@@ -355,7 +363,8 @@ class AmazonMerchantServiceList extends AmazonMerchantCore implements Iterator
      * This method sets the maximum date to be sent in the next request.
      * If this parameter is set, Amazon will only give services which
      * will be able to deliver by the given date.
-     * @param string $d <p>A time string</p>
+     *
+     * @param  string  $d  <p>A time string</p>
      * @return bool <b>FALSE</b> if improper input
      */
     public function setMaxArrivalDate($d)
@@ -374,7 +383,8 @@ class AmazonMerchantServiceList extends AmazonMerchantCore implements Iterator
      * Sets the date on which the package will be shipped. (Optional).
      *
      * This method sets the ship date to be sent in the next request.
-     * @param string $d <p>A time string</p>
+     *
+     * @param  string  $d  <p>A time string</p>
      * @return bool <b>FALSE</b> if improper input
      */
     public function setShipDate($d)
@@ -394,10 +404,11 @@ class AmazonMerchantServiceList extends AmazonMerchantCore implements Iterator
      *
      * This method sets the delivery experience shipping option to be sent in the next request.
      * This parameter is required for fetching a list of eligible services from Amazon.
-     * @param string $s <p>"DeliveryConfirmationWithAdultSignature",
-     *      "DeliveryConfirmationWithSignature",
-     *      "DeliveryConfirmationWithoutSignature",
-     *      or "NoTracking"</p>
+     *
+     * @param  string  $s  <p>"DeliveryConfirmationWithAdultSignature",
+     *                     "DeliveryConfirmationWithSignature",
+     *                     "DeliveryConfirmationWithoutSignature",
+     *                     or "NoTracking"</p>
      * @return bool <b>FALSE</b> if improper input
      */
     public function setDeliveryOption($s)
@@ -423,8 +434,9 @@ class AmazonMerchantServiceList extends AmazonMerchantCore implements Iterator
      * This method sets the declared value to be sent in the next request.
      * If this parameter is set and is higher than the carrier's minimum insurance amount,
      * the seller will be charged more for the additional insurance.
-     * @param string $v <p>Money amount</p>
-     * @param string $c <p>ISO 4217 currency code (ex: USD)</p>
+     *
+     * @param  string  $v  <p>Money amount</p>
+     * @param  string  $c  <p>ISO 4217 currency code (ex: USD)</p>
      * @return bool <b>FALSE</b> if improper input
      */
     public function setDeclaredValue($v, $c)
@@ -442,7 +454,8 @@ class AmazonMerchantServiceList extends AmazonMerchantCore implements Iterator
      *
      * This method sets whether or not the carrier will pick up the package to be sent in the next request.
      * This parameter is required for fetching a list of eligible services from Amazon.
-     * @param bool $b [optional] <p>Defaults to TRUE</p>
+     *
+     * @param  bool  $b  [optional] <p>Defaults to TRUE</p>
      * @return bool <b>FALSE</b> if improper input
      */
     public function setCarrierWillPickUp($b = true)
@@ -457,7 +470,8 @@ class AmazonMerchantServiceList extends AmazonMerchantCore implements Iterator
 
     /**
      * Sets all of the same Shipment details used by the given Amazon Merchant Shipment Creator object.
-     * @param AmazonMerchantShipmentCreator $obj <p>Shipment Creator object with options already set</p>
+     *
+     * @param  AmazonMerchantShipmentCreator  $obj  <p>Shipment Creator object with options already set</p>
      */
     public function setDetailsByCreator(AmazonMerchantShipmentCreator $obj)
     {
@@ -494,6 +508,7 @@ class AmazonMerchantServiceList extends AmazonMerchantCore implements Iterator
      * Other methods are available for fetching specific values from the valid services list.
      * The following parameters are required: Amazon order ID, item list, shipping address,
      * package dimensions, shipment weight, delivery experience option, and carrier pick-up option.
+     *
      * @return bool <b>FALSE</b> if something goes wrong
      */
     public function fetchServices()
@@ -559,7 +574,8 @@ class AmazonMerchantServiceList extends AmazonMerchantCore implements Iterator
      * Parses XML response into array.
      *
      * This is what reads the response XML and converts it into an array.
-     * @param SimpleXMLElement $xml <p>The XML response from Amazon.</p>
+     *
+     * @param  SimpleXMLElement  $xml  <p>The XML response from Amazon.</p>
      * @return bool <b>FALSE</b> if no XML data is found
      */
     protected function parseXML($xml)
@@ -644,6 +660,7 @@ class AmazonMerchantServiceList extends AmazonMerchantCore implements Iterator
      * <li><b>ShippingServiceOptions</b></li>
      * <li><b>AvailableLabelFormats</b></li>
      * </ul>.
+     *
      * @return array|bool multi-dimensional array, or <b>FALSE</b> if list not filled yet
      */
     public function getServiceList()
@@ -658,6 +675,7 @@ class AmazonMerchantServiceList extends AmazonMerchantCore implements Iterator
     /**
      * Returns the list of temporarily unavailable carriers.
      * These carriers may become available at a later time or at a later date.
+     *
      * @return array|bool list of strings, or <b>FALSE</b> if list not filled yet
      */
     public function getUnavailableCarrierList()
@@ -671,6 +689,7 @@ class AmazonMerchantServiceList extends AmazonMerchantCore implements Iterator
 
     /**
      * Returns the list of carriers that cannot be used until certain terms and conditions are agreed to.
+     *
      * @return array|bool list of strings, or <b>FALSE</b> if list not filled yet
      */
     public function getRestrictedCarrierList()
@@ -684,6 +703,7 @@ class AmazonMerchantServiceList extends AmazonMerchantCore implements Iterator
 
     /**
      * Iterator function.
+     *
      * @return array
      */
     public function current()
@@ -701,6 +721,7 @@ class AmazonMerchantServiceList extends AmazonMerchantCore implements Iterator
 
     /**
      * Iterator function.
+     *
      * @return type
      */
     public function key()
@@ -718,6 +739,7 @@ class AmazonMerchantServiceList extends AmazonMerchantCore implements Iterator
 
     /**
      * Iterator function.
+     *
      * @return bool
      */
     public function valid()

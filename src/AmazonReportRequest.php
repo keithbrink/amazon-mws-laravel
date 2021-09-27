@@ -37,11 +37,11 @@ class AmazonReportRequest extends AmazonReportsCore
      * in turn passed to the AmazonCore constructor. See it for more information
      * on these parameters and common methods.
      *
-     * @param string       $s      <p>Name for the store you want to use.</p>
-     * @param bool         $mock   [optional] <p>This is a flag for enabling Mock Mode.
-     *                             This defaults to <b>FALSE</b>.</p>
-     * @param array|string $m      [optional] <p>The files (or file) to use in Mock Mode.</p>
-     * @param string       $config [optional] <p>An alternate config file to set. Used for testing.</p>
+     * @param  string  $s  <p>Name for the store you want to use.</p>
+     * @param  bool  $mock  [optional] <p>This is a flag for enabling Mock Mode.
+     *                      This defaults to <b>FALSE</b>.</p>
+     * @param  array|string  $m  [optional] <p>The files (or file) to use in Mock Mode.</p>
+     * @param  string  $config  [optional] <p>An alternate config file to set. Used for testing.</p>
      */
     public function __construct($s, $mock = false, $m = null, $config = null)
     {
@@ -65,8 +65,7 @@ class AmazonReportRequest extends AmazonReportsCore
      * This method sets the report type to be sent in the next request.
      * This parameter is required for fetching the report from Amazon.
      *
-     * @param string|int $n <p>See comment inside for a list of valid values.</p>
-     *
+     * @param  string|int  $n  <p>See comment inside for a list of valid values.</p>
      * @return bool <b>FALSE</b> if improper input
      */
     public function setReportType($s)
@@ -139,7 +138,7 @@ class AmazonReportRequest extends AmazonReportsCore
     /**
      * Sets whether or not to use the custom report (Optional).
      *
-     * @param bool $custom
+     * @param  bool  $custom
      * @return void
      */
     public function setCustomReport(bool $custom)
@@ -156,8 +155,8 @@ class AmazonReportRequest extends AmazonReportsCore
      * will only contain the most recent data.
      * The parameters are passed through <i>strtotime</i>, so values such as "-1 hour" are fine.
      *
-     * @param string $s [optional] <p>A time string for the earliest time.</p>
-     * @param string $e [optional] <p>A time string for the latest time.</p>
+     * @param  string  $s  [optional] <p>A time string for the earliest time.</p>
+     * @param  string  $e  [optional] <p>A time string for the latest time.</p>
      */
     public function setTimeLimits($s = null, $e = null)
     {
@@ -194,8 +193,7 @@ class AmazonReportRequest extends AmazonReportsCore
      *
      * Setting this parameter to <b>TRUE</b> adds the Sales Channel column to the report.
      *
-     * @param string|bool $s <p>"true" or "false", or boolean</p>
-     *
+     * @param  string|bool  $s  <p>"true" or "false", or boolean</p>
      * @return bool <b>FALSE</b> if improper input
      */
     public function setShowSalesChannel($s)
@@ -218,8 +216,7 @@ class AmazonReportRequest extends AmazonReportsCore
      * If this parameter is set, the report will only contain data relevant to the
      * marketplaces listed.
      *
-     * @param array|string $s <p>A list of marketplace IDs, or a single ID string.</p>
-     *
+     * @param  array|string  $s  <p>A list of marketplace IDs, or a single ID string.</p>
      * @return bool <b>FALSE</b> if improper input
      */
     public function setMarketplaces($s)
@@ -299,8 +296,7 @@ class AmazonReportRequest extends AmazonReportsCore
      *
      * This is what reads the response XML and converts it into an array.
      *
-     * @param SimpleXMLObject $xml <p>The XML response from Amazon.</p>
-     *
+     * @param  SimpleXMLObject  $xml  <p>The XML response from Amazon.</p>
      * @return bool <b>FALSE</b> if no XML data is found
      */
     protected function parseXML($xml)
@@ -350,8 +346,7 @@ class AmazonReportRequest extends AmazonReportsCore
      *
      * This method will return <b>FALSE</b> if the response data has not yet been filled.
      *
-     * @param int $i [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
-     *
+     * @param  int  $i  [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
      * @return string|bool single value, or <b>FALSE</b> if Non-numeric index
      */
     public function getReportRequestId()
@@ -368,8 +363,7 @@ class AmazonReportRequest extends AmazonReportsCore
      *
      * This method will return <b>FALSE</b> if the response data has not yet been filled.
      *
-     * @param int $i [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
-     *
+     * @param  int  $i  [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
      * @return string|bool single value, or <b>FALSE</b> if Non-numeric index
      */
     public function getReportType()
@@ -386,8 +380,7 @@ class AmazonReportRequest extends AmazonReportsCore
      *
      * This method will return <b>FALSE</b> if the response data has not yet been filled.
      *
-     * @param int $i [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
-     *
+     * @param  int  $i  [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
      * @return string|bool single value, or <b>FALSE</b> if Non-numeric index
      */
     public function getStartDate()
@@ -404,8 +397,7 @@ class AmazonReportRequest extends AmazonReportsCore
      *
      * This method will return <b>FALSE</b> if the response data has not yet been filled.
      *
-     * @param int $i [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
-     *
+     * @param  int  $i  [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
      * @return string|bool single value, or <b>FALSE</b> if Non-numeric index
      */
     public function getEndDate()
@@ -422,8 +414,7 @@ class AmazonReportRequest extends AmazonReportsCore
      *
      * This method will return <b>FALSE</b> if the response data has not yet been filled.
      *
-     * @param int $i [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
-     *
+     * @param  int  $i  [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
      * @return string|bool "true" or "false", or <b>FALSE</b> if Non-numeric index
      */
     public function getIsScheduled()
@@ -440,8 +431,7 @@ class AmazonReportRequest extends AmazonReportsCore
      *
      * This method will return <b>FALSE</b> if the response data has not yet been filled.
      *
-     * @param int $i [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
-     *
+     * @param  int  $i  [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
      * @return string|bool single value, or <b>FALSE</b> if Non-numeric index
      */
     public function getSubmittedDate()
@@ -458,8 +448,7 @@ class AmazonReportRequest extends AmazonReportsCore
      *
      * This method will return <b>FALSE</b> if the response data has not yet been filled.
      *
-     * @param int $i [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
-     *
+     * @param  int  $i  [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
      * @return string|bool single value, or <b>FALSE</b> if Non-numeric index
      */
     public function getStatus()

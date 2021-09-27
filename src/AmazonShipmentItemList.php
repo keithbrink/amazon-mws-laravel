@@ -45,12 +45,12 @@ class AmazonShipmentItemList extends AmazonInboundCore implements \Iterator
      * Please note that an extra parameter comes before the usual Mock Mode parameters,
      * so be careful when setting up the object.
      *
-     * @param string       $s      <p>Name for the store you want to use.</p>
-     * @param string       $id     [optional] <p>The order ID to set for the object.</p>
-     * @param bool         $mock   [optional] <p>This is a flag for enabling Mock Mode.
-     *                             This defaults to <b>FALSE</b>.</p>
-     * @param array|string $m      [optional] <p>The files (or file) to use in Mock Mode.</p>
-     * @param string       $config [optional] <p>An alternate config file to set. Used for testing.</p>
+     * @param  string  $s  <p>Name for the store you want to use.</p>
+     * @param  string  $id  [optional] <p>The order ID to set for the object.</p>
+     * @param  bool  $mock  [optional] <p>This is a flag for enabling Mock Mode.
+     *                      This defaults to <b>FALSE</b>.</p>
+     * @param  array|string  $m  [optional] <p>The files (or file) to use in Mock Mode.</p>
+     * @param  string  $config  [optional] <p>An alternate config file to set. Used for testing.</p>
      */
     public function __construct($s, $id = null, $mock = false, $m = null, $config = null)
     {
@@ -79,8 +79,7 @@ class AmazonShipmentItemList extends AmazonInboundCore implements \Iterator
      * this option is off, the object will only ever retrieve the first section of
      * the list.
      *
-     * @param bool $b [optional] <p>Defaults to <b>TRUE</b></p>
-     *
+     * @param  bool  $b  [optional] <p>Defaults to <b>TRUE</b></p>
      * @return bool <b>FALSE</b> if improper input
      */
     public function setUseToken($b = true)
@@ -99,8 +98,7 @@ class AmazonShipmentItemList extends AmazonInboundCore implements \Iterator
      * This method sets the shipment ID to be sent in the next request.
      * This parameter is required for fetching the shipment's items from Amazon.
      *
-     * @param string $n <p>Shipment ID</p>
-     *
+     * @param  string  $n  <p>Shipment ID</p>
      * @return bool <b>FALSE</b> if improper input
      */
     public function setShipmentId($s)
@@ -117,8 +115,8 @@ class AmazonShipmentItemList extends AmazonInboundCore implements \Iterator
      *
      * If no times are specified, times default to the current time.
      *
-     * @param dateTime $lower <p>Date the order was created after, is passed through strtotime</p>
-     * @param dateTime $upper <p>Date the order was created before, is passed through strtotime</p>
+     * @param  dateTime  $lower  <p>Date the order was created after, is passed through strtotime</p>
+     * @param  dateTime  $upper  <p>Date the order was created before, is passed through strtotime</p>
      *
      * @throws InvalidArgumentException
      */
@@ -174,7 +172,6 @@ class AmazonShipmentItemList extends AmazonInboundCore implements \Iterator
      * This operation can potentially involve tokens.
      *
      * @param bool <p>When set to <b>FALSE</b>, the function will not recurse, defaults to <b>TRUE</b></p>
-     *
      * @return bool <b>FALSE</b> if something goes wrong
      */
     public function fetchItems($r = true)
@@ -245,8 +242,7 @@ class AmazonShipmentItemList extends AmazonInboundCore implements \Iterator
      *
      * This is what reads the response XML and converts it into an array.
      *
-     * @param SimpleXMLObject $xml <p>The XML response from Amazon.</p>
-     *
+     * @param  SimpleXMLObject  $xml  <p>The XML response from Amazon.</p>
      * @return bool <b>FALSE</b> if no XML data is found
      */
     protected function parseXML($xml)
@@ -281,8 +277,7 @@ class AmazonShipmentItemList extends AmazonInboundCore implements \Iterator
      *
      * This method will return <b>FALSE</b> if the list has not yet been filled.
      *
-     * @param int $i [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
-     *
+     * @param  int  $i  [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
      * @return string|bool single value, or <b>FALSE</b> if Non-numeric index
      */
     public function getShipmentId($i = 0)
@@ -302,8 +297,7 @@ class AmazonShipmentItemList extends AmazonInboundCore implements \Iterator
      *
      * This method will return <b>FALSE</b> if the list has not yet been filled.
      *
-     * @param int $i [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
-     *
+     * @param  int  $i  [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
      * @return string|bool single value, or <b>FALSE</b> if Non-numeric index
      */
     public function getSellerSKU($i = 0)
@@ -323,8 +317,7 @@ class AmazonShipmentItemList extends AmazonInboundCore implements \Iterator
      *
      * This method will return <b>FALSE</b> if the list has not yet been filled.
      *
-     * @param int $i [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
-     *
+     * @param  int  $i  [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
      * @return string|bool single value, or <b>FALSE</b> if Non-numeric index
      */
     public function getFulfillmentNetworkSKU($i = 0)
@@ -344,8 +337,7 @@ class AmazonShipmentItemList extends AmazonInboundCore implements \Iterator
      *
      * This method will return <b>FALSE</b> if the list has not yet been filled.
      *
-     * @param int $i [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
-     *
+     * @param  int  $i  [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
      * @return string|bool single value, or <b>FALSE</b> if Non-numeric index
      */
     public function getQuantityShipped($i = 0)
@@ -365,8 +357,7 @@ class AmazonShipmentItemList extends AmazonInboundCore implements \Iterator
      *
      * This method will return <b>FALSE</b> if the list has not yet been filled.
      *
-     * @param int $i [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
-     *
+     * @param  int  $i  [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
      * @return string|bool single value, or <b>FALSE</b> if Non-numeric index
      */
     public function getQuantityReceived($i = 0)
@@ -386,8 +377,7 @@ class AmazonShipmentItemList extends AmazonInboundCore implements \Iterator
      *
      * This method will return <b>FALSE</b> if the list has not yet been filled.
      *
-     * @param int $i [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
-     *
+     * @param  int  $i  [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
      * @return string|bool single value, or <b>FALSE</b> if Non-numeric index
      */
     public function getQuantityInCase($i = 0)
@@ -416,8 +406,7 @@ class AmazonShipmentItemList extends AmazonInboundCore implements \Iterator
      * <li><b>QuantityInCase</b></li>
      * </ul>
      *
-     * @param int $i [optional] <p>List index of the item to return. Defaults to NULL.</p>
-     *
+     * @param  int  $i  [optional] <p>List index of the item to return. Defaults to NULL.</p>
      * @return array|bool multi-dimensional array, or <b>FALSE</b> if list not filled yet
      */
     public function getItems($i = null)

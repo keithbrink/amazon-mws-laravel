@@ -247,7 +247,7 @@ class AmazonShipmentTest extends TestCase
     /**
      * @depends testUsePlan
      *
-     * @param array $plan <p>Plan from an AmazonShipmentPlanner object</p>
+     * @param  array  $plan  <p>Plan from an AmazonShipmentPlanner object</p>
      */
     public function testCreateShipment($plan)
     {
@@ -307,7 +307,7 @@ class AmazonShipmentTest extends TestCase
     /**
      * @depends testUsePlan
      *
-     * @param array $plan <p>Plan from an AmazonShipmentPlanner object</p>
+     * @param  array  $plan  <p>Plan from an AmazonShipmentPlanner object</p>
      */
     public function testUpdateShipment($plan)
     {

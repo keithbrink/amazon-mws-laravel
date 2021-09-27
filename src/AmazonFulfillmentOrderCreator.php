@@ -36,11 +36,11 @@ class AmazonFulfillmentOrderCreator extends AmazonOutboundCore
      * in turn passed to the AmazonCore constructor. See it for more information
      * on these parameters and common methods.
      *
-     * @param string       $s      <p>Name for the store you want to use.</p>
-     * @param bool         $mock   [optional] <p>This is a flag for enabling Mock Mode.
-     *                             This defaults to <b>FALSE</b>.</p>
-     * @param array|string $m      [optional] <p>The files (or file) to use in Mock Mode.</p>
-     * @param string       $config [optional] <p>An alternate config file to set. Used for testing.</p>
+     * @param  string  $s  <p>Name for the store you want to use.</p>
+     * @param  bool  $mock  [optional] <p>This is a flag for enabling Mock Mode.
+     *                      This defaults to <b>FALSE</b>.</p>
+     * @param  array|string  $m  [optional] <p>The files (or file) to use in Mock Mode.</p>
+     * @param  string  $config  [optional] <p>An alternate config file to set. Used for testing.</p>
      */
     public function __construct($s, $mock = false, $m = null, $config = null)
     {
@@ -56,8 +56,7 @@ class AmazonFulfillmentOrderCreator extends AmazonOutboundCore
      * This parameter is required for creating a fulfillment order with Amazon.
      * A fulfillment order ID can be generated using the <i>AmazonFulfillmentPreview</i> object.
      *
-     * @param string $s <p>Maximum 40 characters.</p>
-     *
+     * @param  string  $s  <p>Maximum 40 characters.</p>
      * @return bool <b>FALSE</b> if improper input
      */
     public function setFulfillmentOrderId($s)
@@ -78,8 +77,7 @@ class AmazonFulfillmentOrderCreator extends AmazonOutboundCore
      * This parameter is required for creating a fulfillment order with Amazon.
      * This is your own order ID, and is the ID that is displayed on the packing slip.
      *
-     * @param string $s <p>Must be alpha-numeric or ISO-8559-1 compliant. Maximum 40 characters.</p>
-     *
+     * @param  string  $s  <p>Must be alpha-numeric or ISO-8559-1 compliant. Maximum 40 characters.</p>
      * @return bool <b>FALSE</b> if improper input
      */
     public function setDisplayableOrderId($s)
@@ -96,7 +94,7 @@ class AmazonFulfillmentOrderCreator extends AmazonOutboundCore
     /**
      * Sets the marketplace Id.
      *
-     * @param null $id
+     * @param  null  $id
      * @return bool
      */
     public function setMarketPlaceId($id = null)
@@ -120,7 +118,6 @@ class AmazonFulfillmentOrderCreator extends AmazonOutboundCore
      * Maximum: 1000 characters
      *
      * @param $s
-     *
      * @return bool
      */
     public function setDisplayableOrderComment($s)
@@ -141,8 +138,7 @@ class AmazonFulfillmentOrderCreator extends AmazonOutboundCore
      * This parameter is required for creating a fulfillment order with Amazon.
      * The parameter is passed through <i>strtotime</i>, so values such as "-1 hour" are fine.
      *
-     * @param string $s <p>Time string.</p>
-     *
+     * @param  string  $s  <p>Time string.</p>
      * @return bool <b>FALSE</b> if improper input
      */
     public function setDate($s)
@@ -163,8 +159,7 @@ class AmazonFulfillmentOrderCreator extends AmazonOutboundCore
      * This method sets the displayed order comment to be sent in the next request.
      * This parameter is required for creating a fulfillment order with Amazon.
      *
-     * @param string $s <p>Maximum 1000 characters.</p>
-     *
+     * @param  string  $s  <p>Maximum 1000 characters.</p>
      * @return bool <b>FALSE</b> if improper input
      */
     public function setComment($s)
@@ -184,8 +179,7 @@ class AmazonFulfillmentOrderCreator extends AmazonOutboundCore
      * This method sets the shipping speed to be sent in the next request.
      * This parameter is required for creating a fulfillment order with Amazon.
      *
-     * @param string $s <p>"Standard", "Expedited", or "Priority"</p>
-     *
+     * @param  string  $s  <p>"Standard", "Expedited", or "Priority"</p>
      * @return bool <b>FALSE</b> if improper input
      */
     public function setShippingSpeed($s)
@@ -224,8 +218,7 @@ class AmazonFulfillmentOrderCreator extends AmazonOutboundCore
      * <li><b>PhoneNumber</b> - max: 20 char</li>
      * </ul>
      *
-     * @param array $a <p>See above.</p>
-     *
+     * @param  array  $a  <p>See above.</p>
      * @return bool <b>FALSE</b> if improper input
      */
     public function setAddress($a)
@@ -298,8 +291,7 @@ class AmazonFulfillmentOrderCreator extends AmazonOutboundCore
      * <li><b>FillAllAvailable</b> - send all possible, cancel any unfulfillable items</li>
      * </ul>
      *
-     * @param string $s <p>"FillOrKill", "FillAll", or "FillAllAvailable"</p>
-     *
+     * @param  string  $s  <p>"FillOrKill", "FillAll", or "FillAllAvailable"</p>
      * @return bool <b>FALSE</b> if improper input
      */
     public function setFulfillmentPolicy($s)
@@ -330,8 +322,7 @@ class AmazonFulfillmentOrderCreator extends AmazonOutboundCore
      * <li><b>Removal</b> - inventory will be returned to the given address</li>
      * </ul>
      *
-     * @param string $s <p>"Consumer" or "Removal"</p>
-     *
+     * @param  string  $s  <p>"Consumer" or "Removal"</p>
      * @return bool <b>FALSE</b> if improper input
      */
     public function setFulfillmentMethod($s)
@@ -358,8 +349,7 @@ class AmazonFulfillmentOrderCreator extends AmazonOutboundCore
      * Setting this parameter tells Amazon who to send emails to regarding the
      * completion of the shipment.
      *
-     * @param array|string $s <p>A list of email addresses, or a single email address. (max: 64 chars each)</p>
-     *
+     * @param  array|string  $s  <p>A list of email addresses, or a single email address. (max: 64 chars each)</p>
      * @return bool <b>FALSE</b> if improper input
      */
     public function setEmails($s)
@@ -421,8 +411,7 @@ class AmazonFulfillmentOrderCreator extends AmazonOutboundCore
      * </ul>
      * </ul>
      *
-     * @param array $a <p>See above.</p>
-     *
+     * @param  array  $a  <p>See above.</p>
      * @return bool <b>FALSE</b> if improper input
      */
     public function setItems($a)

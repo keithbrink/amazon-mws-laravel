@@ -37,11 +37,11 @@ class AmazonProductInfo extends AmazonProductsCore
      * in turn passed to the AmazonCore constructor. See it for more information
      * on these parameters and common methods.
      *
-     * @param string       $s      <p>Name for the store you want to use.</p>
-     * @param bool         $mock   [optional] <p>This is a flag for enabling Mock Mode.
-     *                             This defaults to <b>FALSE</b>.</p>
-     * @param array|string $m      [optional] <p>The files (or file) to use in Mock Mode.</p>
-     * @param string       $config [optional] <p>An alternate config file to set. Used for testing.</p>
+     * @param  string  $s  <p>Name for the store you want to use.</p>
+     * @param  bool  $mock  [optional] <p>This is a flag for enabling Mock Mode.
+     *                      This defaults to <b>FALSE</b>.</p>
+     * @param  array|string  $m  [optional] <p>The files (or file) to use in Mock Mode.</p>
+     * @param  string  $config  [optional] <p>An alternate config file to set. Used for testing.</p>
      */
     public function __construct($s, $mock = false, $m = null, $config = null)
     {
@@ -55,8 +55,7 @@ class AmazonProductInfo extends AmazonProductsCore
      * Setting this parameter tells Amazon to only return inventory supplies that match
      * the IDs in the list. If this parameter is set, ASINs cannot be set.
      *
-     * @param array|string $s <p>A list of Seller SKUs, or a single SKU string. (max: 20)</p>
-     *
+     * @param  array|string  $s  <p>A list of Seller SKUs, or a single SKU string. (max: 20)</p>
      * @return bool <b>FALSE</b> if improper input
      */
     public function setSKUs($s)
@@ -102,8 +101,7 @@ class AmazonProductInfo extends AmazonProductsCore
      * Setting this parameter tells Amazon to only return inventory supplies that match
      * the IDs in the list. If this parameter is set, Seller SKUs cannot be set.
      *
-     * @param array|string $s <p>A list of ASINs, or a single ASIN string. (max: 20)</p>
-     *
+     * @param  array|string  $s  <p>A list of ASINs, or a single ASIN string. (max: 20)</p>
      * @return bool <b>FALSE</b> if improper input
      */
     public function setASINs($s)
@@ -149,8 +147,7 @@ class AmazonProductInfo extends AmazonProductsCore
      * Setting this parameter tells Amazon to only return products with conditions that match
      * the one given. If this parameter is not set, Amazon will return products with any condition.
      *
-     * @param string $s <p>Single condition string.</p>
-     *
+     * @param  string  $s  <p>Single condition string.</p>
      * @return bool <b>FALSE</b> if improper input
      */
     public function setConditionFilter($s)
@@ -167,8 +164,7 @@ class AmazonProductInfo extends AmazonProductsCore
      *
      * Sets whether or not the next Lowest Offer Listings request should exclude your own listings.
      *
-     * @param string|bool $s <p>"true" or "false", or boolean</p>
-     *
+     * @param  string|bool  $s  <p>"true" or "false", or boolean</p>
      * @return bool <b>FALSE</b> if improper input
      */
     public function setExcludeSelf($s = 'true')

@@ -438,7 +438,8 @@ class AmazonMerchantShipmentTest extends TestCase
 
     /**
      * @depends testCreateShipment
-     * @param AmazonMerchantShipment $o
+     *
+     * @param  AmazonMerchantShipment  $o
      */
     public function testGetShipmentId($o)
     {
@@ -450,7 +451,8 @@ class AmazonMerchantShipmentTest extends TestCase
 
     /**
      * @depends testCreateShipment
-     * @param AmazonMerchantShipment $o
+     *
+     * @param  AmazonMerchantShipment  $o
      */
     public function testGetItems($o)
     {
@@ -469,7 +471,8 @@ class AmazonMerchantShipmentTest extends TestCase
 
     /**
      * @depends testCreateShipment
-     * @param AmazonMerchantShipment $o
+     *
+     * @param  AmazonMerchantShipment  $o
      */
     public function testGetShipFromAddress($o)
     {
@@ -492,7 +495,8 @@ class AmazonMerchantShipmentTest extends TestCase
 
     /**
      * @depends testCreateShipment
-     * @param AmazonMerchantShipment $o
+     *
+     * @param  AmazonMerchantShipment  $o
      */
     public function testGetShipToAddress($o)
     {
@@ -515,7 +519,8 @@ class AmazonMerchantShipmentTest extends TestCase
 
     /**
      * @depends testCreateShipment
-     * @param AmazonMerchantShipment $o
+     *
+     * @param  AmazonMerchantShipment  $o
      */
     public function testGetPackageDimensions($o)
     {
@@ -534,7 +539,8 @@ class AmazonMerchantShipmentTest extends TestCase
 
     /**
      * @depends testCreateShipment
-     * @param AmazonMerchantShipment $o
+     *
+     * @param  AmazonMerchantShipment  $o
      */
     public function testGetWeight($o)
     {
@@ -552,7 +558,8 @@ class AmazonMerchantShipmentTest extends TestCase
 
     /**
      * @depends testCreateShipment
-     * @param AmazonMerchantShipment $o
+     *
+     * @param  AmazonMerchantShipment  $o
      */
     public function testGetInsurance($o)
     {
@@ -570,7 +577,8 @@ class AmazonMerchantShipmentTest extends TestCase
 
     /**
      * @depends testCreateShipment
-     * @param AmazonMerchantShipment $o
+     *
+     * @param  AmazonMerchantShipment  $o
      */
     public function testGetService($o)
     {
@@ -600,7 +608,8 @@ class AmazonMerchantShipmentTest extends TestCase
 
     /**
      * @depends testCreateShipment
-     * @param AmazonMerchantShipment $o
+     *
+     * @param  AmazonMerchantShipment  $o
      */
     public function testGetServiceRate($o)
     {
@@ -618,7 +627,8 @@ class AmazonMerchantShipmentTest extends TestCase
 
     /**
      * @depends testCreateShipment
-     * @param AmazonMerchantShipment $o
+     *
+     * @param  AmazonMerchantShipment  $o
      */
     public function testGetDeclaredValue($o)
     {
@@ -636,7 +646,8 @@ class AmazonMerchantShipmentTest extends TestCase
 
     /**
      * @depends testCreateShipment
-     * @param AmazonMerchantShipment $o
+     *
+     * @param  AmazonMerchantShipment  $o
      */
     public function testGetLabelData($o)
     {
@@ -673,7 +684,8 @@ class AmazonMerchantShipmentTest extends TestCase
 
     /**
      * @depends testCreateShipment
-     * @param AmazonMerchantShipment $o
+     *
+     * @param  AmazonMerchantShipment  $o
      */
     public function testGetStatus($o)
     {
@@ -685,7 +697,8 @@ class AmazonMerchantShipmentTest extends TestCase
 
     /**
      * @depends testCreateShipment
-     * @param AmazonMerchantShipment $o
+     *
+     * @param  AmazonMerchantShipment  $o
      */
     public function testGetTrackingId($o)
     {
@@ -697,7 +710,8 @@ class AmazonMerchantShipmentTest extends TestCase
 
     /**
      * @depends testCreateShipment
-     * @param AmazonMerchantShipment $o
+     *
+     * @param  AmazonMerchantShipment  $o
      */
     public function testGetDateCreated($o)
     {
@@ -709,6 +723,7 @@ class AmazonMerchantShipmentTest extends TestCase
 
     /**
      * Creates a basic adress with the minimum amount of information.
+     *
      * @return array
      */
     private function genAddress()
@@ -727,6 +742,7 @@ class AmazonMerchantShipmentTest extends TestCase
 
     /**
      * Creates a new AmazonMerchantShipment object.
+     *
      * @return \AmazonMerchantShipment
      */
     private function genEmptyShipment()

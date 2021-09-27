@@ -91,7 +91,8 @@ class AmazonPreorderTest extends TestCase
 
     /**
      * @depends testFetchPreorderInfo
-     * @param AmazonPreorder $o
+     *
+     * @param  AmazonPreorder  $o
      */
     public function testGetNeedByDateWithFetch($o)
     {
@@ -102,7 +103,8 @@ class AmazonPreorderTest extends TestCase
 
     /**
      * @depends testConfirmPreorder
-     * @param AmazonPreorder $o
+     *
+     * @param  AmazonPreorder  $o
      */
     public function testGetNeedByDateWithConfirm($o)
     {
@@ -113,7 +115,8 @@ class AmazonPreorderTest extends TestCase
 
     /**
      * @depends testFetchPreorderInfo
-     * @param AmazonPreorder $o
+     *
+     * @param  AmazonPreorder  $o
      */
     public function testGetFulfillableDateWithFetch($o)
     {
@@ -124,7 +127,8 @@ class AmazonPreorderTest extends TestCase
 
     /**
      * @depends testConfirmPreorder
-     * @param AmazonPreorder $o
+     *
+     * @param  AmazonPreorder  $o
      */
     public function testGetFulfillableDateWithConfirm($o)
     {
@@ -135,7 +139,8 @@ class AmazonPreorderTest extends TestCase
 
     /**
      * @depends testFetchPreorderInfo
-     * @param AmazonPreorder $o
+     *
+     * @param  AmazonPreorder  $o
      */
     public function testGetHasPreorderableItems($o)
     {
@@ -146,7 +151,8 @@ class AmazonPreorderTest extends TestCase
 
     /**
      * @depends testFetchPreorderInfo
-     * @param AmazonPreorder $o
+     *
+     * @param  AmazonPreorder  $o
      */
     public function testGetIsConfirmed($o)
     {

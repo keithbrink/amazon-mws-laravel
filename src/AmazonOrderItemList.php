@@ -45,12 +45,12 @@ class AmazonOrderItemList extends AmazonOrderCore implements Iterator
      * Please note that an extra parameter comes before the usual Mock Mode parameters,
      * so be careful when setting up the object.
      *
-     * @param string       $s      <p>Name for the store you want to use.</p>
-     * @param string       $id     [optional] <p>The order ID to set for the object.</p>
-     * @param bool         $mock   [optional] <p>This is a flag for enabling Mock Mode.
-     *                             This defaults to <b>FALSE</b>.</p>
-     * @param array|string $m      [optional] <p>The files (or file) to use in Mock Mode.</p>
-     * @param string       $config [optional] <p>An alternate config file to set. Used for testing.</p>
+     * @param  string  $s  <p>Name for the store you want to use.</p>
+     * @param  string  $id  [optional] <p>The order ID to set for the object.</p>
+     * @param  bool  $mock  [optional] <p>This is a flag for enabling Mock Mode.
+     *                      This defaults to <b>FALSE</b>.</p>
+     * @param  array|string  $m  [optional] <p>The files (or file) to use in Mock Mode.</p>
+     * @param  string  $config  [optional] <p>An alternate config file to set. Used for testing.</p>
      */
     public function __construct($s, $id = null, $mock = false, $m = null, $config = null)
     {
@@ -88,8 +88,7 @@ class AmazonOrderItemList extends AmazonOrderCore implements Iterator
      * this option is off, the object will only ever retrieve the first section of
      * the list.
      *
-     * @param bool $b [optional] <p>Defaults to <b>TRUE</b></p>
-     *
+     * @param  bool  $b  [optional] <p>Defaults to <b>TRUE</b></p>
      * @return bool <b>FALSE</b> if improper input
      */
     public function setUseToken($b = true)
@@ -107,8 +106,7 @@ class AmazonOrderItemList extends AmazonOrderCore implements Iterator
      * This method sets the Amazon Order ID to be sent in the next request.
      * This parameter is required for fetching the order's items from Amazon.
      *
-     * @param string $s <p>either string or number</p>
-     *
+     * @param  string  $s  <p>either string or number</p>
      * @return bool <b>FALSE</b> if improper input
      */
     public function setOrderId($id)
@@ -130,7 +128,6 @@ class AmazonOrderItemList extends AmazonOrderCore implements Iterator
      * This operation can potentially involve tokens.
      *
      * @param bool <p>When set to <b>FALSE</b>, the function will not recurse, defaults to <b>TRUE</b></p>
-     *
      * @return bool <b>FALSE</b> if something goes wrong
      */
     public function fetchItems($r = true)
@@ -206,8 +203,7 @@ class AmazonOrderItemList extends AmazonOrderCore implements Iterator
      *
      * This is what reads the response XML and converts it into an array.
      *
-     * @param SimpleXMLObject $xml <p>The XML response from Amazon.</p>
-     *
+     * @param  SimpleXMLObject  $xml  <p>The XML response from Amazon.</p>
      * @return bool <b>FALSE</b> if no XML data is found
      */
     protected function parseXML($xml)
@@ -351,9 +347,8 @@ class AmazonOrderItemList extends AmazonOrderCore implements Iterator
      * <li><b>PromotionIds</b> (optional) -array of promotion IDs</li>
      * </ul>
      *
-     * @param int $i [optional] <p>List index to retrieve the value from.
-     *               If none is given, the entire list will be returned. Defaults to NULL.</p>
-     *
+     * @param  int  $i  [optional] <p>List index to retrieve the value from.
+     *                  If none is given, the entire list will be returned. Defaults to NULL.</p>
      * @return array|bool array, multi-dimensional array, or <b>FALSE</b> if list not filled yet
      */
     public function getItems($i = null)
@@ -374,8 +369,7 @@ class AmazonOrderItemList extends AmazonOrderCore implements Iterator
      *
      * This method will return <b>FALSE</b> if the list has not yet been filled.
      *
-     * @param int $i [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
-     *
+     * @param  int  $i  [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
      * @return string|bool single value, or <b>FALSE</b> if Non-numeric index
      */
     public function getASIN($i = 0)
@@ -392,8 +386,7 @@ class AmazonOrderItemList extends AmazonOrderCore implements Iterator
      *
      * This method will return <b>FALSE</b> if the list has not yet been filled.
      *
-     * @param int $i [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
-     *
+     * @param  int  $i  [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
      * @return string|bool single value, or <b>FALSE</b> if Non-numeric index
      */
     public function getSellerSKU($i = 0)
@@ -410,8 +403,7 @@ class AmazonOrderItemList extends AmazonOrderCore implements Iterator
      *
      * This method will return <b>FALSE</b> if the list has not yet been filled.
      *
-     * @param int $i [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
-     *
+     * @param  int  $i  [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
      * @return string|bool single value, or <b>FALSE</b> if Non-numeric index
      */
     public function getOrderItemId($i = 0)
@@ -428,8 +420,7 @@ class AmazonOrderItemList extends AmazonOrderCore implements Iterator
      *
      * This method will return <b>FALSE</b> if the list has not yet been filled.
      *
-     * @param int $i [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
-     *
+     * @param  int  $i  [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
      * @return string|bool single value, or <b>FALSE</b> if Non-numeric index
      */
     public function getTitle($i = 0)
@@ -446,8 +437,7 @@ class AmazonOrderItemList extends AmazonOrderCore implements Iterator
      *
      * This method will return <b>FALSE</b> if the list has not yet been filled.
      *
-     * @param int $i [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
-     *
+     * @param  int  $i  [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
      * @return string|bool single value, or <b>FALSE</b> if Non-numeric index
      */
     public function getQuantityOrdered($i = 0)
@@ -464,8 +454,7 @@ class AmazonOrderItemList extends AmazonOrderCore implements Iterator
      *
      * This method will return <b>FALSE</b> if the list has not yet been filled.
      *
-     * @param int $i [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
-     *
+     * @param  int  $i  [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
      * @return string|bool single value, or <b>FALSE</b> if Non-numeric index
      */
     public function getQuantityShipped($i = 0)
@@ -481,7 +470,8 @@ class AmazonOrderItemList extends AmazonOrderCore implements Iterator
      * Returns the URL for the ZIP file containing the customized options for the specified entry.
      *
      * This method will return <b>FALSE</b> if the list has not yet been filled.
-     * @param int $i [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
+     *
+     * @param  int  $i  [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
      * @return string|bool single value, or <b>FALSE</b> if Non-numeric index
      */
     public function getCustomizedInfo($i = 0)
@@ -498,8 +488,9 @@ class AmazonOrderItemList extends AmazonOrderCore implements Iterator
      *
      * This method will return <b>FALSE</b> if the list has not yet been filled.
      * If an array is returned, it will have the fields <b>PointsNumber</b>, <b>Amount</b> and <b>CurrencyCode</b>.
-     * @param int $i [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
-     * @param bool $only [optional] <p>set to <b>TRUE</b> to get only the number of points</p>
+     *
+     * @param  int  $i  [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
+     * @param  bool  $only  [optional] <p>set to <b>TRUE</b> to get only the number of points</p>
      * @return array|string|bool array, single value, or <b>FALSE</b> if Non-numeric index
      */
     public function getPointsGranted($i = 0, $only = false)
@@ -519,7 +510,8 @@ class AmazonOrderItemList extends AmazonOrderCore implements Iterator
      * Returns the price designation for the specified entry.
      *
      * This method will return <b>FALSE</b> if the list has not yet been filled.
-     * @param int $i [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
+     *
+     * @param  int  $i  [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
      * @return string|bool single value, or <b>FALSE</b> if Non-numeric index
      */
     public function getPriceDesignation($i = 0)
@@ -536,8 +528,7 @@ class AmazonOrderItemList extends AmazonOrderCore implements Iterator
      *
      * This method will return <b>FALSE</b> if the list has not yet been filled.
      *
-     * @param int $i [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
-     *
+     * @param  int  $i  [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
      * @return float|bool decimal number from 0 to 1, or <b>FALSE</b> if Non-numeric index
      */
     public function getPercentShipped($i = 0)
@@ -557,8 +548,7 @@ class AmazonOrderItemList extends AmazonOrderCore implements Iterator
      *
      * This method will return <b>FALSE</b> if the list has not yet been filled.
      *
-     * @param int $i [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
-     *
+     * @param  int  $i  [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
      * @return string|bool single value, or <b>FALSE</b> if Non-numeric index
      */
     public function getGiftMessageText($i = 0)
@@ -575,8 +565,7 @@ class AmazonOrderItemList extends AmazonOrderCore implements Iterator
      *
      * This method will return <b>FALSE</b> if the list has not yet been filled.
      *
-     * @param int $i [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
-     *
+     * @param  int  $i  [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
      * @return string|bool single value, or <b>FALSE</b> if Non-numeric index
      */
     public function getGiftWrapLevel($i = 0)
@@ -594,9 +583,8 @@ class AmazonOrderItemList extends AmazonOrderCore implements Iterator
      * This method will return <b>FALSE</b> if the list has not yet been filled.
      * If an array is returned, it will have the fields <b>Amount</b> and <b>CurrencyCode</b>.
      *
-     * @param int  $i    [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
-     * @param bool $only [optional] <p>set to <b>TRUE</b> to get only the amount</p>
-     *
+     * @param  int  $i  [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
+     * @param  bool  $only  [optional] <p>set to <b>TRUE</b> to get only the amount</p>
      * @return array|string|bool array, single value, or <b>FALSE</b> if Non-numeric index
      */
     public function getItemPrice($i = 0, $only = false)
@@ -618,9 +606,8 @@ class AmazonOrderItemList extends AmazonOrderCore implements Iterator
      * This method will return <b>FALSE</b> if the list has not yet been filled.
      * If an array is returned, it will have the fields <b>Amount</b> and <b>CurrencyCode</b>.
      *
-     * @param int  $i    [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
-     * @param bool $only [optional] <p>set to <b>TRUE</b> to get only the amount</p>
-     *
+     * @param  int  $i  [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
+     * @param  bool  $only  [optional] <p>set to <b>TRUE</b> to get only the amount</p>
      * @return array|string|bool array, single value, or <b>FALSE</b> if Non-numeric index
      */
     public function getShippingPrice($i = 0, $only = false)
@@ -642,9 +629,8 @@ class AmazonOrderItemList extends AmazonOrderCore implements Iterator
      * This method will return <b>FALSE</b> if the list has not yet been filled.
      * If an array is returned, it will have the fields <b>Amount</b> and <b>CurrencyCode</b>.
      *
-     * @param int  $i    [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
-     * @param bool $only [optional] <p>set to <b>TRUE</b> to get only the amount</p>
-     *
+     * @param  int  $i  [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
+     * @param  bool  $only  [optional] <p>set to <b>TRUE</b> to get only the amount</p>
      * @return array|string|bool array, single value, or <b>FALSE</b> if Non-numeric index
      */
     public function getGiftWrapPrice($i = 0, $only = false)
@@ -666,9 +652,8 @@ class AmazonOrderItemList extends AmazonOrderCore implements Iterator
      * This method will return <b>FALSE</b> if the list has not yet been filled.
      * If an array is returned, it will have the fields <b>Amount</b> and <b>CurrencyCode</b>.
      *
-     * @param int  $i    [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
-     * @param bool $only [optional] <p>set to <b>TRUE</b> to get only the amount</p>
-     *
+     * @param  int  $i  [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
+     * @param  bool  $only  [optional] <p>set to <b>TRUE</b> to get only the amount</p>
      * @return array|string|bool array, single value, or <b>FALSE</b> if Non-numeric index
      */
     public function getItemTax($i = 0, $only = false)
@@ -690,9 +675,8 @@ class AmazonOrderItemList extends AmazonOrderCore implements Iterator
      * This method will return <b>FALSE</b> if the list has not yet been filled.
      * If an array is returned, it will have the fields <b>Amount</b> and <b>CurrencyCode</b>.
      *
-     * @param int  $i    [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
-     * @param bool $only [optional] <p>set to <b>TRUE</b> to get only the amount</p>
-     *
+     * @param  int  $i  [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
+     * @param  bool  $only  [optional] <p>set to <b>TRUE</b> to get only the amount</p>
      * @return array|string|bool array, single value, or <b>FALSE</b> if Non-numeric index
      */
     public function getShippingTax($i = 0, $only = false)
@@ -714,9 +698,8 @@ class AmazonOrderItemList extends AmazonOrderCore implements Iterator
      * This method will return <b>FALSE</b> if the list has not yet been filled.
      * If an array is returned, it will have the fields <b>Amount</b> and <b>CurrencyCode</b>.
      *
-     * @param int  $i    [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
-     * @param bool $only [optional] <p>set to <b>TRUE</b> to get only the amount</p>
-     *
+     * @param  int  $i  [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
+     * @param  bool  $only  [optional] <p>set to <b>TRUE</b> to get only the amount</p>
      * @return array|string|bool array, single value, or <b>FALSE</b> if Non-numeric index
      */
     public function getGiftWrapTax($i = 0, $only = false)
@@ -738,9 +721,8 @@ class AmazonOrderItemList extends AmazonOrderCore implements Iterator
      * This method will return <b>FALSE</b> if the list has not yet been filled.
      * If an array is returned, it will have the fields <b>Amount</b> and <b>CurrencyCode</b>.
      *
-     * @param int  $i    [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
-     * @param bool $only [optional] <p>set to <b>TRUE</b> to get only the amount</p>
-     *
+     * @param  int  $i  [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
+     * @param  bool  $only  [optional] <p>set to <b>TRUE</b> to get only the amount</p>
      * @return array|string|bool array, single value, or <b>FALSE</b> if Non-numeric index
      */
     public function getShippingDiscount($i = 0, $only = false)
@@ -762,9 +744,8 @@ class AmazonOrderItemList extends AmazonOrderCore implements Iterator
      * This method will return <b>FALSE</b> if the list has not yet been filled.
      * If an array is returned, it will have the fields <b>Amount</b> and <b>CurrencyCode</b>.
      *
-     * @param int  $i    [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
-     * @param bool $only [optional] <p>set to <b>TRUE</b> to get only the amount</p>
-     *
+     * @param  int  $i  [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
+     * @param  bool  $only  [optional] <p>set to <b>TRUE</b> to get only the amount</p>
      * @return array|string|bool array, single value, or <b>FALSE</b> if Non-numeric index
      */
     public function getPromotionDiscount($i = 0, $only = false)
@@ -785,9 +766,8 @@ class AmazonOrderItemList extends AmazonOrderCore implements Iterator
      *
      * This method will return the entire list of Promotion IDs if <i>$j</i> is not set.
      *
-     * @param int $i [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
-     * @param int $j [optional] <p>Second list index to retrieve the value from. Defaults to NULL.</p>
-     *
+     * @param  int  $i  [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
+     * @param  int  $j  [optional] <p>Second list index to retrieve the value from. Defaults to NULL.</p>
      * @return array|string|bool array, single value, or <b>FALSE</b> if incorrect index
      */
     public function getPromotionIds($i = 0, $j = null)
@@ -814,7 +794,8 @@ class AmazonOrderItemList extends AmazonOrderCore implements Iterator
      * <li><b>InvoiceTitle</b> - the title of the invoice as specified by the buyer</li>
      * <li><b>InvoiceInformation</b> - additional invoice information</li>
      * </ul>
-     * @param int $i [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
+     *
+     * @param  int  $i  [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
      * @return array|bool array, or <b>FALSE</b> if incorrect index
      */
     public function getInvoiceData($i = 0)
@@ -839,7 +820,8 @@ class AmazonOrderItemList extends AmazonOrderCore implements Iterator
      * <li>Preorder</li>
      * <li>Club</li>
      * </ul>
-     * @param int $i [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
+     *
+     * @param  int  $i  [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
      * @return string|bool single value, or <b>FALSE</b> if incorrect index
      */
     public function getConditionId($i = 0)
@@ -872,7 +854,8 @@ class AmazonOrderItemList extends AmazonOrderCore implements Iterator
      * <li>Any</li>
      * <li>Other</li>
      * </ul>
-     * @param int $i [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
+     *
+     * @param  int  $i  [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
      * @return string|bool single value, or <b>FALSE</b> if incorrect index
      */
     public function getConditionSubtypeId($i = 0)
@@ -888,7 +871,8 @@ class AmazonOrderItemList extends AmazonOrderCore implements Iterator
      * Returns the condition description for the specified item.
      *
      * This method will return <b>FALSE</b> if the list has not yet been filled.
-     * @param int $i [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
+     *
+     * @param  int  $i  [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
      * @return string|bool single value, or <b>FALSE</b> if incorrect index
      */
     public function getConditionNote($i = 0)
@@ -904,7 +888,8 @@ class AmazonOrderItemList extends AmazonOrderCore implements Iterator
      * Returns the earliest date in the scheduled delivery window for the specified item.
      *
      * This method will return <b>FALSE</b> if the list has not yet been filled.
-     * @param int $i [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
+     *
+     * @param  int  $i  [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
      * @return string|bool single value, or <b>FALSE</b> if incorrect index
      */
     public function getScheduledDeliveryStartDate($i = 0)
@@ -920,7 +905,8 @@ class AmazonOrderItemList extends AmazonOrderCore implements Iterator
      * Returns the latest date in the scheduled delivery window for the specified item.
      *
      * This method will return <b>FALSE</b> if the list has not yet been filled.
-     * @param int $i [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
+     *
+     * @param  int  $i  [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
      * @return string|bool single value, or <b>FALSE</b> if incorrect index
      */
     public function getScheduledDeliveryEndDate($i = 0)
@@ -934,6 +920,7 @@ class AmazonOrderItemList extends AmazonOrderCore implements Iterator
 
     /**
      * Iterator function.
+     *
      * @return type
      */
     public function current()

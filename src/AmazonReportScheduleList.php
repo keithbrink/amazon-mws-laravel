@@ -45,11 +45,11 @@ class AmazonReportScheduleList extends AmazonReportsCore implements \Iterator
      * in turn passed to the AmazonCore constructor. See it for more information
      * on these parameters and common methods.
      *
-     * @param string       $s      <p>Name for the store you want to use.</p>
-     * @param bool         $mock   [optional] <p>This is a flag for enabling Mock Mode.
-     *                             This defaults to <b>FALSE</b>.</p>
-     * @param array|string $m      [optional] <p>The files (or file) to use in Mock Mode.</p>
-     * @param string       $config [optional] <p>An alternate config file to set. Used for testing.</p>
+     * @param  string  $s  <p>Name for the store you want to use.</p>
+     * @param  bool  $mock  [optional] <p>This is a flag for enabling Mock Mode.
+     *                      This defaults to <b>FALSE</b>.</p>
+     * @param  array|string  $m  [optional] <p>The files (or file) to use in Mock Mode.</p>
+     * @param  string  $config  [optional] <p>An alternate config file to set. Used for testing.</p>
      */
     public function __construct($s, $mock = false, $m = null, $config = null)
     {
@@ -82,8 +82,7 @@ class AmazonReportScheduleList extends AmazonReportsCore implements \Iterator
      * this option is off, the object will only ever retrieve the first section of
      * the list.
      *
-     * @param bool $b [optional] <p>Defaults to <b>TRUE</b></p>
-     *
+     * @param  bool  $b  [optional] <p>Defaults to <b>TRUE</b></p>
      * @return bool <b>FALSE</b> if improper input
      */
     public function setUseToken($b = true)
@@ -100,8 +99,7 @@ class AmazonReportScheduleList extends AmazonReportsCore implements \Iterator
      *
      * This method sets the list of report types to be sent in the next request.
      *
-     * @param array|string $s <p>A list of report types, or a single type string.</p>
-     *
+     * @param  array|string  $s  <p>A list of report types, or a single type string.</p>
      * @return bool <b>FALSE</b> if improper input
      */
     public function setReportTypes($s)
@@ -147,7 +145,6 @@ class AmazonReportScheduleList extends AmazonReportsCore implements \Iterator
      * This operation can potentially involve tokens.
      *
      * @param bool <p>When set to <b>FALSE</b>, the function will not recurse, defaults to <b>TRUE</b></p>
-     *
      * @return bool <b>FALSE</b> if something goes wrong
      */
     public function fetchReportList($r = true)
@@ -225,8 +222,7 @@ class AmazonReportScheduleList extends AmazonReportsCore implements \Iterator
      *
      * This is what reads the response XML and converts it into an array.
      *
-     * @param SimpleXMLObject $xml <p>The XML response from Amazon.</p>
-     *
+     * @param  SimpleXMLObject  $xml  <p>The XML response from Amazon.</p>
      * @return bool <b>FALSE</b> if no XML data is found
      */
     protected function parseXML($xml)
@@ -307,8 +303,7 @@ class AmazonReportScheduleList extends AmazonReportsCore implements \Iterator
      *
      * This method will return <b>FALSE</b> if the list has not yet been filled.
      *
-     * @param int $i [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
-     *
+     * @param  int  $i  [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
      * @return string|bool single value, or <b>FALSE</b> if Non-numeric index
      */
     public function getReportType($i = 0)
@@ -328,8 +323,7 @@ class AmazonReportScheduleList extends AmazonReportsCore implements \Iterator
      *
      * This method will return <b>FALSE</b> if the list has not yet been filled.
      *
-     * @param int $i [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
-     *
+     * @param  int  $i  [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
      * @return string|bool single value, or <b>FALSE</b> if Non-numeric index
      */
     public function getSchedule($i = 0)
@@ -349,8 +343,7 @@ class AmazonReportScheduleList extends AmazonReportsCore implements \Iterator
      *
      * This method will return <b>FALSE</b> if the list has not yet been filled.
      *
-     * @param int $i [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
-     *
+     * @param  int  $i  [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
      * @return string|bool single value, or <b>FALSE</b> if Non-numeric index
      */
     public function getScheduledDate($i = 0)
@@ -376,8 +369,7 @@ class AmazonReportScheduleList extends AmazonReportsCore implements \Iterator
      * <li><b>ScheduledDate</b></li>
      * </ul>
      *
-     * @param int $i [optional] <p>List index to retrieve the value from. Defaults to NULL.</p>
-     *
+     * @param  int  $i  [optional] <p>List index to retrieve the value from. Defaults to NULL.</p>
      * @return array|bool multi-dimensional array, or <b>FALSE</b> if list not filled yet
      */
     public function getList($i = null)

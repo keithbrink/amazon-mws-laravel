@@ -42,12 +42,12 @@ class AmazonServiceStatus extends AmazonCore
      * Please note that an extra parameter comes before the usual Mock Mode parameters,
      * so be careful when setting up the object.
      *
-     * @param string       $s       <p>Name for the store you want to use.</p>
-     * @param string       $service [optional] <p>The service to set for the object.</p>
-     * @param bool         $mock    [optional] <p>This is a flag for enabling Mock Mode.
-     *                              This defaults to <b>FALSE</b>.</p>
-     * @param array|string $m       [optional] <p>The files (or file) to use in Mock Mode.</p>
-     * @param string       $config  [optional] <p>An alternate config file to set. Used for testing.</p>
+     * @param  string  $s  <p>Name for the store you want to use.</p>
+     * @param  string  $service  [optional] <p>The service to set for the object.</p>
+     * @param  bool  $mock  [optional] <p>This is a flag for enabling Mock Mode.
+     *                      This defaults to <b>FALSE</b>.</p>
+     * @param  array|string  $m  [optional] <p>The files (or file) to use in Mock Mode.</p>
+     * @param  string  $config  [optional] <p>An alternate config file to set. Used for testing.</p>
      */
     public function __construct($s, $service = null, $mock = false, $m = null, $config = null)
     {
@@ -84,8 +84,7 @@ class AmazonServiceStatus extends AmazonCore
      * <li>Sellers</li>
      * </ul>
      *
-     * @param string $s <p>See list.</p>
-     *
+     * @param  string  $s  <p>See list.</p>
      * @return bool <b>TRUE</b> if valid input, <b>FALSE</b> if improper input
      */
     public function setService($s)
@@ -207,8 +206,7 @@ class AmazonServiceStatus extends AmazonCore
      *
      * This is what reads the response XML and converts it into an array.
      *
-     * @param SimpleXMLObject $xml <p>The XML response from Amazon.</p>
-     *
+     * @param  SimpleXMLObject  $xml  <p>The XML response from Amazon.</p>
      * @return bool <b>FALSE</b> if no XML data is found
      */
     protected function parseXML($xml)

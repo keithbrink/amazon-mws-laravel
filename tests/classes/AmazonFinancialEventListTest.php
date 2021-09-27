@@ -152,7 +152,7 @@ class AmazonFinancialEventListTest extends TestCase
     }
 
     /**
-     * @param AmazonFinancialEventList $o
+     * @param  AmazonFinancialEventList  $o
      * @depends testFetchEventList
      */
     public function testGetEvents($o)
@@ -192,7 +192,7 @@ class AmazonFinancialEventListTest extends TestCase
     }
 
     /**
-     * @param AmazonFinancialEventList $o
+     * @param  AmazonFinancialEventList  $o
      * @depends testFetchEventList
      */
     public function testGetShipmentEvents($o)
@@ -296,7 +296,7 @@ class AmazonFinancialEventListTest extends TestCase
     }
 
     /**
-     * @param AmazonFinancialEventList $o
+     * @param  AmazonFinancialEventList  $o
      * @depends testFetchEventList
      */
     public function testGetRefundEvents($o)
@@ -394,7 +394,7 @@ class AmazonFinancialEventListTest extends TestCase
     }
 
     /**
-     * @param AmazonFinancialEventList $o
+     * @param  AmazonFinancialEventList  $o
      * @depends testFetchEventList
      */
     public function testGetGuaranteeClaimEvents($o)
@@ -440,7 +440,7 @@ class AmazonFinancialEventListTest extends TestCase
     }
 
     /**
-     * @param AmazonFinancialEventList $o
+     * @param  AmazonFinancialEventList  $o
      * @depends testFetchEventList
      */
     public function testGetChargebackEvents($o)
@@ -475,7 +475,7 @@ class AmazonFinancialEventListTest extends TestCase
     }
 
     /**
-     * @param AmazonFinancialEventList $o
+     * @param  AmazonFinancialEventList  $o
      * @depends testFetchEventList
      */
     public function testGetPayWithAmazonEvents($o)
@@ -521,7 +521,7 @@ class AmazonFinancialEventListTest extends TestCase
     }
 
     /**
-     * @param AmazonFinancialEventList $o
+     * @param  AmazonFinancialEventList  $o
      * @depends testFetchEventList
      */
     public function testGetServiceProviderCreditEvents($o)
@@ -552,7 +552,7 @@ class AmazonFinancialEventListTest extends TestCase
     }
 
     /**
-     * @param AmazonFinancialEventList $o
+     * @param  AmazonFinancialEventList  $o
      * @depends testFetchEventList
      */
     public function testGetRetrochargeEvents($o)
@@ -583,7 +583,7 @@ class AmazonFinancialEventListTest extends TestCase
     }
 
     /**
-     * @param AmazonFinancialEventList $o
+     * @param  AmazonFinancialEventList  $o
      * @depends testFetchEventList
      */
     public function testGetRentalTransactionEvents($o)
@@ -634,7 +634,7 @@ class AmazonFinancialEventListTest extends TestCase
     }
 
     /**
-     * @param AmazonFinancialEventList $o
+     * @param  AmazonFinancialEventList  $o
      * @depends testFetchEventList
      */
     public function testGetPerformanceBondRefundEvents($o)
@@ -658,7 +658,7 @@ class AmazonFinancialEventListTest extends TestCase
     }
 
     /**
-     * @param AmazonFinancialEventList $o
+     * @param  AmazonFinancialEventList  $o
      * @depends testFetchEventList
      */
     public function testGetServiceFeeEvents($o)
@@ -694,7 +694,7 @@ class AmazonFinancialEventListTest extends TestCase
     }
 
     /**
-     * @param AmazonFinancialEventList $o
+     * @param  AmazonFinancialEventList  $o
      * @depends testFetchEventList
      */
     public function testGetDebtRecoveryEvents($o)
@@ -749,7 +749,7 @@ class AmazonFinancialEventListTest extends TestCase
     }
 
     /**
-     * @param AmazonFinancialEventList $o
+     * @param  AmazonFinancialEventList  $o
      * @depends testFetchEventList
      */
     public function testGetLoanServicingEvents($o)
@@ -770,7 +770,7 @@ class AmazonFinancialEventListTest extends TestCase
     }
 
     /**
-     * @param AmazonFinancialEventList $o
+     * @param  AmazonFinancialEventList  $o
      * @depends testFetchEventList
      */
     public function testGetAdjustmentEvents($o)
@@ -818,7 +818,7 @@ class AmazonFinancialEventListTest extends TestCase
     }
 
     /**
-     * @param AmazonFinancialEventList $o
+     * @param  AmazonFinancialEventList  $o
      * @depends testFetchEventList
      */
     public function testGetSafetEvents($o)

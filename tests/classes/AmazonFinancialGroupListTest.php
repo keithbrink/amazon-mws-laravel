@@ -150,7 +150,7 @@ class AmazonFinancialGroupListTest extends TestCase
     }
 
     /**
-     * @param AmazonFinancialGroupList $o
+     * @param  AmazonFinancialGroupList  $o
      * @depends testFetchGroupList
      */
     public function testGetGroups($o)
@@ -187,7 +187,7 @@ class AmazonFinancialGroupListTest extends TestCase
     }
 
     /**
-     * @param AmazonFinancialGroupList $o
+     * @param  AmazonFinancialGroupList  $o
      * @depends testFetchGroupList
      */
     public function testGetGroupId($o)
@@ -200,7 +200,7 @@ class AmazonFinancialGroupListTest extends TestCase
     }
 
     /**
-     * @param AmazonFinancialGroupList $o
+     * @param  AmazonFinancialGroupList  $o
      * @depends testFetchGroupList
      */
     public function testGetProcessingStatus($o)
@@ -213,7 +213,7 @@ class AmazonFinancialGroupListTest extends TestCase
     }
 
     /**
-     * @param AmazonFinancialGroupList $o
+     * @param  AmazonFinancialGroupList  $o
      * @depends testFetchGroupList
      */
     public function testGetTransferStatus($o)
@@ -226,7 +226,7 @@ class AmazonFinancialGroupListTest extends TestCase
     }
 
     /**
-     * @param AmazonFinancialGroupList $o
+     * @param  AmazonFinancialGroupList  $o
      * @depends testFetchGroupList
      */
     public function testGetOriginalTotal($o)
@@ -247,7 +247,7 @@ class AmazonFinancialGroupListTest extends TestCase
     }
 
     /**
-     * @param AmazonFinancialGroupList $o
+     * @param  AmazonFinancialGroupList  $o
      * @depends testFetchGroupList
      */
     public function testGetConvertedTotal($o)
@@ -268,7 +268,7 @@ class AmazonFinancialGroupListTest extends TestCase
     }
 
     /**
-     * @param AmazonFinancialGroupList $o
+     * @param  AmazonFinancialGroupList  $o
      * @depends testFetchGroupList
      */
     public function testGetTransferDate($o)
@@ -281,7 +281,7 @@ class AmazonFinancialGroupListTest extends TestCase
     }
 
     /**
-     * @param AmazonFinancialGroupList $o
+     * @param  AmazonFinancialGroupList  $o
      * @depends testFetchGroupList
      */
     public function testGetTraceId($o)
@@ -294,7 +294,7 @@ class AmazonFinancialGroupListTest extends TestCase
     }
 
     /**
-     * @param AmazonFinancialGroupList $o
+     * @param  AmazonFinancialGroupList  $o
      * @depends testFetchGroupList
      */
     public function testGetAccountTail($o)
@@ -307,7 +307,7 @@ class AmazonFinancialGroupListTest extends TestCase
     }
 
     /**
-     * @param AmazonFinancialGroupList $o
+     * @param  AmazonFinancialGroupList  $o
      * @depends testFetchGroupList
      */
     public function testGetBeginningBalance($o)
@@ -328,7 +328,7 @@ class AmazonFinancialGroupListTest extends TestCase
     }
 
     /**
-     * @param AmazonFinancialGroupList $o
+     * @param  AmazonFinancialGroupList  $o
      * @depends testFetchGroupList
      */
     public function testGetStartDate($o)
@@ -341,7 +341,7 @@ class AmazonFinancialGroupListTest extends TestCase
     }
 
     /**
-     * @param AmazonFinancialGroupList $o
+     * @param  AmazonFinancialGroupList  $o
      * @depends testFetchGroupList
      */
     public function testGetEndDate($o)

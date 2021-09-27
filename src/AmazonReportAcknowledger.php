@@ -43,12 +43,12 @@ class AmazonReportAcknowledger extends AmazonReportsCore implements \Iterator
      * Please note that an extra parameter comes before the usual Mock Mode parameters,
      * so be careful when setting up the object.
      *
-     * @param string       $s      <p>Name for the store you want to use.</p>
-     * @param array|string $id     [optional] <p>The report ID(s) to set for the object.</p>
-     * @param bool         $mock   [optional] <p>This is a flag for enabling Mock Mode.
-     *                             This defaults to <b>FALSE</b>.</p>
-     * @param array|string $m      [optional] <p>The files (or file) to use in Mock Mode.</p>
-     * @param string       $config [optional] <p>An alternate config file to set. Used for testing.</p>
+     * @param  string  $s  <p>Name for the store you want to use.</p>
+     * @param  array|string  $id  [optional] <p>The report ID(s) to set for the object.</p>
+     * @param  bool  $mock  [optional] <p>This is a flag for enabling Mock Mode.
+     *                      This defaults to <b>FALSE</b>.</p>
+     * @param  array|string  $m  [optional] <p>The files (or file) to use in Mock Mode.</p>
+     * @param  string  $config  [optional] <p>An alternate config file to set. Used for testing.</p>
      */
     public function __construct($s, $id = null, $mock = false, $m = null, $config = null)
     {
@@ -75,8 +75,7 @@ class AmazonReportAcknowledger extends AmazonReportsCore implements \Iterator
      *
      * This method sets the list of Report IDs to be sent in the next request.
      *
-     * @param array|string $s <p>A list of Report IDs, or a single ID string.</p>
-     *
+     * @param  array|string  $s  <p>A list of Report IDs, or a single ID string.</p>
      * @return bool <b>FALSE</b> if improper input
      */
     public function setReportIds($s)
@@ -120,8 +119,7 @@ class AmazonReportAcknowledger extends AmazonReportsCore implements \Iterator
      * acknowledged. Setting this parameter to <b>FALSE</b> lists only reports
      * that have not been acknowledged yet.
      *
-     * @param string|bool $s <p>"true" or "false", or boolean</p>
-     *
+     * @param  string|bool  $s  <p>"true" or "false", or boolean</p>
      * @return bool <b>FALSE</b> if improper input
      */
     public function setAcknowledgedFilter($s)
@@ -184,8 +182,7 @@ class AmazonReportAcknowledger extends AmazonReportsCore implements \Iterator
      *
      * This is what reads the response XML and converts it into an array.
      *
-     * @param SimpleXMLObject $xml <p>The XML response from Amazon.</p>
-     *
+     * @param  SimpleXMLObject  $xml  <p>The XML response from Amazon.</p>
      * @return bool <b>FALSE</b> if no XML data is found
      */
     protected function parseXML($xml)
@@ -218,8 +215,7 @@ class AmazonReportAcknowledger extends AmazonReportsCore implements \Iterator
      *
      * This method will return <b>FALSE</b> if the list has not yet been filled.
      *
-     * @param int $i [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
-     *
+     * @param  int  $i  [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
      * @return string|bool single value, or <b>FALSE</b> if Non-numeric index
      */
     public function getReportId($i = 0)
@@ -239,8 +235,7 @@ class AmazonReportAcknowledger extends AmazonReportsCore implements \Iterator
      *
      * This method will return <b>FALSE</b> if the list has not yet been filled.
      *
-     * @param int $i [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
-     *
+     * @param  int  $i  [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
      * @return string|bool single value, or <b>FALSE</b> if Non-numeric index
      */
     public function getReportType($i = 0)
@@ -260,8 +255,7 @@ class AmazonReportAcknowledger extends AmazonReportsCore implements \Iterator
      *
      * This method will return <b>FALSE</b> if the list has not yet been filled.
      *
-     * @param int $i [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
-     *
+     * @param  int  $i  [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
      * @return string|bool single value, or <b>FALSE</b> if Non-numeric index
      */
     public function getReportRequestId($i = 0)
@@ -281,8 +275,7 @@ class AmazonReportAcknowledger extends AmazonReportsCore implements \Iterator
      *
      * This method will return <b>FALSE</b> if the list has not yet been filled.
      *
-     * @param int $i [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
-     *
+     * @param  int  $i  [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
      * @return string|bool single value, or <b>FALSE</b> if Non-numeric index
      */
     public function getAvailableDate($i = 0)
@@ -302,8 +295,7 @@ class AmazonReportAcknowledger extends AmazonReportsCore implements \Iterator
      *
      * This method will return <b>FALSE</b> if the list has not yet been filled.
      *
-     * @param int $i [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
-     *
+     * @param  int  $i  [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
      * @return string|bool single value, or <b>FALSE</b> if Non-numeric index
      */
     public function getIsAcknowledged($i = 0)
@@ -323,8 +315,7 @@ class AmazonReportAcknowledger extends AmazonReportsCore implements \Iterator
      *
      * This method will return <b>FALSE</b> if the list has not yet been filled.
      *
-     * @param int $i [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
-     *
+     * @param  int  $i  [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
      * @return string|bool single value, or <b>FALSE</b> if Non-numeric index
      */
     public function getAcknowledgedDate($i = 0)

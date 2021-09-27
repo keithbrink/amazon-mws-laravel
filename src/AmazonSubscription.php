@@ -40,7 +40,8 @@ class AmazonSubscription extends AmazonSubscriptionCore
      *
      * This parameter is required for performing any actions with subscription destinations.
      * Possible delivery channel values: "SQS".
-     * @param string $s <p>Delivery channel</p>
+     *
+     * @param  string  $s  <p>Delivery channel</p>
      * @return bool <b>FALSE</b> if improper input
      */
     public function setDeliveryChannel($s)
@@ -59,7 +60,8 @@ class AmazonSubscription extends AmazonSubscriptionCore
      * This parameter is required for performing any actions with subscription destinations.
      * The array provided should be an array of key/value pairs.
      * Possible attribute keys: "sqsQueueUrl".
-     * @param array $a <p>Array of key/value pairs</p>
+     *
+     * @param  array  $a  <p>Array of key/value pairs</p>
      * @return bool <b>FALSE</b> if improper input
      */
     public function setAttributes($a)
@@ -99,7 +101,8 @@ class AmazonSubscription extends AmazonSubscriptionCore
      * Sets the notification type. (Required for subscriptions).
      *
      * This parameter is required for performing any actions with subscriptions.
-     * @param string $s <p>See the comment inside for a list of valid values.</p>
+     *
+     * @param  string  $s  <p>See the comment inside for a list of valid values.</p>
      * @return bool <b>FALSE</b> if improper input
      */
     public function setNotificationType($s)
@@ -121,7 +124,8 @@ class AmazonSubscription extends AmazonSubscriptionCore
      * Sets whether or not the subscription is enabled. (Required for subscriptions).
      *
      * This parameter is required for performing any actions with subscriptions.
-     * @param bool $b <p>Defaults to <b>TRUE</b></p>
+     *
+     * @param  bool  $b  <p>Defaults to <b>TRUE</b></p>
      */
     public function setIsEnabled($b = true)
     {
@@ -168,6 +172,7 @@ class AmazonSubscription extends AmazonSubscriptionCore
      * Submits a <i>RegisterDestination</i> request to Amazon. Amazon will send
      * back an empty response. The following parameters are required:
      * marketplace ID, delivery channel, and attributes.
+     *
      * @return bool <b>FALSE</b> if something goes wrong
      */
     public function registerDestination()
@@ -232,6 +237,7 @@ class AmazonSubscription extends AmazonSubscriptionCore
      * Submits a <i>DeregisterDestination</i> request to Amazon. Amazon will send
      * back an empty response. The following parameters are required:
      * marketplace ID, delivery channel, and attributes.
+     *
      * @return bool <b>FALSE</b> if something goes wrong
      */
     public function deregisterDestination()
@@ -296,6 +302,7 @@ class AmazonSubscription extends AmazonSubscriptionCore
      * Submits a <i>SendTestNotificationToDestination</i> request to Amazon. Amazon will send
      * back an empty response. The following parameters are required:
      * marketplace ID, delivery channel, and attributes.
+     *
      * @return bool <b>FALSE</b> if something goes wrong
      */
     public function testDestination()
@@ -360,6 +367,7 @@ class AmazonSubscription extends AmazonSubscriptionCore
      * Submits a <i>CreateSubscription</i> request to Amazon. Amazon will send
      * back an empty response. The following parameters are required:
      * marketplace ID, delivery channel, attributes, notification type, and enabled status.
+     *
      * @return bool <b>FALSE</b> if something goes wrong
      */
     public function createSubscription()
@@ -432,6 +440,7 @@ class AmazonSubscription extends AmazonSubscriptionCore
      * the data back as a response, which can be retrived using <i>getSubscription</i>.
      * The following parameters are required:
      * marketplace ID, delivery channel, attributes, notification type, and enabled status.
+     *
      * @return bool <b>FALSE</b> if something goes wrong
      */
     public function fetchSubscription()
@@ -499,6 +508,7 @@ class AmazonSubscription extends AmazonSubscriptionCore
      * Submits an <i>UpdateSubscription</i> request to Amazon. Amazon will send
      * back an empty response. The following parameters are required:
      * marketplace ID, delivery channel, attributes, notification type, and enabled status.
+     *
      * @return bool <b>FALSE</b> if something goes wrong
      */
     public function updateSubscription()
@@ -570,6 +580,7 @@ class AmazonSubscription extends AmazonSubscriptionCore
      * Submits a <i>DeleteSubscription</i> request to Amazon. Amazon will send
      * back an empty response. The following parameters are required:
      * marketplace ID, delivery channel, attributes, notification type, and enabled status.
+     *
      * @return bool <b>FALSE</b> if something goes wrong
      */
     public function deleteSubscription()
@@ -635,7 +646,8 @@ class AmazonSubscription extends AmazonSubscriptionCore
      * Parses XML response into array.
      *
      * This is what reads the response XML and converts it into an array.
-     * @param SimpleXMLElement $xml <p>The XML response from Amazon.</p>
+     *
+     * @param  SimpleXMLElement  $xml  <p>The XML response from Amazon.</p>
      * @return bool <b>FALSE</b> if no XML data is found
      */
     protected function parseXml($xml)
@@ -669,7 +681,9 @@ class AmazonSubscription extends AmazonSubscriptionCore
      * <li><b>AttributeList</b> - array of key/value pairs</li>
      * </ul>
      * </ul>
+     *
      * @return array|bool data array, or <b>FALSE</b> if list not filled yet
+     *
      * @see setNotificationType
      * @see setDeliveryChannel
      */
@@ -687,7 +701,9 @@ class AmazonSubscription extends AmazonSubscriptionCore
      *
      * See <i>setNotificationType</i> for list of possible values.
      * This method will return <b>FALSE</b> if the data has not been set yet.
+     *
      * @return string|bool single value, or <b>FALSE</b> if not set yet
+     *
      * @see setNotificationType
      */
     public function getNotificationType()
@@ -705,6 +721,7 @@ class AmazonSubscription extends AmazonSubscriptionCore
      * Note that this method will return the string "false" if Amazon indicates
      * that the subscription is not enabled.
      * This method will return boolean <b>FALSE</b> if the date has not been set yet.
+     *
      * @return string|bool "true" or "false", or <b>FALSE</b> if not set yet
      */
     public function getIsEnabled()
@@ -721,7 +738,9 @@ class AmazonSubscription extends AmazonSubscriptionCore
      *
      * See <i>setDeliveryChannel</i> for list of possible values.
      * This method will return <b>FALSE</b> if the data has not been set yet.
+     *
      * @return string|bool single value, or <b>FALSE</b> if not set yet
+     *
      * @see setDeliveryChannel
      */
     public function getDeliveryChannel()
@@ -738,7 +757,9 @@ class AmazonSubscription extends AmazonSubscriptionCore
      *
      * See <i>setAttributes</i> for list of possible keys.
      * This method will return <b>FALSE</b> if the data has not been set yet.
+     *
      * @return array|bool associative array, or <b>FALSE</b> if not set yet
+     *
      * @see setAttributes
      */
     public function getAttributes()

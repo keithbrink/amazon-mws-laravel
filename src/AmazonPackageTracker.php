@@ -38,12 +38,12 @@ class AmazonPackageTracker extends AmazonOutboundCore
      * Please note that an extra parameter comes before the usual Mock Mode parameters,
      * so be careful when setting up the object.
      *
-     * @param string       $s      <p>Name for the store you want to use.</p>
-     * @param string       $id     [optional] <p>The package ID to set for the object.</p>
-     * @param bool         $mock   [optional] <p>This is a flag for enabling Mock Mode.
-     *                             This defaults to <b>FALSE</b>.</p>
-     * @param array|string $m      [optional] <p>The files (or file) to use in Mock Mode.</p>
-     * @param string       $config [optional] <p>An alternate config file to set. Used for testing.</p>
+     * @param  string  $s  <p>Name for the store you want to use.</p>
+     * @param  string  $id  [optional] <p>The package ID to set for the object.</p>
+     * @param  bool  $mock  [optional] <p>This is a flag for enabling Mock Mode.
+     *                      This defaults to <b>FALSE</b>.</p>
+     * @param  array|string  $m  [optional] <p>The files (or file) to use in Mock Mode.</p>
+     * @param  string  $config  [optional] <p>An alternate config file to set. Used for testing.</p>
      */
     public function __construct($s, $id = null, $mock = false, $m = null, $config = null)
     {
@@ -62,8 +62,7 @@ class AmazonPackageTracker extends AmazonOutboundCore
      * This method sets the package ID to be sent in the next request.
      * This parameter is required for fetching the tracking information from Amazon.
      *
-     * @param string|int $n <p>Must be numeric</p>
-     *
+     * @param  string|int  $n  <p>Must be numeric</p>
      * @return bool <b>FALSE</b> if improper input
      */
     public function setPackageNumber($n)
@@ -117,8 +116,7 @@ class AmazonPackageTracker extends AmazonOutboundCore
      *
      * This is what reads the response XML and converts it into an array.
      *
-     * @param SimpleXMLObject $d <p>The XML response from Amazon.</p>
-     *
+     * @param  SimpleXMLObject  $d  <p>The XML response from Amazon.</p>
      * @return bool <b>FALSE</b> if no XML data is found
      */
     protected function parseXML($d)

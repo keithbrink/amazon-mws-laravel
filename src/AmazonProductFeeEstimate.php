@@ -38,12 +38,13 @@ class AmazonProductFeeEstimate extends AmazonProductsCore implements Iterator
      * The parameters are passed to the parent constructor, which are
      * in turn passed to the AmazonCore constructor. See it for more information
      * on these parameters and common methods.
-     * @param string $s [optional] <p>Name for the store you want to use.
-     * This parameter is optional if only one store is defined in the config file.</p>
-     * @param bool $mock [optional] <p>This is a flag for enabling Mock Mode.
-     * This defaults to <b>FALSE</b>.</p>
-     * @param array|string $m [optional] <p>The files (or file) to use in Mock Mode.</p>
-     * @param string $config [optional] <p>An alternate config file to set. Used for testing.</p>
+     *
+     * @param  string  $s  [optional] <p>Name for the store you want to use.
+     *                     This parameter is optional if only one store is defined in the config file.</p>
+     * @param  bool  $mock  [optional] <p>This is a flag for enabling Mock Mode.
+     *                      This defaults to <b>FALSE</b>.</p>
+     * @param  array|string  $m  [optional] <p>The files (or file) to use in Mock Mode.</p>
+     * @param  string  $config  [optional] <p>An alternate config file to set. Used for testing.</p>
      */
     public function __construct($s = null, $mock = false, $m = null, $config = null)
     {
@@ -82,7 +83,8 @@ class AmazonProductFeeEstimate extends AmazonProductsCore implements Iterator
      * <li><b>Identifier</b> - unique value that will identify this request</li>
      * <li><b>IsAmazonFulfilled</b> - if offer is fulfilled by Amazon, boolean</li>
      * </ul>
-     * @param array $a <p>See above.</p>
+     *
+     * @param  array  $a  <p>See above.</p>
      * @return bool <b>FALSE</b> if improper input
      */
     public function setRequests($a)
@@ -146,6 +148,7 @@ class AmazonProductFeeEstimate extends AmazonProductsCore implements Iterator
      *
      * Submits a <i>GetMyFeesEstimate</i> request to Amazon. Amazon will send
      * the list back as a response, which can be retrieved using <i>getEstimates</i>.
+     *
      * @return bool <b>FALSE</b> if something goes wrong
      */
     public function fetchEstimates()
@@ -181,7 +184,8 @@ class AmazonProductFeeEstimate extends AmazonProductsCore implements Iterator
      * Parses XML response into array.
      *
      * This is what reads the response XML and converts it into an array.
-     * @param SimpleXMLElement $xml <p>The XML response from Amazon.</p>
+     *
+     * @param  SimpleXMLElement  $xml  <p>The XML response from Amazon.</p>
      * @return bool <b>FALSE</b> if no XML data is found
      */
     protected function parseXml($xml)
@@ -231,7 +235,8 @@ class AmazonProductFeeEstimate extends AmazonProductsCore implements Iterator
     /**
      * Parses XML for a single money element into an array.
      * This structure is used many times throughout fee estimates.
-     * @param SimpleXMLElement $xml <p>Money node of the XML response from Amazon.</p>
+     *
+     * @param  SimpleXMLElement  $xml  <p>Money node of the XML response from Amazon.</p>
      * @return array Parsed structure from XML
      */
     protected function parseMoney($xml)
@@ -246,7 +251,8 @@ class AmazonProductFeeEstimate extends AmazonProductsCore implements Iterator
     /**
      * Parses XML for a single fee detail into an array.
      * This structure is used recursively in fee estimates.
-     * @param SimpleXMLElement $xml <p>Fee Detail node of the XML response from Amazon.</p>
+     *
+     * @param  SimpleXMLElement  $xml  <p>Fee Detail node of the XML response from Amazon.</p>
      * @return array Parsed structure from XML
      */
     protected function parseFeeDetail($xml)
@@ -311,7 +317,8 @@ class AmazonProductFeeEstimate extends AmazonProductsCore implements Iterator
      * <li><b>FinalFee</b> - money array</li>
      * <li><b>IncludedFeeDetailList</b> (optional) - array of fee detail arrays</li>
      * </ul>
-     * @param int $num [optional] <p>List index to retrieve the value from.</p>
+     *
+     * @param  int  $num  [optional] <p>List index to retrieve the value from.</p>
      * @return array|bool multi-dimensional array, or <b>FALSE</b> if list not filled yet
      */
     public function getEstimates($num = null)
@@ -328,6 +335,7 @@ class AmazonProductFeeEstimate extends AmazonProductsCore implements Iterator
 
     /**
      * Iterator function.
+     *
      * @return array
      */
     public function current()
@@ -345,6 +353,7 @@ class AmazonProductFeeEstimate extends AmazonProductsCore implements Iterator
 
     /**
      * Iterator function.
+     *
      * @return int
      */
     public function key()
@@ -362,6 +371,7 @@ class AmazonProductFeeEstimate extends AmazonProductsCore implements Iterator
 
     /**
      * Iterator function.
+     *
      * @return bool
      */
     public function valid()

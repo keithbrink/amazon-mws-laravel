@@ -38,12 +38,13 @@ class AmazonMerchantShipmentCreator extends AmazonMerchantCore
      * The parameters are passed to the parent constructor, which are
      * in turn passed to the AmazonCore constructor. See it for more information
      * on these parameters and common methods.
-     * @param string $s [optional] <p>Name for the store you want to use.
-     * This parameter is optional if only one store is defined in the config file.</p>
-     * @param bool $mock [optional] <p>This is a flag for enabling Mock Mode.
-     * This defaults to <b>FALSE</b>.</p>
-     * @param array|string $m [optional] <p>The files (or file) to use in Mock Mode.</p>
-     * @param string $config [optional] <p>An alternate config file to set. Used for testing.</p>
+     *
+     * @param  string  $s  [optional] <p>Name for the store you want to use.
+     *                     This parameter is optional if only one store is defined in the config file.</p>
+     * @param  bool  $mock  [optional] <p>This is a flag for enabling Mock Mode.
+     *                      This defaults to <b>FALSE</b>.</p>
+     * @param  array|string  $m  [optional] <p>The files (or file) to use in Mock Mode.</p>
+     * @param  string  $config  [optional] <p>An alternate config file to set. Used for testing.</p>
      */
     public function __construct($s = null, $mock = false, $m = null, $config = null)
     {
@@ -57,7 +58,8 @@ class AmazonMerchantShipmentCreator extends AmazonMerchantCore
      *
      * This method sets the Amazon Order ID to be sent in the next request.
      * This parameter is required for creating a shipment on Amazon.
-     * @param string $id <p>Amazon Order ID</p>
+     *
+     * @param  string  $id  <p>Amazon Order ID</p>
      * @return bool <b>FALSE</b> if improper input
      */
     public function setOrderId($id)
@@ -75,7 +77,8 @@ class AmazonMerchantShipmentCreator extends AmazonMerchantCore
      * Sets the Seller Order ID. (Optional).
      *
      * This method sets the Seller Order ID to be sent in the next request.
-     * @param string $id <p>Maximum 64 characters.</p>
+     *
+     * @param  string  $id  <p>Maximum 64 characters.</p>
      * @return bool <b>FALSE</b> if improper input
      */
     public function setSellerOrderId($id)
@@ -99,7 +102,8 @@ class AmazonMerchantShipmentCreator extends AmazonMerchantCore
      * <li><b>OrderItemId</b> - identifier later used in the response</li>
      * <li><b>Quantity</b> - numeric</li>
      * </ul>
-     * @param array $a <p>See above.</p>
+     *
+     * @param  array  $a  <p>See above.</p>
      * @return bool <b>FALSE</b> if improper input
      */
     public function setItems($a)
@@ -159,7 +163,8 @@ class AmazonMerchantShipmentCreator extends AmazonMerchantCore
      * <li><b>CountryCode</b> - 2 digits</li>
      * <li><b>Phone</b> - max: 20 char</li>
      * </ul>
-     * @param array $a <p>See above.</p>
+     *
+     * @param  array  $a  <p>See above.</p>
      * @return bool <b>FALSE</b> if improper input
      */
     public function setAddress($a)
@@ -219,7 +224,8 @@ class AmazonMerchantShipmentCreator extends AmazonMerchantCore
      * <li><b>Height</b> - positive decimal number</li>
      * <li><b>Unit</b> - "inches" or "centimeters"</li>
      * </ul>
-     * @param array $d <p>See above.</p>
+     *
+     * @param  array  $d  <p>See above.</p>
      * @return bool <b>FALSE</b> if improper input
      */
     public function setPackageDimensions($d)
@@ -243,8 +249,9 @@ class AmazonMerchantShipmentCreator extends AmazonMerchantCore
      * Package dimensions are required for creating a shipment on Amazon.
      * This parameter can be used instead of setting the package dimensions.
      * If this parameter is set, the manual package dimensions cannot be set.
-     * @param string $s <p>A value from the list of valid package names.
-     * See the comment inside the function for the complete list.</p>
+     *
+     * @param  string  $s  <p>A value from the list of valid package names.
+     *                     See the comment inside the function for the complete list.</p>
      * @return bool <b>FALSE</b> if improper input
      */
     public function setPredefinedPackage($s)
@@ -329,8 +336,9 @@ class AmazonMerchantShipmentCreator extends AmazonMerchantCore
      * Sets the weight. (Required).
      *
      * This method sets the shipment weight to be sent in the next request.
-     * @param string $v <p>Decimal number</p>
-     * @param string $u <p>"oz" for ounces, or "g" for grams, defaults to grams</p>
+     *
+     * @param  string  $v  <p>Decimal number</p>
+     * @param  string  $u  <p>"oz" for ounces, or "g" for grams, defaults to grams</p>
      * @return bool <b>FALSE</b> if improper input
      */
     public function setWeight($v, $u = 'g')
@@ -349,7 +357,8 @@ class AmazonMerchantShipmentCreator extends AmazonMerchantCore
      * This method sets the maximum date to be sent in the next request.
      * If this parameter is set, Amazon will only give services which
      * will be able to deliver by the given date.
-     * @param string $d <p>A time string</p>
+     *
+     * @param  string  $d  <p>A time string</p>
      * @return bool <b>FALSE</b> if improper input
      */
     public function setMaxArrivalDate($d)
@@ -368,7 +377,8 @@ class AmazonMerchantShipmentCreator extends AmazonMerchantCore
      * Sets the date on which the package will be shipped. (Optional).
      *
      * This method sets the ship date to be sent in the next request.
-     * @param string $d <p>A time string</p>
+     *
+     * @param  string  $d  <p>A time string</p>
      * @return bool <b>FALSE</b> if improper input
      */
     public function setShipDate($d)
@@ -388,10 +398,11 @@ class AmazonMerchantShipmentCreator extends AmazonMerchantCore
      *
      * This method sets the delivery experience shipping option to be sent in the next request.
      * This parameter is required for creating a shipment on Amazon.
-     * @param string $s <p>"DeliveryConfirmationWithAdultSignature",
-     *      "DeliveryConfirmationWithSignature",
-     *      "DeliveryConfirmationWithoutSignature",
-     *      or "NoTracking"</p>
+     *
+     * @param  string  $s  <p>"DeliveryConfirmationWithAdultSignature",
+     *                     "DeliveryConfirmationWithSignature",
+     *                     "DeliveryConfirmationWithoutSignature",
+     *                     or "NoTracking"</p>
      * @return bool <b>FALSE</b> if improper input
      */
     public function setDeliveryOption($s)
@@ -417,8 +428,9 @@ class AmazonMerchantShipmentCreator extends AmazonMerchantCore
      * This method sets the declared value to be sent in the next request.
      * If this parameter is set and is higher than the carrier's minimum insurance amount,
      * the seller will be charged more for the additional insurance.
-     * @param string $v <p>Money amount</p>
-     * @param string $c <p>ISO 4217 currency code (ex: USD)</p>
+     *
+     * @param  string  $v  <p>Money amount</p>
+     * @param  string  $c  <p>ISO 4217 currency code (ex: USD)</p>
      * @return bool <b>FALSE</b> if improper input
      */
     public function setDeclaredValue($v, $c)
@@ -436,7 +448,8 @@ class AmazonMerchantShipmentCreator extends AmazonMerchantCore
      *
      * This method sets whether or not the carrier will pick up the package to be sent in the next request.
      * This parameter is required for creating a shipment on Amazon.
-     * @param bool $b [optional] <p>Defaults to TRUE</p>
+     *
+     * @param  bool  $b  [optional] <p>Defaults to TRUE</p>
      * @return bool <b>FALSE</b> if improper input
      */
     public function setCarrierWillPickUp($b = true)
@@ -453,7 +466,8 @@ class AmazonMerchantShipmentCreator extends AmazonMerchantCore
      * Sets the Label Format. (Optional).
      *
      * This method sets the label format to be sent in the next request.
-     * @param string $f <p>Label format (ex: "PNG")</p>
+     *
+     * @param  string  $f  <p>Label format (ex: "PNG")</p>
      * @return bool <b>FALSE</b> if improper input
      */
     public function setLabelFormat($f)
@@ -471,7 +485,8 @@ class AmazonMerchantShipmentCreator extends AmazonMerchantCore
      * Sets the Custom Text for the Label. (Optional).
      *
      * This method sets the custom text for the label to be sent in the next request.
-     * @param string $t <p>Up to 14 characters</p>
+     *
+     * @param  string  $t  <p>Up to 14 characters</p>
      * @return bool <b>FALSE</b> if improper input
      */
     public function setCustomText($t)
@@ -489,7 +504,8 @@ class AmazonMerchantShipmentCreator extends AmazonMerchantCore
      * Sets the Standard ID for the Label. (Optional).
      *
      * This method sets the standard ID option for the label to be sent in the next request.
-     * @param string $id <p>"AmazonOrderId"</p>
+     *
+     * @param  string  $id  <p>"AmazonOrderId"</p>
      */
     public function setLabelId($id)
     {
@@ -510,7 +526,8 @@ class AmazonMerchantShipmentCreator extends AmazonMerchantCore
      *
      * This method sets the shipping service ID to be sent in the next request.
      * This parameter is required for creating a shipment on Amazon.
-     * @param string $id <p>Service ID</p>
+     *
+     * @param  string  $id  <p>Service ID</p>
      * @return bool <b>FALSE</b> if improper input
      */
     public function setService($id)
@@ -528,7 +545,8 @@ class AmazonMerchantShipmentCreator extends AmazonMerchantCore
      * Sets the Shipping Service Offer ID. (Optional).
      *
      * This method sets the shipping service offer ID to be sent in the next request.
-     * @param string $id <p>Service Offer ID</p>
+     *
+     * @param  string  $id  <p>Service Offer ID</p>
      * @return bool <b>FALSE</b> if improper input
      */
     public function setServiceOffer($id)
@@ -546,7 +564,8 @@ class AmazonMerchantShipmentCreator extends AmazonMerchantCore
      * Sets the Hazmat Type. (Optional).
      *
      * This method sets the hazmat type to be sent in the next request.
-     * @param string $h <p>"None" or "LQHazmat"</p>
+     *
+     * @param  string  $h  <p>"None" or "LQHazmat"</p>
      * @return bool <b>FALSE</b> if improper input
      */
     public function setHazmat($h)
@@ -570,6 +589,7 @@ class AmazonMerchantShipmentCreator extends AmazonMerchantCore
      * See the <i>AmazonMerchantServiceList</i> class for more information on the returned object.
      * The following parameters are required: Amazon order ID, item list, shipping address,
      * package dimensions, shipment weight, delivery experience option, and carrier pick-up option.
+     *
      * @return AmazonMerchantServiceList container for services
      */
     public function fetchServices()
@@ -591,6 +611,7 @@ class AmazonMerchantShipmentCreator extends AmazonMerchantCore
      * The following parameters are required: Amazon order ID, item list, shipping address,
      * package dimensions, shipment weight, delivery experience option, carrier pick-up option,
      * and service ID.
+     *
      * @return bool <b>FALSE</b> if something goes wrong
      */
     public function createShipment()
@@ -661,7 +682,8 @@ class AmazonMerchantShipmentCreator extends AmazonMerchantCore
      * Parses XML response into array.
      *
      * This is what reads the response XML and converts it into an array.
-     * @param SimpleXMLElement $xml <p>The XML response from Amazon.</p>
+     *
+     * @param  SimpleXMLElement  $xml  <p>The XML response from Amazon.</p>
      * @return bool <b>FALSE</b> if no XML data is found
      */
     protected function parseXML($xml)
@@ -676,6 +698,7 @@ class AmazonMerchantShipmentCreator extends AmazonMerchantCore
 
     /**
      * Returns the object containing information about the shipment.
+     *
      * @return AmazonMerchantShipment|bool shipment object, or FALSE if the shipment has not been created yet
      */
     public function getShipment()

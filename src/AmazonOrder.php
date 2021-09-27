@@ -39,13 +39,13 @@ class AmazonOrder extends AmazonOrderCore
      * Please note that two extra parameters come before the usual Mock Mode parameters,
      * so be careful when setting up the object.
      *
-     * @param string           $s      <p>Name for the store you want to use.</p>
-     * @param string           $id     [optional] <p>The Order ID to set for the object.</p>
-     * @param SimpleXMLElement $data   [optional] <p>XML data from Amazon to be parsed.</p>
-     * @param bool             $mock   [optional] <p>This is a flag for enabling Mock Mode.
-     *                                 This defaults to <b>FALSE</b>.</p>
-     * @param array|string     $m      [optional] <p>The files (or file) to use in Mock Mode.</p>
-     * @param string           $config [optional] <p>An alternate config file to set. Used for testing.</p>
+     * @param  string  $s  <p>Name for the store you want to use.</p>
+     * @param  string  $id  [optional] <p>The Order ID to set for the object.</p>
+     * @param  SimpleXMLElement  $data  [optional] <p>XML data from Amazon to be parsed.</p>
+     * @param  bool  $mock  [optional] <p>This is a flag for enabling Mock Mode.
+     *                      This defaults to <b>FALSE</b>.</p>
+     * @param  array|string  $m  [optional] <p>The files (or file) to use in Mock Mode.</p>
+     * @param  string  $config  [optional] <p>An alternate config file to set. Used for testing.</p>
      */
     public function __construct($s, $id = null, $data = null, $mock = false, $m = null, $config = null)
     {
@@ -76,8 +76,7 @@ class AmazonOrder extends AmazonOrderCore
      * This method sets the Amazon Order ID to be sent in the next request.
      * This parameter is required for fetching the order from Amazon.
      *
-     * @param string $s <p>either string or number</p>
-     *
+     * @param  string  $s  <p>either string or number</p>
      * @return bool <b>FALSE</b> if improper input
      */
     public function setOrderId($id)
@@ -133,8 +132,7 @@ class AmazonOrder extends AmazonOrderCore
      *
      * See the <i>AmazonOrderItemList</i> class for more information on the returned object.
      *
-     * @param bool $token [optional] <p>whether or not to automatically use item tokens in the request</p>
-     *
+     * @param  bool  $token  [optional] <p>whether or not to automatically use item tokens in the request</p>
      * @return AmazonOrderItemList container for order's items
      */
     public function fetchItems($token = false)
@@ -164,8 +162,7 @@ class AmazonOrder extends AmazonOrderCore
      *
      * This is what reads the response XML and converts it into an array.
      *
-     * @param SimpleXMLObject $xml <p>The XML response from Amazon.</p>
-     *
+     * @param  SimpleXMLObject  $xml  <p>The XML response from Amazon.</p>
      * @return bool <b>FALSE</b> if no XML data is found
      */
     protected function parseXML($xml)
@@ -682,6 +679,7 @@ class AmazonOrder extends AmazonOrderCore
      * <li>Scheduled</li>
      * <li>Standard</li>
      * </ul>
+     *
      * @return string|bool single value, or <b>FALSE</b> if category not set yet
      */
     public function getShipmentServiceLevelCategory()
@@ -706,6 +704,7 @@ class AmazonOrder extends AmazonOrderCore
      * Returns the customized Checkout by Amazon (CBA) label of the Order.
      *
      * This method will return <b>FALSE</b> if the CBA label category has not been set yet.
+     *
      * @return string|bool single value, or <b>FALSE</b> if label not set yet
      */
     public function getCbaDisplayableShippingLabel()
@@ -721,6 +720,7 @@ class AmazonOrder extends AmazonOrderCore
      * Returns an indication of whether or not the Order was shipped with the Amazon TFM service.
      *
      * This method will return <b>FALSE</b> if the Amazon TFM flag has not been set yet.
+     *
      * @return string|bool single value, or <b>FALSE</b> if value not set yet
      */
     public function getShippedByAmazonTfm()
@@ -747,6 +747,7 @@ class AmazonOrder extends AmazonOrderCore
      * <li>Undeliverable</li>
      * <li>ReturnedToSeller</li>
      * </ul>
+     *
      * @return string|bool single value, or <b>FALSE</b> if status not set yet
      */
     public function getTfmShipmentStatus()
@@ -767,6 +768,7 @@ class AmazonOrder extends AmazonOrderCore
      * <li>StandardOrder</li>
      * <li>Preorder</li>
      * </ul>
+     *
      * @return string|bool single value, or <b>FALSE</b> if order type not set yet
      */
     public function getOrderType()
@@ -874,6 +876,7 @@ class AmazonOrder extends AmazonOrderCore
      * Returns an indication of whether or not the Order is a business number.
      *
      * This method will return <b>FALSE</b> if the business order flag has not been set yet.
+     *
      * @return string|bool single value, or <b>FALSE</b> if value not set yet
      */
     public function getIsBusinessOrder()
@@ -889,6 +892,7 @@ class AmazonOrder extends AmazonOrderCore
      * Returns the purchase order number associated with the order.
      *
      * This method will return <b>FALSE</b> if the purchase order number has not been set yet.
+     *
      * @return string|bool single value, or <b>FALSE</b> if value not set yet
      */
     public function getPurchaseOrderNumber()
@@ -904,6 +908,7 @@ class AmazonOrder extends AmazonOrderCore
      * Returns an indication of whether or not the Order uses the Amazon Prime service.
      *
      * This method will return <b>FALSE</b> if the Prime flag has not been set yet.
+     *
      * @return string|bool "true" or "false", or <b>FALSE</b> if value not set yet
      */
     public function getIsPrime()
@@ -919,6 +924,7 @@ class AmazonOrder extends AmazonOrderCore
      * Returns an indication of whether or not the Order is a premium order.
      *
      * This method will return <b>FALSE</b> if the premium order flag has not been set yet.
+     *
      * @return string|bool single value, or <b>FALSE</b> if value not set yet
      */
     public function getIsPremiumOrder()

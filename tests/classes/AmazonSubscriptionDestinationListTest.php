@@ -36,7 +36,7 @@ class AmazonSubscriptionDestinationListTest extends TestCase
     }
 
     /**
-     * @param AmazonSubscriptionDestinationList $o
+     * @param  AmazonSubscriptionDestinationList  $o
      * @depends testFetchDestinations
      */
     public function testGetDeliveryChannel($o)
@@ -52,7 +52,7 @@ class AmazonSubscriptionDestinationListTest extends TestCase
     }
 
     /**
-     * @param AmazonSubscriptionDestinationList $o
+     * @param  AmazonSubscriptionDestinationList  $o
      * @depends testFetchDestinations
      */
     public function testGetAttributes($o)

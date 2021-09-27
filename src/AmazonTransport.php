@@ -46,13 +46,14 @@ class AmazonTransport extends AmazonInboundCore
      * on these parameters and common methods.
      * Please note that an extra parameter comes before the usual Mock Mode parameters,
      * so be careful when setting up the object.
-     * @param string $s [optional] <p>Name for the store you want to use.</p>
-     * This parameter is optional if only one store is defined in the config file.</p>
-     * @param string $id [optional] <p>The Fulfillment Shipment ID to set for the object.</p>
-     * @param bool $mock [optional] <p>This is a flag for enabling Mock Mode.
-     * This defaults to <b>FALSE</b>.</p>
-     * @param array|string $m [optional] <p>The files (or file) to use in Mock Mode.</p>
-     * @param string $config [optional] <p>An alternate config file to set. Used for testing.</p>
+     *
+     * @param  string  $s  [optional] <p>Name for the store you want to use.</p>
+     *                     This parameter is optional if only one store is defined in the config file.</p>
+     * @param  string  $id  [optional] <p>The Fulfillment Shipment ID to set for the object.</p>
+     * @param  bool  $mock  [optional] <p>This is a flag for enabling Mock Mode.
+     *                      This defaults to <b>FALSE</b>.</p>
+     * @param  array|string  $m  [optional] <p>The files (or file) to use in Mock Mode.</p>
+     * @param  string  $config  [optional] <p>An alternate config file to set. Used for testing.</p>
      */
     public function __construct($s = null, $id = null, $mock = false, $m = null, $config = null)
     {
@@ -65,7 +66,8 @@ class AmazonTransport extends AmazonInboundCore
 
     /**
      * Sets the shipment ID. (Required).
-     * @param string $s <p>Shipment ID</p>
+     *
+     * @param  string  $s  <p>Shipment ID</p>
      * @return bool <b>FALSE</b> if improper input
      */
     public function setShipmentId($s)
@@ -83,7 +85,8 @@ class AmazonTransport extends AmazonInboundCore
      * The other parameters that will be required will change depending on this setting.
      * This parameter is required for sending transport content information to Amazon.
      * This parameter is removed by all other actions.
-     * @param bool $b <p>Whether or not the shipment's carrier is partnered</p>
+     *
+     * @param  bool  $b  <p>Whether or not the shipment's carrier is partnered</p>
      */
     public function setIsPartnered($b)
     {
@@ -102,7 +105,8 @@ class AmazonTransport extends AmazonInboundCore
      * Use "SP" if the shipment is for small parcels and "LTL" when the shipment is for pallets in a truck.
      * This parameter is required for sending transport content information to Amazon.
      * This parameter is removed by all other actions.
-     * @param string $s <p>"SP" or "LTL"</p>
+     *
+     * @param  string  $s  <p>"SP" or "LTL"</p>
      * @return bool <b>FALSE</b> if improper input
      */
     public function setShipmentType($s)
@@ -123,6 +127,7 @@ class AmazonTransport extends AmazonInboundCore
     /**
      * Determines which of the four possible transport detail parameter prefixes should be used.
      * The parameter to use depends on the partnered and shipment type parameters.
+     *
      * @return string|bool parameter prefix or <b>FALSE</b> if it could not be determined
      */
     protected function determineDetailOption()
@@ -159,7 +164,8 @@ class AmazonTransport extends AmazonInboundCore
      * carrier is not partnered. This parameter is optional when the carrier is partnered and the
      * shipment type is set to "SP" for Small Parcel.
      * This parameter is removed by all other actions.
-     * @param string $s <p>See the comment inside for a list of valid values.</p>
+     *
+     * @param  string  $s  <p>See the comment inside for a list of valid values.</p>
      * @return bool <b>FALSE</b> if improper input or needed parameters are not set
      */
     public function setCarrier($s)
@@ -215,9 +221,10 @@ class AmazonTransport extends AmazonInboundCore
      * <li><b>TrackingId</b> - tracking number, maximum 30 characters</li>
      * </ul>
      * This parameter is removed by all other actions.
-     * @param array $a <p>See above.</p>
-     * @param string $du <p>Dimensions unit: "inches" or "centimeters", defaults to centimeters</p>
-     * @param string $wu <p>Weight unit: "pounds" or "kilograms", defaults to kilograms</p>
+     *
+     * @param  array  $a  <p>See above.</p>
+     * @param  string  $du  <p>Dimensions unit: "inches" or "centimeters", defaults to centimeters</p>
+     * @param  string  $wu  <p>Weight unit: "pounds" or "kilograms", defaults to kilograms</p>
      * @return bool <b>FALSE</b> if improper input or needed parameters are not set
      */
     public function setPackages($a, $du = 'centimeters', $wu = 'kilograms')
@@ -283,7 +290,8 @@ class AmazonTransport extends AmazonInboundCore
      * This parameter is required when the carrier is not partnered and the
      * shipment type is set to "LTL" for Less Than Truckload/Full Truckload.
      * This parameter is removed by all other actions.
-     * @param string $s <p>PRO number for the shipment given by the carrier</p>
+     *
+     * @param  string  $s  <p>PRO number for the shipment given by the carrier</p>
      * @return bool <b>FALSE</b> if improper input or needed parameters are not set
      */
     public function setProNumber($s)
@@ -308,10 +316,11 @@ class AmazonTransport extends AmazonInboundCore
      * This parameter is required when the carrier is partnered and the
      * shipment type is set to "LTL" for Less Than Truckload/Full Truckload.
      * This parameter is removed by all other actions.
-     * @param string $n <p>Name of the contact person, maximum 50 characters</p>
-     * @param string $p <p>Phone number of the contact person, maximum 20 characters</p>
-     * @param string $e <p>E-mail address of the contact person, maximum 50 characters</p>
-     * @param string $f <p>Fax number of the contact person, maximum 20 characters</p>
+     *
+     * @param  string  $n  <p>Name of the contact person, maximum 50 characters</p>
+     * @param  string  $p  <p>Phone number of the contact person, maximum 20 characters</p>
+     * @param  string  $e  <p>E-mail address of the contact person, maximum 50 characters</p>
+     * @param  string  $f  <p>Fax number of the contact person, maximum 20 characters</p>
      * @return bool <b>FALSE</b> if improper input or needed parameters are not set
      */
     public function setContact($n, $p, $e, $f)
@@ -339,7 +348,8 @@ class AmazonTransport extends AmazonInboundCore
      * This parameter is required when the carrier is partnered and the
      * shipment type is set to "LTL" for Less Than Truckload/Full Truckload.
      * This parameter is removed by all other actions.
-     * @param int $n <p>number of boxes</p>
+     *
+     * @param  int  $n  <p>number of boxes</p>
      * @return bool <b>FALSE</b> if improper input or needed parameters are not set
      */
     public function setBoxCount($n)
@@ -365,7 +375,8 @@ class AmazonTransport extends AmazonInboundCore
      * shipment type is set to "LTL" for Less Than Truckload/Full Truckload.
      * If this parameter is not sent, Amazon will estimate the freight class on their own.
      * This parameter is removed by all other actions.
-     * @param int $n <p>See the comment inside for a list of valid values.</p>
+     *
+     * @param  int  $n  <p>See the comment inside for a list of valid values.</p>
      * @return bool <b>FALSE</b> if improper input or needed parameters are not set
      */
     public function setFreightClass($n)
@@ -411,7 +422,8 @@ class AmazonTransport extends AmazonInboundCore
      * This parameter is required when the carrier is partnered and the
      * shipment type is set to "LTL" for Less Than Truckload/Full Truckload.
      * This parameter is removed by all other actions.
-     * @param string $d <p>A time string</p>
+     *
+     * @param  string  $d  <p>A time string</p>
      * @return bool <b>FALSE</b> if improper input or needed parameters are not set
      */
     public function setReadyDate($d)
@@ -452,9 +464,10 @@ class AmazonTransport extends AmazonInboundCore
      * <li><b>Weight</b> (optional) - integer</li>
      * </ul>
      * This parameter is removed by all other actions.
-     * @param array $a <p>See above.</p>
-     * @param string $du <p>Dimensions unit: "inches" or "centimeters", defaults to centimeters</p>
-     * @param string $wu <p>Weight unit: "pounds" or "kilograms", defaults to kilograms</p>
+     *
+     * @param  array  $a  <p>See above.</p>
+     * @param  string  $du  <p>Dimensions unit: "inches" or "centimeters", defaults to centimeters</p>
+     * @param  string  $wu  <p>Weight unit: "pounds" or "kilograms", defaults to kilograms</p>
      * @return bool <b>FALSE</b> if improper input or needed parameters are not set
      */
     public function setPallets($a, $du = 'centimeters', $wu = 'kilograms')
@@ -523,8 +536,9 @@ class AmazonTransport extends AmazonInboundCore
      * This parameter is optional when the carrier is partnered and the
      * shipment type is set to "LTL" for Less Than Truckload/Full Truckload.
      * This parameter is removed by all other actions.
-     * @param string $v <p>Decimal number</p>
-     * @param string $u <p>"pounds" or "kilograms", defaults to kilograms</p>
+     *
+     * @param  string  $v  <p>Decimal number</p>
+     * @param  string  $u  <p>"pounds" or "kilograms", defaults to kilograms</p>
      * @return bool <b>FALSE</b> if improper input or needed parameters are not set
      */
     public function setTotalWeight($v, $u = 'kilograms')
@@ -550,8 +564,9 @@ class AmazonTransport extends AmazonInboundCore
      * This parameter is optional when the carrier is partnered and the
      * shipment type is set to "LTL" for Less Than Truckload/Full Truckload.
      * This parameter is removed by all other actions.
-     * @param string $v <p>Money amount</p>
-     * @param string $c <p>ISO 4217 currency code (ex: USD)</p>
+     *
+     * @param  string  $v  <p>Money amount</p>
+     * @param  string  $c  <p>ISO 4217 currency code (ex: USD)</p>
      * @return bool <b>FALSE</b> if improper input or needed parameters are not set
      */
     public function setDeclaredValue($v, $c)
@@ -589,6 +604,7 @@ class AmazonTransport extends AmazonInboundCore
      * Removes all parameters specific to sending transport content info.
      *  The following parameters are removed:
      * IsPartnered, shipment type, and all transport details.
+     *
      * @see resetTransportDetails
      */
     protected function resetSendParams()
@@ -607,7 +623,9 @@ class AmazonTransport extends AmazonInboundCore
      * IsPartnered and shipment type parameters set.
      * Amazon will send a status back as a response, which can be retrieved
      * using <i>getStatus</i>.
+     *
      * @return bool <b>FALSE</b> if something goes wrong
+     *
      * @see verifySendParams
      */
     public function sendTransportContents()
@@ -651,6 +669,7 @@ class AmazonTransport extends AmazonInboundCore
 
     /**
      * Checks to see if all of the parameters needed for <i>sendTransportContents</i> are set.
+     *
      * @return bool <b>TRUE</b> if everything is good, <b>FALSE</b> if something is missing
      */
     protected function verifySendParams()
@@ -747,6 +766,7 @@ class AmazonTransport extends AmazonInboundCore
      * must be provided to Amazon using <i>sendTransportContents</i>.
      * Amazon will send data back as a response, which can be retrieved using <i>getContentInfo</i>.
      * The status of the transport request can be retrieved using <i>getStatus</i>.
+     *
      * @return bool <b>FALSE</b> if something goes wrong
      */
     public function fetchTransportContent()
@@ -785,6 +805,7 @@ class AmazonTransport extends AmazonInboundCore
      * This changes key options for using <i>fetchTransportContent</i>.
      * Please note: because the operation does not use all of the parameters,
      * some of the parameters will be removed.
+     *
      * @see resetSendParams
      */
     protected function prepareGetContent()
@@ -803,6 +824,7 @@ class AmazonTransport extends AmazonInboundCore
      * must be provided to Amazon using <i>sendTransportContents</i>.
      * Amazon will send a status back as a response, which can be retrieved
      * using <i>getStatus</i>.
+     *
      * @return bool <b>FALSE</b> if something goes wrong
      */
     public function estimateTransport()
@@ -841,6 +863,7 @@ class AmazonTransport extends AmazonInboundCore
      * This changes key options for using <i>estimateTransport</i>.
      * Please note: because the operation does not use all of the parameters,
      * some of the parameters will be removed.
+     *
      * @see resetSendParams
      */
     protected function prepareEstimate()
@@ -859,6 +882,7 @@ class AmazonTransport extends AmazonInboundCore
      * which can be done by using <i>estimateTransport</i>.
      * Amazon will send a status back as a response, which can be retrieved
      * using <i>getStatus</i>.
+     *
      * @return bool <b>FALSE</b> if something goes wrong
      */
     public function confirmTransport()
@@ -897,6 +921,7 @@ class AmazonTransport extends AmazonInboundCore
      * This changes key options for using <i>confirmTransport</i>.
      * Please note: because the operation does not use all of the parameters,
      * some of the parameters will be removed.
+     *
      * @see resetSendParams
      */
     protected function prepareConfirm()
@@ -915,6 +940,7 @@ class AmazonTransport extends AmazonInboundCore
      * using <i>confirmTransport</i>.
      * Amazon will send a status back as a response, which can be retrieved
      * using <i>getStatus</i>.
+     *
      * @return bool <b>FALSE</b> if something goes wrong
      */
     public function voidTransport()
@@ -953,6 +979,7 @@ class AmazonTransport extends AmazonInboundCore
      * This changes key options for using <i>voidTransport</i>.
      * Please note: because the operation does not use all of the parameters,
      * some of the parameters will be removed.
+     *
      * @see resetSendParams
      */
     protected function prepareVoid()
@@ -966,7 +993,8 @@ class AmazonTransport extends AmazonInboundCore
      * Parses XML response into array.
      *
      * This is what reads the response XML and converts it into an array.
-     * @param SimpleXMLElement $xml <p>The XML response from Amazon.</p>
+     *
+     * @param  SimpleXMLElement  $xml  <p>The XML response from Amazon.</p>
      * @return bool <b>FALSE</b> if no XML data is found
      */
     protected function parseXml($xml)
@@ -1089,6 +1117,7 @@ class AmazonTransport extends AmazonInboundCore
      * "WORKING","ERROR_ON_ESTIMATING","ESTIMATING","ESTIMATED","ERROR_ON_CONFIRMING",
      * "CONFIRMING","CONFIRMED","VOIDING","VOIDED", and "ERROR_IN_VOIDING".
      * This method will return <b>FALSE</b> if the status has not been set yet.
+     *
      * @return string|bool status value, or <b>FALSE</b> if value not set yet
      */
     public function getStatus()
@@ -1127,7 +1156,9 @@ class AmazonTransport extends AmazonInboundCore
      * <li><b>Details</b> - array, see <i>getContentDetails</i> for details</li>
      * </ul>
      * This method will return <b>FALSE</b> if the data has not been set yet.
+     *
      * @return array|bool multi-dimensional array, or <b>FALSE</b> if data not set yet
+     *
      * @see getContentDetails
      */
     public function getContentInfo()
@@ -1176,7 +1207,9 @@ class AmazonTransport extends AmazonInboundCore
      * <li><b>IsBillOfLadingAvailable</b> (LTL + Partnered)</li>
      * </ul>
      * This method will return <b>FALSE</b> if the data has not been set yet.
+     *
      * @return array|bool multi-dimensional array, or <b>FALSE</b> if data not set yet
+     *
      * @see getPackageList
      * @see getPalletList
      */
@@ -1193,6 +1226,7 @@ class AmazonTransport extends AmazonInboundCore
      * Returns the seller ID for the transport request.
      *
      * This method will return <b>FALSE</b> if the value has not been set yet.
+     *
      * @return string|bool single value, or <b>FALSE</b> if value not set yet
      */
     public function getSellerId()
@@ -1209,6 +1243,7 @@ class AmazonTransport extends AmazonInboundCore
      *
      * This should be the same as the value that was sent when creating the transport request.
      * This method will return <b>FALSE</b> if the value has not been set yet.
+     *
      * @return string|bool single value, or <b>FALSE</b> if value not set yet
      */
     public function getShipmentId()
@@ -1227,6 +1262,7 @@ class AmazonTransport extends AmazonInboundCore
      * Note that this method will return the string "false" if Amazon indicates
      * that the shipment's carrier is not partnered.
      * This method will return boolean <b>FALSE</b> if the value has not been set yet.
+     *
      * @return string|bool "true" or "false", or <b>FALSE</b> if value not set yet
      */
     public function getIsPartnered()
@@ -1244,6 +1280,7 @@ class AmazonTransport extends AmazonInboundCore
      * This should be the same as the value that was sent when creating the transport request.
      * The possible values are "SP" and "LTL".
      * This method will return <b>FALSE</b> if the value has not been set yet.
+     *
      * @return string|bool "SP" or "LTL", or <b>FALSE</b> if value not set yet
      */
     public function getShipmentType()
@@ -1279,7 +1316,9 @@ class AmazonTransport extends AmazonInboundCore
      * </ul>
      * </ul>
      * This method will return <b>FALSE</b> if the value has not been set yet.
+     *
      * @return array|bool multi-dimensional array, or <b>FALSE</b> if data not set yet
+     *
      * @see setCarrier
      */
     public function getPackageList()
@@ -1309,6 +1348,7 @@ class AmazonTransport extends AmazonInboundCore
      * <li><b>VoidDeadline</b> (optional) - ISO 8601 date format</li>
      * </ul>
      * This method will return <b>FALSE</b> if the value has not been set yet.
+     *
      * @return array|bool multi-dimensional array, or <b>FALSE</b> if data not set yet
      */
     public function getPartneredEstimate()
@@ -1327,7 +1367,9 @@ class AmazonTransport extends AmazonInboundCore
      * This should be the same as the value that was sent when creating the transport request.
      * See <i>setCarrier</i> for a list of possible values.
      * This method will return <b>FALSE</b> if the value has not been set yet.
+     *
      * @return string|bool single value, or <b>FALSE</b> if value not set yet
+     *
      * @see setCarrier
      */
     public function getCarrier()
@@ -1346,6 +1388,7 @@ class AmazonTransport extends AmazonInboundCore
      * the shipment type is set to "LTL" for Less Than Truckload/Full Truckload.
      * This should be the same as the value that was sent when creating the transport request.
      * This method will return <b>FALSE</b> if the value has not been set yet.
+     *
      * @return string|bool single value, or <b>FALSE</b> if value not set yet
      */
     public function getProNumber()
@@ -1374,6 +1417,7 @@ class AmazonTransport extends AmazonInboundCore
      * <li><b>Fax</b></li>
      * </ul>
      * This method will return <b>FALSE</b> if the value has not been set yet.
+     *
      * @return array|bool multi-dimensional array, or <b>FALSE</b> if value not set yet
      */
     public function getContact()
@@ -1392,6 +1436,7 @@ class AmazonTransport extends AmazonInboundCore
      * the shipment type is set to "LTL" for Less Than Truckload/Full Truckload.
      * This should be the same as the value that was sent when creating the transport request.
      * This method will return <b>FALSE</b> if the value has not been set yet.
+     *
      * @return string|bool single value, or <b>FALSE</b> if value not set yet
      */
     public function getBoxCount()
@@ -1413,7 +1458,9 @@ class AmazonTransport extends AmazonInboundCore
      * based on the description of the contents.
      * See <i>setFreightClass</i> for a list of possible values.
      * This method will return <b>FALSE</b> if the value has not been set yet.
+     *
      * @return string|bool single value, or <b>FALSE</b> if value not set yet
+     *
      * @see setFreightClass
      */
     public function getFreightClass()
@@ -1434,6 +1481,7 @@ class AmazonTransport extends AmazonInboundCore
      * the shipment type is set to "LTL" for Less Than Truckload/Full Truckload.
      * This should be the same as the value that was sent when creating the transport request.
      * This method will return <b>FALSE</b> if the value has not been set yet.
+     *
      * @return string|bool date in YYYY-MM-DD format, or <b>FALSE</b> if value not set yet
      */
     public function getReadyDate()
@@ -1468,7 +1516,9 @@ class AmazonTransport extends AmazonInboundCore
      * </ul>
      * </ul>
      * This method will return <b>FALSE</b> if the value has not been set yet.
+     *
      * @return array|bool multi-dimensional array, or <b>FALSE</b> if data not set yet
+     *
      * @see setCarrier
      */
     public function getPalletList()
@@ -1488,7 +1538,8 @@ class AmazonTransport extends AmazonInboundCore
      * This should be the same as the data that was sent when creating the transport request.
      * If an array is returned, it will have the keys <b>Value</b> and <b>Unit</b>.
      * This method will return <b>FALSE</b> if the value has not been set yet.
-     * @param bool $only [optional] <p>set to <b>TRUE</b> to get only the value</p>
+     *
+     * @param  bool  $only  [optional] <p>set to <b>TRUE</b> to get only the value</p>
      * @return array|string|bool array, single value, or <b>FALSE</b> if value not set yet
      */
     public function getTotalWeight($only = false)
@@ -1512,7 +1563,8 @@ class AmazonTransport extends AmazonInboundCore
      * This should be the same as the data that was sent when creating the transport request.
      * If an array is returned, it will have the fields <b>Value</b> and <b>CurrencyCode</b>.
      * This method will return <b>FALSE</b> if the value has not been set yet.
-     * @param bool $only [optional] <p>set to <b>TRUE</b> to get only the value</p>
+     *
+     * @param  bool  $only  [optional] <p>set to <b>TRUE</b> to get only the value</p>
      * @return array|string|bool array, single value, or <b>FALSE</b> if value not set yet
      */
     public function getDeclaredValue($only = false)
@@ -1535,7 +1587,8 @@ class AmazonTransport extends AmazonInboundCore
      * the shipment type is set to "LTL" for Less Than Truckload/Full Truckload.
      * If an array is returned, it will have the fields <b>Value</b> and <b>CurrencyCode</b>.
      * This method will return <b>FALSE</b> if the value has not been set yet.
-     * @param bool $only [optional] <p>set to <b>TRUE</b> to get only the value</p>
+     *
+     * @param  bool  $only  [optional] <p>set to <b>TRUE</b> to get only the value</p>
      * @return array|string|bool array, single value, or <b>FALSE</b> if value not set yet
      */
     public function getCalculatedValue($only = false)
@@ -1557,6 +1610,7 @@ class AmazonTransport extends AmazonInboundCore
      * This value will only be set if the shipment is with an Amazon-partnered carrier and
      * the shipment type is set to "LTL" for Less Than Truckload/Full Truckload.
      * This method will return <b>FALSE</b> if the value has not been set yet.
+     *
      * @return string|bool date in ISO 8601 format, or <b>FALSE</b> if value not set yet
      */
     public function getPickupDate()
@@ -1574,6 +1628,7 @@ class AmazonTransport extends AmazonInboundCore
      * This value will only be set if the shipment is with an Amazon-partnered carrier and
      * the shipment type is set to "LTL" for Less Than Truckload/Full Truckload.
      * This method will return <b>FALSE</b> if the value has not been set yet.
+     *
      * @return string|bool date in ISO 8601 format, or <b>FALSE</b> if value not set yet
      */
     public function getDeliveryDate()
@@ -1591,6 +1646,7 @@ class AmazonTransport extends AmazonInboundCore
      * This value will only be set if the shipment is with an Amazon-partnered carrier and
      * the shipment type is set to "LTL" for Less Than Truckload/Full Truckload.
      * This method will return <b>FALSE</b> if the value has not been set yet.
+     *
      * @return string|bool single value, or <b>FALSE</b> if value not set yet
      */
     public function getReferenceId()
@@ -1610,6 +1666,7 @@ class AmazonTransport extends AmazonInboundCore
      * Note that this method will return the string "false" if Amazon indicates
      * that the bill of lading is not available.
      * This method will return boolean <b>FALSE</b> if the value has not been set yet.
+     *
      * @return string|bool "true" or "false", or <b>FALSE</b> if value not set yet
      */
     public function getIsBillOfLadingAvailable()
