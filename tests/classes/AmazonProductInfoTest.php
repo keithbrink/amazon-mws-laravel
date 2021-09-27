@@ -227,6 +227,15 @@ class AmazonProductInfoTest extends TestCase
         resetLog();
         $this->object->setMock(true, 'fetchCategories.xml');
         $this->assertFalse($this->object->fetchCategories()); //no IDs yet
+
+        // Test ASINs
+        $this->object->setASINs('ASINTEST');
+        $this->assertNull($this->object->fetchCategories());
+        $o = $this->object->getOptions();
+        $this->assertEquals('GetProductCategoriesForASIN', $o['Action']);
+        $this->assertEquals('ASINTEST', $o['ASIN']);
+
+        // Test SKUs
         $this->object->setSKUs('789');
         $this->assertNull($this->object->fetchCategories());
         $o = $this->object->getOptions();
@@ -250,7 +259,8 @@ class AmazonProductInfoTest extends TestCase
         $list = $o->getProduct(null);
         $this->assertIsArray($list);
         $this->assertArrayHasKey(0, $list);
-        $this->assertArrayNotHasKey(1, $list);
+        $this->assertArrayHasKey(1, $list);
+        $this->assertArrayNotHasKey(2, $list);
         $this->assertEquals($product, $list[0]);
 
         $default = $o->getProduct();
@@ -308,4 +318,4 @@ class AmazonProductInfoTest extends TestCase
     }
 }
 
-require_once __DIR__.'/../helperFunctions.php';
+require_once __DIR__ . '/../helperFunctions.php';

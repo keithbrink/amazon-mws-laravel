@@ -70,7 +70,7 @@ class AmazonProductInfo extends AmazonProductsCore
                 $this->resetSKUs();
                 $i = 1;
                 foreach ($s as $x) {
-                    $this->options['SellerSKUList.SellerSKU.'.$i] = $x;
+                    $this->options['SellerSKUList.SellerSKU.' . $i] = $x;
                     $i++;
                 }
             } else {
@@ -116,7 +116,7 @@ class AmazonProductInfo extends AmazonProductsCore
                 $this->resetASINs();
                 $i = 1;
                 foreach ($s as $x) {
-                    $this->options['ASINList.ASIN.'.$i] = $x;
+                    $this->options['ASINList.ASIN.' . $i] = $x;
                     $i++;
                 }
             } else {
@@ -203,7 +203,7 @@ class AmazonProductInfo extends AmazonProductsCore
 
         $this->prepareCompetitive();
 
-        $url = $this->urlbase.$this->urlbranch;
+        $url = $this->urlbase . $this->urlbranch;
 
         $query = $this->genQuery();
 
@@ -273,7 +273,7 @@ class AmazonProductInfo extends AmazonProductsCore
 
         $this->prepareLowest();
 
-        $url = $this->urlbase.$this->urlbranch;
+        $url = $this->urlbase . $this->urlbranch;
 
         $query = $this->genQuery();
 
@@ -338,7 +338,7 @@ class AmazonProductInfo extends AmazonProductsCore
 
         $this->prepareMyPrice();
 
-        $url = $this->urlbase.$this->urlbranch;
+        $url = $this->urlbase . $this->urlbranch;
 
         $query = $this->genQuery();
 
@@ -394,11 +394,8 @@ class AmazonProductInfo extends AmazonProductsCore
      */
     public function fetchCategories()
     {
-        if (! array_key_exists('SellerSKUList.SellerSKU.1', $this->options) && ! array_key_exists(
-            'ASINList.ASIN.1',
-            $this->options
-        )
-        ) {
+        if (! array_key_exists('SellerSKUList.SellerSKU.1', $this->options) &&
+            ! array_key_exists('ASINList.ASIN.1', $this->options)) {
             $this->log('Product IDs must be set in order to look them up!', 'Warning');
 
             return false;
@@ -406,7 +403,7 @@ class AmazonProductInfo extends AmazonProductsCore
 
         $this->prepareCategories();
 
-        $url = $this->urlbase.$this->urlbranch;
+        $url = $this->urlbase . $this->urlbranch;
 
         $query = $this->genQuery();
 
@@ -448,6 +445,7 @@ class AmazonProductInfo extends AmazonProductsCore
         } else {
             if (array_key_exists('ASINList.ASIN.1', $this->options)) {
                 $this->options['Action'] = 'GetProductCategoriesForASIN';
+                $this->options['ASIN'] = $this->options['ASINList.ASIN.1'];
                 $this->resetSKUs();
             }
         }
@@ -471,7 +469,7 @@ class AmazonProductInfo extends AmazonProductsCore
 
         $this->prepareMatchingProduct();
 
-        $url = $this->urlbase.$this->urlbranch;
+        $url = $this->urlbase . $this->urlbranch;
 
         $query = $this->genQuery();
 
