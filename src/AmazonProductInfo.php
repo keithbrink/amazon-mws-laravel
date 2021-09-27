@@ -70,7 +70,7 @@ class AmazonProductInfo extends AmazonProductsCore
                 $this->resetSKUs();
                 $i = 1;
                 foreach ($s as $x) {
-                    $this->options['SellerSKUList.SellerSKU.' . $i] = $x;
+                    $this->options['SellerSKUList.SellerSKU.'.$i] = $x;
                     $i++;
                 }
             } else {
@@ -116,7 +116,7 @@ class AmazonProductInfo extends AmazonProductsCore
                 $this->resetASINs();
                 $i = 1;
                 foreach ($s as $x) {
-                    $this->options['ASINList.ASIN.' . $i] = $x;
+                    $this->options['ASINList.ASIN.'.$i] = $x;
                     $i++;
                 }
             } else {
@@ -203,7 +203,7 @@ class AmazonProductInfo extends AmazonProductsCore
 
         $this->prepareCompetitive();
 
-        $url = $this->urlbase . $this->urlbranch;
+        $url = $this->urlbase.$this->urlbranch;
 
         $query = $this->genQuery();
 
@@ -273,7 +273,7 @@ class AmazonProductInfo extends AmazonProductsCore
 
         $this->prepareLowest();
 
-        $url = $this->urlbase . $this->urlbranch;
+        $url = $this->urlbase.$this->urlbranch;
 
         $query = $this->genQuery();
 
@@ -338,7 +338,7 @@ class AmazonProductInfo extends AmazonProductsCore
 
         $this->prepareMyPrice();
 
-        $url = $this->urlbase . $this->urlbranch;
+        $url = $this->urlbase.$this->urlbranch;
 
         $query = $this->genQuery();
 
@@ -403,7 +403,7 @@ class AmazonProductInfo extends AmazonProductsCore
 
         $this->prepareCategories();
 
-        $url = $this->urlbase . $this->urlbranch;
+        $url = $this->urlbase.$this->urlbranch;
 
         $query = $this->genQuery();
 
@@ -469,7 +469,7 @@ class AmazonProductInfo extends AmazonProductsCore
 
         $this->prepareMatchingProduct();
 
-        $url = $this->urlbase . $this->urlbranch;
+        $url = $this->urlbase.$this->urlbranch;
 
         $query = $this->genQuery();
 
