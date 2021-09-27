@@ -38,12 +38,12 @@ class AmazonProductSearch extends AmazonProductsCore
      * Please note that an extra parameter comes before the usual Mock Mode parameters,
      * so be careful when setting up the object.
      *
-     * @param string       $s      <p>Name for the store you want to use.</p>
-     * @param string       $q      [optional] <p>The query string to set for the object.</p>
-     * @param bool         $mock   [optional] <p>This is a flag for enabling Mock Mode.
-     *                             This defaults to <b>FALSE</b>.</p>
-     * @param array|string $m      [optional] <p>The files (or file) to use in Mock Mode.</p>
-     * @param string       $config [optional] <p>An alternate config file to set. Used for testing.</p>
+     * @param  string  $s  <p>Name for the store you want to use.</p>
+     * @param  string  $q  [optional] <p>The query string to set for the object.</p>
+     * @param  bool  $mock  [optional] <p>This is a flag for enabling Mock Mode.
+     *                      This defaults to <b>FALSE</b>.</p>
+     * @param  array|string  $m  [optional] <p>The files (or file) to use in Mock Mode.</p>
+     * @param  string  $config  [optional] <p>An alternate config file to set. Used for testing.</p>
      */
     public function __construct($s, $q = null, $mock = false, $m = null, $config = null)
     {
@@ -65,8 +65,7 @@ class AmazonProductSearch extends AmazonProductsCore
     /**
      * Sets the query to search for. (Required).
      *
-     * @param string $q <p>search query</p>
-     *
+     * @param  string  $q  <p>search query</p>
      * @return bool <b>FALSE</b> if improper input
      */
     public function setQuery($q)
@@ -85,8 +84,7 @@ class AmazonProductSearch extends AmazonProductsCore
      * context. If this parameter is not set, Amazon will return products from
      * any context.
      *
-     * @param string $q <p>See comment inside for list of valid values.</p>
-     *
+     * @param  string  $q  <p>See comment inside for list of valid values.</p>
      * @return bool <b>FALSE</b> if improper input
      */
     public function setContextId($q)

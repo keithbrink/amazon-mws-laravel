@@ -80,8 +80,8 @@ class AmazonTransportTest extends TestCase
     }
 
     /**
-     * @param string $type "SP" or "LTL"
-     * @param bool $partnered partnered or not
+     * @param  string  $type  "SP" or "LTL"
+     * @param  bool  $partnered  partnered or not
      * @dataProvider comboProvider
      */
     public function testSetCarrier($type, $partnered)
@@ -111,8 +111,8 @@ class AmazonTransportTest extends TestCase
     }
 
     /**
-     * @param string $type "SP" or "LTL"
-     * @param bool $partnered partnered or not
+     * @param  string  $type  "SP" or "LTL"
+     * @param  bool  $partnered  partnered or not
      * @dataProvider comboProvider
      */
     public function testSetPackages($type, $partnered)
@@ -231,8 +231,8 @@ class AmazonTransportTest extends TestCase
     }
 
     /**
-     * @param string $type "SP" or "LTL"
-     * @param bool $partnered partnered or not
+     * @param  string  $type  "SP" or "LTL"
+     * @param  bool  $partnered  partnered or not
      * @dataProvider comboProvider
      */
     public function testSetProNumber($type, $partnered)
@@ -262,8 +262,8 @@ class AmazonTransportTest extends TestCase
     }
 
     /**
-     * @param string $type "SP" or "LTL"
-     * @param bool $partnered partnered or not
+     * @param  string  $type  "SP" or "LTL"
+     * @param  bool  $partnered  partnered or not
      * @dataProvider comboProvider
      */
     public function testContact($type, $partnered)
@@ -311,8 +311,8 @@ class AmazonTransportTest extends TestCase
     }
 
     /**
-     * @param string $type "SP" or "LTL"
-     * @param bool $partnered partnered or not
+     * @param  string  $type  "SP" or "LTL"
+     * @param  bool  $partnered  partnered or not
      * @dataProvider comboProvider
      */
     public function testSetBoxCount($type, $partnered)
@@ -344,8 +344,8 @@ class AmazonTransportTest extends TestCase
     }
 
     /**
-     * @param string $type "SP" or "LTL"
-     * @param bool $partnered partnered or not
+     * @param  string  $type  "SP" or "LTL"
+     * @param  bool  $partnered  partnered or not
      * @dataProvider comboProvider
      */
     public function testSetFreightClass($type, $partnered)
@@ -375,8 +375,8 @@ class AmazonTransportTest extends TestCase
     }
 
     /**
-     * @param string $type "SP" or "LTL"
-     * @param bool $partnered partnered or not
+     * @param  string  $type  "SP" or "LTL"
+     * @param  bool  $partnered  partnered or not
      * @dataProvider comboProvider
      */
     public function testSetReadyDate($type, $partnered)
@@ -409,8 +409,8 @@ class AmazonTransportTest extends TestCase
     }
 
     /**
-     * @param string $type "SP" or "LTL"
-     * @param bool $partnered partnered or not
+     * @param  string  $type  "SP" or "LTL"
+     * @param  bool  $partnered  partnered or not
      * @dataProvider comboProvider
      */
     public function testSetPallets($type, $partnered)
@@ -529,8 +529,8 @@ class AmazonTransportTest extends TestCase
     }
 
     /**
-     * @param string $type "SP" or "LTL"
-     * @param bool $partnered partnered or not
+     * @param  string  $type  "SP" or "LTL"
+     * @param  bool  $partnered  partnered or not
      * @dataProvider comboProvider
      */
     public function testSetTotalWeight($type, $partnered)
@@ -565,8 +565,8 @@ class AmazonTransportTest extends TestCase
     }
 
     /**
-     * @param string $type "SP" or "LTL"
-     * @param bool $partnered partnered or not
+     * @param  string  $type  "SP" or "LTL"
+     * @param  bool  $partnered  partnered or not
      * @dataProvider comboProvider
      */
     public function testSetDeclaredValue($type, $partnered)
@@ -889,10 +889,11 @@ class AmazonTransportTest extends TestCase
      * @depends testFetchTransportSpNonPartnered
      * @depends testFetchTransportLtlPartnered
      * @depends testFetchTransportLtlNonPartnered
-     * @param AmazonTransport $psp partnered SP
-     * @param AmazonTransport $nsp non-partnered SP
-     * @param AmazonTransport $pltl partnered LTL
-     * @param AmazonTransport $nltl non-partnered LTL
+     *
+     * @param  AmazonTransport  $psp  partnered SP
+     * @param  AmazonTransport  $nsp  non-partnered SP
+     * @param  AmazonTransport  $pltl  partnered LTL
+     * @param  AmazonTransport  $nltl  non-partnered LTL
      */
     public function testGetContentInfo($psp, $nsp, $pltl, $nltl)
     {
@@ -920,10 +921,11 @@ class AmazonTransportTest extends TestCase
      * @depends testFetchTransportSpNonPartnered
      * @depends testFetchTransportLtlPartnered
      * @depends testFetchTransportLtlNonPartnered
-     * @param AmazonTransport $psp partnered SP
-     * @param AmazonTransport $nsp non-partnered SP
-     * @param AmazonTransport $pltl partnered LTL
-     * @param AmazonTransport $nltl non-partnered LTL
+     *
+     * @param  AmazonTransport  $psp  partnered SP
+     * @param  AmazonTransport  $nsp  non-partnered SP
+     * @param  AmazonTransport  $pltl  partnered LTL
+     * @param  AmazonTransport  $nltl  non-partnered LTL
      */
     public function testGetContentDetails($psp, $nsp, $pltl, $nltl)
     {
@@ -994,10 +996,11 @@ class AmazonTransportTest extends TestCase
      * @depends testFetchTransportSpNonPartnered
      * @depends testFetchTransportLtlPartnered
      * @depends testFetchTransportLtlNonPartnered
-     * @param AmazonTransport $psp partnered SP
-     * @param AmazonTransport $nsp non-partnered SP
-     * @param AmazonTransport $pltl partnered LTL
-     * @param AmazonTransport $nltl non-partnered LTL
+     *
+     * @param  AmazonTransport  $psp  partnered SP
+     * @param  AmazonTransport  $nsp  non-partnered SP
+     * @param  AmazonTransport  $pltl  partnered LTL
+     * @param  AmazonTransport  $nltl  non-partnered LTL
      */
     public function testGetSellerId($psp, $nsp, $pltl, $nltl)
     {
@@ -1014,10 +1017,11 @@ class AmazonTransportTest extends TestCase
      * @depends testFetchTransportSpNonPartnered
      * @depends testFetchTransportLtlPartnered
      * @depends testFetchTransportLtlNonPartnered
-     * @param AmazonTransport $psp partnered SP
-     * @param AmazonTransport $nsp non-partnered SP
-     * @param AmazonTransport $pltl partnered LTL
-     * @param AmazonTransport $nltl non-partnered LTL
+     *
+     * @param  AmazonTransport  $psp  partnered SP
+     * @param  AmazonTransport  $nsp  non-partnered SP
+     * @param  AmazonTransport  $pltl  partnered LTL
+     * @param  AmazonTransport  $nltl  non-partnered LTL
      */
     public function testGetShipmentId($psp, $nsp, $pltl, $nltl)
     {
@@ -1034,10 +1038,11 @@ class AmazonTransportTest extends TestCase
      * @depends testFetchTransportSpNonPartnered
      * @depends testFetchTransportLtlPartnered
      * @depends testFetchTransportLtlNonPartnered
-     * @param AmazonTransport $psp partnered SP
-     * @param AmazonTransport $nsp non-partnered SP
-     * @param AmazonTransport $pltl partnered LTL
-     * @param AmazonTransport $nltl non-partnered LTL
+     *
+     * @param  AmazonTransport  $psp  partnered SP
+     * @param  AmazonTransport  $nsp  non-partnered SP
+     * @param  AmazonTransport  $pltl  partnered LTL
+     * @param  AmazonTransport  $nltl  non-partnered LTL
      */
     public function testGetIsPartnered($psp, $nsp, $pltl, $nltl)
     {
@@ -1054,10 +1059,11 @@ class AmazonTransportTest extends TestCase
      * @depends testFetchTransportSpNonPartnered
      * @depends testFetchTransportLtlPartnered
      * @depends testFetchTransportLtlNonPartnered
-     * @param AmazonTransport $psp partnered SP
-     * @param AmazonTransport $nsp non-partnered SP
-     * @param AmazonTransport $pltl partnered LTL
-     * @param AmazonTransport $nltl non-partnered LTL
+     *
+     * @param  AmazonTransport  $psp  partnered SP
+     * @param  AmazonTransport  $nsp  non-partnered SP
+     * @param  AmazonTransport  $pltl  partnered LTL
+     * @param  AmazonTransport  $nltl  non-partnered LTL
      */
     public function testGetShipmentType($psp, $nsp, $pltl, $nltl)
     {
@@ -1074,10 +1080,11 @@ class AmazonTransportTest extends TestCase
      * @depends testFetchTransportSpNonPartnered
      * @depends testFetchTransportLtlPartnered
      * @depends testFetchTransportLtlNonPartnered
-     * @param AmazonTransport $psp partnered SP
-     * @param AmazonTransport $nsp non-partnered SP
-     * @param AmazonTransport $pltl partnered LTL
-     * @param AmazonTransport $nltl non-partnered LTL
+     *
+     * @param  AmazonTransport  $psp  partnered SP
+     * @param  AmazonTransport  $nsp  non-partnered SP
+     * @param  AmazonTransport  $pltl  partnered LTL
+     * @param  AmazonTransport  $nltl  non-partnered LTL
      */
     public function testGetPackageList($psp, $nsp, $pltl, $nltl)
     {
@@ -1128,10 +1135,11 @@ class AmazonTransportTest extends TestCase
      * @depends testFetchTransportSpNonPartnered
      * @depends testFetchTransportLtlPartnered
      * @depends testFetchTransportLtlNonPartnered
-     * @param AmazonTransport $psp partnered SP
-     * @param AmazonTransport $nsp non-partnered SP
-     * @param AmazonTransport $pltl partnered LTL
-     * @param AmazonTransport $nltl non-partnered LTL
+     *
+     * @param  AmazonTransport  $psp  partnered SP
+     * @param  AmazonTransport  $nsp  non-partnered SP
+     * @param  AmazonTransport  $pltl  partnered LTL
+     * @param  AmazonTransport  $nltl  non-partnered LTL
      */
     public function testGetPartneredEstimate($psp, $nsp, $pltl, $nltl)
     {
@@ -1159,10 +1167,11 @@ class AmazonTransportTest extends TestCase
      * @depends testFetchTransportSpNonPartnered
      * @depends testFetchTransportLtlPartnered
      * @depends testFetchTransportLtlNonPartnered
-     * @param AmazonTransport $psp partnered SP
-     * @param AmazonTransport $nsp non-partnered SP
-     * @param AmazonTransport $pltl partnered LTL
-     * @param AmazonTransport $nltl non-partnered LTL
+     *
+     * @param  AmazonTransport  $psp  partnered SP
+     * @param  AmazonTransport  $nsp  non-partnered SP
+     * @param  AmazonTransport  $pltl  partnered LTL
+     * @param  AmazonTransport  $nltl  non-partnered LTL
      */
     public function testGetCarrier($psp, $nsp, $pltl, $nltl)
     {
@@ -1180,10 +1189,11 @@ class AmazonTransportTest extends TestCase
      * @depends testFetchTransportSpNonPartnered
      * @depends testFetchTransportLtlPartnered
      * @depends testFetchTransportLtlNonPartnered
-     * @param AmazonTransport $psp partnered SP
-     * @param AmazonTransport $nsp non-partnered SP
-     * @param AmazonTransport $pltl partnered LTL
-     * @param AmazonTransport $nltl non-partnered LTL
+     *
+     * @param  AmazonTransport  $psp  partnered SP
+     * @param  AmazonTransport  $nsp  non-partnered SP
+     * @param  AmazonTransport  $pltl  partnered LTL
+     * @param  AmazonTransport  $nltl  non-partnered LTL
      */
     public function testGetProNumber($psp, $nsp, $pltl, $nltl)
     {
@@ -1201,10 +1211,11 @@ class AmazonTransportTest extends TestCase
      * @depends testFetchTransportSpNonPartnered
      * @depends testFetchTransportLtlPartnered
      * @depends testFetchTransportLtlNonPartnered
-     * @param AmazonTransport $psp partnered SP
-     * @param AmazonTransport $nsp non-partnered SP
-     * @param AmazonTransport $pltl partnered LTL
-     * @param AmazonTransport $nltl non-partnered LTL
+     *
+     * @param  AmazonTransport  $psp  partnered SP
+     * @param  AmazonTransport  $nsp  non-partnered SP
+     * @param  AmazonTransport  $pltl  partnered LTL
+     * @param  AmazonTransport  $nltl  non-partnered LTL
      */
     public function testGetContact($psp, $nsp, $pltl, $nltl)
     {
@@ -1232,10 +1243,11 @@ class AmazonTransportTest extends TestCase
      * @depends testFetchTransportSpNonPartnered
      * @depends testFetchTransportLtlPartnered
      * @depends testFetchTransportLtlNonPartnered
-     * @param AmazonTransport $psp partnered SP
-     * @param AmazonTransport $nsp non-partnered SP
-     * @param AmazonTransport $pltl partnered LTL
-     * @param AmazonTransport $nltl non-partnered LTL
+     *
+     * @param  AmazonTransport  $psp  partnered SP
+     * @param  AmazonTransport  $nsp  non-partnered SP
+     * @param  AmazonTransport  $pltl  partnered LTL
+     * @param  AmazonTransport  $nltl  non-partnered LTL
      */
     public function testGetBoxCount($psp, $nsp, $pltl, $nltl)
     {
@@ -1253,10 +1265,11 @@ class AmazonTransportTest extends TestCase
      * @depends testFetchTransportSpNonPartnered
      * @depends testFetchTransportLtlPartnered
      * @depends testFetchTransportLtlNonPartnered
-     * @param AmazonTransport $psp partnered SP
-     * @param AmazonTransport $nsp non-partnered SP
-     * @param AmazonTransport $pltl partnered LTL
-     * @param AmazonTransport $nltl non-partnered LTL
+     *
+     * @param  AmazonTransport  $psp  partnered SP
+     * @param  AmazonTransport  $nsp  non-partnered SP
+     * @param  AmazonTransport  $pltl  partnered LTL
+     * @param  AmazonTransport  $nltl  non-partnered LTL
      */
     public function testGetFreightClass($psp, $nsp, $pltl, $nltl)
     {
@@ -1274,10 +1287,11 @@ class AmazonTransportTest extends TestCase
      * @depends testFetchTransportSpNonPartnered
      * @depends testFetchTransportLtlPartnered
      * @depends testFetchTransportLtlNonPartnered
-     * @param AmazonTransport $psp partnered SP
-     * @param AmazonTransport $nsp non-partnered SP
-     * @param AmazonTransport $pltl partnered LTL
-     * @param AmazonTransport $nltl non-partnered LTL
+     *
+     * @param  AmazonTransport  $psp  partnered SP
+     * @param  AmazonTransport  $nsp  non-partnered SP
+     * @param  AmazonTransport  $pltl  partnered LTL
+     * @param  AmazonTransport  $nltl  non-partnered LTL
      */
     public function testGetReadyDate($psp, $nsp, $pltl, $nltl)
     {
@@ -1295,10 +1309,11 @@ class AmazonTransportTest extends TestCase
      * @depends testFetchTransportSpNonPartnered
      * @depends testFetchTransportLtlPartnered
      * @depends testFetchTransportLtlNonPartnered
-     * @param AmazonTransport $psp partnered SP
-     * @param AmazonTransport $nsp non-partnered SP
-     * @param AmazonTransport $pltl partnered LTL
-     * @param AmazonTransport $nltl non-partnered LTL
+     *
+     * @param  AmazonTransport  $psp  partnered SP
+     * @param  AmazonTransport  $nsp  non-partnered SP
+     * @param  AmazonTransport  $pltl  partnered LTL
+     * @param  AmazonTransport  $nltl  non-partnered LTL
      */
     public function testGetPalletList($psp, $nsp, $pltl, $nltl)
     {
@@ -1335,10 +1350,11 @@ class AmazonTransportTest extends TestCase
      * @depends testFetchTransportSpNonPartnered
      * @depends testFetchTransportLtlPartnered
      * @depends testFetchTransportLtlNonPartnered
-     * @param AmazonTransport $psp partnered SP
-     * @param AmazonTransport $nsp non-partnered SP
-     * @param AmazonTransport $pltl partnered LTL
-     * @param AmazonTransport $nltl non-partnered LTL
+     *
+     * @param  AmazonTransport  $psp  partnered SP
+     * @param  AmazonTransport  $nsp  non-partnered SP
+     * @param  AmazonTransport  $pltl  partnered LTL
+     * @param  AmazonTransport  $nltl  non-partnered LTL
      */
     public function testGetTotalWeight($psp, $nsp, $pltl, $nltl)
     {
@@ -1365,10 +1381,11 @@ class AmazonTransportTest extends TestCase
      * @depends testFetchTransportSpNonPartnered
      * @depends testFetchTransportLtlPartnered
      * @depends testFetchTransportLtlNonPartnered
-     * @param AmazonTransport $psp partnered SP
-     * @param AmazonTransport $nsp non-partnered SP
-     * @param AmazonTransport $pltl partnered LTL
-     * @param AmazonTransport $nltl non-partnered LTL
+     *
+     * @param  AmazonTransport  $psp  partnered SP
+     * @param  AmazonTransport  $nsp  non-partnered SP
+     * @param  AmazonTransport  $pltl  partnered LTL
+     * @param  AmazonTransport  $nltl  non-partnered LTL
      */
     public function testGetDeclaredValue($psp, $nsp, $pltl, $nltl)
     {
@@ -1395,10 +1412,11 @@ class AmazonTransportTest extends TestCase
      * @depends testFetchTransportSpNonPartnered
      * @depends testFetchTransportLtlPartnered
      * @depends testFetchTransportLtlNonPartnered
-     * @param AmazonTransport $psp partnered SP
-     * @param AmazonTransport $nsp non-partnered SP
-     * @param AmazonTransport $pltl partnered LTL
-     * @param AmazonTransport $nltl non-partnered LTL
+     *
+     * @param  AmazonTransport  $psp  partnered SP
+     * @param  AmazonTransport  $nsp  non-partnered SP
+     * @param  AmazonTransport  $pltl  partnered LTL
+     * @param  AmazonTransport  $nltl  non-partnered LTL
      */
     public function testGetCalculatedValue($psp, $nsp, $pltl, $nltl)
     {
@@ -1425,10 +1443,11 @@ class AmazonTransportTest extends TestCase
      * @depends testFetchTransportSpNonPartnered
      * @depends testFetchTransportLtlPartnered
      * @depends testFetchTransportLtlNonPartnered
-     * @param AmazonTransport $psp partnered SP
-     * @param AmazonTransport $nsp non-partnered SP
-     * @param AmazonTransport $pltl partnered LTL
-     * @param AmazonTransport $nltl non-partnered LTL
+     *
+     * @param  AmazonTransport  $psp  partnered SP
+     * @param  AmazonTransport  $nsp  non-partnered SP
+     * @param  AmazonTransport  $pltl  partnered LTL
+     * @param  AmazonTransport  $nltl  non-partnered LTL
      */
     public function testGetPickupDate($psp, $nsp, $pltl, $nltl)
     {
@@ -1446,10 +1465,11 @@ class AmazonTransportTest extends TestCase
      * @depends testFetchTransportSpNonPartnered
      * @depends testFetchTransportLtlPartnered
      * @depends testFetchTransportLtlNonPartnered
-     * @param AmazonTransport $psp partnered SP
-     * @param AmazonTransport $nsp non-partnered SP
-     * @param AmazonTransport $pltl partnered LTL
-     * @param AmazonTransport $nltl non-partnered LTL
+     *
+     * @param  AmazonTransport  $psp  partnered SP
+     * @param  AmazonTransport  $nsp  non-partnered SP
+     * @param  AmazonTransport  $pltl  partnered LTL
+     * @param  AmazonTransport  $nltl  non-partnered LTL
      */
     public function testGetDeliveryDate($psp, $nsp, $pltl, $nltl)
     {
@@ -1467,10 +1487,11 @@ class AmazonTransportTest extends TestCase
      * @depends testFetchTransportSpNonPartnered
      * @depends testFetchTransportLtlPartnered
      * @depends testFetchTransportLtlNonPartnered
-     * @param AmazonTransport $psp partnered SP
-     * @param AmazonTransport $nsp non-partnered SP
-     * @param AmazonTransport $pltl partnered LTL
-     * @param AmazonTransport $nltl non-partnered LTL
+     *
+     * @param  AmazonTransport  $psp  partnered SP
+     * @param  AmazonTransport  $nsp  non-partnered SP
+     * @param  AmazonTransport  $pltl  partnered LTL
+     * @param  AmazonTransport  $nltl  non-partnered LTL
      */
     public function testGetReferenceId($psp, $nsp, $pltl, $nltl)
     {
@@ -1488,10 +1509,11 @@ class AmazonTransportTest extends TestCase
      * @depends testFetchTransportSpNonPartnered
      * @depends testFetchTransportLtlPartnered
      * @depends testFetchTransportLtlNonPartnered
-     * @param AmazonTransport $psp partnered SP
-     * @param AmazonTransport $nsp non-partnered SP
-     * @param AmazonTransport $pltl partnered LTL
-     * @param AmazonTransport $nltl non-partnered LTL
+     *
+     * @param  AmazonTransport  $psp  partnered SP
+     * @param  AmazonTransport  $nsp  non-partnered SP
+     * @param  AmazonTransport  $pltl  partnered LTL
+     * @param  AmazonTransport  $nltl  non-partnered LTL
      */
     public function testGetIsBillOfLadingAvailable($psp, $nsp, $pltl, $nltl)
     {
@@ -1509,10 +1531,11 @@ class AmazonTransportTest extends TestCase
      * @depends testFetchTransportSpNonPartnered
      * @depends testFetchTransportLtlPartnered
      * @depends testFetchTransportLtlNonPartnered
-     * @param AmazonTransport $psp partnered SP
-     * @param AmazonTransport $nsp non-partnered SP
-     * @param AmazonTransport $pltl partnered LTL
-     * @param AmazonTransport $nltl non-partnered LTL
+     *
+     * @param  AmazonTransport  $psp  partnered SP
+     * @param  AmazonTransport  $nsp  non-partnered SP
+     * @param  AmazonTransport  $pltl  partnered LTL
+     * @param  AmazonTransport  $nltl  non-partnered LTL
      */
     public function testGetVoidDeadline($psp, $nsp, $pltl, $nltl)
     {
@@ -1528,8 +1551,9 @@ class AmazonTransportTest extends TestCase
 
     /**
      * Simplified copy of method <i>determineDetailOption</i> in class.
-     * @param string $t <p>shipment type ("SP" or "LTL")</p>
-     * @param bool $p <p>partnered or not</p>
+     *
+     * @param  string  $t  <p>shipment type ("SP" or "LTL")</p>
+     * @param  bool  $p  <p>partnered or not</p>
      * @return string|bool parameter prefix or <b>FALSE</b> if it could not be determined
      */
     private function findOp($t, $p)
@@ -1557,6 +1581,7 @@ class AmazonTransportTest extends TestCase
 
     /**
      * Gives the error message that appears for all parameters that rely on carrier type and partnered.
+     *
      * @return string
      */
     private function getOpError()

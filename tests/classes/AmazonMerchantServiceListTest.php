@@ -398,6 +398,7 @@ class AmazonMerchantServiceListTest extends TestCase
 
     /**
      * Creates a basic adress with the minimum amount of information.
+     *
      * @return array
      */
     private function genAddress()

@@ -22,8 +22,7 @@ function getLog()
 /**
  * gets log and returns messages in an array.
  *
- * @param string $s pre-fetched log contents
- *
+ * @param  string  $s  pre-fetched log contents
  * @return array list of message strings
  */
 function parseLog($s = null)

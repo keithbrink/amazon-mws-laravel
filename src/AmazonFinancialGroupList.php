@@ -36,6 +36,7 @@ class AmazonFinancialGroupList extends AmazonFinanceCore implements \Iterator
 
     /**
      * Returns whether or not a token is available.
+     *
      * @return bool
      */
     public function hasToken()
@@ -50,7 +51,8 @@ class AmazonFinancialGroupList extends AmazonFinanceCore implements \Iterator
      * the necessary operations to retrieve the rest of the list using tokens. If
      * this option is off, the object will only ever retrieve the first section of
      * the list.
-     * @param bool $b [optional] <p>Defaults to <b>TRUE</b></p>
+     *
+     * @param  bool  $b  [optional] <p>Defaults to <b>TRUE</b></p>
      * @return bool <b>FALSE</b> if improper input
      */
     public function setUseToken($b = true)
@@ -67,7 +69,8 @@ class AmazonFinancialGroupList extends AmazonFinanceCore implements \Iterator
      *
      * This method sets the maximum number of Financial Event Groups for Amazon to return per page.
      * If this parameter is not set, Amazon will send 100 at a time.
-     * @param int $num <p>Positive integer from 1 to 100.</p>
+     *
+     * @param  int  $num  <p>Positive integer from 1 to 100.</p>
      * @return bool <b>FALSE</b> if improper input
      */
     public function setMaxResultsPerPage($num)
@@ -86,8 +89,9 @@ class AmazonFinancialGroupList extends AmazonFinanceCore implements \Iterator
      * parameter is set, Amazon will only return Financial Event Groups that occurred
      * between the two times given. Only the starting time is required to fetch financial event groups.
      * The parameters are passed through <i>strtotime</i>, so values such as "-1 hour" are fine.
-     * @param string $s <p>A time string for the earliest time.</p>
-     * @param string $e [optional] <p>A time string for the latest time.</p>
+     *
+     * @param  string  $s  <p>A time string for the earliest time.</p>
+     * @param  string  $e  [optional] <p>A time string for the latest time.</p>
      * @return bool <b>FALSE</b> if improper input
      */
     public function setTimeLimits($s, $e = null)
@@ -113,7 +117,8 @@ class AmazonFinancialGroupList extends AmazonFinanceCore implements \Iterator
      * which can be retrieved using <i>getGroups</i>.
      * Other methods are available for fetching specific values from the list.
      * This operation can potentially involve tokens.
-     * @param bool $r [optional] <p>When set to <b>FALSE</b>, the function will not recurse, defaults to <b>TRUE</b></p>
+     *
+     * @param  bool  $r  [optional] <p>When set to <b>FALSE</b>, the function will not recurse, defaults to <b>TRUE</b></p>
      * @return bool <b>FALSE</b> if something goes wrong
      */
     public function fetchGroupList($r = true)
@@ -183,7 +188,8 @@ class AmazonFinancialGroupList extends AmazonFinanceCore implements \Iterator
      * Parses XML response into array.
      *
      * This is what reads the response XML and converts it into an array.
-     * @param SimpleXMLElement $xml <p>The XML response from Amazon.</p>
+     *
+     * @param  SimpleXMLElement  $xml  <p>The XML response from Amazon.</p>
      * @return bool <b>FALSE</b> if no XML data is found
      */
     protected function parseXml($xml)
@@ -245,6 +251,7 @@ class AmazonFinancialGroupList extends AmazonFinanceCore implements \Iterator
      * <li><b>FinancialEventGroupStart</b> - ISO 8601 date format</li>
      * <li><b>FinancialEventGroupEnd</b> - ISO 8601 date format</li>
      * </ul>
+     *
      * @return array|bool multi-dimensional array, or <b>FALSE</b> if list not filled yet
      */
     public function getGroups()
@@ -260,7 +267,8 @@ class AmazonFinancialGroupList extends AmazonFinanceCore implements \Iterator
      * Returns the ID for the specified entry.
      *
      * This method will return <b>FALSE</b> if the list has not yet been filled.
-     * @param int $i [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
+     *
+     * @param  int  $i  [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
      * @return string|bool single value, or <b>FALSE</b> if Non-numeric index
      */
     public function getGroupId($i = 0)
@@ -276,7 +284,8 @@ class AmazonFinancialGroupList extends AmazonFinanceCore implements \Iterator
      * Returns the processing status for the specified entry.
      *
      * This method will return <b>FALSE</b> if the list has not yet been filled.
-     * @param int $i [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
+     *
+     * @param  int  $i  [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
      * @return string|bool "Open" or "Closed", or <b>FALSE</b> if Non-numeric index
      */
     public function getProcessingStatus($i = 0)
@@ -292,7 +301,8 @@ class AmazonFinancialGroupList extends AmazonFinanceCore implements \Iterator
      * Returns the transfer status for the specified entry.
      *
      * This method will return <b>FALSE</b> if the list has not yet been filled.
-     * @param int $i [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
+     *
+     * @param  int  $i  [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
      * @return string|bool single value, or <b>FALSE</b> if Non-numeric index
      */
     public function getTransferStatus($i = 0)
@@ -309,8 +319,9 @@ class AmazonFinancialGroupList extends AmazonFinanceCore implements \Iterator
      *
      * This method will return <b>FALSE</b> if the list has not yet been filled.
      * If an array is returned, it will have the fields <b>Amount</b> and <b>CurrencyCode</b>.
-     * @param int $i [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
-     * @param bool $only [optional] <p>set to <b>TRUE</b> to get only the amount</p>
+     *
+     * @param  int  $i  [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
+     * @param  bool  $only  [optional] <p>set to <b>TRUE</b> to get only the amount</p>
      * @return array|string|bool array, single value, or <b>FALSE</b> if Non-numeric index
      */
     public function getOriginalTotal($i = 0, $only = false)
@@ -331,8 +342,9 @@ class AmazonFinancialGroupList extends AmazonFinanceCore implements \Iterator
      *
      * This method will return <b>FALSE</b> if the list has not yet been filled.
      * If an array is returned, it will have the fields <b>Amount</b> and <b>CurrencyCode</b>.
-     * @param int $i [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
-     * @param bool $only [optional] <p>set to <b>TRUE</b> to get only the amount</p>
+     *
+     * @param  int  $i  [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
+     * @param  bool  $only  [optional] <p>set to <b>TRUE</b> to get only the amount</p>
      * @return array|string|bool array, single value, or <b>FALSE</b> if Non-numeric index
      */
     public function getConvertedTotal($i = 0, $only = false)
@@ -352,7 +364,8 @@ class AmazonFinancialGroupList extends AmazonFinanceCore implements \Iterator
      * Returns the transfer date for the specified entry.
      *
      * This method will return <b>FALSE</b> if the list has not yet been filled.
-     * @param int $i [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
+     *
+     * @param  int  $i  [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
      * @return string|bool date in ISO 8601 format, or <b>FALSE</b> if Non-numeric index
      */
     public function getTransferDate($i = 0)
@@ -368,7 +381,8 @@ class AmazonFinancialGroupList extends AmazonFinanceCore implements \Iterator
      * Returns the trace ID for the specified entry.
      *
      * This method will return <b>FALSE</b> if the list has not yet been filled.
-     * @param int $i [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
+     *
+     * @param  int  $i  [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
      * @return string|bool single value, or <b>FALSE</b> if Non-numeric index
      */
     public function getTraceId($i = 0)
@@ -384,7 +398,8 @@ class AmazonFinancialGroupList extends AmazonFinanceCore implements \Iterator
      * Returns the account tail for the specified entry.
      *
      * This method will return <b>FALSE</b> if the list has not yet been filled.
-     * @param int $i [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
+     *
+     * @param  int  $i  [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
      * @return string|bool single value, or <b>FALSE</b> if Non-numeric index
      */
     public function getAccountTail($i = 0)
@@ -401,8 +416,9 @@ class AmazonFinancialGroupList extends AmazonFinanceCore implements \Iterator
      *
      * This method will return <b>FALSE</b> if the list has not yet been filled.
      * If an array is returned, it will have the fields <b>Amount</b> and <b>CurrencyCode</b>.
-     * @param int $i [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
-     * @param bool $only [optional] <p>set to <b>TRUE</b> to get only the amount</p>
+     *
+     * @param  int  $i  [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
+     * @param  bool  $only  [optional] <p>set to <b>TRUE</b> to get only the amount</p>
      * @return array|string|bool array, single value, or <b>FALSE</b> if Non-numeric index
      */
     public function getBeginningBalance($i = 0, $only = false)
@@ -422,7 +438,8 @@ class AmazonFinancialGroupList extends AmazonFinanceCore implements \Iterator
      * Returns the start date for the specified entry.
      *
      * This method will return <b>FALSE</b> if the list has not yet been filled.
-     * @param int $i [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
+     *
+     * @param  int  $i  [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
      * @return string|bool date in ISO 8601 format, or <b>FALSE</b> if Non-numeric index
      */
     public function getStartDate($i = 0)
@@ -438,7 +455,8 @@ class AmazonFinancialGroupList extends AmazonFinanceCore implements \Iterator
      * Returns the end date for the specified entry.
      *
      * This method will return <b>FALSE</b> if the list has not yet been filled.
-     * @param int $i [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
+     *
+     * @param  int  $i  [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
      * @return string|bool date in ISO 8601 format, or <b>FALSE</b> if Non-numeric index
      */
     public function getEndDate($i = 0)
@@ -452,6 +470,7 @@ class AmazonFinancialGroupList extends AmazonFinanceCore implements \Iterator
 
     /**
      * Iterator function.
+     *
      * @return type
      */
     public function current()
@@ -469,6 +488,7 @@ class AmazonFinancialGroupList extends AmazonFinanceCore implements \Iterator
 
     /**
      * Iterator function.
+     *
      * @return type
      */
     public function key()
@@ -486,6 +506,7 @@ class AmazonFinancialGroupList extends AmazonFinanceCore implements \Iterator
 
     /**
      * Iterator function.
+     *
      * @return type
      */
     public function valid()

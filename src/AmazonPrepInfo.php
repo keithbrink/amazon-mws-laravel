@@ -40,8 +40,7 @@ class AmazonPrepInfo extends AmazonInboundCore implements Iterator
      * This method sets the list of seller SKUs to be sent in the next request.
      * If this parameter is set, ASINs cannot be set.
      *
-     * @param array|string $s <p>A list of Seller SKUs, or a single SKU string. (max: 20)</p>
-     *
+     * @param  array|string  $s  <p>A list of Seller SKUs, or a single SKU string. (max: 20)</p>
      * @return bool <b>FALSE</b> if improper input
      */
     public function setSkus($s)
@@ -67,8 +66,7 @@ class AmazonPrepInfo extends AmazonInboundCore implements Iterator
      *
      * This method sets the country code to be sent in the next request.
      *
-     * @param string $s <p>The country code to be send (e.g. "US")</p>
-     *
+     * @param  string  $s  <p>The country code to be send (e.g. "US")</p>
      * @return bool <b>FALSE</b> if improper input
      */
     public function setCountryCode($s)
@@ -107,8 +105,7 @@ class AmazonPrepInfo extends AmazonInboundCore implements Iterator
      * This method sets the list of ASINs to be sent in the next request.
      * If this parameter is set, Seller SKUs cannot be set.
      *
-     * @param array|string $s <p>A list of ASINs, or a single ASIN string. (max: 20)</p>
-     *
+     * @param  array|string  $s  <p>A list of ASINs, or a single ASIN string. (max: 20)</p>
      * @return bool <b>FALSE</b> if improper input
      */
     public function setAsins($s)
@@ -218,8 +215,7 @@ class AmazonPrepInfo extends AmazonInboundCore implements Iterator
      *
      * This is what reads the response XML and converts it into an array.
      *
-     * @param SimpleXMLElement $xml <p>The XML response from Amazon.</p>
-     *
+     * @param  SimpleXMLElement  $xml  <p>The XML response from Amazon.</p>
      * @return bool <b>FALSE</b> if no XML data is found
      */
     protected function parseXml($xml)
@@ -291,8 +287,7 @@ class AmazonPrepInfo extends AmazonInboundCore implements Iterator
      * retrieving the list of prep instructions.
      * This method will return <b>FALSE</b> if the list has not yet been filled.
      *
-     * @param int $i [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
-     *
+     * @param  int  $i  [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
      * @return string|bool single value, or <b>FALSE</b> if Non-numeric index
      */
     public function getSku($i = 0)
@@ -309,8 +304,7 @@ class AmazonPrepInfo extends AmazonInboundCore implements Iterator
      *
      * This method will return <b>FALSE</b> if the list has not yet been filled.
      *
-     * @param int $i [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
-     *
+     * @param  int  $i  [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
      * @return string|bool single value, or <b>FALSE</b> if Non-numeric index
      */
     public function getAsin($i = 0)
@@ -328,8 +322,7 @@ class AmazonPrepInfo extends AmazonInboundCore implements Iterator
      * Possible values are "RequiresFNSKULabel" and "CanUseOriginalBarcode".
      * This method will return <b>FALSE</b> if the list has not yet been filled.
      *
-     * @param int $i [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
-     *
+     * @param  int  $i  [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
      * @return string|bool single value, or <b>FALSE</b> if Non-numeric index
      */
     public function getBarcodeInstruction($i = 0)
@@ -348,8 +341,7 @@ class AmazonPrepInfo extends AmazonInboundCore implements Iterator
      * and "SeePrepInstructionsList".
      * This method will return <b>FALSE</b> if the list has not yet been filled.
      *
-     * @param int $i [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
-     *
+     * @param  int  $i  [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
      * @return string|bool single value, or <b>FALSE</b> if Non-numeric index
      */
     public function getPrepGuidance($i = 0)
@@ -368,8 +360,7 @@ class AmazonPrepInfo extends AmazonInboundCore implements Iterator
      * "Labeling", and "HangGarment".
      * This method will return <b>FALSE</b> if the list has not yet been filled.
      *
-     * @param int $i [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
-     *
+     * @param  int  $i  [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
      * @return array|bool simple array, or <b>FALSE</b> if Non-numeric index
      */
     public function getPrepInstructions($i = 0)
@@ -397,8 +388,7 @@ class AmazonPrepInfo extends AmazonInboundCore implements Iterator
      * retrieving the list of prep instructions.
      * This method will return <b>FALSE</b> if the list has not yet been filled.
      *
-     * @param int $i [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
-     *
+     * @param  int  $i  [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
      * @return array|bool multi-dimensional array, or <b>FALSE</b> if Non-numeric index
      *
      * @see getPrepInstructions
@@ -426,8 +416,7 @@ class AmazonPrepInfo extends AmazonInboundCore implements Iterator
      * <li><b>AmazonPrepFees</b> (see <i>getAmazonPrepFees</i> for details)</li>
      * </ul>
      *
-     * @param int $i [optional] <p>List index of the instruction to return. Defaults to NULL.</p>
-     *
+     * @param  int  $i  [optional] <p>List index of the instruction to return. Defaults to NULL.</p>
      * @return array|bool multi-dimensional array, or <b>FALSE</b> if list not filled yet
      *
      * @see getPrepInstructionList
@@ -455,8 +444,7 @@ class AmazonPrepInfo extends AmazonInboundCore implements Iterator
      * <li><b>ErrorReason</b></li>
      * </ul>
      *
-     * @param int $i [optional] <p>List index of the item to return. Defaults to NULL.</p>
-     *
+     * @param  int  $i  [optional] <p>List index of the item to return. Defaults to NULL.</p>
      * @return array|bool multi-dimensional array, or <b>FALSE</b> if list not filled yet
      */
     public function getInvalidItemList($i = null)

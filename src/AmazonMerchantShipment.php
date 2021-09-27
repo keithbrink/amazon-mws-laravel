@@ -41,14 +41,15 @@ class AmazonMerchantShipment extends AmazonMerchantCore
      * on these parameters and common methods.
      * Please note that two extra parameters come before the usual Mock Mode parameters,
      * so be careful when setting up the object.
-     * @param string $s [optional] <p>Name for the store you want to use.
-     * This parameter is optional if only one store is defined in the config file.</p>
-     * @param string $id [optional] <p>The Shipment ID to set for the object.</p>
-     * @param SimpleXMLElement $data [optional] <p>XML data from Amazon to be parsed.</p>
-     * @param bool $mock [optional] <p>This is a flag for enabling Mock Mode.
-     * This defaults to <b>FALSE</b>.</p>
-     * @param array|string $m [optional] <p>The files (or file) to use in Mock Mode.</p>
-     * @param string $config [optional] <p>An alternate config file to set. Used for testing.</p>
+     *
+     * @param  string  $s  [optional] <p>Name for the store you want to use.
+     *                     This parameter is optional if only one store is defined in the config file.</p>
+     * @param  string  $id  [optional] <p>The Shipment ID to set for the object.</p>
+     * @param  SimpleXMLElement  $data  [optional] <p>XML data from Amazon to be parsed.</p>
+     * @param  bool  $mock  [optional] <p>This is a flag for enabling Mock Mode.
+     *                      This defaults to <b>FALSE</b>.</p>
+     * @param  array|string  $m  [optional] <p>The files (or file) to use in Mock Mode.</p>
+     * @param  string  $config  [optional] <p>An alternate config file to set. Used for testing.</p>
      */
     public function __construct($s = null, $id = null, $data = null, $mock = false, $m = null, $config = null)
     {
@@ -67,7 +68,8 @@ class AmazonMerchantShipment extends AmazonMerchantCore
      *
      * This method sets the shipment ID to be sent in the next request.
      * This parameter is required for fetching the shipment from Amazon.
-     * @param string $id <p>either string or number</p>
+     *
+     * @param  string  $id  <p>either string or number</p>
      * @return bool <b>FALSE</b> if improper input
      */
     public function setShipmentId($id)
@@ -88,6 +90,7 @@ class AmazonMerchantShipment extends AmazonMerchantCore
      * a shipment ID is required. Amazon will send
      * the data back as a response, which can be retrieved using <i>getShipment</i>.
      * Other methods are available for fetching specific values from the shipment.
+     *
      * @return bool <b>FALSE</b> if something goes wrong
      */
     public function fetchShipment()
@@ -124,7 +127,8 @@ class AmazonMerchantShipment extends AmazonMerchantCore
      * Parses XML response into array.
      *
      * This is what reads the response XML and converts it into an array.
-     * @param SimpleXMLElement $xml <p>The XML response from Amazon.</p>
+     *
+     * @param  SimpleXMLElement  $xml  <p>The XML response from Amazon.</p>
      * @return bool <b>FALSE</b> if no XML data is found
      */
     protected function parseXML($xml)
@@ -256,6 +260,7 @@ class AmazonMerchantShipment extends AmazonMerchantCore
      * a shipment ID is required. Amazon will send back data about the shipment
      * as a response, including its status, which can be retrieved using <i>getData</i>.
      * Other methods are available for fetching specific values from the shipment.
+     *
      * @return bool <b>TRUE</b> if the cancellation was successful, <b>FALSE</b> if something goes wrong
      */
     public function cancelShipment()
@@ -292,6 +297,7 @@ class AmazonMerchantShipment extends AmazonMerchantCore
      * Returns the shipment data.
      *
      * This method will return <b>FALSE</b> if the shipment data has not been retrieved yet.
+     *
      * @return array|bool multi-dimensional array, or <b>FALSE</b> if shipment not set yet
      */
     public function getData()
@@ -307,6 +313,7 @@ class AmazonMerchantShipment extends AmazonMerchantCore
      * Returns the Amazon-generated shipment ID.
      *
      * This method will return <b>FALSE</b> if the shipment ID has not been set yet.
+     *
      * @return string|bool single value, or <b>FALSE</b> if shipment ID not set yet
      */
     public function getShipmentId()
@@ -322,6 +329,7 @@ class AmazonMerchantShipment extends AmazonMerchantCore
      * Returns the Amazon Order ID.
      *
      * This method will return <b>FALSE</b> if the order ID has not been set yet.
+     *
      * @return string|bool single value, or <b>FALSE</b> if order ID not set yet
      */
     public function getAmazonOrderId()
@@ -337,6 +345,7 @@ class AmazonMerchantShipment extends AmazonMerchantCore
      * Returns the Seller's Order ID.
      *
      * This method will return <b>FALSE</b> if the order ID has not been set yet.
+     *
      * @return string|bool single value, or <b>FALSE</b> if order ID not set yet
      */
     public function getSellerOrderId()
@@ -357,6 +366,7 @@ class AmazonMerchantShipment extends AmazonMerchantCore
      * <li><b>OrderItemId</b></li>
      * <li><b>Quantity</b></li>
      * </ul>
+     *
      * @return array|bool multi-dimensional array, or <b>FALSE</b> if items not set yet
      */
     public function getItems()
@@ -386,6 +396,7 @@ class AmazonMerchantShipment extends AmazonMerchantCore
      * <li><b>CountryCode</b></li>
      * <li><b>Phone</b></li>
      * </ul>
+     *
      * @return array|bool associative array, or <b>FALSE</b> if label not set yet
      */
     public function getShipFromAddress()
@@ -415,6 +426,7 @@ class AmazonMerchantShipment extends AmazonMerchantCore
      * <li><b>CountryCode</b></li>
      * <li><b>Phone</b> (always blank)</li>
      * </ul>
+     *
      * @return array|bool associative array, or <b>FALSE</b> if label not set yet
      */
     public function getShipToAddress()
@@ -438,6 +450,7 @@ class AmazonMerchantShipment extends AmazonMerchantCore
      * <li><b>Unit</b></li>
      * <li><b>PredefinedPackageDimensions</b> (optional)</li>
      * </ul>
+     *
      * @return array|bool associative array, or <b>FALSE</b> if package dimensions not set yet
      */
     public function getPackageDimensions()
@@ -454,7 +467,8 @@ class AmazonMerchantShipment extends AmazonMerchantCore
      *
      * This method will return <b>FALSE</b> if the weight has not been set yet.
      * If an array is returned, it will have the fields <b>Value</b> and <b>Unit</b>.
-     * @param bool $only [optional] <p>set to <b>TRUE</b> to get only the value</p>
+     *
+     * @param  bool  $only  [optional] <p>set to <b>TRUE</b> to get only the value</p>
      * @return array|string|bool array, single value, or <b>FALSE</b> if weight not set yet
      */
     public function getWeight($only = false)
@@ -475,7 +489,8 @@ class AmazonMerchantShipment extends AmazonMerchantCore
      *
      * This method will return <b>FALSE</b> if the insurance amount has not been set yet.
      * If an array is returned, it will have the fields <b>Amount</b> and <b>CurrencyCode</b>.
-     * @param bool $only [optional] <p>set to <b>TRUE</b> to get only the value</p>
+     *
+     * @param  bool  $only  [optional] <p>set to <b>TRUE</b> to get only the value</p>
      * @return array|string|bool array, single value, or <b>FALSE</b> if insurance amount not set yet
      */
     public function getInsurance($only = false)
@@ -509,6 +524,7 @@ class AmazonMerchantShipment extends AmazonMerchantCore
      * <li><b>DeclaredValue</b> (optional) - contains <b>Value</b> and <b>CurrencyCode</b></li>
      * <li><b>CarrierWillPickUp</b></li>
      * </ul>
+     *
      * @return array|bool associative array, or <b>FALSE</b> if package dimensions not set yet
      */
     public function getService()
@@ -525,8 +541,10 @@ class AmazonMerchantShipment extends AmazonMerchantCore
      *
      * This method will return <b>FALSE</b> if the service has not been set yet.
      * If an array is returned, it will have the fields <b>Amount</b> and <b>CurrencyCode</b>.
-     * @param bool $only [optional] <p>set to <b>TRUE</b> to get only the value</p>
+     *
+     * @param  bool  $only  [optional] <p>set to <b>TRUE</b> to get only the value</p>
      * @return array|string|bool array, single value, or <b>FALSE</b> if service not set yet
+     *
      * @see getService
      */
     public function getServiceRate($only = false)
@@ -547,8 +565,10 @@ class AmazonMerchantShipment extends AmazonMerchantCore
      *
      * This method will return <b>FALSE</b> if the declared value has not been set yet.
      * If an array is returned, it will have the fields <b>Amount</b> and <b>CurrencyCode</b>.
-     * @param bool $only [optional] <p>set to <b>TRUE</b> to get only the value</p>
+     *
+     * @param  bool  $only  [optional] <p>set to <b>TRUE</b> to get only the value</p>
      * @return array|string|bool array, single value, or <b>FALSE</b> if declared value not set yet
+     *
      * @see getService
      */
     public function getDeclaredValue($only = false)
@@ -588,7 +608,8 @@ class AmazonMerchantShipment extends AmazonMerchantCore
      * <li><b>LabelFormat</b></li>
      * <li><b>StandardIdForLabel</b></li>
      * </ul>
-     * @param bool $raw [optional] <p>Set to TRUE to get the raw, double-encoded file contents.</p>
+     *
+     * @param  bool  $raw  [optional] <p>Set to TRUE to get the raw, double-encoded file contents.</p>
      * @return array|bool multi-dimensional array, or <b>FALSE</b> if label not set yet
      */
     public function getLabelData($raw = false)
@@ -614,7 +635,8 @@ class AmazonMerchantShipment extends AmazonMerchantCore
      * Returns the file contents for the Label.
      *
      * This method will return <b>FALSE</b> if the status has not been set yet.
-     * @param bool $raw [optional] <p>Set to TRUE to get the raw, double-encoded file contents.</p>
+     *
+     * @param  bool  $raw  [optional] <p>Set to TRUE to get the raw, double-encoded file contents.</p>
      * @return string|bool single value, or <b>FALSE</b> if status not set yet
      */
     public function getLabelFileContents($raw = false)
@@ -639,6 +661,7 @@ class AmazonMerchantShipment extends AmazonMerchantCore
      * Returns the Shipment's Status.
      *
      * This method will return <b>FALSE</b> if the status has not been set yet.
+     *
      * @return string|bool single value, or <b>FALSE</b> if status not set yet
      */
     public function getStatus()
@@ -654,6 +677,7 @@ class AmazonMerchantShipment extends AmazonMerchantCore
      * Returns the Tracking ID.
      *
      * This method will return <b>FALSE</b> if the tracking ID has not been set yet.
+     *
      * @return string|bool single value, or <b>FALSE</b> if tracking ID not set yet
      */
     public function getTrackingId()
@@ -669,6 +693,7 @@ class AmazonMerchantShipment extends AmazonMerchantCore
      * Returns the date at which the shipment was created.
      *
      * This method will return <b>FALSE</b> if the tracking ID has not been set yet.
+     *
      * @return string|bool timestamp, or <b>FALSE</b> if tracking ID not set yet
      */
     public function getDateCreated()
@@ -684,6 +709,7 @@ class AmazonMerchantShipment extends AmazonMerchantCore
      * Returns the date at which the shipment was last updated.
      *
      * This method will return <b>FALSE</b> if the tracking ID has not been set yet.
+     *
      * @return string|bool timestamp, or <b>FALSE</b> if tracking ID not set yet
      */
     public function getDateLastUpdated()

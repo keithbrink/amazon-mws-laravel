@@ -180,7 +180,7 @@ class AmazonRecommendationListTest extends TestCase
     }
 
     /**
-     * @param AmazonRecommendationList $o
+     * @param  AmazonRecommendationList  $o
      * @depends testFetchRecommendations
      */
     public function testGetLists($o)
@@ -206,7 +206,7 @@ class AmazonRecommendationListTest extends TestCase
     }
 
     /**
-     * @param AmazonRecommendationList $o
+     * @param  AmazonRecommendationList  $o
      * @depends testFetchRecommendations
      */
     public function testGetInventoryList($o)
@@ -245,7 +245,7 @@ class AmazonRecommendationListTest extends TestCase
     }
 
     /**
-     * @param AmazonRecommendationList $o
+     * @param  AmazonRecommendationList  $o
      * @depends testFetchRecommendations
      */
     public function testGetSelectionList($o)
@@ -288,7 +288,7 @@ class AmazonRecommendationListTest extends TestCase
     }
 
     /**
-     * @param AmazonRecommendationList $o
+     * @param  AmazonRecommendationList  $o
      * @depends testFetchRecommendations
      */
     public function testGetPricingList($o)
@@ -330,7 +330,7 @@ class AmazonRecommendationListTest extends TestCase
     }
 
     /**
-     * @param AmazonRecommendationList $o
+     * @param  AmazonRecommendationList  $o
      * @depends testFetchRecommendations
      */
     public function testGetFulfillmentList($o)
@@ -378,7 +378,7 @@ class AmazonRecommendationListTest extends TestCase
     }
 
     /**
-     * @param AmazonRecommendationList $o
+     * @param  AmazonRecommendationList  $o
      * @depends testFetchRecommendations
      */
     public function testGetListingList($o)
@@ -411,7 +411,7 @@ class AmazonRecommendationListTest extends TestCase
     }
 
     /**
-     * @param AmazonRecommendationList $o
+     * @param  AmazonRecommendationList  $o
      * @depends testFetchRecommendations
      */
     public function testGetGlobalSellingList($o)
@@ -457,7 +457,7 @@ class AmazonRecommendationListTest extends TestCase
     }
 
     /**
-     * @param AmazonRecommendationList $o
+     * @param  AmazonRecommendationList  $o
      * @depends testFetchRecommendations
      */
     public function testGetAdvertisingList($o)
@@ -497,7 +497,7 @@ class AmazonRecommendationListTest extends TestCase
     }
 
     /**
-     * @param AmazonRecommendationList $o
+     * @param  AmazonRecommendationList  $o
      * @depends testFetchLastUpdateTimes
      */
     public function testGetLastUpdateTimes($o)
@@ -522,7 +522,7 @@ class AmazonRecommendationListTest extends TestCase
     }
 
     /**
-     * @param AmazonRecommendationList $o
+     * @param  AmazonRecommendationList  $o
      * @depends testFetchLastUpdateTimes
      */
     public function testGetInventoryLastUpdateTime($o)
@@ -533,7 +533,7 @@ class AmazonRecommendationListTest extends TestCase
     }
 
     /**
-     * @param AmazonRecommendationList $o
+     * @param  AmazonRecommendationList  $o
      * @depends testFetchLastUpdateTimes
      */
     public function testGetSelectionLastUpdateTime($o)
@@ -544,7 +544,7 @@ class AmazonRecommendationListTest extends TestCase
     }
 
     /**
-     * @param AmazonRecommendationList $o
+     * @param  AmazonRecommendationList  $o
      * @depends testFetchLastUpdateTimes
      */
     public function testGetPricingLastUpdateTime($o)
@@ -555,7 +555,7 @@ class AmazonRecommendationListTest extends TestCase
     }
 
     /**
-     * @param AmazonRecommendationList $o
+     * @param  AmazonRecommendationList  $o
      * @depends testFetchLastUpdateTimes
      */
     public function testGetFulfillmentLastUpdateTime($o)
@@ -566,7 +566,7 @@ class AmazonRecommendationListTest extends TestCase
     }
 
     /**
-     * @param AmazonRecommendationList $o
+     * @param  AmazonRecommendationList  $o
      * @depends testFetchLastUpdateTimes
      */
     public function testGetGlobalSellingLastUpdateTime($o)
@@ -577,7 +577,7 @@ class AmazonRecommendationListTest extends TestCase
     }
 
     /**
-     * @param AmazonRecommendationList $o
+     * @param  AmazonRecommendationList  $o
      * @depends testFetchLastUpdateTimes
      */
     public function testGetAdvertisingLastUpdateTime($o)
@@ -588,7 +588,7 @@ class AmazonRecommendationListTest extends TestCase
     }
 
     /**
-     * @param AmazonRecommendationList $o
+     * @param  AmazonRecommendationList  $o
      * @depends testFetchRecommendations
      */
     public function testIterator($o)

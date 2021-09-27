@@ -289,7 +289,7 @@ class AmazonSubscriptionTest extends TestCase
     }
 
     /**
-     * @param AmazonSubscription $o
+     * @param  AmazonSubscription  $o
      * @depends testFetchSubscription
      */
     public function testGetSubscription($o)
@@ -305,7 +305,7 @@ class AmazonSubscriptionTest extends TestCase
     }
 
     /**
-     * @param AmazonSubscription $o
+     * @param  AmazonSubscription  $o
      * @depends testFetchSubscription
      */
     public function testGetNotificationType($o)
@@ -316,7 +316,7 @@ class AmazonSubscriptionTest extends TestCase
     }
 
     /**
-     * @param AmazonSubscription $o
+     * @param  AmazonSubscription  $o
      * @depends testFetchSubscription
      */
     public function testGetIsEnabled($o)
@@ -327,7 +327,7 @@ class AmazonSubscriptionTest extends TestCase
     }
 
     /**
-     * @param AmazonSubscription $o
+     * @param  AmazonSubscription  $o
      * @depends testFetchSubscription
      */
     public function testGetDeliveryChannel($o)
@@ -338,7 +338,7 @@ class AmazonSubscriptionTest extends TestCase
     }
 
     /**
-     * @param AmazonSubscription $o
+     * @param  AmazonSubscription  $o
      * @depends testFetchSubscription
      */
     public function testGetAttributes($o)

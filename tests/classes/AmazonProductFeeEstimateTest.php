@@ -115,7 +115,8 @@ class AmazonProductFeeEstimateTest extends TestCase
 
     /**
      * @depends testSetRequest
-     * @param AmazonProductFeeEstimate $o
+     *
+     * @param  AmazonProductFeeEstimate  $o
      */
     public function testFetchEstimates($o)
     {
@@ -135,7 +136,8 @@ class AmazonProductFeeEstimateTest extends TestCase
 
     /**
      * @depends testFetchEstimates
-     * @param AmazonProductFeeEstimate $o
+     *
+     * @param  AmazonProductFeeEstimate  $o
      */
     public function testGetEstimates($o)
     {

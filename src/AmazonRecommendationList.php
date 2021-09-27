@@ -41,6 +41,7 @@ class AmazonRecommendationList extends AmazonRecommendationCore implements Itera
 
     /**
      * Returns whether or not a token is available.
+     *
      * @return bool
      */
     public function hasToken()
@@ -55,7 +56,8 @@ class AmazonRecommendationList extends AmazonRecommendationCore implements Itera
      * the necessary operations to retrieve the rest of the list using tokens. If
      * this option is off, the object will only ever retrieve the first section of
      * the list.
-     * @param bool $b [optional] <p>Defaults to <b>TRUE</b></p>
+     *
+     * @param  bool  $b  [optional] <p>Defaults to <b>TRUE</b></p>
      * @return bool <b>FALSE</b> if improper input
      */
     public function setUseToken($b = true)
@@ -75,7 +77,8 @@ class AmazonRecommendationList extends AmazonRecommendationCore implements Itera
      * recommendations from all categories.
      * Possible category values: "Inventory", "Selection", "Pricing", "Fulfillment",
      * "ListingQuality", "GlobalSelling", and "Advertising".
-     * @param string $s <p>Category name</p>
+     *
+     * @param  string  $s  <p>Category name</p>
      * @return bool <b>FALSE</b> if improper input
      */
     public function setCategory($s)
@@ -98,8 +101,10 @@ class AmazonRecommendationList extends AmazonRecommendationCore implements Itera
      * of filters for that specific category.
      * See <i>setCategory</i> for a list of valid categories.
      * See the comment inside for a list of valid filters.
-     * @param array $a <p>See above.</p>
+     *
+     * @param  array  $a  <p>See above.</p>
      * @return bool <b>FALSE</b> if improper input
+     *
      * @see setCategory
      */
     public function setFilter($a)
@@ -159,6 +164,7 @@ class AmazonRecommendationList extends AmazonRecommendationCore implements Itera
      * Amazon will send dates back as a response, which can be retrieved using
      * <i>getLastUpdateTimes</i>.
      * Other methods are available for fetching individual times.
+     *
      * @return bool <b>FALSE</b> if something goes wrong
      */
     public function fetchLastUpdateTimes()
@@ -215,7 +221,8 @@ class AmazonRecommendationList extends AmazonRecommendationCore implements Itera
      * the data back as a response, categorized into seven lists. These lists
      * can be retrieved using <i>getLists</i>.
      * Other methods are available for fetching individual lists.
-     * @param bool $r [optional] <p>When set to <b>FALSE</b>, the function will not recurse, defaults to <b>TRUE</b></p>
+     *
+     * @param  bool  $r  [optional] <p>When set to <b>FALSE</b>, the function will not recurse, defaults to <b>TRUE</b></p>
      * @return bool <b>FALSE</b> if something goes wrong
      */
     public function fetchRecommendations($r = true)
@@ -289,7 +296,8 @@ class AmazonRecommendationList extends AmazonRecommendationCore implements Itera
      * Parses XML response into array.
      *
      * This is what reads the response XML and converts it into an array.
-     * @param SimpleXMLElement $xml <p>The XML response from Amazon.</p>
+     *
+     * @param  SimpleXMLElement  $xml  <p>The XML response from Amazon.</p>
      * @return bool <b>FALSE</b> if no XML data is found
      */
     protected function parseXML($xml)
@@ -356,7 +364,8 @@ class AmazonRecommendationList extends AmazonRecommendationCore implements Itera
 
     /**
      * Parses XML response for a single recommendation into an array.
-     * @param SimpleXMLElement $xml
+     *
+     * @param  SimpleXMLElement  $xml
      * @return array parsed structure from XML
      */
     protected function parseRecommendation($xml)
@@ -392,6 +401,7 @@ class AmazonRecommendationList extends AmazonRecommendationCore implements Itera
      *
      * The returned array will have keys from any of the categories listed in <i>setCategory</i>.
      * This method will return <b>FALSE</b> if the list has not yet been filled.
+     *
      * @return array|bool array of timestamps, or <b>FALSE</b> if list not set yet
      */
     public function getLastUpdateTimes()
@@ -407,6 +417,7 @@ class AmazonRecommendationList extends AmazonRecommendationCore implements Itera
      * Returns the last update time for Inventory recommendations.
      *
      * This method will return <b>FALSE</b> if the list has not yet been filled.
+     *
      * @return array|bool date in ISO 8601 date time format, or <b>FALSE</b> if not set yet
      */
     public function getInventoryLastUpdateTime()
@@ -422,6 +433,7 @@ class AmazonRecommendationList extends AmazonRecommendationCore implements Itera
      * Returns the last update time for Selection recommendations.
      *
      * This method will return <b>FALSE</b> if the list has not yet been filled.
+     *
      * @return array|bool date in ISO 8601 date time format, or <b>FALSE</b> if not set yet
      */
     public function getSelectionLastUpdateTime()
@@ -437,6 +449,7 @@ class AmazonRecommendationList extends AmazonRecommendationCore implements Itera
      * Returns the last update time for Pricing recommendations.
      *
      * This method will return <b>FALSE</b> if the list has not yet been filled.
+     *
      * @return array|bool date in ISO 8601 date time format, or <b>FALSE</b> if not set yet
      */
     public function getPricingLastUpdateTime()
@@ -452,6 +465,7 @@ class AmazonRecommendationList extends AmazonRecommendationCore implements Itera
      * Returns the last update time for Fulfillment recommendations.
      *
      * This method will return <b>FALSE</b> if the list has not yet been filled.
+     *
      * @return array|bool date in ISO 8601 date time format, or <b>FALSE</b> if not set yet
      */
     public function getFulfillmentLastUpdateTime()
@@ -467,6 +481,7 @@ class AmazonRecommendationList extends AmazonRecommendationCore implements Itera
      * Returns the last update time for Global Selling recommendations.
      *
      * This method will return <b>FALSE</b> if the list has not yet been filled.
+     *
      * @return array|bool date in ISO 8601 date time format, or <b>FALSE</b> if not set yet
      */
     public function getGlobalSellingLastUpdateTime()
@@ -482,6 +497,7 @@ class AmazonRecommendationList extends AmazonRecommendationCore implements Itera
      * Returns the last update time for Advertising recommendations.
      *
      * This method will return <b>FALSE</b> if the list has not yet been filled.
+     *
      * @return array|bool date in ISO 8601 date time format, or <b>FALSE</b> if not set yet
      */
     public function getAdvertisingLastUpdateTime()
@@ -498,7 +514,9 @@ class AmazonRecommendationList extends AmazonRecommendationCore implements Itera
      *
      * The returned array will have keys from any of the categories listed in <i>setCategory</i>.
      * This method will return <b>FALSE</b> if the list has not yet been filled.
+     *
      * @return array|bool multi-dimensional array, or <b>FALSE</b> if list not filled yet
+     *
      * @see setCategory
      */
     public function getLists()
@@ -535,6 +553,7 @@ class AmazonRecommendationList extends AmazonRecommendationCore implements Itera
      * <li><b>DaysOutOfStockLast30Days</b> (optional) - integer</li>
      * <li><b>LostSalesInLast30Days</b> (optional) - integer</li>
      * </ul>
+     *
      * @return array|bool multi-dimensional array, or <b>FALSE</b> if list not filled yet
      */
     public function getInventoryList()
@@ -573,6 +592,7 @@ class AmazonRecommendationList extends AmazonRecommendationCore implements Itera
      * <li><b>AverageCustomerReview</b> (optional) - decimal number</li>
      * <li><b>NumberOfCustomerReviews</b> (optional) - integer</li>
      * </ul>
+     *
      * @return array|bool multi-dimensional array, or <b>FALSE</b> if list not filled yet
      */
     public function getSelectionList()
@@ -616,6 +636,7 @@ class AmazonRecommendationList extends AmazonRecommendationCore implements Itera
      * <li><b>NumberOfMerchantFulfilledOffers</b> (optional) - integer</li>
      * <li><b>NumberOfAmazonFulfilledOffers</b> (optional) - integer</li>
      * </ul>
+     *
      * @return array|bool multi-dimensional array, or <b>FALSE</b> if list not filled yet
      */
     public function getPricingList()
@@ -666,6 +687,7 @@ class AmazonRecommendationList extends AmazonRecommendationCore implements Itera
      * <li><b>Weight</b> - array with "Value" and "Unit"</li>
      * </ul>
      * </ul>
+     *
      * @return array|bool multi-dimensional array, or <b>FALSE</b> if list not filled yet
      */
     public function getFulfillmentList()
@@ -695,6 +717,7 @@ class AmazonRecommendationList extends AmazonRecommendationCore implements Itera
      * </ul>
      * <li><b>ItemName</b> (optional)</li>
      * </ul>
+     *
      * @return array|bool multi-dimensional array, or <b>FALSE</b> if list not filled yet
      */
     public function getListingList()
@@ -745,6 +768,7 @@ class AmazonRecommendationList extends AmazonRecommendationCore implements Itera
      * <li><b>Weight</b> - array with "Value" and "Unit"</li>
      * </ul>
      * </ul>
+     *
      * @return array|bool multi-dimensional array, or <b>FALSE</b> if list not filled yet
      */
     public function getGlobalSellingList()
@@ -783,6 +807,7 @@ class AmazonRecommendationList extends AmazonRecommendationCore implements Itera
      * <li><b>AvailableQuantity</b> (optional) - integer</li>
      * <li><b>SalesForTheLast30Days</b> (optional) - integer</li>
      * </ul>
+     *
      * @return array|bool multi-dimensional array, or <b>FALSE</b> if list not filled yet
      */
     public function getAdvertisingList()
@@ -796,6 +821,7 @@ class AmazonRecommendationList extends AmazonRecommendationCore implements Itera
 
     /**
      * Iterator function.
+     *
      * @return array
      */
     public function current()
@@ -813,6 +839,7 @@ class AmazonRecommendationList extends AmazonRecommendationCore implements Itera
 
     /**
      * Iterator function.
+     *
      * @return int
      */
     public function key()
@@ -830,6 +857,7 @@ class AmazonRecommendationList extends AmazonRecommendationCore implements Itera
 
     /**
      * Iterator function.
+     *
      * @return bool
      */
     public function valid()

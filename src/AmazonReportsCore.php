@@ -35,11 +35,11 @@ abstract class AmazonReportsCore extends AmazonCore
      * in turn passed to the AmazonCore constructor. See it for more information
      * on these parameters and common methods.
      *
-     * @param string       $s      <p>Name for the store you want to use.</p>
-     * @param bool         $mock   [optional] <p>This is a flag for enabling Mock Mode.
-     *                             This defaults to <b>FALSE</b>.</p>
-     * @param array|string $m      [optional] <p>The files (or file) to use in Mock Mode.</p>
-     * @param string       $config [optional] <p>An alternate config file to set. Used for testing.</p>
+     * @param  string  $s  <p>Name for the store you want to use.</p>
+     * @param  bool  $mock  [optional] <p>This is a flag for enabling Mock Mode.
+     *                      This defaults to <b>FALSE</b>.</p>
+     * @param  array|string  $m  [optional] <p>The files (or file) to use in Mock Mode.</p>
+     * @param  string  $config  [optional] <p>An alternate config file to set. Used for testing.</p>
      */
     public function __construct($s, $mock = false, $m = null, $config = null)
     {
@@ -55,8 +55,7 @@ abstract class AmazonReportsCore extends AmazonCore
     /**
      * Checks for a token and changes the proper options.
      *
-     * @param SimpleXMLObject $xml <p>response data</p>
-     *
+     * @param  SimpleXMLObject  $xml  <p>response data</p>
      * @return bool <b>FALSE</b> if no XML data
      */
     protected function checkToken($xml)

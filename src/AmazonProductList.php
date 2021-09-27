@@ -38,11 +38,11 @@ class AmazonProductList extends AmazonProductsCore implements \Iterator
      * in turn passed to the AmazonCore constructor. See it for more information
      * on these parameters and common methods.
      *
-     * @param string       $s      <p>Name for the store you want to use.</p>
-     * @param bool         $mock   [optional] <p>This is a flag for enabling Mock Mode.
-     *                             This defaults to <b>FALSE</b>.</p>
-     * @param array|string $m      [optional] <p>The files (or file) to use in Mock Mode.</p>
-     * @param string       $config [optional] <p>An alternate config file to set. Used for testing.</p>
+     * @param  string  $s  <p>Name for the store you want to use.</p>
+     * @param  bool  $mock  [optional] <p>This is a flag for enabling Mock Mode.
+     *                      This defaults to <b>FALSE</b>.</p>
+     * @param  array|string  $m  [optional] <p>The files (or file) to use in Mock Mode.</p>
+     * @param  string  $config  [optional] <p>An alternate config file to set. Used for testing.</p>
      */
     public function __construct($s, $mock = false, $m = null, $config = null)
     {
@@ -60,8 +60,7 @@ class AmazonProductList extends AmazonProductsCore implements \Iterator
     /**
      * Sets the ID type. (Required).
      *
-     * @param string $s <p>"ASIN", "SellerSKU", "UPC", "EAN", "ISBN", or "JAN"</p>
-     *
+     * @param  string  $s  <p>"ASIN", "SellerSKU", "UPC", "EAN", "ISBN", or "JAN"</p>
      * @return bool <b>FALSE</b> if improper input
      */
     public function setIdType($s)
@@ -78,8 +77,7 @@ class AmazonProductList extends AmazonProductsCore implements \Iterator
      *
      * This method sets the list of product IDs to be sent in the next request.
      *
-     * @param array|string $s <p>A list of product IDs, or a single type string. (max: 5)</p>
-     *
+     * @param  array|string  $s  <p>A list of product IDs, or a single type string. (max: 5)</p>
      * @return bool <b>FALSE</b> if improper input
      */
     public function setProductIds($s)

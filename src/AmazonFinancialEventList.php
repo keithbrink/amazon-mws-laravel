@@ -34,6 +34,7 @@ class AmazonFinancialEventList extends AmazonFinanceCore
 
     /**
      * Returns whether or not a token is available.
+     *
      * @return bool
      */
     public function hasToken()
@@ -48,7 +49,8 @@ class AmazonFinancialEventList extends AmazonFinanceCore
      * the necessary operations to retrieve the rest of the list using tokens. If
      * this option is off, the object will only ever retrieve the first section of
      * the list.
-     * @param bool $b [optional] <p>Defaults to <b>TRUE</b></p>
+     *
+     * @param  bool  $b  [optional] <p>Defaults to <b>TRUE</b></p>
      * @return bool <b>FALSE</b> if improper input
      */
     public function setUseToken($b = true)
@@ -65,7 +67,8 @@ class AmazonFinancialEventList extends AmazonFinanceCore
      *
      * This method sets the maximum number of Financial Events for Amazon to return per page.
      * If this parameter is not set, Amazon will send 100 at a time.
-     * @param int $num <p>Positive integer from 1 to 100.</p>
+     *
+     * @param  int  $num  <p>Positive integer from 1 to 100.</p>
      * @return bool <b>FALSE</b> if improper input
      */
     public function setMaxResultsPerPage($num)
@@ -84,7 +87,8 @@ class AmazonFinancialEventList extends AmazonFinanceCore
      * relate to the given order. This parameter is required if none of the
      * other filter options are set.
      * If this parameter is set, the group ID and time range options will be removed.
-     * @param string $s <p>Amazon Order ID in 3-7-7 format</p>
+     *
+     * @param  string  $s  <p>Amazon Order ID in 3-7-7 format</p>
      * @return bool <b>FALSE</b> if improper input
      */
     public function setOrderFilter($s)
@@ -104,7 +108,8 @@ class AmazonFinancialEventList extends AmazonFinanceCore
      * belong to the given financial event group. This parameter is required if
      * none of the other filter options are set.
      * If this parameter is set, the order ID and time range options will be removed.
-     * @param string $s <p>Financial Event Group ID</p>
+     *
+     * @param  string  $s  <p>Financial Event Group ID</p>
      * @return bool <b>FALSE</b> if improper input
      */
     public function setGroupFilter($s)
@@ -126,8 +131,9 @@ class AmazonFinancialEventList extends AmazonFinanceCore
      * other filter options are set.
      * The parameters are passed through <i>strtotime</i>, so values such as "-1 hour" are fine.
      * If this parameter is set, the order ID and group ID options will be removed.
-     * @param string $s <p>A time string for the earliest time.</p>
-     * @param string $e [optional] <p>A time string for the latest time.</p>
+     *
+     * @param  string  $s  <p>A time string for the earliest time.</p>
+     * @param  string  $e  [optional] <p>A time string for the latest time.</p>
      * @return bool <b>FALSE</b> if improper input
      */
     public function setTimeLimits($s, $e = null)
@@ -177,7 +183,8 @@ class AmazonFinancialEventList extends AmazonFinanceCore
      * the list back as a response, which can be retrieved using <i>getEvents</i>.
      * Other methods are available for fetching specific values from the list.
      * This operation can potentially involve tokens.
-     * @param bool $r [optional] <p>When set to <b>FALSE</b>, the function will not recurse, defaults to <b>TRUE</b></p>
+     *
+     * @param  bool  $r  [optional] <p>When set to <b>FALSE</b>, the function will not recurse, defaults to <b>TRUE</b></p>
      * @return bool <b>FALSE</b> if something goes wrong
      */
     public function fetchEventList($r = true)
@@ -239,7 +246,8 @@ class AmazonFinancialEventList extends AmazonFinanceCore
      * Parses XML response into array.
      *
      * This is what reads the response XML and converts it into an array.
-     * @param SimpleXMLElement $xml <p>The XML response from Amazon.</p>
+     *
+     * @param  SimpleXMLElement  $xml  <p>The XML response from Amazon.</p>
      * @return bool <b>FALSE</b> if no XML data is found
      */
     protected function parseXml($xml)
@@ -468,7 +476,8 @@ class AmazonFinancialEventList extends AmazonFinanceCore
 
     /**
      * Parses XML for a single shipment event into an array.
-     * @param SimpleXMLElement $xml <p>The XML response from Amazon.</p>
+     *
+     * @param  SimpleXMLElement  $xml  <p>The XML response from Amazon.</p>
      * @return array parsed structure from XML
      */
     protected function parseShipmentEvent($xml)
@@ -582,7 +591,8 @@ class AmazonFinancialEventList extends AmazonFinanceCore
     /**
      * Parses XML for a single charge into an array.
      * This structure is used many times throughout shipment events.
-     * @param SimpleXMLElement $xml <p>The XML response from Amazon.</p>
+     *
+     * @param  SimpleXMLElement  $xml  <p>The XML response from Amazon.</p>
      * @return array parsed structure from XML
      */
     protected function parseCharge($xml)
@@ -598,7 +608,8 @@ class AmazonFinancialEventList extends AmazonFinanceCore
     /**
      * Parses XML for a single charge into an array.
      * This structure is used many times throughout shipment events.
-     * @param SimpleXMLElement $xml <p>The XML response from Amazon.</p>
+     *
+     * @param  SimpleXMLElement  $xml  <p>The XML response from Amazon.</p>
      * @return array parsed structure from XML
      */
     protected function parseFee($xml)
@@ -631,7 +642,9 @@ class AmazonFinancialEventList extends AmazonFinanceCore
      * <li><b>Adjustment</b> - see <i>getAdjustmentEvents</i></li>
      * <li><b>SAFET</b> - see <i>getSafetEvents</i></li>
      * </ul>
+     *
      * @return array|bool multi-dimensional array, or <b>FALSE</b> if list not filled yet
+     *
      * @see getShipmentEvents
      * @see getRefundEvents
      * @see getGuaranteeClaimEvents
@@ -711,6 +724,7 @@ class AmazonFinancialEventList extends AmazonFinanceCore
      * <li><b>Amount</b> - number</li>
      * <li><b>CurrencyCode</b> - ISO 4217 currency code</li>
      * </ul>
+     *
      * @return array|bool multi-dimensional array, or <b>FALSE</b> if list not filled yet
      */
     public function getShipmentEvents()
@@ -744,7 +758,9 @@ class AmazonFinancialEventList extends AmazonFinanceCore
      * <li><b>CurrencyCode</b> - ISO 4217 currency code</li>
      * </ul>
      * </ul>
+     *
      * @return array|bool multi-dimensional array, or <b>FALSE</b> if list not filled yet
+     *
      * @see getShipmentEvents
      */
     public function getRefundEvents()
@@ -760,7 +776,9 @@ class AmazonFinancialEventList extends AmazonFinanceCore
      * Returns all guarantee claim events.
      *
      * The structure for each event array is the same as in <i>getRefundEvents</i>.
+     *
      * @return array|bool multi-dimensional array, or <b>FALSE</b> if list not filled yet
+     *
      * @see getRefundEvents
      */
     public function getGuaranteeClaimEvents()
@@ -776,7 +794,9 @@ class AmazonFinancialEventList extends AmazonFinanceCore
      * Returns all chargeback events.
      *
      * The structure for each event array is the same as in <i>getRefundEvents</i>.
+     *
      * @return array|bool multi-dimensional array, or <b>FALSE</b> if list not filled yet
+     *
      * @see getRefundEvents
      */
     public function getChargebackEvents()
@@ -814,6 +834,7 @@ class AmazonFinancialEventList extends AmazonFinanceCore
      * <li><b>FulfillmentChannel</b> - "MFN" or "AFN"</li>
      * <li><b>StoreName</b></li>
      * </ul>
+     *
      * @return array|bool multi-dimensional array, or <b>FALSE</b> if list not filled yet
      */
     public function getPayWithAmazonEvents()
@@ -839,6 +860,7 @@ class AmazonFinancialEventList extends AmazonFinanceCore
      * <li><b>ProviderId</b></li>
      * <li><b>ProviderStoreName</b></li>
      * </ul>
+     *
      * @return array|bool multi-dimensional array, or <b>FALSE</b> if list not filled yet
      */
     public function getServiceProviderCreditEvents()
@@ -866,6 +888,7 @@ class AmazonFinancialEventList extends AmazonFinanceCore
      * <li><b>ShippingTax</b> - array with <b>Amount</b> and <b>CurrencyCode</b></li>
      * <li><b>MarketplaceName</b></li>
      * </ul>
+     *
      * @return array|bool multi-dimensional array, or <b>FALSE</b> if list not filled yet
      */
     public function getRetrochargeEvents()
@@ -902,6 +925,7 @@ class AmazonFinancialEventList extends AmazonFinanceCore
      * <li><b>RentalInitialValue</b> (optional) - array with <b>Amount</b> and <b>CurrencyCode</b></li>
      * <li><b>RentalReimbursement</b> (optional) - array with <b>Amount</b> and <b>CurrencyCode</b></li>
      * </ul>
+     *
      * @return array|bool multi-dimensional array, or <b>FALSE</b> if list not filled yet
      */
     public function getRentalTransactionEvents()
@@ -923,6 +947,7 @@ class AmazonFinancialEventList extends AmazonFinanceCore
      * <li><b>CurrencyCode</b> - ISO 4217 currency code</li>
      * <li><b>ProductGroupList</b> - simple array of category names</li>
      * </ul>
+     *
      * @return array|bool multi-dimensional array, or <b>FALSE</b> if list not filled yet
      */
     public function getPerformanceBondRefundEvents()
@@ -952,6 +977,7 @@ class AmazonFinancialEventList extends AmazonFinanceCore
      * <li><b>FeeDescription</b></li>
      * <li><b>ASIN</b></li>
      * </ul>
+     *
      * @return array|bool multi-dimensional array, or <b>FALSE</b> if list not filled yet
      */
     public function getServiceFeeEvents()
@@ -990,6 +1016,7 @@ class AmazonFinancialEventList extends AmazonFinanceCore
      * <li><b>CurrencyCode</b> - ISO 4217 currency code</li>
      * </ul>
      * </ul>
+     *
      * @return array|bool multi-dimensional array, or <b>FALSE</b> if list not filled yet
      */
     public function getDebtRecoveryEvents()
@@ -1010,6 +1037,7 @@ class AmazonFinancialEventList extends AmazonFinanceCore
      * <li><b>CurrencyCode</b> - ISO 4217 currency code</li>
      * <li><b>SourceBusinessEventType</b> - "LoanAdvance", "LoanPayment", or "LoanRefund"</li>
      * </ul>
+     *
      * @return array|bool multi-dimensional array, or <b>FALSE</b> if list not filled yet
      */
     public function getLoanServicingEvents()
@@ -1040,6 +1068,7 @@ class AmazonFinancialEventList extends AmazonFinanceCore
      * <li><b>ASIN</b></li>
      * </ul>
      * </ul>
+     *
      * @return array|bool multi-dimensional array, or <b>FALSE</b> if list not filled yet
      */
     public function getAdjustmentEvents()
@@ -1070,6 +1099,7 @@ class AmazonFinancialEventList extends AmazonFinanceCore
      * </ul>
      * </ul>
      * </ul>
+     *
      * @return array|bool multi-dimensional array, or <b>FALSE</b> if list not filled yet
      */
     public function getSafetEvents()

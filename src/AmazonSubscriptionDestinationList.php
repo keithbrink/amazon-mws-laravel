@@ -40,6 +40,7 @@ class AmazonSubscriptionDestinationList extends AmazonSubscriptionCore implement
      * Submits a <i>ListRegisteredDestinations</i> request to Amazon. Amazon will send
      * the data back as a response, which can be retrieved using <i>getDestinations</i>.
      * Other methods are available for fetching specific values from the order.
+     *
      * @return bool <b>FALSE</b> if something goes wrong
      */
     public function fetchDestinations()
@@ -76,7 +77,8 @@ class AmazonSubscriptionDestinationList extends AmazonSubscriptionCore implement
      * Parses XML response into array.
      *
      * This is what reads the response XML and converts it into an array.
-     * @param SimpleXMLElement $xml <p>The XML response from Amazon.</p>
+     *
+     * @param  SimpleXMLElement  $xml  <p>The XML response from Amazon.</p>
      * @return bool <b>FALSE</b> if no XML data is found
      */
     protected function parseXML($xml)
@@ -107,8 +109,9 @@ class AmazonSubscriptionDestinationList extends AmazonSubscriptionCore implement
      * <li><b>DeliveryChannel</b> - the technology used to receive notifications</li>
      * <li><b>AttributeList</b> - array of key/value pairs</li>
      * </ul>
-     * @param int $i [optional] <p>List index to retrieve the value from.
-     * If none is given, the entire list will be returned. Defaults to NULL.</p>
+     *
+     * @param  int  $i  [optional] <p>List index to retrieve the value from.
+     *                  If none is given, the entire list will be returned. Defaults to NULL.</p>
      * @return array|bool array, multi-dimensional array, or <b>FALSE</b> if list not filled yet
      */
     public function getDestinations($i = null)
@@ -129,7 +132,8 @@ class AmazonSubscriptionDestinationList extends AmazonSubscriptionCore implement
      *
      * Possible values for this field: "SQS".
      * This method will return <b>FALSE</b> if the list has not yet been filled.
-     * @param int $i [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
+     *
+     * @param  int  $i  [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
      * @return string|bool single value, or <b>FALSE</b> if Non-numeric index
      */
     public function getDeliveryChannel($i = 0)
@@ -145,8 +149,9 @@ class AmazonSubscriptionDestinationList extends AmazonSubscriptionCore implement
      * Returns the specified attribute set for the specified entry.
      *
      * This method will return <b>FALSE</b> if the list has not yet been filled.
-     * @param int $i [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
-     * @param string $j [optional] <p>Second list index to retrieve the value from. Defaults to NULL.</p>
+     *
+     * @param  int  $i  [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
+     * @param  string  $j  [optional] <p>Second list index to retrieve the value from. Defaults to NULL.</p>
      * @return array|bool associative array, or <b>FALSE</b> if Non-numeric index
      */
     public function getAttributes($i = 0, $j = null)
@@ -164,6 +169,7 @@ class AmazonSubscriptionDestinationList extends AmazonSubscriptionCore implement
 
     /**
      * Iterator function.
+     *
      * @return array
      */
     public function current()
@@ -181,6 +187,7 @@ class AmazonSubscriptionDestinationList extends AmazonSubscriptionCore implement
 
     /**
      * Iterator function.
+     *
      * @return int
      */
     public function key()
@@ -198,6 +205,7 @@ class AmazonSubscriptionDestinationList extends AmazonSubscriptionCore implement
 
     /**
      * Iterator function.
+     *
      * @return bool
      */
     public function valid()

@@ -39,6 +39,7 @@ class AmazonSubscriptionList extends AmazonSubscriptionCore implements Iterator
      * Submits a <i>ListSubscriptions</i> request to Amazon. Amazon will send
      * the data back as a response, which can be retrieved using <i>getList</i>.
      * Other methods are available for fetching specific values from the order.
+     *
      * @return bool <b>FALSE</b> if something goes wrong
      */
     public function fetchSubscriptions()
@@ -75,7 +76,8 @@ class AmazonSubscriptionList extends AmazonSubscriptionCore implements Iterator
      * Parses XML response into array.
      *
      * This is what reads the response XML and converts it into an array.
-     * @param SimpleXMLElement $xml <p>The XML response from Amazon.</p>
+     *
+     * @param  SimpleXMLElement  $xml  <p>The XML response from Amazon.</p>
      * @return bool <b>FALSE</b> if no XML data is found
      */
     protected function parseXML($xml)
@@ -101,8 +103,9 @@ class AmazonSubscriptionList extends AmazonSubscriptionCore implements Iterator
      * Returns the specified subscription, or all of them.
      *
      * This method will return <b>FALSE</b> if the list has not yet been filled.
-     * @param int $i [optional] <p>List index to retrieve the value from.
-     * If none is given, the entire list will be returned. Defaults to NULL.</p>
+     *
+     * @param  int  $i  [optional] <p>List index to retrieve the value from.
+     *                  If none is given, the entire list will be returned. Defaults to NULL.</p>
      * @return array|bool multi-dimensional array, or <b>FALSE</b> if list not filled yet
      */
     public function getList($i = null)
@@ -123,8 +126,10 @@ class AmazonSubscriptionList extends AmazonSubscriptionCore implements Iterator
      *
      * See <i>setNotificationType</i> for list of possible values.
      * This method will return <b>FALSE</b> if the data has not been set yet.
-     * @param int $i [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
+     *
+     * @param  int  $i  [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
      * @return string|bool single value, or <b>FALSE</b> if not set yet or invalid index
+     *
      * @see setNotificationType
      */
     public function getNotificationType($i = 0)
@@ -142,7 +147,8 @@ class AmazonSubscriptionList extends AmazonSubscriptionCore implements Iterator
      * Note that this method will return the string "false" if Amazon indicates
      * that the subscription is not enabled.
      * This method will return boolean <b>FALSE</b> if the date has not been set yet.
-     * @param int $i [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
+     *
+     * @param  int  $i  [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
      * @return string|bool "true" or "false", or <b>FALSE</b> if not set yet or invalid index
      */
     public function getIsEnabled($i = 0)
@@ -159,8 +165,10 @@ class AmazonSubscriptionList extends AmazonSubscriptionCore implements Iterator
      *
      * See <i>setDeliveryChannel</i> for list of possible values.
      * This method will return <b>FALSE</b> if the data has not been set yet.
-     * @param int $i [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
+     *
+     * @param  int  $i  [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
      * @return string|bool single value, or <b>FALSE</b> if not set yet or invalid index
+     *
      * @see setDeliveryChannel
      */
     public function getDeliveryChannel($i = 0)
@@ -176,8 +184,9 @@ class AmazonSubscriptionList extends AmazonSubscriptionCore implements Iterator
      * Returns the attribute list for the retrieved subscription's destination.
      *
      * This method will return <b>FALSE</b> if the data has not been set yet.
-     * @param int $i [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
-     * @param string $j [optional] <p>Second list index to retrieve the value from. Defaults to NULL.</p>
+     *
+     * @param  int  $i  [optional] <p>List index to retrieve the value from. Defaults to 0.</p>
+     * @param  string  $j  [optional] <p>Second list index to retrieve the value from. Defaults to NULL.</p>
      * @return array|bool associative array, or <b>FALSE</b> if not set yet or invalid index
      */
     public function getAttributes($i = 0, $j = null)
@@ -195,6 +204,7 @@ class AmazonSubscriptionList extends AmazonSubscriptionCore implements Iterator
 
     /**
      * Iterator function.
+     *
      * @return array
      */
     public function current()
@@ -212,6 +222,7 @@ class AmazonSubscriptionList extends AmazonSubscriptionCore implements Iterator
 
     /**
      * Iterator function.
+     *
      * @return int
      */
     public function key()
@@ -229,6 +240,7 @@ class AmazonSubscriptionList extends AmazonSubscriptionCore implements Iterator
 
     /**
      * Iterator function.
+     *
      * @return bool
      */
     public function valid()

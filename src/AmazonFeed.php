@@ -39,11 +39,12 @@ class AmazonFeed extends AmazonFeedsCore
      * The parameters are passed to the parent constructor, which are
      * in turn passed to the AmazonCore constructor. See it for more information
      * on these parameters and common methods.
-     * @param string $s <p>Name for the store you want to use.</p>
-     * @param bool $mock [optional] <p>This is a flag for enabling Mock Mode.
-     * This defaults to <b>FALSE</b>.</p>
-     * @param array|string $m [optional] <p>The files (or file) to use in Mock Mode.</p>
-     * @param string $config [optional] <p>An alternate config file to set. Used for testing.</p>
+     *
+     * @param  string  $s  <p>Name for the store you want to use.</p>
+     * @param  bool  $mock  [optional] <p>This is a flag for enabling Mock Mode.
+     *                      This defaults to <b>FALSE</b>.</p>
+     * @param  array|string  $m  [optional] <p>The files (or file) to use in Mock Mode.</p>
+     * @param  string  $config  [optional] <p>An alternate config file to set. Used for testing.</p>
      */
     public function __construct($s, $mock = false, $m = null, $config = null)
     {
@@ -67,8 +68,8 @@ class AmazonFeed extends AmazonFeedsCore
      * Thie method sets the feed's contents from direct input.
      * This parameter is required in order to submit a feed to Amazon.
      *
-     * @param string $s <p>The contents to put in the file.</p>
-     * It can be relative or absolute.</p>
+     * @param  string  $s  <p>The contents to put in the file.</p>
+     *                     It can be relative or absolute.</p>
      * @return bool <b>FALSE</b> if improper input
      */
     public function setFeedContent($s)
@@ -87,8 +88,8 @@ class AmazonFeed extends AmazonFeedsCore
      * This method loads the contents of a file to send as the feed. This
      * parameter is required in order to submit a feed to Amazon.
      *
-     * @param string $url <p>The path to a file you want to use.
-     *                    It can be relative or absolute.</p>
+     * @param  string  $url  <p>The path to a file you want to use.
+     *                       It can be relative or absolute.</p>
      */
     public function loadFeedFile($path)
     {
@@ -110,8 +111,8 @@ class AmazonFeed extends AmazonFeedsCore
      * Amazon how the Feed should be processsed.
      * This parameter is required in order to submit a feed to Amazon.
      *
-     * @param string $s <p>A value from the list of valid Feed Types.
-     * See the comment inside the function for the complete list.</p>
+     * @param  string  $s  <p>A value from the list of valid Feed Types.
+     *                     See the comment inside the function for the complete list.</p>
      * @return bool <b>FALSE</b> if improper input
      */
     public function setFeedType($s)
@@ -169,7 +170,7 @@ class AmazonFeed extends AmazonFeedsCore
      * to sell in. If this is not set, Amazon will only use the first Marketplace
      * you are registered for.
      *
-     * @param array|string $s <p>A list of Marketplace IDs, or a single ID string.</p>
+     * @param  array|string  $s  <p>A list of Marketplace IDs, or a single ID string.</p>
      * @return bool <b>FALSE</b> if improper input
      */
     public function setMarketplaceIds($s)
@@ -215,8 +216,9 @@ class AmazonFeed extends AmazonFeedsCore
      * This method sets whether or not the tab delimited feed you provide should
      * completely replace old data. Use this parameter only in exceptional cases.
      * If this is not set, Amazon assumes it to be false.
-     * @param bool|string $s [optional] <p>The value "true" or "false", either as
-     * a boolean or a string. It defaults to "true".</p>
+     *
+     * @param  bool|string  $s  [optional] <p>The value "true" or "false", either as
+     *                          a boolean or a string. It defaults to "true".</p>
      * @return bool <b>FALSE</b> if improper input
      */
     public function setPurge($s = 'true')
@@ -246,6 +248,7 @@ class AmazonFeed extends AmazonFeedsCore
      * the feed's contents and feed type are required. The request will not be
      * sent if either of these are not set. Amazon will send a response back,
      * which can be retrieved using <i>getResponse</i>.
+     *
      * @return bool <b>FALSE</b> if something goes wrong
      */
     public function submitFeed()
@@ -293,7 +296,7 @@ class AmazonFeed extends AmazonFeedsCore
      *
      * This is what reads the response XML and converts it into an array.
      *
-     * @param SimpleXMLObject $xml <p>The XML response from Amazon.</p>
+     * @param  SimpleXMLObject  $xml  <p>The XML response from Amazon.</p>
      * @return bool <b>FALSE</b> if no XML data is found
      */
     protected function parseXML($xml)
@@ -333,8 +336,8 @@ class AmazonFeed extends AmazonFeedsCore
      * is different than the ones used by other objects due to Amazon sending
      * 100 Continue responses in addition to the usual response.
      *
-     * @param array $r <p>The HTTP response array. Expects the array to have
-     * the fields <i>code</i>, <i>body</i>, and <i>error</i>.</p>
+     * @param  array  $r  <p>The HTTP response array. Expects the array to have
+     *                    the fields <i>code</i>, <i>body</i>, and <i>error</i>.</p>
      * @return bool <b>TRUE</b> if the status is 200 OK, <b>FALSE</b> otherwise.
      */
     protected function checkResponse($r)
