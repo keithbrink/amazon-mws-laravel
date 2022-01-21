@@ -146,7 +146,7 @@ class AmazonShipmentItemList extends AmazonInboundCore implements \Iterator
                 $this->options['LastUpdatedAfter'] > $this->options['LastUpdatedBefore']
             ) {
                 $this->setTimeLimits(
-                    $this->options['LastUpdatedBefore'] . ' - 1 second',
+                    $this->options['LastUpdatedBefore'].' - 1 second',
                     $this->options['LastUpdatedBefore']
                 );
             }
@@ -192,11 +192,11 @@ class AmazonShipmentItemList extends AmazonInboundCore implements \Iterator
 
         $this->prepareToken();
 
-        $url = $this->urlbase . $this->urlbranch;
+        $url = $this->urlbase.$this->urlbranch;
 
         $query = $this->genQuery();
 
-        $path = $this->options['Action'] . 'Result';
+        $path = $this->options['Action'].'Result';
         if ($this->mockMode) {
             $xml = $this->fetchMockFile()->$path;
         } else {

@@ -123,11 +123,11 @@ class AmazonRecommendationList extends AmazonRecommendationCore implements Itera
 
                     return false;
                 }
-                $prefix = 'CategoryQueryList.CategoryQuery.' . $i;
-                $this->options[$prefix . '.RecommendationCategory'] = $c;
+                $prefix = 'CategoryQueryList.CategoryQuery.'.$i;
+                $this->options[$prefix.'.RecommendationCategory'] = $c;
                 $j = 1;
                 foreach ($r as $k => $x) {
-                    $this->options[$prefix . '.FilterOptions.FilterOption.' . $j] = $k . '=' . $x;
+                    $this->options[$prefix.'.FilterOptions.FilterOption.'.$j] = $k.'='.$x;
                     $j++;
                 }
                 $i++;
@@ -182,7 +182,7 @@ class AmazonRecommendationList extends AmazonRecommendationCore implements Itera
 
         $this->prepareTimes();
 
-        $url = $this->urlbase . $this->urlbranch;
+        $url = $this->urlbase.$this->urlbranch;
 
         $query = $this->genQuery();
 
@@ -240,11 +240,11 @@ class AmazonRecommendationList extends AmazonRecommendationCore implements Itera
 
         $this->prepareToken();
 
-        $url = $this->urlbase . $this->urlbranch;
+        $url = $this->urlbase.$this->urlbranch;
 
         $query = $this->genQuery();
 
-        $path = $this->options['Action'] . 'Result';
+        $path = $this->options['Action'].'Result';
         if ($this->mockMode) {
             $xml = $this->fetchMockFile()->$path;
         } else {

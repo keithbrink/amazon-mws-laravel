@@ -54,11 +54,11 @@ class AmazonSubscriptionDestinationList extends AmazonSubscriptionCore implement
 
         $this->options['Action'] = 'ListRegisteredDestinations';
 
-        $url = $this->urlbase . $this->urlbranch;
+        $url = $this->urlbase.$this->urlbranch;
 
         $query = $this->genQuery();
 
-        $path = $this->options['Action'] . 'Result';
+        $path = $this->options['Action'].'Result';
         if ($this->mockMode) {
             $xml = $this->fetchMockFile()->$path;
         } else {

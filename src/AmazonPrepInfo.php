@@ -55,7 +55,7 @@ class AmazonPrepInfo extends AmazonInboundCore implements Iterator
             $this->resetSKUs();
             $i = 1;
             foreach ($s as $x) {
-                $this->options['SellerSKUList.Id.' . $i] = $x;
+                $this->options['SellerSKUList.Id.'.$i] = $x;
                 $i++;
             }
         } else {
@@ -120,7 +120,7 @@ class AmazonPrepInfo extends AmazonInboundCore implements Iterator
             $this->resetASINs();
             $i = 1;
             foreach ($s as $x) {
-                $this->options['ASINList.Id.' . $i] = $x;
+                $this->options['ASINList.Id.'.$i] = $x;
                 $i++;
             }
         } else {
@@ -173,11 +173,11 @@ class AmazonPrepInfo extends AmazonInboundCore implements Iterator
 
         $this->preparePrep();
 
-        $url = $this->urlbase . $this->urlbranch;
+        $url = $this->urlbase.$this->urlbranch;
 
         $query = $this->genQuery();
 
-        $path = $this->options['Action'] . 'Result';
+        $path = $this->options['Action'].'Result';
         if ($this->mockMode) {
             $xml = $this->fetchMockFile();
         } else {

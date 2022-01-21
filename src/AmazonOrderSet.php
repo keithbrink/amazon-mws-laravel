@@ -92,7 +92,7 @@ class AmazonOrderSet extends AmazonOrderCore implements \Iterator
                 if (is_array($o)) {
                     $k = 1;
                     foreach ($o as $id) {
-                        $this->options['AmazonOrderId.Id.' . $k] = $id;
+                        $this->options['AmazonOrderId.Id.'.$k] = $id;
                         $k++;
                     }
                 } else {
@@ -136,11 +136,11 @@ class AmazonOrderSet extends AmazonOrderCore implements \Iterator
             return false;
         }
 
-        $url = $this->urlbase . $this->urlbranch;
+        $url = $this->urlbase.$this->urlbranch;
 
         $query = $this->genQuery();
 
-        $path = $this->options['Action'] . 'Result';
+        $path = $this->options['Action'].'Result';
         if ($this->mockMode) {
             $xml = $this->fetchMockFile()->$path;
         } else {

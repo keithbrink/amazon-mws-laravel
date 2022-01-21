@@ -138,11 +138,11 @@ class AmazonOrderItemList extends AmazonOrderCore implements Iterator
     {
         $this->prepareToken();
 
-        $url = $this->urlbase . $this->urlbranch;
+        $url = $this->urlbase.$this->urlbranch;
 
         $query = $this->genQuery();
 
-        $path = $this->options['Action'] . 'Result';
+        $path = $this->options['Action'].'Result';
         if ($this->mockMode) {
             $xml = $this->fetchMockFile()->$path;
         } else {
@@ -162,7 +162,7 @@ class AmazonOrderItemList extends AmazonOrderCore implements Iterator
         } else {
             if (isset($this->options['AmazonOrderId']) && $this->options['AmazonOrderId'] && $this->options['AmazonOrderId'] != $xml->AmazonOrderId) {
                 $this->log(
-                    'You grabbed the wrong Order\'s items! - ' . $this->options['AmazonOrderId'] . ' =/= ' . $xml->AmazonOrderId,
+                    'You grabbed the wrong Order\'s items! - '.$this->options['AmazonOrderId'].' =/= '.$xml->AmazonOrderId,
                     'Urgent'
                 );
             }

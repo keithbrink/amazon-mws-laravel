@@ -227,16 +227,16 @@ class AmazonShipmentPlanner extends AmazonInboundCore implements \Iterator
         $i = 1;
         foreach ($a as $x) {
             if (array_key_exists('SellerSKU', $x) && array_key_exists('Quantity', $x)) {
-                $this->options['InboundShipmentPlanRequestItems.member.' . $i . '.SellerSKU'] = $x['SellerSKU'];
-                $this->options['InboundShipmentPlanRequestItems.member.' . $i . '.Quantity'] = $x['Quantity'];
+                $this->options['InboundShipmentPlanRequestItems.member.'.$i.'.SellerSKU'] = $x['SellerSKU'];
+                $this->options['InboundShipmentPlanRequestItems.member.'.$i.'.Quantity'] = $x['Quantity'];
                 if (array_key_exists('ASIN', $x)) {
-                    $this->options['InboundShipmentPlanRequestItems.member.' . $i . '.ASIN'] = $x['ASIN'];
+                    $this->options['InboundShipmentPlanRequestItems.member.'.$i.'.ASIN'] = $x['ASIN'];
                 }
                 if (array_key_exists('QuantityInCase', $x)) {
-                    $this->options['InboundShipmentPlanRequestItems.member.' . $i . '.QuantityInCase'] = $x['QuantityInCase'];
+                    $this->options['InboundShipmentPlanRequestItems.member.'.$i.'.QuantityInCase'] = $x['QuantityInCase'];
                 }
                 if (array_key_exists('Condition', $x)) {
-                    $this->options['InboundShipmentPlanRequestItems.member.' . $i . '.Condition'] = $x['Condition'];
+                    $this->options['InboundShipmentPlanRequestItems.member.'.$i.'.Condition'] = $x['Condition'];
                 }
                 if (array_key_exists('PrepDetailsList', $x) && is_array($x['PrepDetailsList'])) {
                     $j = 1;
@@ -245,8 +245,8 @@ class AmazonShipmentPlanner extends AmazonInboundCore implements \Iterator
                             $this->log('Tried to set invalid prep details for item', 'Warning');
                             continue;
                         }
-                        $this->options['InboundShipmentPlanRequestItems.member.' . $i . '.PrepDetailsList.PrepDetails.' . $j . '.PrepInstruction'] = $z['PrepInstruction'];
-                        $this->options['InboundShipmentPlanRequestItems.member.' . $i . '.PrepDetailsList.PrepDetails.' . $j . '.PrepOwner'] = $z['PrepOwner'];
+                        $this->options['InboundShipmentPlanRequestItems.member.'.$i.'.PrepDetailsList.PrepDetails.'.$j.'.PrepInstruction'] = $z['PrepInstruction'];
+                        $this->options['InboundShipmentPlanRequestItems.member.'.$i.'.PrepDetailsList.PrepDetails.'.$j.'.PrepOwner'] = $z['PrepOwner'];
                         $j++;
                     }
                 }
@@ -298,11 +298,11 @@ class AmazonShipmentPlanner extends AmazonInboundCore implements \Iterator
             return false;
         }
 
-        $url = $this->urlbase . $this->urlbranch;
+        $url = $this->urlbase.$this->urlbranch;
 
         $query = $this->genQuery();
 
-        $path = $this->options['Action'] . 'Result';
+        $path = $this->options['Action'].'Result';
         if ($this->mockMode) {
             $xml = $this->fetchMockFile()->$path->InboundShipmentPlans;
         } else {

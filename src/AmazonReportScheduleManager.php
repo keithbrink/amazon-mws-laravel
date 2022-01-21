@@ -154,7 +154,7 @@ class AmazonReportScheduleManager extends AmazonReportsCore implements \Iterator
             }
             $this->options['ScheduledDate'] = $after;
         } catch (Exception $e) {
-            $this->log('Error: ' . $e->getMessage(), 'Warning');
+            $this->log('Error: '.$e->getMessage(), 'Warning');
         }
     }
 
@@ -180,11 +180,11 @@ class AmazonReportScheduleManager extends AmazonReportsCore implements \Iterator
             return false;
         }
 
-        $url = $this->urlbase . $this->urlbranch;
+        $url = $this->urlbase.$this->urlbranch;
 
         $query = $this->genQuery();
 
-        $path = $this->options['Action'] . 'Result';
+        $path = $this->options['Action'].'Result';
 
         if ($this->mockMode) {
             $xml = $this->fetchMockFile()->$path;
