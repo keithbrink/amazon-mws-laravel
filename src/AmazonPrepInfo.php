@@ -31,7 +31,9 @@ use Iterator;
 class AmazonPrepInfo extends AmazonInboundCore implements Iterator
 {
     protected $prepList;
+
     protected $invalidList;
+
     protected $i = 0;
 
     /**
@@ -53,7 +55,7 @@ class AmazonPrepInfo extends AmazonInboundCore implements Iterator
             $this->resetSKUs();
             $i = 1;
             foreach ($s as $x) {
-                $this->options['SellerSKUList.Id.'.$i] = $x;
+                $this->options['SellerSKUList.Id.' . $i] = $x;
                 $i++;
             }
         } else {
@@ -118,7 +120,7 @@ class AmazonPrepInfo extends AmazonInboundCore implements Iterator
             $this->resetASINs();
             $i = 1;
             foreach ($s as $x) {
-                $this->options['ASINList.Id.'.$i] = $x;
+                $this->options['ASINList.Id.' . $i] = $x;
                 $i++;
             }
         } else {
@@ -171,11 +173,11 @@ class AmazonPrepInfo extends AmazonInboundCore implements Iterator
 
         $this->preparePrep();
 
-        $url = $this->urlbase.$this->urlbranch;
+        $url = $this->urlbase . $this->urlbranch;
 
         $query = $this->genQuery();
 
-        $path = $this->options['Action'].'Result';
+        $path = $this->options['Action'] . 'Result';
         if ($this->mockMode) {
             $xml = $this->fetchMockFile();
         } else {
@@ -464,7 +466,7 @@ class AmazonPrepInfo extends AmazonInboundCore implements Iterator
      *
      * @return array
      */
-    public function current()
+    public function current(): mixed
     {
         return $this->prepList[$this->i];
     }
@@ -472,7 +474,7 @@ class AmazonPrepInfo extends AmazonInboundCore implements Iterator
     /**
      * Iterator function.
      */
-    public function rewind()
+    public function rewind(): void
     {
         $this->i = 0;
     }
@@ -482,7 +484,7 @@ class AmazonPrepInfo extends AmazonInboundCore implements Iterator
      *
      * @return int
      */
-    public function key()
+    public function key(): mixed
     {
         return $this->i;
     }
@@ -490,7 +492,7 @@ class AmazonPrepInfo extends AmazonInboundCore implements Iterator
     /**
      * Iterator function.
      */
-    public function next()
+    public function next(): void
     {
         $this->i++;
     }
@@ -500,7 +502,7 @@ class AmazonPrepInfo extends AmazonInboundCore implements Iterator
      *
      * @return bool
      */
-    public function valid()
+    public function valid(): bool
     {
         return isset($this->prepList[$this->i]);
     }

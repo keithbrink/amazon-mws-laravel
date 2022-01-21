@@ -31,6 +31,7 @@ use Iterator;
 class AmazonSubscriptionList extends AmazonSubscriptionCore implements Iterator
 {
     protected $list;
+
     protected $i = 0;
 
     /**
@@ -52,11 +53,11 @@ class AmazonSubscriptionList extends AmazonSubscriptionCore implements Iterator
 
         $this->options['Action'] = 'ListSubscriptions';
 
-        $url = $this->urlbase.$this->urlbranch;
+        $url = $this->urlbase . $this->urlbranch;
 
         $query = $this->genQuery();
 
-        $path = $this->options['Action'].'Result';
+        $path = $this->options['Action'] . 'Result';
         if ($this->mockMode) {
             $xml = $this->fetchMockFile()->$path;
         } else {
@@ -207,7 +208,7 @@ class AmazonSubscriptionList extends AmazonSubscriptionCore implements Iterator
      *
      * @return array
      */
-    public function current()
+    public function current(): mixed
     {
         return $this->list[$this->i];
     }
@@ -215,7 +216,7 @@ class AmazonSubscriptionList extends AmazonSubscriptionCore implements Iterator
     /**
      * Iterator function.
      */
-    public function rewind()
+    public function rewind(): void
     {
         $this->i = 0;
     }
@@ -225,7 +226,7 @@ class AmazonSubscriptionList extends AmazonSubscriptionCore implements Iterator
      *
      * @return int
      */
-    public function key()
+    public function key(): mixed
     {
         return $this->i;
     }
@@ -233,7 +234,7 @@ class AmazonSubscriptionList extends AmazonSubscriptionCore implements Iterator
     /**
      * Iterator function.
      */
-    public function next()
+    public function next(): void
     {
         $this->i++;
     }
@@ -243,7 +244,7 @@ class AmazonSubscriptionList extends AmazonSubscriptionCore implements Iterator
      *
      * @return bool
      */
-    public function valid()
+    public function valid(): bool
     {
         return isset($this->list[$this->i]);
     }

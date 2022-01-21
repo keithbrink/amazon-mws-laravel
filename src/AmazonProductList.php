@@ -90,7 +90,7 @@ class AmazonProductList extends AmazonProductsCore implements \Iterator
                 $this->resetProductIds();
                 $i = 1;
                 foreach ($s as $x) {
-                    $this->options['IdList.Id.'.$i] = $x;
+                    $this->options['IdList.Id.' . $i] = $x;
                     $i++;
                 }
             } else {
@@ -135,7 +135,7 @@ class AmazonProductList extends AmazonProductsCore implements \Iterator
             return false;
         }
 
-        $url = $this->urlbase.$this->urlbranch;
+        $url = $this->urlbase . $this->urlbranch;
 
         $query = $this->genQuery();
 
@@ -159,7 +159,7 @@ class AmazonProductList extends AmazonProductsCore implements \Iterator
      *
      * @return type
      */
-    public function current()
+    public function current(): mixed
     {
         return $this->productList[$this->i];
     }
@@ -167,7 +167,7 @@ class AmazonProductList extends AmazonProductsCore implements \Iterator
     /**
      * Iterator function.
      */
-    public function rewind()
+    public function rewind(): void
     {
         $this->i = 0;
     }
@@ -177,7 +177,7 @@ class AmazonProductList extends AmazonProductsCore implements \Iterator
      *
      * @return type
      */
-    public function key()
+    public function key(): mixed
     {
         return $this->i;
     }
@@ -185,7 +185,7 @@ class AmazonProductList extends AmazonProductsCore implements \Iterator
     /**
      * Iterator function.
      */
-    public function next()
+    public function next(): void
     {
         $this->i++;
     }
@@ -195,7 +195,7 @@ class AmazonProductList extends AmazonProductsCore implements \Iterator
      *
      * @return type
      */
-    public function valid()
+    public function valid(): bool
     {
         return isset($this->productList[$this->i]);
     }

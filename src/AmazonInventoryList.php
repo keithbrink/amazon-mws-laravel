@@ -30,9 +30,13 @@ use Iterator;
 class AmazonInventoryList extends AmazonInventoryCore implements \Iterator
 {
     protected $tokenFlag = false;
+
     protected $tokenUseFlag = false;
+
     private $supplyList;
+
     private $index = 0;
+
     private $i = 0;
 
     /**
@@ -126,7 +130,7 @@ class AmazonInventoryList extends AmazonInventoryCore implements \Iterator
                 $this->resetSkus();
                 $i = 1;
                 foreach ($a as $x) {
-                    $this->options['SellerSkus.member.'.$i] = $x;
+                    $this->options['SellerSkus.member.' . $i] = $x;
                     $i++;
                 }
             } else {
@@ -188,11 +192,11 @@ class AmazonInventoryList extends AmazonInventoryCore implements \Iterator
         }
         $this->prepareToken();
 
-        $url = $this->urlbase.$this->urlbranch;
+        $url = $this->urlbase . $this->urlbranch;
 
         $query = $this->genQuery();
 
-        $path = $this->options['Action'].'Result';
+        $path = $this->options['Action'] . 'Result';
 
         if ($this->mockMode) {
             $xml = $this->fetchMockFile()->$path;
@@ -584,7 +588,7 @@ class AmazonInventoryList extends AmazonInventoryCore implements \Iterator
      *
      * @return type
      */
-    public function current()
+    public function current(): mixed
     {
         return $this->supplyList[$this->i];
     }
@@ -592,7 +596,7 @@ class AmazonInventoryList extends AmazonInventoryCore implements \Iterator
     /**
      * Iterator function.
      */
-    public function rewind()
+    public function rewind(): void
     {
         $this->i = 0;
     }
@@ -602,7 +606,7 @@ class AmazonInventoryList extends AmazonInventoryCore implements \Iterator
      *
      * @return type
      */
-    public function key()
+    public function key(): mixed
     {
         return $this->i;
     }
@@ -610,7 +614,7 @@ class AmazonInventoryList extends AmazonInventoryCore implements \Iterator
     /**
      * Iterator function.
      */
-    public function next()
+    public function next(): void
     {
         $this->i++;
     }
@@ -620,7 +624,7 @@ class AmazonInventoryList extends AmazonInventoryCore implements \Iterator
      *
      * @return type
      */
-    public function valid()
+    public function valid(): bool
     {
         return isset($this->supplyList[$this->i]);
     }

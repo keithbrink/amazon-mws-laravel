@@ -164,7 +164,7 @@ abstract class AmazonCore
             $this->setConfig($config);
         }
 
-        $this->env = __DIR__.'/environment.php';
+        $this->env = __DIR__ . '/environment.php';
         $this->options['SignatureVersion'] = 2;
         $this->options['SignatureMethod'] = 'HmacSHA256';
     }
@@ -255,13 +255,13 @@ abstract class AmazonCore
         ) {
             $url = $this->mockFiles[$this->mockIndex];
         } else {
-            $url = __DIR__.'/../tests/mocks/'.$this->mockFiles[$this->mockIndex];
+            $url = __DIR__ . '/../tests/mocks/' . $this->mockFiles[$this->mockIndex];
         }
         $this->mockIndex++;
 
         if (file_exists($url)) {
             try {
-                $this->log('Fetched Mock File: '.basename($url));
+                $this->log('Fetched Mock File: ' . basename($url));
                 if ($load) {
                     $return = simplexml_load_file($url);
                 } else {
@@ -270,7 +270,7 @@ abstract class AmazonCore
 
                 return $return;
             } catch (\Exception $e) {
-                $this->log("Error when opening Mock File: $url - ".$e->getMessage(), 'Warning');
+                $this->log("Error when opening Mock File: $url - " . $e->getMessage(), 'Warning');
 
                 return false;
             }
@@ -366,15 +366,15 @@ abstract class AmazonCore
 <ErrorResponse xmlns="http://mws.amazonaws.com/doc/2009-01-01/">
   <Error>
     <Type>Sender</Type>
-    <Code>'.$r['error'].'</Code>
-    <Message>'.$r['answer'].'</Message>
+    <Code>' . $r['error'] . '</Code>
+    <Message>' . $r['answer'] . '</Message>
   </Error>
   <RequestID>123</RequestID>
 </ErrorResponse>';
         }
 
         $r['headarray'] = [];
-        $this->log('Returning Mock Response: '.$r['code']);
+        $this->log('Returning Mock Response: ' . $r['code']);
 
         $this->rawResponses[] = $r;
 
@@ -403,7 +403,7 @@ abstract class AmazonCore
         } else {
             $xml = simplexml_load_string($r['body'])->Error;
             $this->log(
-                'Bad Response! '.$r['code'].' '.$r['error'].': '.$xml->Code.' - '.$xml->Message,
+                'Bad Response! ' . $r['code'] . ' ' . $r['error'] . ': ' . $xml->Code . ' - ' . $xml->Message,
                 'Urgent'
             );
 
@@ -643,12 +643,12 @@ abstract class AmazonCore
      */
     protected function sendRequest($url, $param)
     {
-        $this->log('Making request to Amazon: '.$this->options['Action']);
+        $this->log('Making request to Amazon: ' . $this->options['Action']);
         $this->throttleCount = 0;
         $response = $this->fetchURL($url, $param);
 
         if (! isset($response['code']) || ! array_key_exists('code', $response)) {
-            $this->log('Unrecognized response: '.print_r($response, true));
+            $this->log('Unrecognized response: ' . print_r($response, true));
 
             return;
         }
@@ -755,7 +755,7 @@ abstract class AmazonCore
     {
         flush();
         $s = ($this->throttleTime == 1) ? '' : 's';
-        $this->log('Request was throttled, Sleeping for '.$this->throttleTime." second$s", 'Throttle');
+        $this->log('Request was throttled, Sleeping for ' . $this->throttleTime . " second$s", 'Throttle');
         sleep($this->throttleTime);
     }
 
@@ -892,6 +892,10 @@ abstract class AmazonCore
      */
     protected function _urlencode($value)
     {
+        if (is_null($value)) {
+            return $value;
+        }
+
         return rawurlencode($value);
 
         return str_replace('%7E', '~', rawurlencode($value));
@@ -907,7 +911,7 @@ abstract class AmazonCore
     {
         $queryParameters = [];
         foreach ($parameters as $key => $value) {
-            $queryParameters[] = $key.'='.$this->_urlencode($value);
+            $queryParameters[] = $key . '=' . $this->_urlencode($value);
         }
 
         return implode('&', $queryParameters);
@@ -946,7 +950,7 @@ abstract class AmazonCore
     {
         $data = 'POST';
         $data .= "\n";
-        $endpoint = parse_url($this->urlbase.$this->urlbranch);
+        $endpoint = parse_url($this->urlbase . $this->urlbranch);
         $data .= $endpoint['host'];
         $data .= "\n";
         $uri = array_key_exists('path', $endpoint) ? $endpoint['path'] : null;

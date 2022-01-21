@@ -31,9 +31,13 @@ use Iterator;
 class AmazonShipmentItemList extends AmazonInboundCore implements \Iterator
 {
     protected $tokenFlag = false;
+
     protected $tokenUseFlag = false;
+
     private $itemList;
+
     private $index = 0;
+
     private $i = 0;
 
     /**
@@ -142,7 +146,7 @@ class AmazonShipmentItemList extends AmazonInboundCore implements \Iterator
                 $this->options['LastUpdatedAfter'] > $this->options['LastUpdatedBefore']
             ) {
                 $this->setTimeLimits(
-                    $this->options['LastUpdatedBefore'].' - 1 second',
+                    $this->options['LastUpdatedBefore'] . ' - 1 second',
                     $this->options['LastUpdatedBefore']
                 );
             }
@@ -188,11 +192,11 @@ class AmazonShipmentItemList extends AmazonInboundCore implements \Iterator
 
         $this->prepareToken();
 
-        $url = $this->urlbase.$this->urlbranch;
+        $url = $this->urlbase . $this->urlbranch;
 
         $query = $this->genQuery();
 
-        $path = $this->options['Action'].'Result';
+        $path = $this->options['Action'] . 'Result';
         if ($this->mockMode) {
             $xml = $this->fetchMockFile()->$path;
         } else {
@@ -426,7 +430,7 @@ class AmazonShipmentItemList extends AmazonInboundCore implements \Iterator
      *
      * @return type
      */
-    public function current()
+    public function current(): mixed
     {
         return $this->itemList[$this->i];
     }
@@ -434,7 +438,7 @@ class AmazonShipmentItemList extends AmazonInboundCore implements \Iterator
     /**
      * Iterator function.
      */
-    public function rewind()
+    public function rewind(): void
     {
         $this->i = 0;
     }
@@ -444,7 +448,7 @@ class AmazonShipmentItemList extends AmazonInboundCore implements \Iterator
      *
      * @return type
      */
-    public function key()
+    public function key(): mixed
     {
         return $this->i;
     }
@@ -452,7 +456,7 @@ class AmazonShipmentItemList extends AmazonInboundCore implements \Iterator
     /**
      * Iterator function.
      */
-    public function next()
+    public function next(): void
     {
         $this->i++;
     }
@@ -462,7 +466,7 @@ class AmazonShipmentItemList extends AmazonInboundCore implements \Iterator
      *
      * @return type
      */
-    public function valid()
+    public function valid(): bool
     {
         return isset($this->itemList[$this->i]);
     }

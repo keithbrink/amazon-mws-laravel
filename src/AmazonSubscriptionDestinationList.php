@@ -32,6 +32,7 @@ use Iterator;
 class AmazonSubscriptionDestinationList extends AmazonSubscriptionCore implements Iterator
 {
     protected $destinationList;
+
     protected $i = 0;
 
     /**
@@ -53,11 +54,11 @@ class AmazonSubscriptionDestinationList extends AmazonSubscriptionCore implement
 
         $this->options['Action'] = 'ListRegisteredDestinations';
 
-        $url = $this->urlbase.$this->urlbranch;
+        $url = $this->urlbase . $this->urlbranch;
 
         $query = $this->genQuery();
 
-        $path = $this->options['Action'].'Result';
+        $path = $this->options['Action'] . 'Result';
         if ($this->mockMode) {
             $xml = $this->fetchMockFile()->$path;
         } else {
@@ -172,7 +173,7 @@ class AmazonSubscriptionDestinationList extends AmazonSubscriptionCore implement
      *
      * @return array
      */
-    public function current()
+    public function current(): mixed
     {
         return $this->destinationList[$this->i];
     }
@@ -180,7 +181,7 @@ class AmazonSubscriptionDestinationList extends AmazonSubscriptionCore implement
     /**
      * Iterator function.
      */
-    public function rewind()
+    public function rewind(): void
     {
         $this->i = 0;
     }
@@ -190,7 +191,7 @@ class AmazonSubscriptionDestinationList extends AmazonSubscriptionCore implement
      *
      * @return int
      */
-    public function key()
+    public function key(): mixed
     {
         return $this->i;
     }
@@ -198,7 +199,7 @@ class AmazonSubscriptionDestinationList extends AmazonSubscriptionCore implement
     /**
      * Iterator function.
      */
-    public function next()
+    public function next(): void
     {
         $this->i++;
     }
@@ -208,7 +209,7 @@ class AmazonSubscriptionDestinationList extends AmazonSubscriptionCore implement
      *
      * @return bool
      */
-    public function valid()
+    public function valid(): bool
     {
         return isset($this->destinationList[$this->i]);
     }

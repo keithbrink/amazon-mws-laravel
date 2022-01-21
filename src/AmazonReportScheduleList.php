@@ -32,10 +32,15 @@ use Iterator;
 class AmazonReportScheduleList extends AmazonReportsCore implements \Iterator
 {
     protected $tokenFlag = false;
+
     protected $tokenUseFlag = false;
+
     private $index = 0;
+
     private $i = 0;
+
     private $scheduleList;
+
     private $count;
 
     /**
@@ -112,7 +117,7 @@ class AmazonReportScheduleList extends AmazonReportsCore implements \Iterator
                 $this->resetReportTypes();
                 $i = 1;
                 foreach ($s as $x) {
-                    $this->options['ReportTypeList.Type.'.$i] = $x;
+                    $this->options['ReportTypeList.Type.' . $i] = $x;
                     $i++;
                 }
             } else {
@@ -151,11 +156,11 @@ class AmazonReportScheduleList extends AmazonReportsCore implements \Iterator
     {
         $this->prepareToken();
 
-        $url = $this->urlbase.$this->urlbranch;
+        $url = $this->urlbase . $this->urlbranch;
 
         $query = $this->genQuery();
 
-        $path = $this->options['Action'].'Result';
+        $path = $this->options['Action'] . 'Result';
 
         if ($this->mockMode) {
             $xml = $this->fetchMockFile()->$path;
@@ -256,11 +261,11 @@ class AmazonReportScheduleList extends AmazonReportsCore implements \Iterator
     {
         $this->prepareCount();
 
-        $url = $this->urlbase.$this->urlbranch;
+        $url = $this->urlbase . $this->urlbranch;
 
         $query = $this->genQuery();
 
-        $path = $this->options['Action'].'Result';
+        $path = $this->options['Action'] . 'Result';
         if ($this->mockMode) {
             $xml = $this->fetchMockFile()->$path;
         } else {
@@ -405,7 +410,7 @@ class AmazonReportScheduleList extends AmazonReportsCore implements \Iterator
      *
      * @return type
      */
-    public function current()
+    public function current(): mixed
     {
         return $this->scheduleList[$this->i];
     }
@@ -413,7 +418,7 @@ class AmazonReportScheduleList extends AmazonReportsCore implements \Iterator
     /**
      * Iterator function.
      */
-    public function rewind()
+    public function rewind(): void
     {
         $this->i = 0;
     }
@@ -423,7 +428,7 @@ class AmazonReportScheduleList extends AmazonReportsCore implements \Iterator
      *
      * @return type
      */
-    public function key()
+    public function key(): mixed
     {
         return $this->i;
     }
@@ -431,7 +436,7 @@ class AmazonReportScheduleList extends AmazonReportsCore implements \Iterator
     /**
      * Iterator function.
      */
-    public function next()
+    public function next(): void
     {
         $this->i++;
     }
@@ -441,7 +446,7 @@ class AmazonReportScheduleList extends AmazonReportsCore implements \Iterator
      *
      * @return type
      */
-    public function valid()
+    public function valid(): bool
     {
         return isset($this->scheduleList[$this->i]);
     }

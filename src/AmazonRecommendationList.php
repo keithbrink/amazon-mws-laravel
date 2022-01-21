@@ -33,10 +33,15 @@ use Iterator;
 class AmazonRecommendationList extends AmazonRecommendationCore implements Iterator
 {
     protected $updated;
+
     protected $list;
+
     protected $listkey;
+
     protected $i = 0;
+
     protected $tokenFlag = false;
+
     protected $tokenUseFlag = false;
 
     /**
@@ -118,11 +123,11 @@ class AmazonRecommendationList extends AmazonRecommendationCore implements Itera
 
                     return false;
                 }
-                $prefix = 'CategoryQueryList.CategoryQuery.'.$i;
-                $this->options[$prefix.'.RecommendationCategory'] = $c;
+                $prefix = 'CategoryQueryList.CategoryQuery.' . $i;
+                $this->options[$prefix . '.RecommendationCategory'] = $c;
                 $j = 1;
                 foreach ($r as $k => $x) {
-                    $this->options[$prefix.'.FilterOptions.FilterOption.'.$j] = $k.'='.$x;
+                    $this->options[$prefix . '.FilterOptions.FilterOption.' . $j] = $k . '=' . $x;
                     $j++;
                 }
                 $i++;
@@ -177,7 +182,7 @@ class AmazonRecommendationList extends AmazonRecommendationCore implements Itera
 
         $this->prepareTimes();
 
-        $url = $this->urlbase.$this->urlbranch;
+        $url = $this->urlbase . $this->urlbranch;
 
         $query = $this->genQuery();
 
@@ -235,11 +240,11 @@ class AmazonRecommendationList extends AmazonRecommendationCore implements Itera
 
         $this->prepareToken();
 
-        $url = $this->urlbase.$this->urlbranch;
+        $url = $this->urlbase . $this->urlbranch;
 
         $query = $this->genQuery();
 
-        $path = $this->options['Action'].'Result';
+        $path = $this->options['Action'] . 'Result';
         if ($this->mockMode) {
             $xml = $this->fetchMockFile()->$path;
         } else {
@@ -824,7 +829,7 @@ class AmazonRecommendationList extends AmazonRecommendationCore implements Itera
      *
      * @return array
      */
-    public function current()
+    public function current(): mixed
     {
         return $this->list[$this->listkey][$this->i];
     }
@@ -832,7 +837,7 @@ class AmazonRecommendationList extends AmazonRecommendationCore implements Itera
     /**
      * Iterator function.
      */
-    public function rewind()
+    public function rewind(): void
     {
         $this->i = 0;
     }
@@ -842,7 +847,7 @@ class AmazonRecommendationList extends AmazonRecommendationCore implements Itera
      *
      * @return int
      */
-    public function key()
+    public function key(): mixed
     {
         return $this->i;
     }
@@ -850,7 +855,7 @@ class AmazonRecommendationList extends AmazonRecommendationCore implements Itera
     /**
      * Iterator function.
      */
-    public function next()
+    public function next(): void
     {
         $this->i++;
     }
@@ -860,7 +865,7 @@ class AmazonRecommendationList extends AmazonRecommendationCore implements Itera
      *
      * @return bool
      */
-    public function valid()
+    public function valid(): bool
     {
         return isset($this->list[$this->listkey][$this->i]);
     }

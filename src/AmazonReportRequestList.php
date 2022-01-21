@@ -32,10 +32,15 @@ use Iterator;
 class AmazonReportRequestList extends AmazonReportsCore implements \Iterator
 {
     protected $tokenFlag = false;
+
     protected $tokenUseFlag = false;
+
     private $index = 0;
+
     private $i = 0;
+
     private $reportList;
+
     private $count;
 
     /**
@@ -112,7 +117,7 @@ class AmazonReportRequestList extends AmazonReportsCore implements \Iterator
                 $this->resetRequestIds();
                 $i = 1;
                 foreach ($s as $x) {
-                    $this->options['ReportRequestIdList.Id.'.$i] = $x;
+                    $this->options['ReportRequestIdList.Id.' . $i] = $x;
                     $i++;
                 }
             } else {
@@ -154,7 +159,7 @@ class AmazonReportRequestList extends AmazonReportsCore implements \Iterator
                 $this->resetReportTypes();
                 $i = 1;
                 foreach ($s as $x) {
-                    $this->options['ReportTypeList.Type.'.$i] = $x;
+                    $this->options['ReportTypeList.Type.' . $i] = $x;
                     $i++;
                 }
             } else {
@@ -196,7 +201,7 @@ class AmazonReportRequestList extends AmazonReportsCore implements \Iterator
                 $this->resetReportStatuses();
                 $i = 1;
                 foreach ($s as $x) {
-                    $this->options['ReportProcessingStatusList.Status.'.$i] = $x;
+                    $this->options['ReportProcessingStatusList.Status.' . $i] = $x;
                     $i++;
                 }
             } else {
@@ -264,7 +269,7 @@ class AmazonReportRequestList extends AmazonReportsCore implements \Iterator
             isset($this->options['RequestedToDate']) &&
             $this->options['RequestedFromDate'] > $this->options['RequestedToDate']
         ) {
-            $this->setTimeLimits($this->options['RequestedToDate'].' - 1 second');
+            $this->setTimeLimits($this->options['RequestedToDate'] . ' - 1 second');
         }
     }
 
@@ -295,11 +300,11 @@ class AmazonReportRequestList extends AmazonReportsCore implements \Iterator
     {
         $this->prepareToken();
 
-        $url = $this->urlbase.$this->urlbranch;
+        $url = $this->urlbase . $this->urlbranch;
 
         $query = $this->genQuery();
 
-        $path = $this->options['Action'].'Result';
+        $path = $this->options['Action'] . 'Result';
         if ($this->mockMode) {
             $xml = $this->fetchMockFile()->$path;
         } else {
@@ -441,11 +446,11 @@ class AmazonReportRequestList extends AmazonReportsCore implements \Iterator
     {
         $this->prepareCancel();
 
-        $url = $this->urlbase.$this->urlbranch;
+        $url = $this->urlbase . $this->urlbranch;
 
         $query = $this->genQuery();
 
-        $path = $this->options['Action'].'Result';
+        $path = $this->options['Action'] . 'Result';
 
         if ($this->mockMode) {
             $xml = $this->fetchMockFile()->$path;
@@ -474,11 +479,11 @@ class AmazonReportRequestList extends AmazonReportsCore implements \Iterator
     {
         $this->prepareCount();
 
-        $url = $this->urlbase.$this->urlbranch;
+        $url = $this->urlbase . $this->urlbranch;
 
         $query = $this->genQuery();
 
-        $path = $this->options['Action'].'Result';
+        $path = $this->options['Action'] . 'Result';
         if ($this->mockMode) {
             $xml = $this->fetchMockFile()->$path;
         } else {
@@ -771,7 +776,7 @@ class AmazonReportRequestList extends AmazonReportsCore implements \Iterator
      *
      * @return type
      */
-    public function current()
+    public function current(): mixed
     {
         return $this->reportList[$this->i];
     }
@@ -779,7 +784,7 @@ class AmazonReportRequestList extends AmazonReportsCore implements \Iterator
     /**
      * Iterator function.
      */
-    public function rewind()
+    public function rewind(): void
     {
         $this->i = 0;
     }
@@ -789,7 +794,7 @@ class AmazonReportRequestList extends AmazonReportsCore implements \Iterator
      *
      * @return type
      */
-    public function key()
+    public function key(): mixed
     {
         return $this->i;
     }
@@ -797,7 +802,7 @@ class AmazonReportRequestList extends AmazonReportsCore implements \Iterator
     /**
      * Iterator function.
      */
-    public function next()
+    public function next(): void
     {
         $this->i++;
     }
@@ -807,7 +812,7 @@ class AmazonReportRequestList extends AmazonReportsCore implements \Iterator
      *
      * @return type
      */
-    public function valid()
+    public function valid(): bool
     {
         return isset($this->reportList[$this->i]);
     }

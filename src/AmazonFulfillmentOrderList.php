@@ -31,9 +31,13 @@ use Iterator;
 class AmazonFulfillmentOrderList extends AmazonOutboundCore implements \Iterator
 {
     private $orderList;
+
     protected $tokenFlag = false;
+
     protected $tokenUseFlag = false;
+
     private $i = 0;
+
     private $index = 0;
 
     /**
@@ -147,11 +151,11 @@ class AmazonFulfillmentOrderList extends AmazonOutboundCore implements \Iterator
     {
         $this->prepareToken();
 
-        $url = $this->urlbase.$this->urlbranch;
+        $url = $this->urlbase . $this->urlbranch;
 
         $query = $this->genQuery();
 
-        $path = $this->options['Action'].'Result';
+        $path = $this->options['Action'] . 'Result';
 
         if ($this->mockMode) {
             $xml = $this->fetchMockFile()->$path;
@@ -332,7 +336,7 @@ class AmazonFulfillmentOrderList extends AmazonOutboundCore implements \Iterator
      *
      * @return type
      */
-    public function current()
+    public function current(): mixed
     {
         return $this->orderList[$this->i];
     }
@@ -340,7 +344,7 @@ class AmazonFulfillmentOrderList extends AmazonOutboundCore implements \Iterator
     /**
      * Iterator function.
      */
-    public function rewind()
+    public function rewind(): void
     {
         $this->i = 0;
     }
@@ -350,7 +354,7 @@ class AmazonFulfillmentOrderList extends AmazonOutboundCore implements \Iterator
      *
      * @return type
      */
-    public function key()
+    public function key(): mixed
     {
         return $this->i;
     }
@@ -358,7 +362,7 @@ class AmazonFulfillmentOrderList extends AmazonOutboundCore implements \Iterator
     /**
      * Iterator function.
      */
-    public function next()
+    public function next(): void
     {
         $this->i++;
     }
@@ -368,7 +372,7 @@ class AmazonFulfillmentOrderList extends AmazonOutboundCore implements \Iterator
      *
      * @return type
      */
-    public function valid()
+    public function valid(): bool
     {
         return isset($this->orderList[$this->i]);
     }

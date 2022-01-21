@@ -29,9 +29,13 @@ namespace KeithBrink\AmazonMws;
 class AmazonFinancialGroupList extends AmazonFinanceCore implements \Iterator
 {
     protected $tokenFlag = false;
+
     protected $tokenUseFlag = false;
+
     protected $list;
+
     protected $index = 0;
+
     protected $i = 0;
 
     /**
@@ -131,11 +135,11 @@ class AmazonFinancialGroupList extends AmazonFinanceCore implements \Iterator
 
         $this->prepareToken();
 
-        $url = $this->urlbase.$this->urlbranch;
+        $url = $this->urlbase . $this->urlbranch;
 
         $query = $this->genQuery();
 
-        $path = $this->options['Action'].'Result';
+        $path = $this->options['Action'] . 'Result';
 
         if ($this->mockMode) {
             $xml = $this->fetchMockFile()->$path;
@@ -473,7 +477,7 @@ class AmazonFinancialGroupList extends AmazonFinanceCore implements \Iterator
      *
      * @return type
      */
-    public function current()
+    public function current(): mixed
     {
         return $this->list[$this->i];
     }
@@ -481,7 +485,7 @@ class AmazonFinancialGroupList extends AmazonFinanceCore implements \Iterator
     /**
      * Iterator function.
      */
-    public function rewind()
+    public function rewind(): void
     {
         $this->i = 0;
     }
@@ -491,7 +495,7 @@ class AmazonFinancialGroupList extends AmazonFinanceCore implements \Iterator
      *
      * @return type
      */
-    public function key()
+    public function key(): mixed
     {
         return $this->i;
     }
@@ -499,7 +503,7 @@ class AmazonFinancialGroupList extends AmazonFinanceCore implements \Iterator
     /**
      * Iterator function.
      */
-    public function next()
+    public function next(): void
     {
         $this->i++;
     }
@@ -509,7 +513,7 @@ class AmazonFinancialGroupList extends AmazonFinanceCore implements \Iterator
      *
      * @return type
      */
-    public function valid()
+    public function valid(): bool
     {
         return isset($this->list[$this->i]);
     }

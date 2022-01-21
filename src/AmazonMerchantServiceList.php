@@ -34,8 +34,11 @@ use Iterator;
 class AmazonMerchantServiceList extends AmazonMerchantCore implements Iterator
 {
     protected $serviceList;
+
     protected $downList;
+
     protected $termsList;
+
     protected $i = 0;
 
     /**
@@ -123,8 +126,8 @@ class AmazonMerchantServiceList extends AmazonMerchantCore implements Iterator
         $i = 1;
         foreach ($a as $x) {
             if (is_array($x) && isset($x['OrderItemId']) && isset($x['Quantity'])) {
-                $this->options['ShipmentRequestDetails.ItemList.Item.'.$i.'.OrderItemId'] = $x['OrderItemId'];
-                $this->options['ShipmentRequestDetails.ItemList.Item.'.$i.'.Quantity'] = $x['Quantity'];
+                $this->options['ShipmentRequestDetails.ItemList.Item.' . $i . '.OrderItemId'] = $x['OrderItemId'];
+                $this->options['ShipmentRequestDetails.ItemList.Item.' . $i . '.Quantity'] = $x['Quantity'];
                 $i++;
             } else {
                 $this->resetItems();
@@ -373,7 +376,7 @@ class AmazonMerchantServiceList extends AmazonMerchantCore implements Iterator
             $this->options['ShipmentRequestDetails.MustArriveByDate'] = $this->genTime($d);
         } catch (Exception $e) {
             unset($this->options['ShipmentRequestDetails.MustArriveByDate']);
-            $this->log('Error: '.$e->getMessage(), 'Warning');
+            $this->log('Error: ' . $e->getMessage(), 'Warning');
 
             return false;
         }
@@ -393,7 +396,7 @@ class AmazonMerchantServiceList extends AmazonMerchantCore implements Iterator
             $this->options['ShipmentRequestDetails.ShipDate'] = $this->genTime($d);
         } catch (Exception $e) {
             unset($this->options['ShipmentRequestDetails.ShipDate']);
-            $this->log('Error: '.$e->getMessage(), 'Warning');
+            $this->log('Error: ' . $e->getMessage(), 'Warning');
 
             return false;
         }
@@ -550,11 +553,11 @@ class AmazonMerchantServiceList extends AmazonMerchantCore implements Iterator
             return false;
         }
 
-        $url = $this->urlbase.$this->urlbranch;
+        $url = $this->urlbase . $this->urlbranch;
 
         $query = $this->genQuery();
 
-        $path = $this->options['Action'].'Result';
+        $path = $this->options['Action'] . 'Result';
         if ($this->mockMode) {
             $xml = $this->fetchMockFile()->$path;
         } else {
@@ -706,7 +709,7 @@ class AmazonMerchantServiceList extends AmazonMerchantCore implements Iterator
      *
      * @return array
      */
-    public function current()
+    public function current(): mixed
     {
         return $this->serviceList[$this->i];
     }
@@ -714,7 +717,7 @@ class AmazonMerchantServiceList extends AmazonMerchantCore implements Iterator
     /**
      * Iterator function.
      */
-    public function rewind()
+    public function rewind(): void
     {
         $this->i = 0;
     }
@@ -724,7 +727,7 @@ class AmazonMerchantServiceList extends AmazonMerchantCore implements Iterator
      *
      * @return type
      */
-    public function key()
+    public function key(): mixed
     {
         return $this->i;
     }
@@ -732,7 +735,7 @@ class AmazonMerchantServiceList extends AmazonMerchantCore implements Iterator
     /**
      * Iterator function.
      */
-    public function next()
+    public function next(): void
     {
         $this->i++;
     }
@@ -742,7 +745,7 @@ class AmazonMerchantServiceList extends AmazonMerchantCore implements Iterator
      *
      * @return bool
      */
-    public function valid()
+    public function valid(): bool
     {
         return isset($this->serviceList[$this->i]);
     }

@@ -33,9 +33,13 @@ use Iterator;
 class AmazonOrderList extends AmazonOrderCore implements Iterator
 {
     private $orderList;
+
     private $i = 0;
+
     protected $tokenFlag = false;
+
     protected $tokenUseFlag = false;
+
     private $index = 0;
 
     /**
@@ -135,7 +139,7 @@ class AmazonOrderList extends AmazonOrderCore implements Iterator
                 $after = $this->genTime('- 2 min');
             }
             if ($after > $before) {
-                $after = $this->genTime($upper.' - 150 sec');
+                $after = $this->genTime($upper . ' - 150 sec');
             }
             if ($mode == 'Created') {
                 $this->options['CreatedAfter'] = $after;
@@ -159,7 +163,7 @@ class AmazonOrderList extends AmazonOrderCore implements Iterator
                 }
             }
         } catch (\Exception $e) {
-            $this->log('Error: '.$e->getMessage(), 'Warning');
+            $this->log('Error: ' . $e->getMessage(), 'Warning');
 
             return false;
         }
@@ -188,7 +192,7 @@ class AmazonOrderList extends AmazonOrderCore implements Iterator
                 $this->resetOrderStatusFilter();
                 $i = 1;
                 foreach ($list as $x) {
-                    $this->options['OrderStatus.Status.'.$i] = $x;
+                    $this->options['OrderStatus.Status.' . $i] = $x;
                     $i++;
                 }
             } else {
@@ -254,7 +258,7 @@ class AmazonOrderList extends AmazonOrderCore implements Iterator
                 $this->resetPaymentMethodFilter();
                 $i = 1;
                 foreach ($list as $x) {
-                    $this->options['PaymentMethod.'.$i++] = $x;
+                    $this->options['PaymentMethod.' . $i++] = $x;
                 }
             } else {
                 return false;
@@ -379,11 +383,11 @@ class AmazonOrderList extends AmazonOrderCore implements Iterator
 
         $this->prepareToken();
 
-        $url = $this->urlbase.$this->urlbranch;
+        $url = $this->urlbase . $this->urlbranch;
 
         $query = $this->genQuery();
 
-        $path = $this->options['Action'].'Result';
+        $path = $this->options['Action'] . 'Result';
         if ($this->mockMode) {
             $xml = $this->fetchMockFile()->$path;
         } else {
@@ -522,7 +526,7 @@ class AmazonOrderList extends AmazonOrderCore implements Iterator
      *
      * @return type
      */
-    public function current()
+    public function current(): mixed
     {
         return $this->orderList[$this->i];
     }
@@ -530,7 +534,7 @@ class AmazonOrderList extends AmazonOrderCore implements Iterator
     /**
      * Iterator function.
      */
-    public function rewind()
+    public function rewind(): void
     {
         $this->i = 0;
     }
@@ -540,7 +544,7 @@ class AmazonOrderList extends AmazonOrderCore implements Iterator
      *
      * @return type
      */
-    public function key()
+    public function key(): mixed
     {
         return $this->i;
     }
@@ -548,7 +552,7 @@ class AmazonOrderList extends AmazonOrderCore implements Iterator
     /**
      * Iterator function.
      */
-    public function next()
+    public function next(): void
     {
         $this->i++;
     }
@@ -558,7 +562,7 @@ class AmazonOrderList extends AmazonOrderCore implements Iterator
      *
      * @return type
      */
-    public function valid()
+    public function valid(): bool
     {
         return isset($this->orderList[$this->i]);
     }

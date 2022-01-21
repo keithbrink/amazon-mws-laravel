@@ -31,7 +31,9 @@ use Iterator;
 class AmazonOrderSet extends AmazonOrderCore implements \Iterator
 {
     private $i = 0;
+
     private $index = 0;
+
     private $orderList;
 
     /**
@@ -90,7 +92,7 @@ class AmazonOrderSet extends AmazonOrderCore implements \Iterator
                 if (is_array($o)) {
                     $k = 1;
                     foreach ($o as $id) {
-                        $this->options['AmazonOrderId.Id.'.$k] = $id;
+                        $this->options['AmazonOrderId.Id.' . $k] = $id;
                         $k++;
                     }
                 } else {
@@ -134,11 +136,11 @@ class AmazonOrderSet extends AmazonOrderCore implements \Iterator
             return false;
         }
 
-        $url = $this->urlbase.$this->urlbranch;
+        $url = $this->urlbase . $this->urlbranch;
 
         $query = $this->genQuery();
 
-        $path = $this->options['Action'].'Result';
+        $path = $this->options['Action'] . 'Result';
         if ($this->mockMode) {
             $xml = $this->fetchMockFile()->$path;
         } else {
@@ -234,7 +236,7 @@ class AmazonOrderSet extends AmazonOrderCore implements \Iterator
      *
      * @return type
      */
-    public function current()
+    public function current(): mixed
     {
         return $this->orderList[$this->i];
     }
@@ -242,7 +244,7 @@ class AmazonOrderSet extends AmazonOrderCore implements \Iterator
     /**
      * Iterator function.
      */
-    public function rewind()
+    public function rewind(): void
     {
         $this->i = 0;
     }
@@ -252,7 +254,7 @@ class AmazonOrderSet extends AmazonOrderCore implements \Iterator
      *
      * @return type
      */
-    public function key()
+    public function key(): mixed
     {
         return $this->i;
     }
@@ -260,7 +262,7 @@ class AmazonOrderSet extends AmazonOrderCore implements \Iterator
     /**
      * Iterator function.
      */
-    public function next()
+    public function next(): void
     {
         $this->i++;
     }
@@ -270,7 +272,7 @@ class AmazonOrderSet extends AmazonOrderCore implements \Iterator
      *
      * @return type
      */
-    public function valid()
+    public function valid(): bool
     {
         return isset($this->orderList[$this->i]);
     }

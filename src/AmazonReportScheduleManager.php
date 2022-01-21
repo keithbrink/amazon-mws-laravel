@@ -33,8 +33,11 @@ use Iterator;
 class AmazonReportScheduleManager extends AmazonReportsCore implements \Iterator
 {
     private $scheduleList;
+
     private $count;
+
     private $i = 0;
+
     private $index = 0;
 
     /**
@@ -151,7 +154,7 @@ class AmazonReportScheduleManager extends AmazonReportsCore implements \Iterator
             }
             $this->options['ScheduledDate'] = $after;
         } catch (Exception $e) {
-            $this->log('Error: '.$e->getMessage(), 'Warning');
+            $this->log('Error: ' . $e->getMessage(), 'Warning');
         }
     }
 
@@ -177,11 +180,11 @@ class AmazonReportScheduleManager extends AmazonReportsCore implements \Iterator
             return false;
         }
 
-        $url = $this->urlbase.$this->urlbranch;
+        $url = $this->urlbase . $this->urlbranch;
 
         $query = $this->genQuery();
 
-        $path = $this->options['Action'].'Result';
+        $path = $this->options['Action'] . 'Result';
 
         if ($this->mockMode) {
             $xml = $this->fetchMockFile()->$path;
@@ -335,7 +338,7 @@ class AmazonReportScheduleManager extends AmazonReportsCore implements \Iterator
      *
      * @return type
      */
-    public function current()
+    public function current(): mixed
     {
         return $this->scheduleList[$this->i];
     }
@@ -343,7 +346,7 @@ class AmazonReportScheduleManager extends AmazonReportsCore implements \Iterator
     /**
      * Iterator function.
      */
-    public function rewind()
+    public function rewind(): void
     {
         $this->i = 0;
     }
@@ -353,7 +356,7 @@ class AmazonReportScheduleManager extends AmazonReportsCore implements \Iterator
      *
      * @return type
      */
-    public function key()
+    public function key(): mixed
     {
         return $this->i;
     }
@@ -361,7 +364,7 @@ class AmazonReportScheduleManager extends AmazonReportsCore implements \Iterator
     /**
      * Iterator function.
      */
-    public function next()
+    public function next(): void
     {
         $this->i++;
     }
@@ -371,7 +374,7 @@ class AmazonReportScheduleManager extends AmazonReportsCore implements \Iterator
      *
      * @return type
      */
-    public function valid()
+    public function valid(): bool
     {
         return isset($this->scheduleList[$this->i]);
     }

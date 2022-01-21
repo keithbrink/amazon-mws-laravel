@@ -103,20 +103,20 @@ class AmazonProductFeeEstimate extends AmazonProductsCore implements Iterator
                     array_key_exists('IsAmazonFulfilled', $x) && is_array($x['ListingPrice']) &&
                     array_key_exists('CurrencyCode', $x['ListingPrice']) &&
                     array_key_exists('Value', $x['ListingPrice'])) {
-                $this->options['FeesEstimateRequestList.FeesEstimateRequest.'.$i.'.MarketplaceId'] = $x['MarketplaceId'];
-                $this->options['FeesEstimateRequestList.FeesEstimateRequest.'.$i.'.IdType'] = $x['IdType'];
-                $this->options['FeesEstimateRequestList.FeesEstimateRequest.'.$i.'.IdValue'] = $x['IdValue'];
-                $this->options['FeesEstimateRequestList.FeesEstimateRequest.'.$i.'.PriceToEstimateFees.ListingPrice.CurrencyCode'] = $x['ListingPrice']['CurrencyCode'];
-                $this->options['FeesEstimateRequestList.FeesEstimateRequest.'.$i.'.PriceToEstimateFees.ListingPrice.Amount'] = $x['ListingPrice']['Value'];
+                $this->options['FeesEstimateRequestList.FeesEstimateRequest.' . $i . '.MarketplaceId'] = $x['MarketplaceId'];
+                $this->options['FeesEstimateRequestList.FeesEstimateRequest.' . $i . '.IdType'] = $x['IdType'];
+                $this->options['FeesEstimateRequestList.FeesEstimateRequest.' . $i . '.IdValue'] = $x['IdValue'];
+                $this->options['FeesEstimateRequestList.FeesEstimateRequest.' . $i . '.PriceToEstimateFees.ListingPrice.CurrencyCode'] = $x['ListingPrice']['CurrencyCode'];
+                $this->options['FeesEstimateRequestList.FeesEstimateRequest.' . $i . '.PriceToEstimateFees.ListingPrice.Amount'] = $x['ListingPrice']['Value'];
                 if (isset($x['Shipping']) && is_array($x['Shipping'])) {
-                    $this->options['FeesEstimateRequestList.FeesEstimateRequest.'.$i.'.PriceToEstimateFees.Shipping.CurrencyCode'] = $x['Shipping']['CurrencyCode'];
-                    $this->options['FeesEstimateRequestList.FeesEstimateRequest.'.$i.'.PriceToEstimateFees.Shipping.Amount'] = $x['Shipping']['Value'];
+                    $this->options['FeesEstimateRequestList.FeesEstimateRequest.' . $i . '.PriceToEstimateFees.Shipping.CurrencyCode'] = $x['Shipping']['CurrencyCode'];
+                    $this->options['FeesEstimateRequestList.FeesEstimateRequest.' . $i . '.PriceToEstimateFees.Shipping.Amount'] = $x['Shipping']['Value'];
                 }
                 if (array_key_exists('Points', $x)) {
-                    $this->options['FeesEstimateRequestList.FeesEstimateRequest.'.$i.'.PriceToEstimateFees.Points.PointsNumber'] = $x['Points'];
+                    $this->options['FeesEstimateRequestList.FeesEstimateRequest.' . $i . '.PriceToEstimateFees.Points.PointsNumber'] = $x['Points'];
                 }
-                $this->options['FeesEstimateRequestList.FeesEstimateRequest.'.$i.'.Identifier'] = $x['Identifier'];
-                $this->options['FeesEstimateRequestList.FeesEstimateRequest.'.$i.'.IsAmazonFulfilled'] = $x['IsAmazonFulfilled'];
+                $this->options['FeesEstimateRequestList.FeesEstimateRequest.' . $i . '.Identifier'] = $x['Identifier'];
+                $this->options['FeesEstimateRequestList.FeesEstimateRequest.' . $i . '.IsAmazonFulfilled'] = $x['IsAmazonFulfilled'];
 
                 $i++;
             } else {
@@ -159,11 +159,11 @@ class AmazonProductFeeEstimate extends AmazonProductsCore implements Iterator
             return false;
         }
 
-        $url = $this->urlbase.$this->urlbranch;
+        $url = $this->urlbase . $this->urlbranch;
 
         $query = $this->genQuery();
 
-        $path = $this->options['Action'].'Result';
+        $path = $this->options['Action'] . 'Result';
 
         if ($this->mockMode) {
             $xml = $this->fetchMockFile();
@@ -338,7 +338,7 @@ class AmazonProductFeeEstimate extends AmazonProductsCore implements Iterator
      *
      * @return array
      */
-    public function current()
+    public function current(): mixed
     {
         return $this->productList[$this->i];
     }
@@ -346,7 +346,7 @@ class AmazonProductFeeEstimate extends AmazonProductsCore implements Iterator
     /**
      * Iterator function.
      */
-    public function rewind()
+    public function rewind(): void
     {
         $this->i = 0;
     }
@@ -356,7 +356,7 @@ class AmazonProductFeeEstimate extends AmazonProductsCore implements Iterator
      *
      * @return int
      */
-    public function key()
+    public function key(): mixed
     {
         return $this->i;
     }
@@ -364,7 +364,7 @@ class AmazonProductFeeEstimate extends AmazonProductsCore implements Iterator
     /**
      * Iterator function.
      */
-    public function next()
+    public function next(): void
     {
         $this->i++;
     }
@@ -374,7 +374,7 @@ class AmazonProductFeeEstimate extends AmazonProductsCore implements Iterator
      *
      * @return bool
      */
-    public function valid()
+    public function valid(): bool
     {
         return isset($this->productList[$this->i]);
     }

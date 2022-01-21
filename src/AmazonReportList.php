@@ -31,9 +31,13 @@ use Iterator;
 class AmazonReportList extends AmazonReportsCore implements \Iterator
 {
     protected $tokenFlag = false;
+
     protected $tokenUseFlag = false;
+
     private $index = 0;
+
     private $i = 0;
+
     private $reportList;
 
     /**
@@ -110,7 +114,7 @@ class AmazonReportList extends AmazonReportsCore implements \Iterator
                 $this->resetRequestIds();
                 $i = 1;
                 foreach ($s as $x) {
-                    $this->options['ReportRequestIdList.Id.'.$i] = $x;
+                    $this->options['ReportRequestIdList.Id.' . $i] = $x;
                     $i++;
                 }
             } else {
@@ -152,7 +156,7 @@ class AmazonReportList extends AmazonReportsCore implements \Iterator
                 $this->resetReportTypes();
                 $i = 1;
                 foreach ($s as $x) {
-                    $this->options['ReportTypeList.Type.'.$i] = $x;
+                    $this->options['ReportTypeList.Type.' . $i] = $x;
                     $i++;
                 }
             } else {
@@ -247,7 +251,7 @@ class AmazonReportList extends AmazonReportsCore implements \Iterator
             isset($this->options['AvailableToDate']) &&
             $this->options['AvailableFromDate'] > $this->options['AvailableToDate']
         ) {
-            $this->setTimeLimits($this->options['AvailableToDate'].' - 1 second');
+            $this->setTimeLimits($this->options['AvailableToDate'] . ' - 1 second');
         }
     }
 
@@ -278,11 +282,11 @@ class AmazonReportList extends AmazonReportsCore implements \Iterator
     {
         $this->prepareToken();
 
-        $url = $this->urlbase.$this->urlbranch;
+        $url = $this->urlbase . $this->urlbranch;
 
         $query = $this->genQuery();
 
-        $path = $this->options['Action'].'Result';
+        $path = $this->options['Action'] . 'Result';
 
         if ($this->mockMode) {
             $xml = $this->fetchMockFile()->$path;
@@ -389,11 +393,11 @@ class AmazonReportList extends AmazonReportsCore implements \Iterator
     {
         $this->prepareCount();
 
-        $url = $this->urlbase.$this->urlbranch;
+        $url = $this->urlbase . $this->urlbranch;
 
         $query = $this->genQuery();
 
-        $path = $this->options['Action'].'Result';
+        $path = $this->options['Action'] . 'Result';
         if ($this->mockMode) {
             $xml = $this->fetchMockFile()->$path;
         } else {
@@ -583,7 +587,7 @@ class AmazonReportList extends AmazonReportsCore implements \Iterator
      *
      * @return type
      */
-    public function current()
+    public function current(): mixed
     {
         return $this->reportList[$this->i];
     }
@@ -591,7 +595,7 @@ class AmazonReportList extends AmazonReportsCore implements \Iterator
     /**
      * Iterator function.
      */
-    public function rewind()
+    public function rewind(): void
     {
         $this->i = 0;
     }
@@ -601,7 +605,7 @@ class AmazonReportList extends AmazonReportsCore implements \Iterator
      *
      * @return type
      */
-    public function key()
+    public function key(): mixed
     {
         return $this->i;
     }
@@ -609,7 +613,7 @@ class AmazonReportList extends AmazonReportsCore implements \Iterator
     /**
      * Iterator function.
      */
-    public function next()
+    public function next(): void
     {
         $this->i++;
     }
@@ -619,7 +623,7 @@ class AmazonReportList extends AmazonReportsCore implements \Iterator
      *
      * @return type
      */
-    public function valid()
+    public function valid(): bool
     {
         return isset($this->reportList[$this->i]);
     }
