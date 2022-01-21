@@ -90,7 +90,7 @@ class AmazonProductList extends AmazonProductsCore implements \Iterator
                 $this->resetProductIds();
                 $i = 1;
                 foreach ($s as $x) {
-                    $this->options['IdList.Id.' . $i] = $x;
+                    $this->options['IdList.Id.'.$i] = $x;
                     $i++;
                 }
             } else {
@@ -135,7 +135,7 @@ class AmazonProductList extends AmazonProductsCore implements \Iterator
             return false;
         }
 
-        $url = $this->urlbase . $this->urlbranch;
+        $url = $this->urlbase.$this->urlbranch;
 
         $query = $this->genQuery();
 

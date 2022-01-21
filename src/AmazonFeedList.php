@@ -119,7 +119,7 @@ class AmazonFeedList extends AmazonFeedsCore implements Iterator
             $this->resetFeedIds();
             $i = 1;
             foreach ($s as $x) {
-                $this->options['FeedSubmissionIdList.Id.' . $i] = $x;
+                $this->options['FeedSubmissionIdList.Id.'.$i] = $x;
                 $i++;
             }
         } else {
@@ -162,7 +162,7 @@ class AmazonFeedList extends AmazonFeedsCore implements Iterator
             $this->resetFeedTypes();
             $i = 1;
             foreach ($s as $x) {
-                $this->options['FeedTypeList.Type.' . $i] = $x;
+                $this->options['FeedTypeList.Type.'.$i] = $x;
                 $i++;
             }
         } else {
@@ -206,7 +206,7 @@ class AmazonFeedList extends AmazonFeedsCore implements Iterator
             $this->resetFeedStatuses();
             $i = 1;
             foreach ($s as $x) {
-                $this->options['FeedProcessingStatusList.Status.' . $i] = $x;
+                $this->options['FeedProcessingStatusList.Status.'.$i] = $x;
                 $i++;
             }
         } else {
@@ -298,11 +298,11 @@ class AmazonFeedList extends AmazonFeedsCore implements Iterator
     {
         $this->prepareToken();
 
-        $url = $this->urlbase . $this->urlbranch;
+        $url = $this->urlbase.$this->urlbranch;
 
         $query = $this->genQuery();
 
-        $path = $this->options['Action'] . 'Result';
+        $path = $this->options['Action'].'Result';
         if ($this->mockMode) {
             $xml = $this->fetchMockFile()->$path;
         } else {
@@ -411,11 +411,11 @@ class AmazonFeedList extends AmazonFeedsCore implements Iterator
     {
         $this->prepareCount();
 
-        $url = $this->urlbase . $this->urlbranch;
+        $url = $this->urlbase.$this->urlbranch;
 
         $query = $this->genQuery();
 
-        $path = $this->options['Action'] . 'Result';
+        $path = $this->options['Action'].'Result';
         if ($this->mockMode) {
             $xml = $this->fetchMockFile()->$path;
         } else {
@@ -470,11 +470,11 @@ class AmazonFeedList extends AmazonFeedsCore implements Iterator
     {
         $this->prepareCancel();
 
-        $url = $this->urlbase . $this->urlbranch;
+        $url = $this->urlbase.$this->urlbranch;
 
         $query = $this->genQuery();
 
-        $path = $this->options['Action'] . 'Result';
+        $path = $this->options['Action'].'Result';
         if ($this->mockMode) {
             $xml = $this->fetchMockFile()->$path;
         } else {

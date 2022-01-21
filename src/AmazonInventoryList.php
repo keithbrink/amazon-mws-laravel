@@ -130,7 +130,7 @@ class AmazonInventoryList extends AmazonInventoryCore implements \Iterator
                 $this->resetSkus();
                 $i = 1;
                 foreach ($a as $x) {
-                    $this->options['SellerSkus.member.' . $i] = $x;
+                    $this->options['SellerSkus.member.'.$i] = $x;
                     $i++;
                 }
             } else {
@@ -192,11 +192,11 @@ class AmazonInventoryList extends AmazonInventoryCore implements \Iterator
         }
         $this->prepareToken();
 
-        $url = $this->urlbase . $this->urlbranch;
+        $url = $this->urlbase.$this->urlbranch;
 
         $query = $this->genQuery();
 
-        $path = $this->options['Action'] . 'Result';
+        $path = $this->options['Action'].'Result';
 
         if ($this->mockMode) {
             $xml = $this->fetchMockFile()->$path;

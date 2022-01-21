@@ -121,7 +121,7 @@ class AmazonShipmentList extends AmazonInboundCore implements \Iterator
                 $this->resetStatusFilter();
                 $i = 1;
                 foreach ($s as $x) {
-                    $this->options['ShipmentStatusList.member.' . $i] = $x;
+                    $this->options['ShipmentStatusList.member.'.$i] = $x;
                     $i++;
                 }
             } else {
@@ -166,7 +166,7 @@ class AmazonShipmentList extends AmazonInboundCore implements \Iterator
                 $this->resetIdFilter();
                 $i = 1;
                 foreach ($s as $x) {
-                    $this->options['ShipmentIdList.member.' . $i] = $x;
+                    $this->options['ShipmentIdList.member.'.$i] = $x;
                     $i++;
                 }
             } else {
@@ -220,7 +220,7 @@ class AmazonShipmentList extends AmazonInboundCore implements \Iterator
                 $this->options['LastUpdatedAfter'] > $this->options['LastUpdatedBefore']
             ) {
                 $this->setTimeLimits(
-                    $this->options['LastUpdatedBefore'] . ' - 1 second',
+                    $this->options['LastUpdatedBefore'].' - 1 second',
                     $this->options['LastUpdatedBefore']
                 );
             }
@@ -266,11 +266,11 @@ class AmazonShipmentList extends AmazonInboundCore implements \Iterator
 
         $this->prepareToken();
 
-        $url = $this->urlbase . $this->urlbranch;
+        $url = $this->urlbase.$this->urlbranch;
 
         $query = $this->genQuery();
 
-        $path = $this->options['Action'] . 'Result';
+        $path = $this->options['Action'].'Result';
         if ($this->mockMode) {
             $xml = $this->fetchMockFile()->$path;
         } else {

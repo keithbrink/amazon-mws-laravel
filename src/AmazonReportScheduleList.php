@@ -117,7 +117,7 @@ class AmazonReportScheduleList extends AmazonReportsCore implements \Iterator
                 $this->resetReportTypes();
                 $i = 1;
                 foreach ($s as $x) {
-                    $this->options['ReportTypeList.Type.' . $i] = $x;
+                    $this->options['ReportTypeList.Type.'.$i] = $x;
                     $i++;
                 }
             } else {
@@ -156,11 +156,11 @@ class AmazonReportScheduleList extends AmazonReportsCore implements \Iterator
     {
         $this->prepareToken();
 
-        $url = $this->urlbase . $this->urlbranch;
+        $url = $this->urlbase.$this->urlbranch;
 
         $query = $this->genQuery();
 
-        $path = $this->options['Action'] . 'Result';
+        $path = $this->options['Action'].'Result';
 
         if ($this->mockMode) {
             $xml = $this->fetchMockFile()->$path;
@@ -261,11 +261,11 @@ class AmazonReportScheduleList extends AmazonReportsCore implements \Iterator
     {
         $this->prepareCount();
 
-        $url = $this->urlbase . $this->urlbranch;
+        $url = $this->urlbase.$this->urlbranch;
 
         $query = $this->genQuery();
 
-        $path = $this->options['Action'] . 'Result';
+        $path = $this->options['Action'].'Result';
         if ($this->mockMode) {
             $xml = $this->fetchMockFile()->$path;
         } else {

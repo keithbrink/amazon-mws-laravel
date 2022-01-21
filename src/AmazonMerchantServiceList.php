@@ -126,8 +126,8 @@ class AmazonMerchantServiceList extends AmazonMerchantCore implements Iterator
         $i = 1;
         foreach ($a as $x) {
             if (is_array($x) && isset($x['OrderItemId']) && isset($x['Quantity'])) {
-                $this->options['ShipmentRequestDetails.ItemList.Item.' . $i . '.OrderItemId'] = $x['OrderItemId'];
-                $this->options['ShipmentRequestDetails.ItemList.Item.' . $i . '.Quantity'] = $x['Quantity'];
+                $this->options['ShipmentRequestDetails.ItemList.Item.'.$i.'.OrderItemId'] = $x['OrderItemId'];
+                $this->options['ShipmentRequestDetails.ItemList.Item.'.$i.'.Quantity'] = $x['Quantity'];
                 $i++;
             } else {
                 $this->resetItems();
@@ -376,7 +376,7 @@ class AmazonMerchantServiceList extends AmazonMerchantCore implements Iterator
             $this->options['ShipmentRequestDetails.MustArriveByDate'] = $this->genTime($d);
         } catch (Exception $e) {
             unset($this->options['ShipmentRequestDetails.MustArriveByDate']);
-            $this->log('Error: ' . $e->getMessage(), 'Warning');
+            $this->log('Error: '.$e->getMessage(), 'Warning');
 
             return false;
         }
@@ -396,7 +396,7 @@ class AmazonMerchantServiceList extends AmazonMerchantCore implements Iterator
             $this->options['ShipmentRequestDetails.ShipDate'] = $this->genTime($d);
         } catch (Exception $e) {
             unset($this->options['ShipmentRequestDetails.ShipDate']);
-            $this->log('Error: ' . $e->getMessage(), 'Warning');
+            $this->log('Error: '.$e->getMessage(), 'Warning');
 
             return false;
         }
@@ -553,11 +553,11 @@ class AmazonMerchantServiceList extends AmazonMerchantCore implements Iterator
             return false;
         }
 
-        $url = $this->urlbase . $this->urlbranch;
+        $url = $this->urlbase.$this->urlbranch;
 
         $query = $this->genQuery();
 
-        $path = $this->options['Action'] . 'Result';
+        $path = $this->options['Action'].'Result';
         if ($this->mockMode) {
             $xml = $this->fetchMockFile()->$path;
         } else {

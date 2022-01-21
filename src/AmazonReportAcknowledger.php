@@ -91,7 +91,7 @@ class AmazonReportAcknowledger extends AmazonReportsCore implements \Iterator
                 $this->resetReportIds();
                 $i = 1;
                 foreach ($s as $x) {
-                    $this->options['ReportIdList.Id.' . $i] = $x;
+                    $this->options['ReportIdList.Id.'.$i] = $x;
                     $i++;
                 }
             } else {
@@ -160,11 +160,11 @@ class AmazonReportAcknowledger extends AmazonReportsCore implements \Iterator
             return false;
         }
 
-        $url = $this->urlbase . $this->urlbranch;
+        $url = $this->urlbase.$this->urlbranch;
 
         $query = $this->genQuery();
 
-        $path = $this->options['Action'] . 'Result';
+        $path = $this->options['Action'].'Result';
         if ($this->mockMode) {
             $xml = $this->fetchMockFile()->$path;
         } else {
